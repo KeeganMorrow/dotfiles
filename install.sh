@@ -2,16 +2,20 @@
 backupdir="./backup"
 
 #######################################
-# Install oh-my-zsh
-######################################
-omz_dir="$HOME/.oh-my-zsh"
-omz_uri="git://github.com/robbyrussell/oh-my-zsh.git"
+# Install required git repositories
+#######################################
+cloneto () {
+    if [ -d $1 ]; then
+        echo "Directory \"${1}\" located, not re-cloning"
+    else
+        mkdir -pv $1
+        git clone $2 $1
+    fi
+}
 
-if [ -d $omz_dir ]; then
-    echo "oh-my-zsh directory located, not re-cloning"
-else
-    git clone $omz_uri $omz_dir
-fi
+cloneto ~/.oh-my-zsh git://github.com/robbyrussell/oh-my-zsh.git
+cloneto ~/.vim/bundle/Vundle.vim https://github.com/gmarik/Vundle.vim.git
+
 #######################################
 # Set up symbolic links to dotfiles.
 #######################################
