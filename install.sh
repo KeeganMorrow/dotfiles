@@ -19,7 +19,7 @@ for file in dotfiles/*
 do
     dest="${HOME}/.$(basename ${file})"
     if [ -f $dest ]; then
-        bak_dest="${backupdir}/$(basename ${file})"
+        bak_dest="${backupdir}/$(basename ${file})_$(date +"%Y%m%d_%H%M%S")"
         echo "File \"${dest}\" already exists, moving to \"${bak_dest}\""
         mv $dest $bak_dest
     fi
