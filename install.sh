@@ -2,19 +2,37 @@
 backupdir="./backup"
 
 #######################################
-# Install required git repositories
+# Helper functions
 #######################################
 cloneto () {
-    if [ -d $1 ]; then
-        echo "Directory \"${1}\" located, not re-cloning"
+    uri=$1
+    dest=$2
+    if [ -d $dest ]; then
+        echo "Directory \"${dest}\" located, not re-cloning"
     else
-        mkdir -pv $1
-        git clone $2 $1
+        mkdir -pv $dest
+        git clone $uri $dest
     fi
 }
 
-cloneto ~/.oh-my-zsh git://github.com/robbyrussell/oh-my-zsh.git
-cloneto ~/.vim/bundle/Vundle.vim https://github.com/gmarik/Vundle.vim.git
+install_link () {
+    src=$1
+    dest=$2
+    if [ -f $dest ]; then
+        bak_dest="${backupdir}/$(basename ${src})_$(date +"%Y%m%d_%H%M%S")"
+        echo "Destination \"${dest}\" already exists, moving to \"${bak_dest}\""
+        mv $dest $bak_dest
+    fi 
+    echo "Linking from \"${src}\" to \"${dest}\""
+    ln -sr ${src} ${dest}
+}
+
+#######################################
+# Install required git repositories
+#######################################
+
+cloneto git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+cloneto https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 #######################################
 # Set up symbolic links to dotfiles.
@@ -22,12 +40,11 @@ cloneto ~/.vim/bundle/Vundle.vim https://github.com/gmarik/Vundle.vim.git
 for file in dotfiles/*
 do
     dest="${HOME}/.$(basename ${file})"
-    if [ -f $dest ]; then
-        bak_dest="${backupdir}/$(basename ${file})_$(date +"%Y%m%d_%H%M%S")"
-        echo "File \"${dest}\" already exists, moving to \"${bak_dest}\""
-        mv $dest $bak_dest
-    fi
-    echo "Linking from \"${file}\" to \"${dest}\""
-    ln -sr ${file} ${dest}
+    install_link $file $dest
 done
+
+#######################################
+# Install Konsole colorschemes
+#######################################
+install_link "./konsole/color/Monokai.colorscheme" "${HOME}/.kde4/share/apps/konsole/Monokai.colorscheme"
 
