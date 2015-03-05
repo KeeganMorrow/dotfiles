@@ -1,6 +1,6 @@
 #!/bin/sh
 backupdir="./backup"
-
+localrepos="./localrepos"
 #######################################
 # Helper functions
 #######################################
@@ -33,7 +33,10 @@ install_link () {
 
 cloneto git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 cloneto https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+cloneto https://github.com/powerline/fonts.git "${localrepos}/powerline-fonts/"
 
+echo "Installing powerline fonts"
+./$localrepos/powerline-fonts/install.sh
 #######################################
 # Set up symbolic links to dotfiles.
 #######################################
