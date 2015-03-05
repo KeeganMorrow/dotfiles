@@ -133,7 +133,7 @@ nmap <leader>w :w!<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+command! W w !sudo tee % > /dev/null
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -268,7 +268,7 @@ set wrap "Wrap lines
 " => yank and register related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Yank to system clipboard
-set clipboard=unnamedplus
+set clipboard=unnamedplus,unnamed
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
@@ -498,3 +498,5 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+
+" vim: foldmethod=marker
