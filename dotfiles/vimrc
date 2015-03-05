@@ -50,14 +50,10 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
 
-" Colorscheme Plugins
-Plugin 'tomasr/molokai'
-" Git Plugins
-Plugin 'tpope/vim-fugitive'
-Plugin 'arecarn/git-diff-cached-preview.vim'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"     => Vundle Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -73,6 +69,25 @@ Plugin 'arecarn/git-diff-cached-preview.vim'
 "   Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Avoid a name conflict with L9
 "   Plugin 'user/L9', {'name': 'newL9'}
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" Colorscheme Plugins
+Plugin 'tomasr/molokai'
+
+" Git Plugins
+Plugin 'tpope/vim-fugitive'
+Plugin 'arecarn/git-diff-cached-preview.vim'
+
+"Other plugins
+Plugin 'ntpeters/vim-better-whitespace'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"     => Vundle Footer
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
