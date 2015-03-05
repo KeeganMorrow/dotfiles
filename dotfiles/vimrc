@@ -209,6 +209,9 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
+" Draw whitespace (cuz I'm paranoid)
+" note: These ones need utf-8
+set list listchars=tab:→\ ,trail:·
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
