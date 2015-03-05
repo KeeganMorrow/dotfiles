@@ -1,20 +1,9 @@
 #!/bin/sh
 backupdir="./backup"
-localrepos="./localrepos"
+repos="./repos"
 #######################################
 # Helper functions
 #######################################
-cloneto () {
-    uri=$1
-    dest=$2
-    if [ -d $dest ]; then
-        echo "Directory \"${dest}\" located, not re-cloning"
-    else
-        mkdir -pv $dest
-        git clone $uri $dest
-    fi
-}
-
 install_link () {
     src=$1
     dest=$2
@@ -24,19 +13,26 @@ install_link () {
         mv $dest $bak_dest
     fi 
     echo "Linking from \"${src}\" to \"${dest}\""
-    ln -sr ${src} ${dest}
+    dirpath=$(dirname "$dest")
+    if [ ! -f $dirpath ]; then
+        echo "Creating directory structure needed for ${dest}"
+        mkdir -p $dirpath
+    fi
+    ln -sr $src $dest
 }
 
 #######################################
 # Install required git repositories
 #######################################
 
-cloneto git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-cloneto https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-cloneto https://github.com/powerline/fonts.git "${localrepos}/powerline-fonts/"
+git submodule init
+git submodule update
+
+echo "Linking Vundle"
+install_link 'repos/Vundle.vim' "${HOME}/.vim/bundle/Vundle.vim"
 
 echo "Installing powerline fonts"
-./$localrepos/powerline-fonts/install.sh
+./$repos/powerline-fonts/install.sh
 #######################################
 # Set up symbolic links to dotfiles.
 #######################################
@@ -45,6 +41,7 @@ do
     dest="${HOME}/.$(basename ${file})"
     install_link $file $dest
 done
+
 
 #######################################
 # Install Konsole colorschemes
