@@ -79,6 +79,7 @@ Plugin 'tomasr/molokai'
 
 " Git Plugins
 Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'arecarn/git-diff-cached-preview.vim'
 
 " Syntax Highlighting plugins
