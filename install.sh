@@ -40,6 +40,9 @@ for file in dotfiles/*
 do
     dest="${HOME}/.$(basename ${file})"
     install_link $file $dest
+    local="${dest}.local"
+    echo "Creating empty local file \"${local}\""
+    touch $local
 done
 
 

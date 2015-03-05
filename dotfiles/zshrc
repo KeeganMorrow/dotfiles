@@ -7,9 +7,11 @@ source ~/.zsh/aliases.zsh
 source ~/.zsh/bindkeys.zsh
 source ~/.zsh/functions.zsh
 source ~/.zsh/history.zsh
+source ~/.zshrc.local
 
 precmd() {
   if [[ -n "$TMUX" ]]; then
     tmux setenv "$(tmux display -p 'TMUX_PWD_#D')" "$PWD"
   fi
 }
+
