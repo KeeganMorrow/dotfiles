@@ -82,6 +82,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'arecarn/git-diff-cached-preview.vim'
 
 "Other plugins
+Plugin 'bling/vim-airline'
+
 Plugin 'ntpeters/vim-better-whitespace'
 
 
