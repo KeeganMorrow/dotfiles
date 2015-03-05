@@ -81,6 +81,10 @@ Plugin 'tomasr/molokai'
 Plugin 'tpope/vim-fugitive'
 Plugin 'arecarn/git-diff-cached-preview.vim'
 
+" Syntax Highlighting plugins
+Plugin 'vim-scripts/scons.vim'
+Plugin 'kergoth/vim-bitbake'
+
 "Other plugins
 Plugin 'bling/vim-airline'
 
