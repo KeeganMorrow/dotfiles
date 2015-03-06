@@ -1,11 +1,11 @@
 [Background]
-Color=39,40,34
+Color=18,18,18
 
 [BackgroundIntense]
 Color=104,104,104
 
 [Color0]
-Color=39,40,34
+Color=18,18,18
 
 [Color0Intense]
 Color=104,104,104
@@ -59,6 +59,5 @@ Color=225,225,218
 Color=255,255,255
 
 [General]
-Description=Monokai
+Description=Monokai.keegs
 Opacity=1
-Wallpaper=/home/marguerite/Downloads/01726_noiresquedog_1024x768.jpg
