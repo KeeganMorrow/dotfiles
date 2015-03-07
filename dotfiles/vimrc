@@ -88,6 +88,7 @@ Plugin 'kergoth/vim-bitbake'
 
 "Other plugins
 Plugin 'bling/vim-airline'
+
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'mbbill/undotree'
@@ -132,7 +133,7 @@ set autoread
 let mapleader = " "
 
 " Fast saving
-nmap <leader>w :w!<cr>
+nnoremap <leader>w :w!<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
@@ -271,7 +272,7 @@ set wrap "Wrap lines
 " => yank and register related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Yank to system clipboard
-set clipboard=unnamedplus
+set clipboard=unnamedplus,unnamed
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
@@ -371,15 +372,6 @@ if has("mac") || has("macunix")
   vmap <D-k> <M-k>
 endif
 
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
-
 """"""""""""""""""""
 " =>Plugin Mappings
 """"""""""""""""""""
@@ -445,8 +437,6 @@ map <leader>x :e ~/buffer.md<cr>
 map <leader>pp :setlocal paste!<cr>
 
 
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -506,3 +496,5 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+
+" vim: foldmethod=marker
