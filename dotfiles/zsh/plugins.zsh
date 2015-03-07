@@ -13,7 +13,7 @@ antigen bundle command-not-found
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Load the theme.
-antigen theme blinks
+antigen theme korrow/zsh-themes themes/keegs
 
 # Tell antigen that you're done.
 antigen apply
