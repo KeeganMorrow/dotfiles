@@ -88,6 +88,9 @@ Plugin 'kergoth/vim-bitbake'
 
 "Other plugins
 Plugin 'bling/vim-airline'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'mbbill/undotree'
 
 Plugin 'ntpeters/vim-better-whitespace'
 
@@ -377,6 +380,11 @@ endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
+""""""""""""""""""""
+" =>Plugin Mappings
+""""""""""""""""""""
+nnoremap <leader>ut :UndotreeToggle<CR>
+nnoremap <leader>nt :NERDTreeToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Ack searching and cope displaying
