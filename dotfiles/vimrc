@@ -86,6 +86,7 @@ Plugin 'arecarn/git-diff-cached-preview.vim'
 " Syntax Highlighting plugins
 Plugin 'vim-scripts/scons.vim'
 Plugin 'kergoth/vim-bitbake'
+Plugin 'octol/vim-cpp-enhanced-highlight'
 
 "Other plugins
 Plugin 'bling/vim-airline'
