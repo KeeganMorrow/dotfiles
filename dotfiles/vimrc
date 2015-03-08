@@ -76,6 +76,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " Colorscheme Plugins
 Plugin 'tomasr/molokai'
+Plugin 'sjl/badwolf'
 
 " Git Plugins
 Plugin 'tpope/vim-fugitive'
@@ -220,14 +221,11 @@ set foldcolumn=1
 " Enable syntax highlighting
 syntax enable 
 
-try
-    colorscheme molokai
-catch
-endtry
-
 " Enable 256 color mode
 set t_Co=256
 
+color badwolf
+let g:badwolf_tabline = 1
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
