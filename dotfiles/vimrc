@@ -88,6 +88,9 @@ Plugin 'vim-scripts/scons.vim'
 Plugin 'kergoth/vim-bitbake'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 
+" Completion Plugins
+Plugin 'ervandew/supertab'
+
 "Other plugins
 Plugin 'bling/vim-airline'
 
