@@ -38,6 +38,8 @@ function TRAPINT() {
   return $(( 128 + $1 ))
 }
 
+bindkey '^R' history-incremental-search-backward
+
 #''''''''''''''''''''''''''''''
 # vi/m foreground binding
 #''''''''''''''''''''''''''''''
