@@ -2,17 +2,45 @@
 # cat > /dev/null
 # And press it
 
-bindkey "^K"      kill-whole-line                      # ctrl-k
-bindkey "^R"      history-incremental-search-backward  # ctrl-r
-bindkey "^A"      beginning-of-line                    # ctrl-a  
-bindkey "^E"      end-of-line                          # ctrl-e
-bindkey "[B"      history-search-forward               # down arrow
-bindkey "[A"      history-search-backward              # up arrow
-bindkey "^D"      delete-char                          # ctrl-d
-bindkey "^F"      forward-char                         # ctrl-f
-bindkey "^B"      backward-char                        # ctrl-b
-bindkey -e   # Default to standard emacs bindings, regardless of editor string
+#''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+#' Vi Mode Settings
+#''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+# Not all of these belong in this file strictly speaking, but they
+# should all be together, so here we go.
+bindkey -v
 
+export KEYTIMEOUT=1
+
+#''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+# This stuff came from Pawel Goscicki. Thanks dude!
+# http://paulgoscicki.com/archives/2012/09/vi-mode-indicator-in-zsh-prompt/
+#''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+vim_ins_mode="[INS]"
+vim_cmd_mode="[CMD]"
+vim_mode=$vim_ins_mode
+
+function zle-keymap-select {
+  vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
+  zle reset-prompt
+}
+zle -N zle-keymap-select
+
+function zle-line-finish {
+  vim_mode=$vim_ins_mode
+}
+zle -N zle-line-finish
+
+# Fix a bug when you C-c in CMD mode and you'd be prompted with CMD mode indicator, while in fact you would be in INS mode
+# Fixed by catching SIGINT (C-c), set vim_mode to INS and then repropagate the SIGINT, so if anything else depends on it, we will not break it
+# Thanks Ron! (see comments)
+function TRAPINT() {
+  vim_mode=$vim_ins_mode
+  return $(( 128 + $1 ))
+}
+
+#''''''''''''''''''''''''''''''
+# vi/m foreground binding
+#''''''''''''''''''''''''''''''
 foreground-vi() {
   fg %vi
 }
