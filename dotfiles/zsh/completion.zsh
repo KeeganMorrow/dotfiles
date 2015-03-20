@@ -1,8 +1,32 @@
 # add in zsh-completions
 fpath=(/opt/boxen/homebrew/share/zsh-completions $fpath)
 
-autoload -U compinit && compinit                                                                                       
+autoload -U compinit && compinit
 zmodload -i zsh/complist
+#----------------------------------------------------------------------
+# Disable usernames in tilde completion
+# Taken from http://superuser.com/questions/344128/disable-users-from-completing-after-a-in-zsh
+#----------------------------------------------------------------------
+_bangfalse_tilde () {
+  # The standard _tilde function with users removed
+  [[ -n "$compstate[quote]" ]] && return 1
+  local expl suf ret=1
+  if [[ "$SUFFIX" = */* ]]; then
+    ISUFFIX="/${SUFFIX#*/}$ISUFFIX"
+    SUFFIX="${SUFFIX%%/*}"
+    suf=(-S '')
+  else
+    suf=(-qS/)
+  fi
+  _tags users named-directories directory-stack
+  while _tags; do
+    _requested named-directories expl 'named directory' compadd "$suf[@]" "$@" -k nameddirs && ret=0
+    _requested directory-stack && _directory_stack "$suf[@]" && ret=0
+  done
+  (( ret )) || return 0
+}
+compdef _bangfalse_tilde -tilde-
+
 
 # man zshcontrib
 zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
