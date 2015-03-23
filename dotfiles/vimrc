@@ -244,6 +244,15 @@ set ffs=unix,dos,mac
 " note: These ones need utf-8
 set list listchars=tab:→\ ,trail:·
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Filetype handling
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup filetype
+    autocmd!
+    au! BufRead,BufNewFile SCons* set filetype=scons
+augroup END
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
