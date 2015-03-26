@@ -404,6 +404,35 @@ if has("autocmd")
     autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 endif
 
+"""""""""""""""""""""""""""""""
+" => Grep tweaks
+"""""""""""""""""""""""""""""""
+set grepprg=ack\ -H\ --nocolor\ --nogroup
+
+if has("autocmd")
+
+    augroup QuickFix
+        autocmd!
+        "opens quick fix window on the bottom of all screens
+        autocmd FileType qf wincmd J
+
+        " Automatically open, but do not go to (if there are errors) the quickfix /
+        " location list window, or close it when is has become empty.
+        "
+        " Note: Must allow nesting of autocmds to enable any customizations for quickfix
+        " buffers.
+        " Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+        " (but not if it's already open). However, as part of the autocmd, this doesn't
+        " seem to happen.
+        autocmd QuickFixCmdPost [^l]* nested cwindow
+        autocmd QuickFixCmdPost    l* nested lwindow
+        "TODO: Get this mapping working properly
+        autocmd FileType qf nnoremap <buffer> O <Enter><C-w>p
+        autocmd FileType qf nnoremap <buffer> q :q<CR>
+    augroup END
+
+endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
