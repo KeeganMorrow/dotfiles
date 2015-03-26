@@ -49,3 +49,20 @@ foreground-vi() {
 zle -N foreground-vi
 bindkey '^Z' foreground-vi
 
+#''''''''''''''''''''''''''''''
+# more vim-like key bindings
+#''''''''''''''''''''''''''''''
+bindkey -a 'gg' beginning-of-buffer-or-history
+bindkey -a 'g~' vi-oper-swap-case
+bindkey -a G end-of-buffer-or-history
+
+bindkey -a u undo
+bindkey -a '^R' redo
+bindkey '^?' backward-delete-char
+bindkey '^H' backward-delete-char
+
+bindkey '^G' what-cursor-position
+
+#TODO: Bind something else to this
+#bindkey -M viins '^C' vi-cmd-mode
+
