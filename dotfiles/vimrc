@@ -255,11 +255,16 @@ set list listchars=tab:→\ ,trail:·
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Filetype handling
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup filetype
-    autocmd!
-    au! BufRead,BufNewFile SCons* set filetype=scons
-augroup END
+if has("autocmd")
 
+    augroup filetype
+        autocmd!
+        " Use SCons highlighting when opening SCons files
+        au! BufRead,BufNewFile SCons* set filetype=scons
+
+    augroup END
+
+endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -355,12 +360,17 @@ catch
 endtry
 
 " Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
+if has("autocmd")
+    autocmd BufReadPost *
+         \ if line("'\"") > 0 && line("'\"") <= line("$") |
+         \   exe "normal! g`\"" |
+         \ endif
+endif
+
 " Go to first line in git commit messages
-autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
+if has("autocmd")
+    autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
+endif
 
 " Remember info about open buffers on close
 set viminfo^=%
@@ -381,6 +391,7 @@ let g:airline_powerline_fonts = 1
 """""""""""""""""""""""""""""""
 " => Useful functions
 """""""""""""""""""""""""""""""
+"Add include gates to C/C++ header files
 function! s:insert_gates()
   let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
   execute "normal! i#ifndef " . gatename
@@ -388,7 +399,11 @@ function! s:insert_gates()
   execute "normal! Go#endif /* " . gatename . " */"
   normal! kk
 endfunction
-autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
+
+if has("autocmd")
+    autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
+endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
