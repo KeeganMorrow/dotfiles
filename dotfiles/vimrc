@@ -76,7 +76,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " Colorscheme Plugins
 Plugin 'tomasr/molokai'
-Plugin 'sjl/badwolf'
+Plugin 'Korrow/badwolf'
 
 " Git Plugins
 Plugin 'tpope/vim-fugitive'
