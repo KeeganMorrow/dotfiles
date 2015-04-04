@@ -91,14 +91,17 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 " Completion Plugins
 Plugin 'ervandew/supertab'
 
-"Other plugins
+" Interface Plugins
 Plugin 'bling/vim-airline'
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'mbbill/undotree'
 
+"Other plugins
 Plugin 'ntpeters/vim-better-whitespace'
+
+Plugin 'Lokaltog/vim-easymotion'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
