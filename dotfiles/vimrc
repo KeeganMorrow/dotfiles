@@ -326,11 +326,23 @@ map k gk
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 
+" Rebind movements to jkl;
+noremap j h
+noremap k j
+noremap l k
+noremap ; l
+
+" Add alt movement in insert mode
+inoremap <A-j> <C-o>h
+inoremap <A-k> <C-o>j
+inoremap <A-l> <C-o>k
+inoremap <A-;> <C-o>l
+
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+nnoremap <leader>j <C-W>h
+nnoremap <leader>k <C-W>j
+nnoremap <leader>l <C-W>k
+nnoremap <leader>; <C-W>l
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
