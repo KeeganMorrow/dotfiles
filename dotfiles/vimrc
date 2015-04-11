@@ -103,6 +103,8 @@ Plugin 'ntpeters/vim-better-whitespace'
 
 Plugin 'Lokaltog/vim-easymotion'
 
+Plugin 'vim-nose'
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "     => Vundle Footer
