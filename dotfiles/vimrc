@@ -94,7 +94,7 @@ Plugin 'ervandew/supertab'
 " Tool Integration
 Plugin 'janko-m/vim-test'
 
-"Other plugins
+" Interface Plugins
 Plugin 'bling/vim-airline'
 
 Plugin 'scrooloose/nerdtree'
@@ -102,9 +102,12 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'mbbill/undotree'
 Plugin 'mhinz/vim-startify'
 
+"Other plugins
 Plugin 'ntpeters/vim-better-whitespace'
 
 Plugin 'Lokaltog/vim-easymotion'
+
+Plugin 'vim-nose'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "     => Vundle Footer
