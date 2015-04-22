@@ -100,6 +100,7 @@ Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'mbbill/undotree'
+Plugin 'mhinz/vim-startify'
 
 Plugin 'ntpeters/vim-better-whitespace'
 
@@ -259,6 +260,18 @@ set ffs=unix,dos,mac
 set list listchars=tab:→\ ,trail:·
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Starify settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:startify_custom_header = [
+\ '  __     ___             _____  _   _',
+\ '  \ \   / (_)_ __ ___   |___  || |_| |',
+\ '   \ \ / /| |  _   _ \     / /||___  |',
+\ '    \ V / | | | | | | |   / /     | |',
+\ '     \_/  |_|_| |_| |_|  /_/  (_) |_|',
+\ '',
+\ '',
+\ ]
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Filetype handling
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
