@@ -100,6 +100,7 @@ Plugin 'mbbill/undotree'
 
 Plugin 'ntpeters/vim-better-whitespace'
 
+Plugin 'Lokaltog/vim-easymotion'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "     => Vundle Footer
@@ -144,6 +145,7 @@ set autoread
 " like <leader>w saves the current file
 let mapleader = " "
 
+map <Leader> <Plug>(easymotion-prefix)
 " Fast saving
 nnoremap <leader>w :w!<cr>
 
