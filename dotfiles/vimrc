@@ -93,6 +93,7 @@ Plugin 'ervandew/supertab'
 
 " Tool Integration
 Plugin 'janko-m/vim-test'
+Plugin 'tpope/vim-dispatch'
 
 " Interface Plugins
 Plugin 'bling/vim-airline'
@@ -107,7 +108,6 @@ Plugin 'ntpeters/vim-better-whitespace'
 
 Plugin 'Lokaltog/vim-easymotion'
 
-Plugin 'vim-nose'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "     => Vundle Footer
