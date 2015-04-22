@@ -91,6 +91,9 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 " Completion Plugins
 Plugin 'ervandew/supertab'
 
+" Tool Integration
+Plugin 'janko-m/vim-test'
+
 "Other plugins
 Plugin 'bling/vim-airline'
 
