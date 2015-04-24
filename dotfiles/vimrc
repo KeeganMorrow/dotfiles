@@ -106,6 +106,8 @@ Plugin 'mhinz/vim-startify'
 "Other plugins
 Plugin 'ntpeters/vim-better-whitespace'
 
+Plugin 'scrooloose/nerdcommenter'
+
 Plugin 'Lokaltog/vim-easymotion'
 
 
