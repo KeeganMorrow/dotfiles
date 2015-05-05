@@ -14,3 +14,6 @@
 	path = repos/powerline-fonts
 	url = https://github.com/powerline/fonts.git
 	branch = master
+[submodule "repos/tpm"]
+	path = repos/tpm
+	url = https://github.com/tmux-plugins/tpm

@@ -30,6 +30,8 @@ git submodule update
 
 echo "Linking Vundle"
 install_link 'repos/Vundle.vim' "${HOME}/.vim/bundle/Vundle.vim"
+echo "Linking TMux Plugin Manager"
+install_link 'repos/tpm' '${HOME}/.tmux/plugins/tpm'
 
 echo "Installing powerline fonts"
 ./$repos/powerline-fonts/install.sh
