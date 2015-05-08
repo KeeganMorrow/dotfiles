@@ -114,7 +114,8 @@ NeoBundle 'mhinz/vim-startify'
 
 " Unite
 NeoBundle 'Shougo/unite.vim'
-
+NeoBundle 'Shougo/unite-help'
+NeoBundle 'majkinetor/unite-cmdmatch'
 " Other plugins
 NeoBundle 'ntpeters/vim-better-whitespace'
 
@@ -528,10 +529,11 @@ nnoremap <leader>t :<C-u>Unite -buffer-name=files   -start-insert file_rec/async
 nnoremap <leader>f :<C-u>Unite -buffer-name=files   -start-insert file<cr>
 nnoremap <leader>r :<C-u>Unite -buffer-name=mru     -start-insert file_mru<cr>
 nnoremap <leader>o :<C-u>Unite -buffer-name=outline -start-insert outline<cr>
-nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<cr>
-nnoremap <leader>e :<C-u>Unite -buffer-name=buffer  buffer<cr>
-nnoremap <leader>g :<C-u>Unite -buffer-name=grep    grep<cr>
-
+nnoremap <leader>y :<C-u>Unite -buffer-name=yank    -start-insert history/yank<cr>
+nnoremap <leader>e :<C-u>Unite -buffer-name=buffer  -start-insert buffer<cr>
+nnoremap <leader>g :<C-u>Unite -buffer-name=grep    -start-insert grep<cr>
+nnoremap <leader>h :<C-u>Unite -buffer-name=help    -start-insert help<cr>
+cmap <C-o> <Plug>(unite_cmdmatch_complete)
 """"""""""""""""""""
 " =>Plugin Mappings
 """"""""""""""""""""
