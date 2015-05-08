@@ -28,8 +28,8 @@ install_link () {
 git submodule init
 git submodule update
 
-echo "Linking Vundle"
-install_link 'repos/Vundle.vim' "${HOME}/.vim/bundle/Vundle.vim"
+echo "Linking NeoBundle"
+install_link 'repos/neobundle.vim' "${HOME}/.vim/bundle/neobundle.vim"
 echo "Linking TMux Plugin Manager"
 install_link 'repos/tpm' '${HOME}/.tmux/plugins/tpm'
 

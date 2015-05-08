@@ -38,79 +38,99 @@
 "    -> Helper functions
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vundle
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible              " be iMproved, required
 filetype off                  " required
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => NeoBundle
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+if has('vim_starting')
+    if &compatible
+        set nocompatible               " Be iMproved
+endif
 
+" Required:
+set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+" Required:
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"     => Vundle Plugins
+"     => NeoBundle NeoBundles
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+" vimproc
+NeoBundle 'Shougo/vimproc.vim', {
+            \ 'build' : {
+            \     'windows' : 'make -f make_mingw32.mak',
+            \     'cygwin' : 'make -f make_cygwin.mak',
+            \     'mac' : 'make -f make_mac.mak',
+            \     'unix' : 'make -f make_unix.mak',
+            \    },
+            \ }
 
-" Colorscheme Plugins
-Plugin 'tomasr/molokai'
-Plugin 'Korrow/badwolf'
+" Colorscheme NeoBundles
+NeoBundle 'tomasr/molokai'
+NeoBundle 'Korrow/badwolf'
 
 " Functionality improvements
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-repeat'
 
-" Git Plugins
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'arecarn/git-diff-cached-preview.vim'
+" Git NeoBundles
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'arecarn/git-diff-cached-preview.vim'
 
 " Syntax Highlighting plugins
-Plugin 'vim-scripts/scons.vim'
-Plugin 'kergoth/vim-bitbake'
-Plugin 'octol/vim-cpp-enhanced-highlight'
+NeoBundle 'vim-scripts/scons.vim'
+NeoBundle 'kergoth/vim-bitbake'
+NeoBundle 'octol/vim-cpp-enhanced-highlight'
 
-" Completion Plugins
-Plugin 'ervandew/supertab'
+" Completion NeoBundles
+NeoBundle 'ervandew/supertab'
 
 " Tool Integration
-Plugin 'janko-m/vim-test'
-Plugin 'benmills/vimux'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'tpope/vim-dispatch'
+NeoBundle 'janko-m/vim-test'
+NeoBundle 'benmills/vimux'
+NeoBundle 'christoomey/vim-tmux-navigator'
+NeoBundle 'tpope/vim-dispatch'
 
-" Interface Plugins
-Plugin 'bling/vim-airline'
-Plugin 'edkolev/tmuxline.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'mbbill/undotree'
-Plugin 'mhinz/vim-startify'
+" Interface NeoBundles
+NeoBundle 'bling/vim-airline'
+NeoBundle 'edkolev/tmuxline.vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'Xuyuanp/nerdtree-git-plugin'
+NeoBundle 'mbbill/undotree'
+NeoBundle 'mhinz/vim-startify'
 
 "Other plugins
-Plugin 'ntpeters/vim-better-whitespace'
+NeoBundle 'ntpeters/vim-better-whitespace'
 
-Plugin 'scrooloose/nerdcommenter'
+NeoBundle 'scrooloose/nerdcommenter'
 
-Plugin 'Lokaltog/vim-easymotion'
+NeoBundle 'Lokaltog/vim-easymotion'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "     => Vundle Footer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call neobundle#end()
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
+" Required:
+filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "     => Pre-packaged plugins
@@ -135,7 +155,7 @@ set autoread
 " like <leader>w saves the current file
 let mapleader = " "
 
-" Fast saving
+"Fast saving
 nnoremap <leader>w :w!<cr>
 
 " :W sudo saves the file 
@@ -488,7 +508,7 @@ if has("mac") || has("macunix")
 endif
 
 """"""""""""""""""""
-" =>Plugin Mappings
+" =>NeoBundle Mappings
 """"""""""""""""""""
 nnoremap <leader>ut :UndotreeToggle<CR>
 nnoremap <leader>nt :NERDTreeToggle<CR>
