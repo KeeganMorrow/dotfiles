@@ -135,7 +135,6 @@ set autoread
 " like <leader>w saves the current file
 let mapleader = " "
 
-map <Leader> <Plug>(easymotion-prefix)
 " Fast saving
 nnoremap <leader>w :w!<cr>
 

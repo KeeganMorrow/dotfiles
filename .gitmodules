@@ -2,10 +2,6 @@
 	path = repos/antigen
 	url = https://github.com/zsh-users/antigen.git
 	branch = master
-[submodule "repos/Vundle.vim"]
-	path = repos/Vundle.vim
-	url = https://github.com/gmarik/Vundle.vim.git
-	branch = master
 [submodule "repos/fonts"]
 	path = repos/fonts
 	url = https://github.com/powerline/fonts.git
@@ -17,3 +13,6 @@
 [submodule "repos/tpm"]
 	path = repos/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "repos/neobundle.vim"]
+	path = repos/neobundle.vim
+	url = https://github.com/Shougo/neobundle.vim
