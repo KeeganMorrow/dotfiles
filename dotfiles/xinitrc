@@ -1,0 +1,3 @@
+# Increase key rate
+xset r rate 200 60
+
