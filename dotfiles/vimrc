@@ -491,7 +491,7 @@ let NERDTreeIgnore = ['\.pyc$']
 " => vim-test settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let test#strategy = "vimux"
-
+let test#python#options = '--with-terseout'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
