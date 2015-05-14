@@ -109,8 +109,9 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'edkolev/tmuxline.vim'
 NeoBundle 'mbbill/undotree'
 NeoBundle 'mhinz/vim-startify'
+NeoBundle 'jez/vim-superman'
 
-" Unite
+" Unit
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-help'
 NeoBundle 'majkinetor/unite-cmdmatch'
@@ -118,6 +119,7 @@ NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/unite-session'
+NeoBundle 'andreicristianpetcu/unite-vim-superman'
 
 " Other plugins
 NeoBundle 'ntpeters/vim-better-whitespace'
@@ -537,17 +539,18 @@ let g:vimfiler_as_default_explorer = 1
 """"""""""""""""""""
 " =>Unite Mappings
 """"""""""""""""""""
-nnoremap <leader>ut :<C-u>Unite -buffer-name=files   -start-insert file_rec/async:!<cr>
-nnoremap <leader>uf :<C-u>Unite -buffer-name=files   -start-insert file<cr>
-nnoremap <leader>ur :<C-u>Unite -buffer-name=mru     -start-insert file_mru<cr>
-nnoremap <leader>uo :<C-u>Unite -buffer-name=outline -start-insert outline<cr>
-nnoremap <leader>uy :<C-u>Unite -buffer-name=yank    -start-insert history/yank<cr>
-nnoremap <leader>ue :<C-u>Unite -buffer-name=buffer  -start-insert buffer<cr>
-nnoremap <leader>ug :<C-u>Unite -buffer-name=grep    -start-insert grep<cr>
-nnoremap <leader>uh :<C-u>Unite -buffer-name=help    -start-insert help<cr>
-nnoremap <leader>us :<C-u>Unite -buffer-name=sessions   -start-insert session<cr>
-nnoremap <leader>uS :<C-u>Unite -buffer-name=sessions   -start-insert session/new<cr>
-nnoremap <leader>ue :VimFiler -split <CR>
+nnoremap <leader>ut :<C-u>Unite -buffer-name=files     -start-insert file_rec/async:!<cr>
+nnoremap <leader>uf :<C-u>Unite -buffer-name=files     -start-insert file<cr>
+nnoremap <leader>ur :<C-u>Unite -buffer-name=mru       -start-insert file_mru<cr>
+nnoremap <leader>uo :<C-u>Unite -buffer-name=outline   -start-insert outline<cr>
+nnoremap <leader>uy :<C-u>Unite -buffer-name=yank      -start-insert history/yank<cr>
+nnoremap <leader>ue :<C-u>Unite -buffer-name=buffer    -start-insert buffer<cr>
+nnoremap <leader>ug :<C-u>Unite -buffer-name=grep      -start-insert grep<cr>
+nnoremap <leader>uh :<C-u>Unite -buffer-name=help      -start-insert help<cr>
+nnoremap <leader>us :<C-u>Unite -buffer-name=sessions  -start-insert session<cr>
+nnoremap <leader>uS :<C-u>Unite -buffer-name=sessions  -start-insert session/new<cr>
+nnoremap <leader>um :<C-u>Unite -buffer-name=man       -start-insert manpage<cr>
+nnoremap <leader>ue :VimFiler -split -winwidth=35 -toggle -no-quit<CR>
 cmap <C-o> <Plug>(unite_cmdmatch_complete)
 """"""""""""""""""""
 " =>Plugin Mappings
