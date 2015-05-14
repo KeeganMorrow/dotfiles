@@ -517,6 +517,11 @@ if has("mac") || has("macunix")
 endif
 
 """"""""""""""""""""
+" =>Better Whitespace
+""""""""""""""""""""
+" Blacklist some filetypes
+let g:better_whitespace_filetypes_blacklist = ['unite', 'vimfiler']
+""""""""""""""""""""
 " =>Unite Settings
 """"""""""""""""""""
 " Use ag in unite grep source.
@@ -550,7 +555,7 @@ nnoremap <leader>uh :<C-u>Unite -buffer-name=help      -start-insert help<cr>
 nnoremap <leader>us :<C-u>Unite -buffer-name=sessions  -start-insert session<cr>
 nnoremap <leader>uS :<C-u>Unite -buffer-name=sessions  -start-insert session/new<cr>
 nnoremap <leader>um :<C-u>Unite -buffer-name=man       -start-insert manpage<cr>
-nnoremap <leader>ue :VimFiler -split -winwidth=35 -toggle -no-quit<CR>
+nnoremap <leader>ue :VimFiler -split -winwidth=35 -columns={} -toggle -no-quit<CR>
 cmap <C-o> <Plug>(unite_cmdmatch_complete)
 """"""""""""""""""""
 " =>Plugin Mappings
