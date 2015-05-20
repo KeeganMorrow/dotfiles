@@ -343,6 +343,8 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
+" Show line at 80 columns
+set colorcolumn=80
 
 """"""""""""""""""""""""""""""
 " => Diff related
