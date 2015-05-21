@@ -73,7 +73,7 @@ NeoBundle 'mbbill/undotree'
 NeoBundle 'mhinz/vim-startify'
 NeoBundle 'jez/vim-superman'
 
-" Unit
+" Unite
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-help'
 NeoBundle 'majkinetor/unite-cmdmatch'
