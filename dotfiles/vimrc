@@ -81,6 +81,7 @@ NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/unite-session'
+NeoBundle 'kmnk/vim-unite-giti'
 NeoBundle 'andreicristianpetcu/unite-vim-superman'
 
 " Other plugins
@@ -445,11 +446,17 @@ nnoremap <leader>ur :<C-u>Unite -buffer-name=mru       -start-insert file_mru<cr
 nnoremap <leader>uo :<C-u>Unite -buffer-name=outline   -start-insert outline<cr>
 nnoremap <leader>uy :<C-u>Unite -buffer-name=yank      -start-insert history/yank<cr>
 nnoremap <leader>ue :<C-u>Unite -buffer-name=buffer    -start-insert buffer<cr>
-nnoremap <leader>ug :<C-u>Unite -buffer-name=grep      -start-insert grep<cr>
+nnoremap <leader>ua :<C-u>Unite -buffer-name=grep      -start-insert grep<cr>
 nnoremap <leader>uh :<C-u>Unite -buffer-name=help      -start-insert help<cr>
 nnoremap <leader>us :<C-u>Unite -buffer-name=sessions  -start-insert session<cr>
 nnoremap <leader>uS :<C-u>Unite -buffer-name=sessions  -start-insert session/new<cr>
 nnoremap <leader>um :<C-u>Unite -buffer-name=man       -start-insert manpage<cr>
+nnoremap <leader>ugg :<C-u>Unite -buffer-name=git      -start-insert giti<cr>
+nnoremap <leader>ugb :<C-u>Unite -buffer-name=branch   -start-insert giti/branch<cr>
+nnoremap <leader>ugc :<C-u>Unite -buffer-name=config   -start-insert giti/config<cr>
+nnoremap <leader>ugl :<C-u>Unite -buffer-name=log      -start-insert giti/log<cr>
+nnoremap <leader>ugr :<C-u>Unite -buffer-name=remote   -start-insert giti/remote<cr>
+nnoremap <leader>ugs :<C-u>Unite -buffer-name=status   -start-insert giti/status<cr>
 nnoremap <leader>ue :VimFiler -split -winwidth=35 -columns={} -toggle -no-quit<CR>
 cmap <C-o> <Plug>(unite_cmdmatch_complete)
 """""""""""""""""""""""""""}}}
