@@ -68,7 +68,6 @@ NeoBundle 'tpope/vim-dispatch'
 
 " Interface NeoBundles
 NeoBundle 'bling/vim-airline'
-NeoBundle 'edkolev/tmuxline.vim'
 NeoBundle 'mbbill/undotree'
 NeoBundle 'mhinz/vim-startify'
 NeoBundle 'jez/vim-superman'
@@ -92,6 +91,8 @@ NeoBundle 'scrooloose/nerdcommenter'
 
 NeoBundle 'Lokaltog/vim-easymotion'
 
+" Only used when need to regenerate tmux theme
+" NeoBundle 'edkolev/tmuxline.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => NeoBundle Footer                                       {{{
