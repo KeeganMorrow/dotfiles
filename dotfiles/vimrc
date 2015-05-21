@@ -1,47 +1,9 @@
+" => Keegan's vimrc                                         {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer: 
-"       Amir Salihefendic
-"       http://amix.dk - amix@amix.dk
-"
-" Version: 
-"       5.0 - 29/05/12 15:43:36
-"
-" Blog_post: 
-"       http://amix.dk/blog/post/19691#The-ultimate-Vim-configuration-on-Github
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
-"
-" Syntax_highlighted:
-"       http://amix.dk/vim/vimrc.html
-"
-" Raw_version: 
-"       http://amix.dk/vim/vimrc.txt
-"
-" Sections:
-"    -> General
-"    -> VIM user interface
-"    -> Colors and Fonts
-"    -> Files and backups
-"    -> Text, tab and indent related
-"    -> Visual mode related
-"    -> Moving around, tabs and buffers
-"    -> Status line
-"    -> Editing mappings
-"    -> vimgrep searching and cope displaying
-"    -> Spell checking
-"    -> Misc
-"    -> Helper functions
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible              " be iMproved, required
-filetype off                  " required
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => NeoBundle
+set nocompatible
+filetype off
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => NeoBundle                                              {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Note: Skip initialization for vim-tiny or vim-small.
 if !1 | finish | endif
@@ -62,8 +24,8 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"     => NeoBundle NeoBundles
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+"     => Bundles                                            {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " vimproc
@@ -129,8 +91,8 @@ NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'Lokaltog/vim-easymotion'
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"     => Vundle Footer
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+"     => Vundle Footer                                      {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call neobundle#end()
 
@@ -141,14 +103,14 @@ filetype plugin indent on
 " this will conveniently prompt you to install them.
 NeoBundleCheck
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"     => Pre-packaged plugins
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+"     => Pre-packaged plugins                               {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "TODO: Find out if this is a good way of doing this
 runtime! ftplugin/man.vim
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => General                                                {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
 set history=700
@@ -172,8 +134,8 @@ nnoremap <leader>w :w!<cr>
 command! W w !sudo tee % > /dev/null
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => VIM user interface                                     {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
@@ -253,8 +215,8 @@ let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Tmuxline settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Tmuxline settings                                      {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Note: This plugin is used to generate a Tmux status line,
 "doesn't do anything for normal use
@@ -266,8 +228,8 @@ let g:tmuxline_preset = {
       \'y'    : ['%d', '%m', '%Y'],
       \'z'    : '%R'}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Colors and Fonts                                       {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable 
@@ -288,8 +250,8 @@ set ffs=unix,dos,mac
 set list listchars=tab:→\ ,trail:·
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Starify settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Starify settings                                       {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:startify_custom_header = [
 \ '  __     ___             _____  _   _',
@@ -300,8 +262,8 @@ let g:startify_custom_header = [
 \ '',
 \ '',
 \ ]
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Filetype handling
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Filetype handling                                      {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("autocmd")
 
@@ -313,8 +275,8 @@ if has("autocmd")
     augroup END
 
 endif
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Files, backups and undo                                {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
@@ -322,8 +284,8 @@ set nowb
 set noswapfile
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Text, tab and indent related                           {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
 set expandtab
@@ -347,18 +309,18 @@ set wrap "Wrap lines
 set colorcolumn=80
 
 """"""""""""""""""""""""""""""
-" => Diff related
+" => Diff related          {{{
 """"""""""""""""""""""""""""""
 set diffopt=filler,context:10,vertical
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => yank and register related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""}}}
+" => yank related             {{{
+"""""""""""""""""""""""""""""""""
 " Yank to system clipboard
 set clipboard=unnamedplus,unnamed
 
-""""""""""""""""""""""""""""""
-" => Visual mode related
+"""""""""""""""""""""""""""}}}
+" => Visual mode related   {{{
 """"""""""""""""""""""""""""""
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
@@ -366,8 +328,8 @@ vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
+" => Moving around, tabs, windows and buffers               {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
@@ -432,9 +394,9 @@ endif
 set viminfo^=%
 
 
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Status line                                            {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Always show the status line
 set laststatus=2
 
@@ -444,9 +406,10 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 " Allow airline status bar use of powerline fonts
 let g:airline_powerline_fonts = 1
 
-"""""""""""""""""""""""""""""""
-" => Useful functions
-"""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Useful functions                                       {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "Add include gates to C/C++ header files
 function! s:insert_gates()
   let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
@@ -460,9 +423,9 @@ if has("autocmd")
     autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 endif
 
-"""""""""""""""""""""""""""""""
-" => Grep tweaks
-"""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Grep tweaks                                            {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set grepprg=ack\ -H\ --nocolor\ --nogroup
 
 if has("autocmd")
@@ -489,18 +452,18 @@ if has("autocmd")
 
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => NERDTREE Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => NERDTREE Settings                                      {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let NERDTreeIgnore = ['\.pyc$']
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim-test settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => vim-test settings                                      {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let test#strategy = "vimux"
 let test#python#options = '--with-terseout'
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Editing mappings                                       {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remap VIM 0 to first non-blank character
 map 0 ^
@@ -518,14 +481,15 @@ if has("mac") || has("macunix")
   vmap <D-k> <M-k>
 endif
 
-""""""""""""""""""""
-" =>Better Whitespace
-""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Better Whitespace settings                             {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Blacklist some filetypes
 let g:better_whitespace_filetypes_blacklist = ['unite', 'vimfiler']
-""""""""""""""""""""
-" =>Unite Settings
-""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Unite Settings                                         {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use ag in unite grep source.
 let g:unite_source_grep_command = 'ag'
 let g:unite_source_grep_default_opts =
@@ -537,15 +501,15 @@ let g:unite_source_grep_recursive_opt = ''
 " Enable yank tracking
 let g:unite_source_history_yank_enable = 1
 
-""""""""""""""""""""
-" =>Vimfiler Settings
-""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Vimfiler Settings                                      {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimfiler replaces netrw
 let g:vimfiler_as_default_explorer = 1
 
-""""""""""""""""""""
-" =>Unite Mappings
-""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Unite Mappingss                                        {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>ut :<C-u>Unite -buffer-name=files     -start-insert file_rec/async:!<cr>
 nnoremap <leader>uf :<C-u>Unite -buffer-name=files     -start-insert file<cr>
 nnoremap <leader>ur :<C-u>Unite -buffer-name=mru       -start-insert file_mru<cr>
@@ -559,16 +523,16 @@ nnoremap <leader>uS :<C-u>Unite -buffer-name=sessions  -start-insert session/new
 nnoremap <leader>um :<C-u>Unite -buffer-name=man       -start-insert manpage<cr>
 nnoremap <leader>ue :VimFiler -split -winwidth=35 -columns={} -toggle -no-quit<CR>
 cmap <C-o> <Plug>(unite_cmdmatch_complete)
-""""""""""""""""""""
-" =>Plugin Mappings
-""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Other Plugin Mappingss                                 {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>uu :UndotreeToggle<CR>
 
 "Remap shift-k to use man plugin
 nnoremap K :Man <cword><CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Spell checking                                         {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
@@ -580,8 +544,8 @@ map <leader>sa zg
 map <leader>s? z=
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Misc                                                   {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
@@ -596,8 +560,8 @@ map <leader>x :e ~/buffer.md<cr>
 map <leader>pp :setlocal paste!<cr>
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Helper functions                                       {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
@@ -657,3 +621,4 @@ function! <SID>BufcloseCloseIt()
 endfunction
 
 " vim: foldmethod=marker
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
