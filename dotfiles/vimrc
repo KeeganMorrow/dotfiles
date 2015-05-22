@@ -370,6 +370,10 @@ if has("autocmd")
     autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
 endif
 
+" Use tabs in dts files
+if has("autocmd")
+    autocmd FileType dts set noexpandtab
+endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Grep tweaks                                            {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
