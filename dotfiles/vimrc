@@ -71,6 +71,7 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'mbbill/undotree'
 NeoBundle 'mhinz/vim-startify'
 NeoBundle 'jez/vim-superman'
+NeoBundle 'arecarn/fold-cycle.vim'
 NeoBundle 'arecarn/clean-fold.vim'
 
 " Unite
