@@ -13,6 +13,3 @@
 [submodule "repos/tpm"]
 	path = repos/tpm
 	url = https://github.com/tmux-plugins/tpm
-[submodule "repos/neobundle.vim"]
-	path = repos/neobundle.vim
-	url = https://github.com/Shougo/neobundle.vim
