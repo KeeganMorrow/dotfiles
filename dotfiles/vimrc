@@ -487,6 +487,9 @@ nnoremap <leader>uu :UndotreeToggle<CR>
 "Remap shift-k to use man plugin
 nnoremap K :Man <cword><CR>
 
+"Remap ctrl-backspace to strip whitespace
+nnoremap <leader>d :.StripWhitespace<CR>
+
 """""""""""""""""""""""""""}}}
 " => Spelling Mappings     {{{
 """"""""""""""""""""""""""""""
