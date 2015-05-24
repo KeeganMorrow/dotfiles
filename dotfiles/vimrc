@@ -50,7 +50,6 @@ NeoBundle 'tpope/vim-repeat'
 " Git NeoBundles
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'arecarn/git-diff-cached-preview.vim'
 
 " Syntax Highlighting plugins
 NeoBundle 'vim-scripts/scons.vim'
