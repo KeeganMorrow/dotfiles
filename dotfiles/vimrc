@@ -76,6 +76,7 @@ NeoBundle 'mhinz/vim-startify'
 NeoBundle 'jez/vim-superman'
 NeoBundle 'arecarn/fold-cycle.vim'
 NeoBundle 'arecarn/clean-fold.vim'
+NeoBundle 'mkitt/tabline.vim'
 
 " Unite
 NeoBundle 'Shougo/unite.vim'
