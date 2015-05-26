@@ -47,6 +47,10 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-repeat'
 
+" Session management
+NeoBundle 'xolox/vim-misc'
+NeoBundle 'xolox/vim-session'
+
 " Git NeoBundles
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
@@ -80,7 +84,6 @@ NeoBundle 'majkinetor/unite-cmdmatch'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite-outline'
-NeoBundle 'Shougo/unite-session'
 NeoBundle 'kmnk/vim-unite-giti'
 NeoBundle 'andreicristianpetcu/unite-vim-superman'
 
@@ -422,6 +425,12 @@ let test#python#options = '--with-terseout'
 let g:better_whitespace_filetypes_blacklist = ['unite', 'vimfiler']
 
 """""""""""""""""""""""""""}}}
+" => vim-session Settings  {{{
+""""""""""""""""""""""""""""""
+" Enable SessionOpen vs OpenSession, etc
+let g:session_command_aliases = 1
+
+"""""""""""""""""""""""""""}}}
 " => Staritfy Settings     {{{
 """"""""""""""""""""""""""""""
 let g:startify_custom_header = [
@@ -467,8 +476,6 @@ nnoremap <leader>uy :<C-u>Unite -buffer-name=yank      -start-insert history/yan
 nnoremap <leader>ue :<C-u>Unite -buffer-name=buffer    -start-insert buffer<cr>
 nnoremap <leader>ua :<C-u>Unite -buffer-name=grep      -start-insert grep<cr>
 nnoremap <leader>uh :<C-u>Unite -buffer-name=help      -start-insert help<cr>
-nnoremap <leader>us :<C-u>Unite -buffer-name=sessions  -start-insert session<cr>
-nnoremap <leader>uS :<C-u>Unite -buffer-name=sessions  -start-insert session/new<cr>
 nnoremap <leader>uk :<C-u>Unite -buffer-name=man       -start-insert manpage<cr>
 nnoremap <leader>um :<C-u>Unite -buffer-name=mapping   -start-insert mapping<cr>
 nnoremap <leader>ugg :<C-u>Unite -buffer-name=git      -start-insert giti<cr>
