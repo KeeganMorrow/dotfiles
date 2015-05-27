@@ -453,13 +453,14 @@ let g:startify_session_dir = '~/.vim/sessions'
 """""""""""""""""""""""""""}}}
 " => Unite Settings        {{{
 """"""""""""""""""""""""""""""
-" Use ag in unite grep source.
-let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts =
+" Use ag in unite grep source if available
+if executable('ag')
+    let g:unite_source_grep_default_opts =
             \ '-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
             \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-
-let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_recursive_opt = ''
+endif
 
 " Enable yank tracking
 let g:unite_source_history_yank_enable = 1
