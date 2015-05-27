@@ -46,6 +46,7 @@ NeoBundle 'Korrow/badwolf'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-repeat'
+NeoBundle 'thinca/vim-qfreplace'
 
 " Session management
 NeoBundle 'xolox/vim-misc'
