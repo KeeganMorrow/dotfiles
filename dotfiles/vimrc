@@ -424,7 +424,9 @@ let NERDTreeIgnore = ['\.pyc$']
 " => vim-test Settings     {{{
 """"""""""""""""""""""""""""""
 let test#strategy = "vimux"
-let test#python#options = '--with-terseout'
+
+"Use terse output plugin for nose
+let test#python#nose#options = '--with-terseout'
 
 """""""""""""""""""""""""""}}}
 " => Better Whitespace     {{{
