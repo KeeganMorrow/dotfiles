@@ -500,6 +500,12 @@ nnoremap K :Man <cword><CR>
 "Remap ctrl-backspace to strip whitespace
 nnoremap <leader>d :.StripWhitespace<CR>
 
+" vim-test mappings
+nnoremap <leader>ns :TestSuite<cr>
+nnoremap <leader>nf :TestFile<cr>
+nnoremap <leader>nl :TestLast<cr>
+nnoremap <leader>nn :TestNearest<cr>
+
 """""""""""""""""""""""""""}}}
 " => Spelling Mappings     {{{
 """"""""""""""""""""""""""""""
@@ -526,6 +532,11 @@ vnoremap <silent> # :call VisualSelection('b', '')<CR>
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
+
+" Tab management stuff
+nnoremap <leader>tn :tabnew<CR>
+nnoremap <leader>tm :tabmove<CR>
+nnoremap <leader>tc :tabclose<CR>
 
 """""""""""""""""""""""""""}}}
 " => Misc Mappings         {{{
