@@ -446,6 +446,9 @@ let g:startify_custom_header = [
 \ '',
 \ ]
 
+" Use vim-session directory
+let g:startify_session_dir = '~/.vim/sessions'
+
 """""""""""""""""""""""""""}}}
 " => Unite Settings        {{{
 """"""""""""""""""""""""""""""
