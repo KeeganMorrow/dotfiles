@@ -453,19 +453,25 @@ let g:startify_custom_header = [
 \ '',
 \ ]
 
+" Use vim-session directory
+let g:startify_session_dir = '~/.vim/sessions'
+
 """""""""""""""""""""""""""}}}
 " => Syntastic Settings    {{{
 """"""""""""""""""""""""""""""
-" Use vim-session directory
-let g:startify_session_dir = '~/.vim/sessions'
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+
+let g:syntastic_mode_map = {
+    \ "mode": "passive",
+    \ "active_filetypes": [],
+    \ "passive_filetypes": [] }
 
 """""""""""""""""""""""""""}}}
 " => Unite Settings        {{{
@@ -532,6 +538,10 @@ nnoremap <leader>ns :TestSuite<cr>
 nnoremap <leader>nf :TestFile<cr>
 nnoremap <leader>nl :TestLast<cr>
 nnoremap <leader>nn :TestNearest<cr>
+
+" Syntastic mappings
+nnoremap <leader>sc :SyntasticCheck<cr>
+nnoremap <leader>st :SyntasticToggleMode<cr>
 
 """""""""""""""""""""""""""}}}
 " => Spelling Mappings     {{{
