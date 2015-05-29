@@ -72,6 +72,7 @@ NeoBundle 'benmills/vimux'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'jmcantrell/vim-virtualenv'
+NeoBundle 'scrooloose/syntastic'
 
 " Interface NeoBundles
 NeoBundle 'bling/vim-airline'
@@ -450,8 +451,19 @@ let g:startify_custom_header = [
 \ '',
 \ ]
 
+"""""""""""""""""""""""""""}}}
+" => Syntastic Settings    {{{
+""""""""""""""""""""""""""""""
 " Use vim-session directory
 let g:startify_session_dir = '~/.vim/sessions'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 """""""""""""""""""""""""""}}}
 " => Unite Settings        {{{
