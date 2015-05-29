@@ -27,7 +27,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => Bundles                                            {{{
+" => Global Bundles                                         {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " vimproc
@@ -63,9 +63,6 @@ NeoBundle 'vim-scripts/scons.vim'
 NeoBundle 'kergoth/vim-bitbake'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
 
-" Completion NeoBundles
-NeoBundle 'Valloric/YouCompleteMe'
-
 " Tool Integration
 NeoBundle 'janko-m/vim-test'
 NeoBundle 'benmills/vimux'
@@ -100,6 +97,37 @@ NeoBundle 'scrooloose/nerdcommenter'
 
 NeoBundle 'Lokaltog/vim-easymotion'
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Bundle Hostname lists                                  {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Lists of hostnames on which to install groups of packages
+let local_hostnames =["yorick","bubbles"]
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""{{{
+if (index(local_hostnames, $HOSTNAME) >= 0)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
+" => Local Install Only Bundles                             {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" For performance reasons only enable these plugins on certain
+" machines that have them installed locally
+
+    " YouCompleteMe completion
+    NeoBundle 'Valloric/YouCompleteMe'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""{{{
+else
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
+" => Network Install Bundles                                {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " Lighter weight completion alternative
+    NeoBundle 'ervandew/supertab'
+
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Blue Moon Bundles                                      {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" These are bundles that I only use very rarely
 " Only used when need to regenerate tmux theme
 " NeoBundle 'edkolev/tmuxline.vim'
 
