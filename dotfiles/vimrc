@@ -265,14 +265,29 @@ set list listchars=tab:→\ ,trail:·
 " => Filetype handling                                      {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("autocmd")
-
+    augroup buffer
+    " Return to last edit position when opening files (You want this!)
+    "
+        autocmd BufReadPost *
+             \ if line("'\"") > 0 && line("'\"") <= line("$") |
+             \   exe "normal! g`\"" |
+             \ endif
+    augroup END
     augroup filetype
+
         autocmd!
         " Use SCons highlighting when opening SCons files
         au! BufRead,BufNewFile SCons* set filetype=scons
 
-    augroup END
+        autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 
+        " Go to first line in git commit messages
+        autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
+
+        " Use tabs in dts files
+        autocmd FileType dts set noexpandtab
+
+    augroup END
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Files, backups and undo                                {{{
@@ -357,31 +372,6 @@ function! s:insert_gates()
   normal! kk
 endfunction
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => Filetype autocmd's                                     {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has("autocmd")
-    autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
-endif
-
-
-" Return to last edit position when opening files (You want this!)
-if has("autocmd")
-    autocmd BufReadPost *
-         \ if line("'\"") > 0 && line("'\"") <= line("$") |
-         \   exe "normal! g`\"" |
-         \ endif
-endif
-
-" Go to first line in git commit messages
-if has("autocmd")
-    autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
-endif
-
-" Use tabs in dts files
-if has("autocmd")
-    autocmd FileType dts set noexpandtab
-endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Grep tweaks                                            {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
