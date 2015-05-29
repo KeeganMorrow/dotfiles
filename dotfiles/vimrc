@@ -288,6 +288,16 @@ if has("autocmd")
         autocmd FileType dts set noexpandtab
 
     augroup END
+
+    augroup syntax
+
+        autocmd Syntax c,cpp,vim,xml,html,xhtml setlocal foldmethod=syntax
+        autocmd Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
+
+        autocmd Syntax python setlocal foldmethod=indent
+        autocmd Syntax python normal zR
+
+    augroup end
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Files, backups and undo                                {{{
