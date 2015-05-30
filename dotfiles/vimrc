@@ -456,7 +456,7 @@ endif
 """"""""""""""""""""""""""""""
 if neobundle#is_installed('vim-test')
 
-    let test#strategy = "vimux"
+    let test#strategy = "dispatch"
 
     "Use terse output plugin for nose
     let test#python#nose#options = '--with-terseout'
@@ -468,7 +468,7 @@ endif
 if neobundle#is_installed('vim-better-whitespace')
 
     " Blacklist some filetypes
-    let g:better_whitespace_filetypes_blacklist = ['unite', 'vimfiler']
+    let g:better_whitespace_filetypes_blacklist = ['unite', 'vimfiler', 'qf']
 
 endif
 """""""""""""""""""""""""""}}}
