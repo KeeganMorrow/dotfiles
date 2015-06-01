@@ -664,6 +664,9 @@ nnoremap <leader>tc :tabclose<CR>
 """""""""""""""""""""""""""}}}
 " => Misc Mappings         {{{
 """"""""""""""""""""""""""""""
+" Use shift direction to navigate tabs
+nnoremap <S-h> gT
+nnoremap <S-l> gt
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Helper functions                                       {{{
