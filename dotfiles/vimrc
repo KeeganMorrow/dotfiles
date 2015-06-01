@@ -456,7 +456,7 @@ endif
 """"""""""""""""""""""""""""""
 if neobundle#is_installed('vim-test')
 
-    let test#strategy = "vimux"
+    let test#strategy = "dispatch"
 
     "Use terse output plugin for nose
     let test#python#nose#options = '--with-terseout'
