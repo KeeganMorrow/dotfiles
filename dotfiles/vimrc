@@ -545,6 +545,9 @@ if neobundle#is_installed('vimfiler.vim')
     " vimfiler replaces netrw
     let g:vimfiler_as_default_explorer = 1
 
+    " Ignore dotfiles, pyc files and __pycache__ directories
+    let g:vimfiler_ignore_pattern = '^\%(\..*\|.*\.pyc\|__pycache__\)$'
+
 endif
 """""""""""""""""""""""""""}}}
 " => YouCompleteMe Settings{{{
