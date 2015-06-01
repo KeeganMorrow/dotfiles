@@ -317,6 +317,11 @@ if has("autocmd")
         " Use tabs in dts files
         autocmd FileType dts set noexpandtab
 
+        " Disable color column in quickfix
+        autocmd Filetype qf set colorcolumn=
+        " Disable wrapping in quickfix buffers
+        autocmd Filetype qf setlocal nowrap
+
     augroup END
 
     augroup syntax
