@@ -458,9 +458,6 @@ if neobundle#is_installed('vim-test')
 
     let test#strategy = "dispatch"
 
-    "Use terse output plugin for nose
-    let test#python#nose#options = '--with-terseout'
-
 endif
 """""""""""""""""""""""""""}}}
 " => Better Whitespace     {{{
