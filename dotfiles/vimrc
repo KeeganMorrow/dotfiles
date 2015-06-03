@@ -568,7 +568,7 @@ if neobundle#is_installed('unite.vim')
     nnoremap <leader>uo :<C-u>Unite -buffer-name=outline   -start-insert outline<cr>
     nnoremap <leader>uy :<C-u>Unite -buffer-name=yank      -start-insert history/yank<cr>
     nnoremap <leader>ue :<C-u>Unite -buffer-name=buffer    -start-insert buffer<cr>
-    nnoremap <leader>ua :<C-u>Unite -buffer-name=grep      -start-insert grep<cr>
+    nnoremap <leader>ua :<C-u>Unite -buffer-name=grep                    grep<cr>
     nnoremap <leader>uh :<C-u>Unite -buffer-name=help      -start-insert help<cr>
     nnoremap <leader>uk :<C-u>Unite -buffer-name=man       -start-insert manpage<cr>
     nnoremap <leader>um :<C-u>Unite -buffer-name=mapping   -start-insert mapping<cr>
