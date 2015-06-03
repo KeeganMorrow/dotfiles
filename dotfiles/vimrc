@@ -463,9 +463,6 @@ if neobundle#is_installed('vim-test')
 
     let test#strategy = "dispatch"
 
-    "Use terse output plugin for nose
-    let test#python#nose#options = '--with-terseout'
-
 endif
 """""""""""""""""""""""""""}}}
 " => Better Whitespace     {{{
@@ -550,6 +547,9 @@ if neobundle#is_installed('vimfiler.vim')
     " vimfiler replaces netrw
     let g:vimfiler_as_default_explorer = 1
 
+    " Ignore dotfiles, pyc files and __pycache__ directories
+    let g:vimfiler_ignore_pattern = '^\%(\..*\|.*\.pyc\|__pycache__\)$'
+
 endif
 """""""""""""""""""""""""""}}}
 " => YouCompleteMe Settings{{{
@@ -573,7 +573,7 @@ if neobundle#is_installed('unite.vim')
     nnoremap <leader>uo :<C-u>Unite -buffer-name=outline   -start-insert outline<cr>
     nnoremap <leader>uy :<C-u>Unite -buffer-name=yank      -start-insert history/yank<cr>
     nnoremap <leader>ue :<C-u>Unite -buffer-name=buffer    -start-insert buffer<cr>
-    nnoremap <leader>ua :<C-u>Unite -buffer-name=grep      -start-insert grep<cr>
+    nnoremap <leader>ua :<C-u>Unite -buffer-name=grep                    grep<cr>
     nnoremap <leader>uh :<C-u>Unite -buffer-name=help      -start-insert help<cr>
     nnoremap <leader>uk :<C-u>Unite -buffer-name=man       -start-insert manpage<cr>
     nnoremap <leader>um :<C-u>Unite -buffer-name=mapping   -start-insert mapping<cr>
@@ -666,17 +666,9 @@ nnoremap <leader>tc :tabclose<CR>
 """""""""""""""""""""""""""}}}
 " => Misc Mappings         {{{
 """"""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
-
-" Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+" Use shift direction to navigate tabs
+nnoremap <S-h> gT
+nnoremap <S-l> gt
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Helper functions                                       {{{
