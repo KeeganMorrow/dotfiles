@@ -13,3 +13,5 @@ alias v.cdsitepackages='cdsitepackages'
 alias v.cd='cdvirtualenv'
 alias v.lssitepackages='lssitepackages'
 
+# Alias for git - see .gitconfig for subcommand aliases
+alias g='git'
