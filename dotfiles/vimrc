@@ -58,10 +58,11 @@ NeoBundle 'xolox/vim-session'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
 
-" Syntax Highlighting plugins
+" Syntax plugins
 NeoBundle 'vim-scripts/scons.vim'
 NeoBundle 'kergoth/vim-bitbake'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
+NeoBundle 'hynek/vim-python-pep8-indent'
 
 " Tool Integration
 NeoBundle 'janko-m/vim-test'
