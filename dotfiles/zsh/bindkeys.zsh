@@ -66,3 +66,10 @@ bindkey '^G' what-cursor-position
 #TODO: Bind something else to this
 #bindkey -M viins '^C' vi-cmd-mode
 
+
+#''''''''''''''''''''''''''''''
+# History search keybindings
+#''''''''''''''''''''''''''''''
+# Use up and down arrows to go through history search
+bindkey "^[[A" history-search-backward
+bindkey "^[[B" history-search-forward
