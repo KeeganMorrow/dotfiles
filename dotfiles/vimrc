@@ -57,6 +57,7 @@ NeoBundle 'xolox/vim-session'
 " Git NeoBundles
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'rhysd/committia.vim'
 
 " Syntax plugins
 NeoBundle 'vim-scripts/scons.vim'
@@ -463,6 +464,18 @@ endif
 if neobundle#is_installed('vim-test')
 
     let test#strategy = "dispatch"
+
+endif
+"""""""""""""""""""""""""""}}}
+" => committia Settings     {{{
+""""""""""""""""""""""""""""""
+if neobundle#is_installed('committia.vim')
+    let g:committia_hooks = {}
+    function! g:committia_hooks.edit_open(info)
+        " Additional settings
+        setlocal spell
+        set colorcolumn=72
+    endfunction
 
 endif
 """""""""""""""""""""""""""}}}
