@@ -1,23 +1,29 @@
-source ${HOME}/syncsettings/repos/antigen/antigen.zsh
+source ${HOME}/syncsettings/repos/zgen/zgen.zsh
 
-# Load the oh-my-zsh's library
-antigen use oh-my-zsh
+# check if there's no init script
+if ! zgen saved; then
+    echo "Creating a zgen save"
 
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle gitfast
-antigen bundle pip
-antigen bundle sublime
-antigen bundle command-not-found
-antigen bundle ssh-agent
+    # Load oh-my-zsh
+    zgen oh-my-zsh
 
-# Syntax highlighting bundle.
-antigen bundle zsh-users/zsh-syntax-highlighting
+    # Oh-My-Zsh plugins
+    zgen oh-my-zsh plugins/gitfast
+    zgen oh-my-zsh plugins/pip
+    zgen oh-my-zsh plugins/sublime
+    zgen oh-my-zsh plugins/command-not-found
+    zgen oh-my-zsh plugins/ssh-agent
+    # Other Plugins
+    zgen load zsh-users/zsh-syntax-highlighting
+    zgen load zsh-users/zsh-completions src
 
-# Load the theme.
-antigen theme korrow/zsh-themes themes/keegs
+    # Themes
+    zgen oh-my-zsh themes/arrow
+    zgen load korrow/zsh-themes themes/keegs
 
-# Tell antigen that you're done.
-antigen apply
+    # Save all to init script
+    zgen save
+fi
 
 # Enable ssh agent forwarding support
 zstyle :omz:plugins:ssh-agent agent-forwarding on
