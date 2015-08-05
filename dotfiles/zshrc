@@ -9,6 +9,9 @@ source ~/.zsh/functions.zsh
 source ~/.zsh/history.zsh
 source ~/.zshrc.local
 
+# Disable <C-s> and <C-q>
+stty -ixon
+
 precmd() {
   if [[ -n "$TMUX" ]]; then
     tmux setenv "$(tmux display -p 'TMUX_PWD_#D')" "$PWD"
