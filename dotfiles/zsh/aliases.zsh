@@ -1,6 +1,11 @@
 # Always use colordiff
 alias diff=colordiff
 
+# If ag isn't available then set up an alias for ack
+if ! hash ag 2>/dev/null; then
+    alias ag='ack'
+fi
+
 # Aliases for virtualenvwrapper
 # Taken from http://mrcoles.com/tips-using-pip-virtualenv-virtualenvwrapper/
 alias v='workon'
