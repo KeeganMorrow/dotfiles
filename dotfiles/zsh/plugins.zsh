@@ -15,7 +15,6 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/ssh-agent
     # Other Plugins
     zgen load zsh-users/zsh-syntax-highlighting
-    zgen load zsh-users/zsh-completions src
 
     # Themes
     zgen oh-my-zsh themes/arrow
