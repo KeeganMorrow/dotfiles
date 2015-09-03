@@ -94,6 +94,7 @@ NeoBundle 'andreicristianpetcu/unite-vim-superman'
 
 " Other plugins
 NeoBundle 'ntpeters/vim-better-whitespace'
+NeoBundle 'Yggdroot/indentLine'
 
 NeoBundle 'scrooloose/nerdcommenter'
 
