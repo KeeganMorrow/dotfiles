@@ -91,6 +91,7 @@ NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'kmnk/vim-unite-giti'
 NeoBundle 'andreicristianpetcu/unite-vim-superman'
+NeoBundle 'kopischke/unite-spell-suggest'
 
 " Other plugins
 NeoBundle 'ntpeters/vim-better-whitespace'
@@ -175,6 +176,9 @@ nnoremap <leader>w :w!<cr>
 " (useful for handling the permission-denied error)
 command! W w !sudo tee % > /dev/null
 
+" Spelling settings
+set spell
+set spelllang=en_us
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => VIM user interface                                     {{{
