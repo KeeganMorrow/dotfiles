@@ -339,6 +339,8 @@ if has("autocmd")
         autocmd Syntax python setlocal foldmethod=indent
         autocmd Syntax python normal zR
 
+        autocmd Syntax json set conceallevel=0
+
     augroup end
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
