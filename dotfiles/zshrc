@@ -9,6 +9,20 @@ source ~/.zsh/functions.zsh
 source ~/.zsh/history.zsh
 source ~/.zshrc.local
 
+machinerc="${HOME}/.zsh/local/${HOSTNAME}.zshrc"
+workrc="${HOME}/.zsh/local/work.zshrc"
+workpath="/usr0/igdev/"
+
+if [ -e "$machinerc" ];then
+    echo "Using zshrc for $HOSTNAME"
+    source $machinerc
+fi
+
+if [ -d "$workpath" ]; then
+    echo "Using work zshrc"
+    source $workrc
+fi
+
 # Disable <C-s> and <C-q>
 stty -ixon
 
