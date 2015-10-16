@@ -58,6 +58,8 @@ NeoBundle 'xolox/vim-session'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'rhysd/committia.vim'
+NeoBundle 'rhysd/agit.vim'
+NeoBundle 'gregsexton/gitv'
 
 " Syntax plugins
 NeoBundle 'vim-scripts/scons.vim'
