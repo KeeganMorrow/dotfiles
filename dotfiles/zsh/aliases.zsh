@@ -18,5 +18,7 @@ alias v.cdsitepackages='cdsitepackages'
 alias v.cd='cdvirtualenv'
 alias v.lssitepackages='lssitepackages'
 
+alias clip='xclip -selection clipboard'
+
 # Alias for git - see .gitconfig for subcommand aliases
 alias g='git'

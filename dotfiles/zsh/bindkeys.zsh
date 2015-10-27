@@ -67,6 +67,7 @@ bindkey '^G' what-cursor-position
 #bindkey -M viins '^C' vi-cmd-mode
 
 
+bindkey '^E' _expand_alias
 #''''''''''''''''''''''''''''''
 # History search keybindings
 #''''''''''''''''''''''''''''''
