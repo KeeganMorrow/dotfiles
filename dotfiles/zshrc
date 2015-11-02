@@ -7,7 +7,6 @@ source ~/.zsh/aliases.zsh
 source ~/.zsh/bindkeys.zsh
 source ~/.zsh/functions.zsh
 source ~/.zsh/history.zsh
-source ~/.zshrc.local
 
 machinerc="${HOME}/.zsh/local/${HOSTNAME}.zshrc"
 workrc="${HOME}/.zsh/local/work.zshrc"
