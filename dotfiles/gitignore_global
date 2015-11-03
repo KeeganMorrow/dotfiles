@@ -1,0 +1,7 @@
+# Global .gitignore for everything I use
+# This should only be files specific to my vim configuration, not
+# object files and stuff that others would want as well
+#######################################################################
+
+# Local .vimrc files from vim-localvimrc
+.lvimrc
