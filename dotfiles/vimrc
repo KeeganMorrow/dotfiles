@@ -98,6 +98,7 @@ NeoBundle 'kopischke/unite-spell-suggest'
 " Other plugins
 NeoBundle 'ntpeters/vim-better-whitespace'
 NeoBundle 'Yggdroot/indentLine'
+NeoBundle 'embear/vim-localvimrc'
 
 NeoBundle 'scrooloose/nerdcommenter'
 
