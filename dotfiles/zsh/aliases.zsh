@@ -20,5 +20,8 @@ alias v.lssitepackages='lssitepackages'
 
 alias clip='xclip -selection clipboard'
 
+# Make minicom always have wrapping enabled
+alias minicom='minicom -w'
+
 # Alias for git - see .gitconfig for subcommand aliases
 alias g='git'
