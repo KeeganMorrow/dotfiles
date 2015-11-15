@@ -1,0 +1,3 @@
+#include ".Xresources.d/colors/molokai.xrdb"
+
+URxvt*font: xft:Source\ Code\ Pro\ Medium:pixelsize=12:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=12:antialias=true:hinting=true
