@@ -55,6 +55,18 @@ do
     touch $local
 done
 
+#######################################
+# Set up symbolic links to xdg config files
+#######################################
+for file in config/*
+do
+    dest="${HOME}/.config/$(basename ${file})"
+    install_link $file $dest
+    local="${dest}.local"
+    echo "Creating empty local file \"${local}\""
+    touch $local
+done
+
 
 #######################################
 # Install Konsole colorschemes
