@@ -3,35 +3,28 @@
 set nocompatible
 filetype off
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => NeoBundle                                              {{{
+" => vim-plug                                               {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => NeoBundle Header                                       {{{
+" => vim-plug header                                        {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Note: Skip initialization for vim-tiny or vim-small.
-if !1 | finish | endif
+call plug#begin('~/.vim/plugged')
 
-if has('vim_starting')
-    if &compatible
-        set nocompatible               " Be iMproved
-endif
+" Function to check if a vim-plug plugin is loaded
+function! Is_plugin_loaded(plugin_name)
+    if has_key(g:plugs, a:plugin_name)
+        if stridx(&rtp, g:plugs[a:plugin_name].dir) >= 0
+            return 1
+        endif
+    endif
+    return 0
 
-" Required:
-set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
+endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Global Bundles                                         {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " vimproc
-NeoBundle 'Shougo/vimproc.vim', {
+Plug 'Shougo/vimproc.vim', {
             \ 'build' : {
             \     'windows' : 'make -f make_mingw32.mak',
             \     'cygwin' : 'make -f make_cygwin.mak',
@@ -40,69 +33,69 @@ NeoBundle 'Shougo/vimproc.vim', {
             \    },
             \ }
 
-" Colorscheme NeoBundles
-NeoBundle 'tomasr/molokai'
-NeoBundle 'Korrow/badwolf'
+" Colorschemes
+Plug 'tomasr/molokai'
+Plug 'Korrow/badwolf'
 
 " Functionality improvements
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-commentary'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'thinca/vim-qfreplace'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+Plug 'thinca/vim-qfreplace'
 
 " Session management
-NeoBundle 'xolox/vim-misc'
-NeoBundle 'xolox/vim-session'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
 
-" Git NeoBundles
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'rhysd/committia.vim'
-NeoBundle 'rhysd/agit.vim'
-NeoBundle 'gregsexton/gitv'
+" Git Plugins
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'rhysd/committia.vim'
+Plug 'rhysd/agit.vim'
+Plug 'gregsexton/gitv'
 
 " Syntax plugins
-NeoBundle 'vim-scripts/scons.vim'
-NeoBundle 'kergoth/vim-bitbake'
-NeoBundle 'octol/vim-cpp-enhanced-highlight'
-NeoBundle 'hynek/vim-python-pep8-indent'
+Plug 'vim-scripts/scons.vim'
+Plug 'kergoth/vim-bitbake'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'hynek/vim-python-pep8-indent'
 
 " Tool Integration
-NeoBundle 'janko-m/vim-test'
-NeoBundle 'benmills/vimux'
-NeoBundle 'christoomey/vim-tmux-navigator'
-NeoBundle 'tpope/vim-dispatch'
-NeoBundle 'jmcantrell/vim-virtualenv'
-NeoBundle 'scrooloose/syntastic'
+Plug 'janko-m/vim-test'
+Plug 'benmills/vimux'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-dispatch'
+Plug 'jmcantrell/vim-virtualenv'
+Plug 'scrooloose/syntastic'
 
-" Interface NeoBundles
-NeoBundle 'bling/vim-airline'
-NeoBundle 'mbbill/undotree'
-NeoBundle 'mhinz/vim-startify'
-NeoBundle 'jez/vim-superman'
-NeoBundle 'arecarn/fold-cycle.vim'
-NeoBundle 'arecarn/clean-fold.vim'
-NeoBundle 'mkitt/tabline.vim'
+" Interface Plugins
+Plug 'bling/vim-airline'
+Plug 'mbbill/undotree'
+Plug 'mhinz/vim-startify'
+Plug 'jez/vim-superman'
+Plug 'arecarn/fold-cycle.vim'
+Plug 'arecarn/clean-fold.vim'
+Plug 'mkitt/tabline.vim'
 
 " Unite
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/unite-help'
-NeoBundle 'majkinetor/unite-cmdmatch'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'kmnk/vim-unite-giti'
-NeoBundle 'andreicristianpetcu/unite-vim-superman'
-NeoBundle 'kopischke/unite-spell-suggest'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/unite-help'
+Plug 'majkinetor/unite-cmdmatch'
+Plug 'Shougo/vimfiler.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite-outline'
+Plug 'kmnk/vim-unite-giti'
+Plug 'andreicristianpetcu/unite-vim-superman'
+Plug 'kopischke/unite-spell-suggest'
 
 " Other plugins
-NeoBundle 'ntpeters/vim-better-whitespace'
-NeoBundle 'Yggdroot/indentLine'
-NeoBundle 'embear/vim-localvimrc'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'Yggdroot/indentLine'
+Plug 'embear/vim-localvimrc'
 
-NeoBundle 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 
-NeoBundle 'Lokaltog/vim-easymotion'
+Plug 'Lokaltog/vim-easymotion'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Bundle Hostname lists                                  {{{
@@ -119,7 +112,7 @@ if (index(local_hostnames, $HOSTNAME) >= 0)
 " machines that have them installed locally
 
     " YouCompleteMe completion
-    NeoBundle 'Valloric/YouCompleteMe'
+    Plug 'Valloric/YouCompleteMe'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""{{{
 else
@@ -127,7 +120,7 @@ else
 " => Network Install Bundles                                {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " Lighter weight completion alternative
-    NeoBundle 'ervandew/supertab'
+    Plug 'ervandew/supertab'
 
 endif
 
@@ -136,20 +129,13 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " These are bundles that I only use very rarely
 " Only used when need to regenerate tmux theme
-" NeoBundle 'edkolev/tmuxline.vim'
+" Plug 'edkolev/tmuxline.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => NeoBundle Footer                                       {{{
+" => vim-plug footer                                        {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call neobundle#end()
-
-" Required:
-filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-
+" Add plugins to &runtimepath
+call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Pre-packaged plugins                                   {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -463,7 +449,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTREE Settings     {{{
 """"""""""""""""""""""""""""""
-if neobundle#is_installed('nerdtree')
+if Is_plugin_loaded('nerdtree')
 
     let NERDTreeIgnore = ['\.pyc$']
 
@@ -471,7 +457,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => vim-test Settings     {{{
 """"""""""""""""""""""""""""""
-if neobundle#is_installed('vim-test')
+if Is_plugin_loaded('vim-test')
 
     let test#strategy = "dispatch"
 
@@ -479,7 +465,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => committia Settings     {{{
 """"""""""""""""""""""""""""""
-if neobundle#is_installed('committia.vim')
+if Is_plugin_loaded('committia.vim')
     let g:committia_hooks = {}
     function! g:committia_hooks.edit_open(info)
         " Additional settings
@@ -491,7 +477,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => Better Whitespace     {{{
 """"""""""""""""""""""""""""""
-if neobundle#is_installed('vim-better-whitespace')
+if Is_plugin_loaded('vim-better-whitespace')
 
     " Blacklist some filetypes
     let g:better_whitespace_filetypes_blacklist = ['unite', 'vimfiler', 'qf']
@@ -500,7 +486,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => vim-session Settings  {{{
 """"""""""""""""""""""""""""""
-if neobundle#is_installed('vim-session')
+if Is_plugin_loaded('vim-session')
 
     " Enable SessionOpen vs OpenSession, etc
     let g:session_command_aliases = 1
@@ -509,7 +495,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => Staritfy Settings     {{{
 """"""""""""""""""""""""""""""
-if neobundle#is_installed('vim-startify')
+if Is_plugin_loaded('vim-startify')
 
     let g:startify_custom_header = [
     \ '  __     ___             _____  _   _',
@@ -528,7 +514,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => Syntastic Settings    {{{
 """"""""""""""""""""""""""""""
-if neobundle#is_installed('syntastic')
+if Is_plugin_loaded('syntastic')
 
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
@@ -548,7 +534,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => Unite Settings        {{{
 """"""""""""""""""""""""""""""
-if neobundle#is_installed('unite.vim')
+if Is_plugin_loaded('unite.vim')
 
     " Use ag in unite grep source if available
     if executable('ag')
@@ -566,7 +552,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => Vimfiler Settings     {{{
 """"""""""""""""""""""""""""""
-if neobundle#is_installed('vimfiler.vim')
+if Is_plugin_loaded('vimfiler.vim')
 
     " vimfiler replaces netrw
     let g:vimfiler_as_default_explorer = 1
@@ -578,7 +564,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => YouCompleteMe Settings{{{
 """"""""""""""""""""""""""""""
-if neobundle#is_installed('YouCompleteMe')
+if Is_plugin_loaded('YouCompleteMe')
 
     let g:ycm_autoclose_preview_window_after_insertion = 1
 
@@ -589,7 +575,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Unite Mappings        {{{
 """"""""""""""""""""""""""""""
-if neobundle#is_installed('unite.vim')
+if Is_plugin_loaded('unite.vim')
 
     nnoremap <leader>ut :<C-u>Unite -buffer-name=files     -start-insert file_rec/async:!<cr>
     nnoremap <leader>uf :<C-u>Unite -buffer-name=files     -start-insert file<cr>
@@ -611,7 +597,7 @@ if neobundle#is_installed('unite.vim')
 
 endif
 
-if neobundle#is_installed('unite.vim')
+if Is_plugin_loaded('unite.vim')
 
     nnoremap <leader>ue :VimFiler -split -winwidth=35 -columns={} -toggle -no-quit<CR>
 
@@ -620,13 +606,13 @@ endif
 " => Misc. Plugin Mappings {{{
 """"""""""""""""""""""""""""""
 
-if neobundle#is_installed('undotree')
+if Is_plugin_loaded('undotree')
 
     nnoremap <leader>uu :UndotreeToggle<CR>
 
 endif
 
-if neobundle#is_installed('vim-better-whitespace')
+if Is_plugin_loaded('vim-better-whitespace')
 
     "Remap ctrl-backspace to strip whitespace
     nnoremap <leader>d :.StripWhitespace<CR>
@@ -634,7 +620,7 @@ if neobundle#is_installed('vim-better-whitespace')
 endif
 
 " vim-test mappings
-if neobundle#is_installed('vim-test')
+if Is_plugin_loaded('vim-test')
 
     nnoremap <leader>ns :TestSuite<cr>
     nnoremap <leader>nf :TestFile<cr>
@@ -645,7 +631,7 @@ endif
 
 " Syntastic mappings
 
-if neobundle#is_installed('syntastic')
+if Is_plugin_loaded('syntastic')
 
     nnoremap <leader>sc :SyntasticCheck<cr>
     nnoremap <leader>st :SyntasticToggleMode<cr>
