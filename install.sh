@@ -34,9 +34,10 @@ mkdir -p ${HOME}/.config
 install_link {HOME}/.vim ${HOME}/.config/nvim
 install_link ${HOME}/.vimrc ${HOME}/.config/nvim/init.vim
 
+echo "Installing vim-plug"
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-echo "Linking NeoBundle"
-install_link 'repos/neobundle.vim' "${HOME}/.vim/bundle/neobundle.vim"
 echo "Linking TMux Plugin Manager"
 install_link 'repos/tpm' '${HOME}/.tmux/plugins/tpm'
 
