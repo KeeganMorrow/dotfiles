@@ -26,7 +26,14 @@ install_link () {
 #######################################
 
 git submodule init
-git submodule update
+git submodule update --recursive
+
+echo "Setting up neovim symlinks"
+mkdir -p ${HOME}/.vim
+mkdir -p ${HOME}/.config
+install_link {HOME}/.vim ${HOME}/.config/nvim
+install_link ${HOME}/.vimrc ${HOME}/.config/nvim/init.vim
+
 
 echo "Linking NeoBundle"
 install_link 'repos/neobundle.vim' "${HOME}/.vim/bundle/neobundle.vim"
