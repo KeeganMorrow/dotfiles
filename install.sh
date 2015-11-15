@@ -29,17 +29,17 @@ git submodule init
 git submodule update --recursive
 
 echo "Setting up neovim symlinks"
-mkdir -p ${HOME}/.vim
-mkdir -p ${HOME}/.config
-install_link {HOME}/.vim ${HOME}/.config/nvim
-install_link ${HOME}/.vimrc ${HOME}/.config/nvim/init.vim
+mkdir -p "${HOME}/.vim"
+mkdir -p "${HOME}/.config"
+install_link "${HOME}/.vim" "${HOME}/.config/nvim"
+install_link "${HOME}/.vimrc" "${HOME}/.config/nvim/init.vim"
 
 echo "Installing vim-plug"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 echo "Linking TMux Plugin Manager"
-install_link 'repos/tpm' '${HOME}/.tmux/plugins/tpm'
+install_link "repos/tpm" "${HOME}/.tmux/plugins/tpm"
 
 echo "Installing powerline fonts"
 ./$repos/powerline-fonts/install.sh
