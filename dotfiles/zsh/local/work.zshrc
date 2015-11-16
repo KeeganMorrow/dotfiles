@@ -41,3 +41,5 @@ fi
 
 # Add igdev sw tools to PATH
 export PATH="$PATH:/usr0/igdev/sw/tools/scripts"
+
+alias urxvt='urxvt-256color'
