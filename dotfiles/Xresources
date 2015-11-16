@@ -2,9 +2,15 @@
 
 URxvt*font: xft:Source\ Code\ Pro\ Medium:pixelsize=12:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=12:antialias=true:hinting=true
 
+# Copy paste bindings
 URxvt.perl-ext-common: default,clipboard
 URxvt.iso14755: False
 URxvt.keysym.Shift-Control-C: perl:clipboard:copy
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.clipboard.copycmd:  xsel -ib
 URxvt.clipboard.pastecmd: xsel -ob
+
+# Use tmux for history, so don't need urxvt scrollback
+URxvt.saveLines: 0
+# Also disable the scrollbar
+URxvt.scrollBar: false
