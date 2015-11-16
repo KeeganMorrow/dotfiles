@@ -457,10 +457,13 @@ endif
 """""""""""""""""""""""""""}}}
 " => vim-test Settings     {{{
 """"""""""""""""""""""""""""""
-if Is_plugin_loaded('vim-test')
-
-    let test#strategy = "dispatch"
-
+if neobundle#is_installed('vim-test')
+    if has('nvim')
+        let test#strategy = "neovim"
+        let test#python#nose#options = '--rednose'
+    else
+        let test#strategy = "dispatch"
+    endif
 endif
 """""""""""""""""""""""""""}}}
 " => committia Settings     {{{
