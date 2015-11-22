@@ -2,7 +2,7 @@
 
 URxvt*font: xft:Source\ Code\ Pro\ Medium:pixelsize=12:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=12:antialias=true:hinting=true
 
-# Copy paste bindings
+! Copy paste bindings
 URxvt.perl-ext-common: default,clipboard
 URxvt.iso14755: False
 URxvt.keysym.Shift-Control-C: perl:clipboard:copy
@@ -10,7 +10,25 @@ URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.clipboard.copycmd:  xsel -ib
 URxvt.clipboard.pastecmd: xsel -ob
 
-# Use tmux for history, so don't need urxvt scrollback
+! Use tmux for history, so dont need urxvt scrollback
 URxvt.saveLines: 0
-# Also disable the scrollbar
+! Also disable the scrollbar
 URxvt.scrollBar: false
+
+rofi.font: Source Code Pro Medium for Powerline 10
+rofi.opacity:                        100
+rofi.width:                          50
+rofi.lines:                          15
+rofi.columns:                        1
+rofi.fg:                             #002B36
+! Does nothing
+rofi.bg:                             #181818
+rofi.color-enabled:                  true
+!                                     bg      fg      bgalt   hlbg    hlfg
+rofi.color-normal:                   #181818,#ffffff,#323232,#afff00,#181818
+rofi.color-urgent:                   #181818,#ffffff,#323232,#00afff,#181818
+rofi.color-active:                   #181818,#ffffff,#323232,#ff00af,#181818
+!                                    background  border
+rofi.color-window:                   #121212,    #000000
+
+rofi.fuzzy: true
