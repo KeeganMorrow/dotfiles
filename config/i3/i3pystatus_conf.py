@@ -4,19 +4,62 @@ from i3pystatus import Status
 
 status = Status(standalone=True)
 
+BACKGROUND_COLOR="#181818"
+
+powerline_hints = {"markup": "pango", "separator": False, "separator_block_width": 0}
+
+def powerlinify(inputstring, color, type=None, bgcolor=BACKGROUND_COLOR):
+    prefix=''
+    arrow = "<span color='{1}' background='{2}'>{0}</span>"
+    suffix = "</span>"
+    if type == 'left':
+        arrowchar = ''
+        prefix += arrow
+    elif type == 'right':
+        arrowchar = ''
+        suffix += arrow
+    else:
+        arrowchar = ''
+    prefix += "<span background='{1}'>"
+    prefix = prefix.format(arrowchar, color, bgcolor)
+    suffix = suffix.format(arrowchar, color, bgcolor)
+    return prefix + inputstring + suffix
+
 # Displays clock like this:
 # Tue 30 Jul 11:59:46 PM KW31
 #                          ^-- calendar week
 status.register("clock",
-    format="%a %-d %b %X KW%V",)
+    format=powerlinify("%a %-d %b %X KW%V",'#afff00', type='left', bgcolor='#00afff'),
+    color='#181818',
+    hints = powerline_hints,
+)
+
+# Shows pulseaudio default sink volume
+#
+# Note: requires libpulseaudio from PyPI
+status.register("pulseaudio",
+    hints = powerline_hints,
+    format=powerlinify("♪{volume} ", '#00afff', 'left', bgcolor='#444444'),
+    color_muted='#ffdf87',
+    color_unmuted='#181818',
+)
 
 # Shows the average load of the last minute and the last 5 minutes
 # (the default value for format is used)
-status.register("load")
+status.register("cpu_usage",
+    format=powerlinify("avg: {usage} ", '#444444'),
+    hints = powerline_hints,
+)
+status.register("cpu_usage_graph",
+    format=powerlinify("{cpu_graph} ", '#444444'),
+    hints = powerline_hints,
+)
 
 # Shows your CPU temperature, if you have a Intel CPU
 status.register("temp",
-    format="{temp:.0f}°C",)
+    format=powerlinify("{temp:.0f}°C", '#444444', type='left', bgcolor='#262626'),
+    hints = powerline_hints,
+)
 
 # The battery monitor has many formatting options, see README for details
 
@@ -30,32 +73,26 @@ status.register("temp",
 # If you don't have a desktop notification demon yet, take a look at dunst:
 #   http://www.knopwob.org/dunst/
 status.register("battery",
-    format="{status}/{consumption:.2f}W {percentage:.2f}% [{percentage_design:.2f}%] {remaining:%E%hh:%Mm}",
+    format=powerlinify(" {status}/{consumption:.2f}W {percentage:.0f}% [{percentage_design:.0f}%] {remaining:%E%hh:%Mm} ", '#262626'),
     alert=True,
     alert_percentage=5,
+    hints = powerline_hints,
     status={
         "DIS": "↓",
         "CHR": "↑",
         "FULL": "=",
     },)
 
-# This would look like this:
-# Discharging 6h:51m
-status.register("battery",
-    format="{status} {remaining:%E%hh:%Mm}",
-    alert=True,
-    alert_percentage=5,
-    status={
-        "DIS":  "Discharging",
-        "CHR":  "Charging",
-        "FULL": "Bat full",
-    },)
-
 # Displays whether a DHCP client is running
 status.register("runwatch",
+    format_down=powerlinify(" {name} ", '#262626'),
+    format_up=powerlinify(" {name} ", '#262626'),
     name="DHCP",
+    hints = powerline_hints,
     path="/var/run/dhclient*.pid",)
 
+
+# TODO: Make this use default gateway
 # Shows the address and up/down state of eth0. If it is up the address is shown in
 # green (the default value of color_up) and the CIDR-address is shown
 # (i.e. 10.10.10.42/24).
@@ -65,35 +102,18 @@ status.register("runwatch",
 # Note: the network module requires PyPI package netifaces
 status.register("network",
     interface="eth0",
-    format_up="{v4cidr}",)
-
-# Note: requires both netifaces and basiciw (for essid and quality)
-status.register("network",
-    interface="wlan0",
-    format_up="{essid} {quality:03.0f}%",)
+    hints = powerline_hints,
+    format_up=powerlinify(" {v4cidr} ", '#262626'),
+    format_down=powerlinify(" {interface}: DOWN ", '#262626'),
+)
 
 # Shows disk usage of /
 # Format:
 # 42/128G [86G]
 status.register("disk",
     path="/",
-    format="{used}/{total}G [{avail}G]",)
-
-# Shows pulseaudio default sink volume
-#
-# Note: requires libpulseaudio from PyPI
-status.register("pulseaudio",
-    format="♪{volume}",)
-
-# Shows mpd status
-# Format:
-# Cloud connected▶Reroute to Remain
-status.register("mpd",
-    format="{title}{status}{album}",
-    status={
-        "pause": "▷",
-        "play": "▶",
-        "stop": "◾",
-    },)
+    hints = powerline_hints,
+    format=powerlinify("{used}/{total}G [{avail}G]", '#262626', 'left'),
+)
 
 status.run()
