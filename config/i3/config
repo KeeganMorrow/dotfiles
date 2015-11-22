@@ -11,6 +11,9 @@
 
 # Start network manager at start
 exec --no-startup-id nm-applet
+
+# Start nitrogen to set the X background
+exec --no-startup-id nitrogen --restore
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
