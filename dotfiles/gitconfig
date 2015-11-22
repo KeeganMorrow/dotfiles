@@ -20,3 +20,4 @@
 	prompt = false
 [core]
 	excludesfile = /evtfs/home/kmorrow/.gitignore_global
+	askpass = 
