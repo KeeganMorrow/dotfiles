@@ -156,9 +156,9 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Volume key bindings, also updates volume in i3blocks
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute ; exec pkill -RTMIN+10 i3blocks
-bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute ; exec pkill -RTMIN+10 i3blocks
-bindsym XF86AudioMute exec amixer -q set Master toggle ; exec pkill -RTMIN+10 i3blocks
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5%+ unmute ; exec --no-startup-id pkill -RTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5%- unmute ; exec --no-startup-id pkill -RTMIN+10 i3blocks
+bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle ; exec --no-startup-id pkill -RTMIN+10 i3blocks
 
 # Update caps/num lock indicator when key is pressed
 bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
