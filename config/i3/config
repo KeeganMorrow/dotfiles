@@ -171,6 +171,6 @@ bar {
         background #181818
         statusline #d0d0d0
     }
-    status_command SCRIPT_DIR=${HOME}/.config/i3blocks/scripts i3blocks
+    status_command python3 ~/syncsettings/config/i3/i3pystatus_conf.py
     tray_output primary
 }
