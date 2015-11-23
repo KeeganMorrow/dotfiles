@@ -42,7 +42,7 @@ echo "Linking TMux Plugin Manager"
 install_link "repos/tpm" "${HOME}/.tmux/plugins/tpm"
 echo "Linking fzf"
 install_link "repos/fzf" "${HOME}/.fzf"
-${HOME}/.fzf/install
+${HOME}/.fzf/install --32 --no-update-rc
 
 echo "Installing powerline fonts"
 ./$repos/powerline-fonts/install.sh
