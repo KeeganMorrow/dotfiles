@@ -32,17 +32,27 @@ status.register("keyboard_locks",
     hints = powerline_hints,
 )
 status.register("keyboard_locks",
-    format=powerlinify("{num}",'#181818', bgcolor='#afff00'),
+    format=powerlinify("{num}",'#181818'),
     num_off="<span color='#080808'>N-🔒 </span>",
     num_on='N-🔒 ',
     hints = powerline_hints,
 )
 status.register("keyboard_locks",
-    format=powerlinify("{caps}",'#181818', type='left', bgcolor='#afff00'),
+    format=powerlinify("{caps}",'#181818', type='left', bgcolor='#444444'),
     caps_off="<span color='#080808'> C-🔒 </span>",
     caps_on=' C-🔒 ',
     hints = powerline_hints,
 )
+
+status.register("weather",
+    format=powerlinify("{current_temp} ",'#444444', type='left', bgcolor='#afff00'),
+    colorize=True,
+    location_code=98203,
+    units='imperial',
+    hints = powerline_hints,
+)
+
+
 # Displays clock like this:
 # Tue 30 Jul 11:59:46 PM KW31
 #                          ^-- calendar week
