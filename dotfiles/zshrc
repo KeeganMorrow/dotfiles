@@ -32,4 +32,5 @@ precmd() {
 }
 
 # Source fzf if it is available
+FZF_TMUX=0
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
