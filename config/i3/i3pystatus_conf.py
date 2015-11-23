@@ -106,7 +106,7 @@ status.register("temp",
 # If you don't have a desktop notification demon yet, take a look at dunst:
 #   http://www.knopwob.org/dunst/
 status.register("battery",
-    format=powerlinify(" {status}/{consumption:.2f}W {percentage:.0f}% [{percentage_design:.0f}%] {remaining:%E%hh:%Mm} ", '#262626'),
+    format=powerlinify(" {status} {consumption:.2f}W {percentage:.0f}% [{percentage_design:.0f}%] {remaining:%E%hh:%Mm} ", '#262626', 'left', bgcolor='#444444'),
     alert=True,
     alert_percentage=5,
     hints = powerline_hints,
@@ -116,15 +116,6 @@ status.register("battery",
         "FULL": "=",
     },)
 
-# Displays whether a DHCP client is running
-status.register("runwatch",
-    format_down=powerlinify(" {name} ", '#262626'),
-    format_up=powerlinify(" {name} ", '#262626'),
-    name="DHCP",
-    hints = powerline_hints,
-    path="/var/run/dhclient*.pid",)
-
-
 # TODO: Make this use default gateway
 # Shows the address and up/down state of eth0. If it is up the address is shown in
 # green (the default value of color_up) and the CIDR-address is shown
@@ -133,11 +124,13 @@ status.register("runwatch",
 # (defaults of format_down and color_down)
 #
 # Note: the network module requires PyPI package netifaces
+import netifaces
+def_gw_device = str(netifaces.gateways()['default'][netifaces.AF_INET][1])
 status.register("network",
-    interface="eth0",
+    interface=def_gw_device,
     hints = powerline_hints,
-    format_up=powerlinify(" {v4cidr} ", '#262626'),
-    format_down=powerlinify(" {interface}: DOWN ", '#262626'),
+    format_up=powerlinify(" {network_graph}% {v4} ", '#444444', 'left', bgcolor='#262626'),
+    format_down=powerlinify(" {interface}: DOWN ", '#444444', 'left', bgcolor='#262626'),
 )
 
 # Shows disk usage of /
