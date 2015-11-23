@@ -15,6 +15,14 @@ exec --no-startup-id nm-applet
 # Start nitrogen to set the X background
 exec --no-startup-id nitrogen --restore
 
+# Color scheme
+# class                     border  backgr. text    indicator
+client.urgent               #181818 #ef0000 #ffffff #323232
+client.focused              #181818 #ef0000 #ffffff #323232
+client.focused_inactive     #181818 #a02222 #ffffff #ff4040
+client.unfocused            #181818 #442424 #ffffff #ff4040
+
+# Set up mod key
 set $mod Mod4
 
 set $i3pystatus_conf ${HOME}/syncsettings/config/i3/i3pystatus_conf.py
