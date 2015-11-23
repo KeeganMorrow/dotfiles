@@ -44,6 +44,7 @@ floating_modifier $mod
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec urxvt-256color -e tmux
+bindsym $mod+Shift+Return exec ~/syncsettings/config/i3/rofi_tmux.sh
 
 # kill focused window
 bindsym $mod+Shift+q kill
