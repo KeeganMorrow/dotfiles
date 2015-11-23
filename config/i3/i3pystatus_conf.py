@@ -26,21 +26,21 @@ def powerlinify(inputstring, color, type=None, bgcolor=BACKGROUND_COLOR):
     return prefix + inputstring + suffix
 
 status.register("keyboard_locks",
-    format=powerlinify("{scroll}",'#262626'),
-    scroll_off="<span color='#181818'>SCROLL </span>",
-    scroll_on='SCROLL ',
+    format=powerlinify("{scroll}",'#181818'),
+    scroll_off="<span color='#080808'>S-🔒 </span>",
+    scroll_on='S-🔒 ',
     hints = powerline_hints,
 )
 status.register("keyboard_locks",
-    format=powerlinify("{num}",'#262626', bgcolor='#afff00'),
-    num_off="<span color='#181818'>NUM </span>",
-    num_on='NUM ',
+    format=powerlinify("{num}",'#181818', bgcolor='#afff00'),
+    num_off="<span color='#080808'>N-🔒 </span>",
+    num_on='N-🔒 ',
     hints = powerline_hints,
 )
 status.register("keyboard_locks",
-    format=powerlinify("{caps}",'#262626', type='left', bgcolor='#afff00'),
-    caps_off="<span color='#181818'> CAPS </span>",
-    caps_on=' CAPS ',
+    format=powerlinify("{caps}",'#181818', type='left', bgcolor='#afff00'),
+    caps_off="<span color='#080808'> C-🔒 </span>",
+    caps_on=' C-🔒 ',
     hints = powerline_hints,
 )
 # Displays clock like this:
