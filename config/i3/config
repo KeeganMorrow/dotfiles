@@ -179,7 +179,7 @@ bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
 # finds out, if available)
 bar {
     colors {
-        background #181818
+        background #080808
         statusline #d0d0d0
     }
     status_command python3 $i3pystatus_conf

@@ -4,7 +4,7 @@ from i3pystatus import Status
 
 status = Status(standalone=True, click_events=True)
 
-BACKGROUND_COLOR="#181818"
+BACKGROUND_COLOR="#080808"
 
 powerline_hints = {"markup": "pango", "separator": False, "separator_block_width": 0}
 
@@ -26,21 +26,21 @@ def powerlinify(inputstring, color, type=None, bgcolor=BACKGROUND_COLOR):
     return prefix + inputstring + suffix
 
 status.register("keyboard_locks",
-    format=powerlinify("{scroll}",'#181818'),
+    format=powerlinify("{scroll}",'#262626'),
     scroll_off="<span color='#080808'>S-🔒 </span>",
     scroll_on='S-🔒 ',
     hints = powerline_hints,
     interval=1,
 )
 status.register("keyboard_locks",
-    format=powerlinify("{num}",'#181818'),
+    format=powerlinify("{num}",'#262626'),
     num_off="<span color='#080808'>N-🔒 </span>",
     num_on='N-🔒 ',
     hints = powerline_hints,
     interval=1,
 )
 status.register("keyboard_locks",
-    format=powerlinify("{caps}",'#181818', type='left', bgcolor='#444444'),
+    format=powerlinify("{caps}",'#262626', type='left', bgcolor='#444444'),
     caps_off="<span color='#080808'> C-🔒 </span>",
     caps_on=' C-🔒 ',
     hints = powerline_hints,
