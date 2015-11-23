@@ -40,6 +40,9 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 echo "Linking TMux Plugin Manager"
 install_link "repos/tpm" "${HOME}/.tmux/plugins/tpm"
+echo "Linking fzf"
+install_link "repos/fzf" "${HOME}/.fzf"
+${HOME}/.fzf/install
 
 echo "Installing powerline fonts"
 ./$repos/powerline-fonts/install.sh

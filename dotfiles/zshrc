@@ -31,3 +31,5 @@ precmd() {
   fi
 }
 
+# Source fzf if it is available
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
