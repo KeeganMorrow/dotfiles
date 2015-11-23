@@ -30,18 +30,21 @@ status.register("keyboard_locks",
     scroll_off="<span color='#080808'>S-🔒 </span>",
     scroll_on='S-🔒 ',
     hints = powerline_hints,
+    interval=1,
 )
 status.register("keyboard_locks",
     format=powerlinify("{num}",'#181818'),
     num_off="<span color='#080808'>N-🔒 </span>",
     num_on='N-🔒 ',
     hints = powerline_hints,
+    interval=1,
 )
 status.register("keyboard_locks",
     format=powerlinify("{caps}",'#181818', type='left', bgcolor='#444444'),
     caps_off="<span color='#080808'> C-🔒 </span>",
     caps_on=' C-🔒 ',
     hints = powerline_hints,
+    interval=1,
 )
 
 status.register("weather",
