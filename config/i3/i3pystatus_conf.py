@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from i3pystatus import Status
 
-status = Status(standalone=True)
+status = Status(standalone=True, click_events=True)
 
 BACKGROUND_COLOR="#181818"
 
@@ -39,9 +39,10 @@ status.register("clock",
 # Note: requires libpulseaudio from PyPI
 status.register("pulseaudio",
     hints = powerline_hints,
-    format=powerlinify("♪{volume} ", '#00afff', 'left', bgcolor='#444444'),
-    color_muted='#ffdf87',
+    format=powerlinify("♪{volume}{volume_bar} ", '#00afff', 'left', bgcolor='#444444'),
+    color_muted='#d0d0d0',
     color_unmuted='#181818',
+    bar_type='horizontal',
 )
 
 # Shows the average load of the last minute and the last 5 minutes
