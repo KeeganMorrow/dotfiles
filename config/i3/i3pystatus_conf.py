@@ -25,11 +25,29 @@ def powerlinify(inputstring, color, type=None, bgcolor=BACKGROUND_COLOR):
     suffix = suffix.format(arrowchar, color, bgcolor)
     return prefix + inputstring + suffix
 
+status.register("keyboard_locks",
+    format=powerlinify("{scroll}",'#262626'),
+    scroll_off="<span color='#181818'>SCROLL </span>",
+    scroll_on='SCROLL ',
+    hints = powerline_hints,
+)
+status.register("keyboard_locks",
+    format=powerlinify("{num}",'#262626', bgcolor='#afff00'),
+    num_off="<span color='#181818'>NUM </span>",
+    num_on='NUM ',
+    hints = powerline_hints,
+)
+status.register("keyboard_locks",
+    format=powerlinify("{caps}",'#262626', type='left', bgcolor='#afff00'),
+    caps_off="<span color='#181818'> CAPS </span>",
+    caps_on=' CAPS ',
+    hints = powerline_hints,
+)
 # Displays clock like this:
 # Tue 30 Jul 11:59:46 PM KW31
 #                          ^-- calendar week
 status.register("clock",
-    format=powerlinify("%a %-d %b %X KW%V",'#afff00', type='left', bgcolor='#00afff'),
+    format=powerlinify("%a %-d %b %X ",'#afff00', type='left', bgcolor='#00afff'),
     color='#181818',
     hints = powerline_hints,
 )
