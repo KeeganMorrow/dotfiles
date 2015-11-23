@@ -11,7 +11,7 @@ fi
 choice=$(echo -e "$windows" | rofi -dmenu)
 target=$(echo -e "$choice" | sed 's/:.*//')
 if [ ! -z "$target" ] ; then
-    urxvt-256color --hold -e zsh -c "tmux attach -t ${target}" &
+    urxvt-256color --hold -e zsh -c "tmux attach -t '${target}'" &
 else
     echo "No user input selected!"
 fi
