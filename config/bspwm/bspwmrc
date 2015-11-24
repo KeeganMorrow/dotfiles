@@ -22,6 +22,9 @@ no-startup-id nm-applet &
 # Start nitrogen to set the X background
 nitrogen --restore &
 
+# Set the cursor to a normal pointer instead of an X
+xsetroot -cursor_name left_ptr
+
 nm-applet &
 
 panel &
