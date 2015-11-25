@@ -1,34 +1,45 @@
+# End session
 super + alt + Escape
 	bspc quit ; killall bspwm_wrapper.sh
 
+# Close window
 super + w
 	bspc window -c
 
-super + t
+# Next layout
+super + space
 	bspc desktop -l next
 
+# Balance desktop areas
 super + b
 	bspc desktop -B
 
-super + {s,f}
-	bspc window -t {floating,fullscreen}
+# Toggle floating/fullscreen
+super + {s,f,t}
+	bspc window -t {floating,fullscreen,tiled}
 
+# Go to last window or desktop (grave is `)
 super + {grave,Tab}
 	bspc {window,desktop} -f last
 
+# Swap with last window
 super + apostrophe
 	bspc window -s last
 
+# Navigate window history
 super + {o,i}
 	bspc control --record-history off; \
 	bspc window {older,newer} -f; \
 	bspc control --record-history on
 
+# ????
 super + y
 	bspc window -w last.manual
 
+# Swap with largest window
 super + m
 	bspc window -s biggest
+
 
 super + {_,shift + }{h,j,k,l}
 	bspc window -{f,s} {left,down,up,right}
