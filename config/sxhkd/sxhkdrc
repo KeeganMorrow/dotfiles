@@ -2,8 +2,8 @@
 super + alt + Escape
 	bspc quit ; killall bspwm_wrapper.sh
 
-# Close window
-super + w
+# Close windoq
+super + q
 	bspc window -c
 
 # Next layout
@@ -93,8 +93,13 @@ super + Return
 super + shift + Return
 	~/syncsettings/bin/rofi_tmux.sh
 
+# Open command interface
 super + d
-	dmenu_run
+	rofi -show run
+
+# Open window selector interface
+super + w
+	rofi -show window
 
 # make sxhkd reload its configuration files:
 super + Escape
