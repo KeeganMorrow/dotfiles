@@ -1,5 +1,5 @@
 super + alt + Escape
-	pkill -x panel ; bspc quit
+	bspc quit ; killall bspwm_wrapper.sh
 
 super + w
 	bspc window -c
