@@ -34,8 +34,9 @@ class DesktopInfo():
 
     def run(self):
         result = ''
-        pattern = re.compile(b':([O,o,F,f])(\d)')
-        status = subprocess.check_output(['bspc', 'control', '--get-status'])
+        pattern = re.compile(r':([O,o,F,f])(\d)')
+        status_b = subprocess.check_output(['bspc', 'control', '--get-status'])
+        status = status_b.decode('utf-8')
         for (letter, num) in re.findall(pattern, status):
             if letter.isupper():
                 # The bakground color thing isn't nice...
