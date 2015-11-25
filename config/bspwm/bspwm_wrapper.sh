@@ -7,7 +7,7 @@ do
     bspwm &
     bspwmpid=$!
     echo "starting panel"
-    python3 ${HOME}/syncsettings/config/bspwm/panel.py | lemonbar -f "${LEMONBAR_FONT}" &
+    python3 ${HOME}/syncsettings/config/bspwm/panel.py | lemonbar -f "${LEMONBAR_FONT}" -g "${LEMONBAR_GEOMETRY}" &
     panelpid=$!
     # Block on sxhkd
     echo "starting shxkd"

@@ -4,3 +4,8 @@
 export BSPWM_SOCKET="/tmp/bspwm-socket.${USER}"
 
 export LEMONBAR_FONT="Source Code Pro for Powerline:size=9px"
+
+# In the format WIDTHxHEIGHT+X+Y
+# This gets passed to bspwm's top padding as well
+export BAR_HEIGHT=18
+export LEMONBAR_GEOMETRY="x${BAR_HEIGHT}++"
