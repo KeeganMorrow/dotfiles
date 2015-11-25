@@ -26,7 +26,7 @@ def powerlinify(inputstring, color, type=None, bgcolor=BACKGROUND_COLOR):
 
 class TimeIndicator():
     def run(self):
-        return time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())
+        return time.strftime("%a, %d %b %Y %H:%M:%S ", time.localtime())
 
 class DesktopInfo():
     def __init__(self):
