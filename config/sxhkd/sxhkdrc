@@ -98,4 +98,4 @@ super + d
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd
+	killall sxhkd

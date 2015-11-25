@@ -1,18 +1,15 @@
 #!/bin/sh
-source $(dirname $0)/bspwm_env.sh
+
+# Used to check if certain things should be restarted
+export BSPWM_FIRST_RUN="1"
+
 while :
 do
-    echo "Running bspwm"
-    echo "starting bspwm"
-    bspwm &
-    bspwmpid=$!
-    echo "starting panel"
-    python3 ${HOME}/syncsettings/config/bspwm/panel.py | lemonbar -f "${LEMONBAR_FONT}" -g "${LEMONBAR_GEOMETRY}" &
-    panelpid=$!
-    # Block on sxhkd
-    echo "starting shxkd"
-    sxhkd
-    echo "sxhkd exited, killing remaining..."
-    kill $bspwmpid $panelpid
-    echo "bspwm session exited"
+    echo "Entering bspwm wrapper script loop"
+    echo "Sourcing bspwm environment"
+    source $(dirname $0)/bspwm_env.sh
+    echo "Entering bspwm runner script"
+    $(dirname $0)/bspwm_runner.sh > $BSPWM_WRAPPER_LOG
+    echo "Completed an iteration of the loop. Hoorah!"
+    export BSPWM_FIRST_RUN="0"
 done
