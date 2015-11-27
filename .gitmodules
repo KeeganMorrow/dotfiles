@@ -20,3 +20,6 @@
 [submodule "repos/fzf"]
 	path = repos/fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule "repos/nmcli-dmenu"]
+	path = repos/nmcli-dmenu
+	url = https://github.com/firecat53/nmcli-dmenu.git

@@ -93,6 +93,9 @@ super + Return
 super + shift + Return
 	~/syncsettings/bin/rofi_tmux.sh
 
+super + shift + w
+	~/syncsettings/repos/nmcli-dmenu/nmcli_dmenu
+
 # Open command interface
 super + d
 	rofi -show run
