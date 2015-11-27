@@ -96,6 +96,10 @@ super + shift + Return
 super + shift + w
 	~/syncsettings/repos/nmcli-dmenu/nmcli_dmenu
 
+# Adjust backlight intensity
+XF86MonBrightness{Up,Down}
+    xbacklight {-inc,-dec} 10
+
 # Open command interface
 super + d
 	rofi -show run -location 2
