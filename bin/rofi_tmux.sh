@@ -8,7 +8,7 @@ if [ ! "$?" -eq "0" ] ; then
     exit 1
 fi
 
-choice=$(echo -e "$windows" | rofi -dmenu)
+choice=$(echo -e "$windows" | rofi -dmenu $@)
 target=$(echo -e "$choice" | sed 's/:.*//')
 if [ ! -z "$target" ] ; then
     urxvt-256color --hold -e zsh -c "tmux attach -t '${target}'" &

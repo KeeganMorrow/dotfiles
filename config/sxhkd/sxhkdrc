@@ -91,18 +91,18 @@ super + Return
 	urxvt-256color -e tmux -2
 
 super + shift + Return
-	~/syncsettings/bin/rofi_tmux.sh
+	~/syncsettings/bin/rofi_tmux.sh -location 2
 
 super + shift + w
 	~/syncsettings/repos/nmcli-dmenu/nmcli_dmenu
 
 # Open command interface
 super + d
-	rofi -show run
+	rofi -show run -location 2
 
 # Open window selector interface
 super + w
-	rofi -show window
+	rofi -show window -location 2
 
 # make sxhkd reload its configuration files:
 super + Escape
