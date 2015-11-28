@@ -4,82 +4,97 @@ super + alt + Escape
 
 # Close windoq
 super + q
-	bspc window -c
+	bspc window --close
 
 # Next layout
 super + space
-	bspc desktop -l next
+	bspc desktop --layout next
 
 # Balance desktop areas
 super + b
-	bspc desktop -B
+	bspc desktop --balance
 
 # Toggle floating/fullscreen
 super + {s,f,t}
-	bspc window -t {floating,fullscreen,tiled}
+	bspc window --state {floating,fullscreen,tiled}
 
 # Go to last window or desktop (grave is `)
 super + {grave,Tab}
-	bspc {window,desktop} -f last
+	bspc {window,desktop} --focus last
 
 # Swap with last window
 super + apostrophe
-	bspc window -s last
+	bspc window --swap last
 
 # Navigate window history
 super + {o,i}
 	bspc control --record-history off; \
-	bspc window {older,newer} -f; \
+	bspc window {older,newer} --focus; \
 	bspc control --record-history on
 
 # ????
 super + y
-	bspc window -w last.manual
+	bspc window --to-window last.manual
 
 # Swap with largest window
 super + m
-	bspc window -s biggest
+	bspc window --swap biggest
 
 
+# Move focus and swap window bindings
 super + {_,shift + }{h,j,k,l}
-	bspc window -{f,s} {left,down,up,right}
+	bspc window --{focus,swap} {left,down,up,right}
 
+# Focus next or previous window
 super + {_,shift + }c
-	bspc window -f {next,prev}
+	bspc window --focus {next,prev}
 
+# Rotate windows of current desktop
 super + {comma,period}
-	bspc desktop -C {backward,forward}
+	bspc desktop --circulate {backward,forward}
 
+# Focus next or previous desktop
 super + bracket{left,right}
-	bspc desktop -f {prev,next}
+	bspc desktop --focus {prev,next}
 
+# Preselect
 super + ctrl + {h,j,k,l}
-	bspc window -p {left,down,up,right}
+	bspc window --presel {left,down,up,right}
 
+# Clear preselection of current or all windows
 super + ctrl + {_,shift + }space
-	bspc {window -p cancel,desktop -c}
+	bspc {window --presel cancel,desktop --cancel-presel}
 
+# Grow current window
 super + alt + {h,j,k,l}
-	bspc window -e {left -10,down +10,up -10,right +10}
+	bspc window --edge {left -10,down +10,up -10,right +10}
 
+
+# Shrink current window
 super + alt + shift + {h,j,k,l}
-	bspc window -e {right -10,up +10,down -10,left +10}
+	bspc window --edge {right -10,up +10,down -10,left +10}
 
+# Set split ratio of current window
 super + ctrl + {1-9}
-	bspc window -r 0.{1-9}
+	bspc window --ratio 0.{1-9}
 
+# Focus or move window to desktop number
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,window -d} ^{1-9,10}
+	bspc {desktop --focus,window --to-desktop} ^{1-9,10}
 
+# Grab button 1 events
 ~button1
-	bspc pointer -g focus
+	bspc pointer --grab focus
 
+# Move or resize windows
 super + button{1-3}
-	bspc pointer -g {move,resize_side,resize_corner}
+	bspc pointer --grab {move,resize_side,resize_corner}
 
+# Track pointer coordinates
 super + !button{1-3}
 	bspc pointer -t %i %i
 
+# Ungrab pointer
 super + @button{1-3}
 	bspc pointer -u
 
