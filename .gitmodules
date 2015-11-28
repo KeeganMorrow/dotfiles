@@ -23,3 +23,7 @@
 [submodule "repos/nmcli-dmenu"]
 	path = repos/nmcli-dmenu
 	url = https://github.com/firecat53/nmcli-dmenu.git
+[submodule "lemonaconda"]
+	path = repos/lemonaconda
+	url = https://github.com/Korrow/lemonaconda.git
+	branch = master
