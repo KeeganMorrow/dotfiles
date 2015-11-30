@@ -38,3 +38,6 @@ nitrogen --restore &
 # Set the cursor to a normal pointer instead of an X
 xsetroot -cursor_name left_ptr
 
+# Set the key repeat rate
+xset r rate 250 30
+
