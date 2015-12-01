@@ -31,4 +31,3 @@ rofi.color-active:                   #181818,#ffffff,#323232,#ff00af,#181818
 !                                    background  border
 rofi.color-window:                   #121212,    #000000
 
-rofi.fuzzy: true
