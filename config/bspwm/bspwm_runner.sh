@@ -10,7 +10,7 @@ panelpid=$!
 
 # Block on sxhkd
 echo "Starting shxkd"
-sxhkd
+sxhkd -f "${SXHKD_FREQ}"
 
 echo "sxhkd exited, killing remaining..."
 kill $bspwmpid $panelpid
