@@ -1,5 +1,16 @@
 #! /bin/sh
 
+bspc_setup_monitors(){
+    # Right now lazily just assigns 5 per monitor
+    local count=1
+    for monitor in $(bspc query -M); do
+        echo "Found monitor $monitor"
+        bspc monitor ${monitor} -d $(expr $count + 0) $(expr $count + 1) $(expr $count + 2) $(expr $count + 3) $(expr $count + 4)
+        count=count+5
+    done
+}
+
+
 # Reclaim any old windows (but lose their positions)
 bspc control --adopt-orphans
 
@@ -35,8 +46,8 @@ bspc config pointer_follows_monitor true
 # Color scheme configuration
 bspc config focused_border_color   "#ff0000"
 
-bspc monitor MONITOR01 -d 1 2 3 4 5
-bspc monitor MONITOR02 -d 6 7 8 9 0
+# Set up the workspaces on the monitors
+bspc_setup_monitors
 
 bspc rule -a Gimp desktop=^8 follow=on floating=on
 bspc rule -a Chromium desktop=^2
