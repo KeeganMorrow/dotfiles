@@ -17,9 +17,14 @@ bspc config borderless_monocle  true
 # Hide gaps in monocle mode
 bspc config gapless_monocle     true
 
+# Enter monocle mode if only one window
+bspc config leaf_monocle        true
+
 # Focus windows based on distance (rather than position in tree?)
 bspc config focus_by_distance   true
 
+# Allow consecutive switches to same desktop to toggle to previous
+bspc config auto_alternate      true
 
 # Allow changing focus with the mouse pointer
 bspc config focus_follows_pointer true
