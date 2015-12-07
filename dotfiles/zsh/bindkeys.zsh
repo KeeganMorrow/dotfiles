@@ -71,6 +71,6 @@ bindkey '^E' _expand_alias
 #''''''''''''''''''''''''''''''
 # History search keybindings
 #''''''''''''''''''''''''''''''
-# Use up and down arrows to go through history search
-bindkey "^[[A" history-search-backward
-bindkey "^[[B" history-search-forward
+bindkey "^n" history-beginning-search-forward
+bindkey "^p" history-beginning-search-backward
+
