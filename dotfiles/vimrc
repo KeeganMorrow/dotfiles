@@ -42,6 +42,7 @@ Plug 'xolox/vim-session'
 
 " Git Plugins
 Plug 'tpope/vim-fugitive'
+Plug 'jreybert/vimagit'
 Plug 'airblade/vim-gitgutter'
 Plug 'rhysd/committia.vim'
 Plug 'rhysd/agit.vim'
