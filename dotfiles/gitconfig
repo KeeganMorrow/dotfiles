@@ -9,6 +9,11 @@
 	ci = commit
 	st = status
     lu = !git --no-pager log --pretty=tformat:'%><(9)%C(yellow)%h%Creset %Cgreen%ad%Creset %><(15,trunc)%Cblue%an%Creset %s%C(auto)%d%Creset' --boundary --date=short --graph --left-right @{upstream}...HEAD
+    # I want relative file path in status, I need to cd explicitly to current dir
+    # before calling other commands, as commands run by git with "!" are run
+    # at the root of the repository. (GIT_PREFIX is empty at repository root).
+    s = "!f() { test -n \"$GIT_PREFIX\" && cd $GIT_PREFIX; git status --short --branch; printf '\n'; git --no-pager stash list; true; }; f"
+    ss = "!f() { test -n \"$GIT_PREFIX\" && cd $GIT_PREFIX; git status; printf '\n'; git --no-pager stash list --name-status; true; }; f"
 [push]
     default = nothing
 [merge]
