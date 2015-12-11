@@ -677,6 +677,9 @@ nnoremap <leader>tc :tabclose<CR>
 nnoremap <S-h> gT
 nnoremap <S-l> gt
 
+" Remap Q to run register q as a macro
+nnoremap Q @q
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Helper functions                                       {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
