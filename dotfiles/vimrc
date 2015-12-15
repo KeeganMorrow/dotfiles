@@ -382,7 +382,7 @@ set diffopt=filler,context:10,vertical
 " => yank related             {{{
 """""""""""""""""""""""""""""""""
 " Yank to system clipboard
-set clipboard=unnamedplus,unnamed
+set clipboard+=unnamedplus
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Status line                                            {{{
