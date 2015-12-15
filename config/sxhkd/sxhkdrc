@@ -40,6 +40,10 @@ super + y
 super + m
 	bspc window --swap biggest
 
+super + g
+    xdotool search --onlyvisible --classname scratchpad windowunmap \
+    || xdotool search --classname scratchpad windowmap \
+    || urxvt-256color -name scratchpad -geometry 80x10 &
 
 # Move focus and swap window bindings
 super + {_,shift + }{h,j,k,l}
