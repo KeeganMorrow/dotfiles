@@ -6,7 +6,7 @@ bspc_setup_monitors(){
     for monitor in $(bspc query -M); do
         echo "Found monitor $monitor"
         bspc monitor ${monitor} -d $(expr $count + 0) $(expr $count + 1) $(expr $count + 2) $(expr $count + 3) $(expr $count + 4)
-        count=count+5
+        count=$(expr $count + 5)
     done
 }
 
