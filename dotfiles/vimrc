@@ -70,6 +70,7 @@ Plug 'jez/vim-superman'
 Plug 'arecarn/fold-cycle.vim'
 Plug 'arecarn/clean-fold.vim'
 Plug 'mkitt/tabline.vim'
+Plug 'wellle/visual-split.vim'
 
 " Unite
 Plug 'Shougo/unite.vim'
