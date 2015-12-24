@@ -55,6 +55,7 @@ bspc rule -a mplayer2 floating=on
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 bspc rule -a scratchpad state=floating layer=ABOVE
+bspc rule -a Steam desktop=^5 follow=no
 
 # Start network manager at start
 no-startup-id nm-applet &
