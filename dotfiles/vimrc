@@ -315,6 +315,12 @@ if has("autocmd")
 
     augroup END
 
+    augroup vimexit
+        " When vim exits copy the contents of the clipboard via xsel
+        " Prevents clipboard from being lost on application exit
+        autocmd VimLeave * call system("xsel -ib", getreg('+'))
+    augroup END
+
     augroup syntax
 
         autocmd Syntax c,cpp,vim,xml,html,xhtml setlocal foldmethod=syntax
@@ -383,7 +389,7 @@ set diffopt=filler,context:10,vertical
 " => yank related             {{{
 """""""""""""""""""""""""""""""""
 " Yank to system clipboard
-set clipboard+=unnamedplus
+set clipboard=unnamedplus
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Status line                                            {{{
