@@ -40,10 +40,48 @@ super + y
 super + m
 	bspc window --swap biggest
 
+# Open scratchpad
 super + g
     xdotool search --onlyvisible --classname scratchpad windowunmap \
     || xdotool search --classname scratchpad windowmap \
     || urxvt-256color -name scratchpad -geometry 80x10 &
+
+# Open scratchpad
+super + v
+    xdotool search --onlyvisible --classname volume_mixer windowunmap \
+    || xdotool search --classname volume_mixer windowmap \
+    || urxvt-256color -name volume_mixer -geometry 15x30-0+0 -e alsamixer &
+
+alt + s
+    ~/syncsettings/repos/tdrop/tdrop -a -w 1362 -y 14 -s dropdown urxvt-256color
+
+super + s
+    id=$(bspc query -W -w "focused");\
+    if [ -n "$id" ];then \
+        xprop -id $id -f _SCRATCH 32ii -set _SCRATCH $(date +%s,%N);\
+        bspc window -t "floating";\
+        xdotool windowunmap $id;\
+    fi
+
+super + shift + s
+    i=$(bspc query -W -w "focused.floating");\
+    if [ -n "$i" ];then \
+        xprop -id $i -f _SCRATCH 32ii -set _SCRATCH $(date +%s,%N);\
+        xdotool windowunmap $i;\
+    else;\
+        i=`for w in $(xwininfo -root -children | grep -e "^\s*0x[0-9a-f]\+" -o);do \
+            t=$(xprop -id $w _SCRATCH | grep ' = \(.*\)');\
+            if [ -n "$t" ];then \
+                echo $t $w;\
+            fi;\
+           done|sort -n|head -n1|cut -d" " -f 5`;\
+        if [ -n "$i" ];then \
+            xprop -id $i -remove _SCRATCH;\
+            bspc rule -a \* state=floating center=true --one-shot;\
+            xdotool windowmap $i;\
+            bspc window -f $i;\
+        fi;\
+    fi
 
 # Move focus and swap window bindings
 super + {_,shift + }{h,j,k,l}
