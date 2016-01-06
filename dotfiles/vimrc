@@ -61,6 +61,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-dispatch'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'scrooloose/syntastic'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " Interface Plugins
 Plug 'bling/vim-airline'
@@ -609,6 +610,10 @@ endif
 """""""""""""""""""""""""""}}}
 " => Misc. Plugin Mappings {{{
 """"""""""""""""""""""""""""""
+
+if Is_plugin_loaded('fzf')
+    nnoremap <leader>r :FZF<CR>
+endif
 
 if Is_plugin_loaded('undotree')
 
