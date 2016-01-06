@@ -27,3 +27,7 @@
 	path = repos/lemonaconda
 	url = https://github.com/Korrow/lemonaconda.git
 	branch = master
+[submodule "repos/tdrop"]
+	path = repos/tdrop
+	url = https://github.com/noctuid/tdrop.git
+	branch = master
