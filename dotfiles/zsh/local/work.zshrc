@@ -19,6 +19,11 @@ hash -d yoctoCcp='/frogstar/scratch/kmorrow/ccp/yocto'
 hash -d yoctoMuse='/zardoz/scratch/kmorrow/muse/yocto'
 hash -d yoctoProgrammer='/zardoz/scratch/kmorrow/ccp-programmer/yocto'
 
+# Project directories
+hash -d projMuse='/usr0/igdev/grponly/muse'
+hash -d projAce='/usr0/igdev/grponly/ace'
+hash -d projHutch='/usr0/igdev/grponly/hutch'
+
 # CCP Repos on jeb
 hash -d ccpUBoot='/jeb/usr1/uboot-ccp'
 hash -d ccpKernel='/jeb/usr1/kernel-ccp'
