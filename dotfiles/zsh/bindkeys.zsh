@@ -74,3 +74,13 @@ bindkey '^E' _expand_alias
 bindkey "^n" history-beginning-search-forward
 bindkey "^p" history-beginning-search-backward
 
+# Search previously used words
+insert-next-word() {
+    zle insert-last-word 1
+}
+zle -N insert-next-word
+
+# Bind this functionality to ctrl+up/down
+bindkey -M viins '^[[A'    insert-last-word
+bindkey -M viins '^[[B'    insert-next-word
+
