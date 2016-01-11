@@ -161,6 +161,15 @@ super + shift + w
 XF86MonBrightness{Up,Down}
     xbacklight {-inc,-dec} 10
 
+#TODO: Make this show the slider
+# Bind volume keys
+XF86Audio{Raise,Lower}Volume
+	amixer set Master 5%{+,-} unmute -q
+
+# Bind mute key
+XF86AudioMute
+	amixer set Master toggle -q
+
 # Open command interface
 super + d
 	rofi -show run -location 2
