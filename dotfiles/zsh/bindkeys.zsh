@@ -84,3 +84,14 @@ zle -N insert-next-word
 bindkey -M viins '^[[A'    insert-last-word
 bindkey -M viins '^[[B'    insert-next-word
 
+#''''''''''''''''''''''''''''''
+# Completion keybindings
+#''''''''''''''''''''''''''''''
+# Based off of Christian Neukirchen's blog post:
+# http://chneukirchen.org/blog/archive/2013/03/10-fresh-zsh-tricks-you-may-not-know.html
+bindkey -M menuselect '/'  accept-and-infer-next-history
+bindkey -M menuselect '^N' undo
+bindkey -M menuselect '^[^M' accept-and-hold
+bindkey -M menuselect '^R' history-incremental-search-forward
+bindkey -M menuselect '^[[Z' reverse-menu-complete # Shift Tab
+
