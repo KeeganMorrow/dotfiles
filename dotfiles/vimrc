@@ -72,6 +72,7 @@ Plug 'arecarn/fold-cycle.vim'
 Plug 'arecarn/clean-fold.vim'
 Plug 'mkitt/tabline.vim'
 Plug 'wellle/visual-split.vim'
+Plug 'vim-scripts/ProportionalResize'
 
 " Unite
 Plug 'Shougo/unite.vim'
