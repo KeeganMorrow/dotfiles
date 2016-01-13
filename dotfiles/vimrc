@@ -317,10 +317,6 @@ if has("autocmd")
 
     augroup END
 
-    augroup vimexit
-        " When vim exits copy the contents of the clipboard via xsel
-        " Prevents clipboard from being lost on application exit
-        autocmd VimLeave * call system("xsel -ib", getreg('+'))
     augroup END
 
     augroup syntax
