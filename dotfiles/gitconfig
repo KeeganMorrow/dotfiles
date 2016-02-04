@@ -4,7 +4,9 @@
 [color]
 	ui = true
 [alias]
+    detach = checkout --detach
 	co = checkout
+	cp = cherry-pick
 	br = branch
 	ci = commit
 	st = status
