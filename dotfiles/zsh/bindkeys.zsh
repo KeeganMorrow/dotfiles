@@ -65,6 +65,7 @@ bindkey '^G' what-cursor-position
 
 #TODO: Bind something else to this
 #bindkey -M viins '^C' vi-cmd-mode
+bindkey -M viins '^W' backward-kill-word
 
 
 bindkey '^E' _expand_alias
