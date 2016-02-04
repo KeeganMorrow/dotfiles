@@ -2,16 +2,16 @@
 #plugins=($plugins ssh-agent)
 
 # General purpose work paths
-hash -d igdev='/usr0/igdev'
-hash -d sw='/usr0/igdev/sw'
-hash -d swWorking='/usr0/igdev/sw/working'
-hash -d swTools='/usr0/igdev/sw/tools'
-hash -d grponly='usr0/igdev/grponly'
-hash -d swKM='/usr0/igdev/sw/working/kmorrow'
+hash -d igdev='/evtfs/igdev/igdev'
+hash -d sw='/evtfs/igdev/igdev/grponly/sw'
+hash -d swWorking='/evtfs/igdev/igdev/grponly/sw/working'
+hash -d swTools='/evtfs/igdev/igdev/grponly/sw/tools'
+hash -d grponly='evtfs/igdev/igdev/grponly'
+hash -d swKM='/evtfs/igdev/igdev/grponly/sw/working/kmorrow'
 
 # Ace Paths
-hash -d aceRepos='/usr0/igdev/sw/working/kmorrow/ace/aceRepos'
-hash -d wallApp='/usr0/igdev/sw/working/kmorrow/ace/aceRepos/wallapp'
+hash -d aceRepos='/evtfs/igdev/igdev/grponly/sw/working/kmorrow/ace/aceRepos'
+hash -d wallApp='/evtfs/igdev/igdev/grponly/sw/working/kmorrow/ace/aceRepos/wallapp'
 
 # Yocto Build systems on Frogstar
 hash -d yoctoAce='/frogstar/scratch/kmorrow/ace/poky'
@@ -20,9 +20,9 @@ hash -d yoctoMuse='/zardoz/scratch/kmorrow/muse/yocto'
 hash -d yoctoProgrammer='/zardoz/scratch/kmorrow/ccp-programmer/yocto'
 
 # Project directories
-hash -d projMuse='/usr0/igdev/grponly/muse'
-hash -d projAce='/usr0/igdev/grponly/ace'
-hash -d projHutch='/usr0/igdev/grponly/hutch'
+hash -d projMuse='/evtfs/igdev/igdev/grponly/muse'
+hash -d projAce='/evtfs/igdev/igdev/grponly/ace'
+hash -d projHutch='/evtfs/igdev/igdev/grponly/hutch'
 
 # CCP Repos on jeb
 hash -d ccpUBoot='/jeb/usr1/uboot-ccp'
@@ -45,6 +45,6 @@ if [ -f /usr/bin/virtualenvwrapper.sh ]; then
 fi
 
 # Add igdev sw tools to PATH
-export PATH="$PATH:/usr0/igdev/sw/tools/scripts"
+export PATH="$PATH:/evtfs/igdev/igdev/grponly/sw/tools/scripts"
 
 alias urxvt='urxvt-256color'
