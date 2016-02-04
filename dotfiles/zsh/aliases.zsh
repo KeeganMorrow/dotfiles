@@ -23,5 +23,14 @@ alias clip='xclip -selection clipboard'
 # Make minicom always have wrapping enabled
 alias minicom='minicom -w'
 
+# Used to make ssh sessions start in the pwd
+alias ssh='sshwrapper'
+
+sshwrapper(){
+    \ssh "$@" -t "cd $(realpath .) > /dev/null 2>&1 ; (type $(basename ${SHELL}) &> /dev/null  && $(basename ${SHELL}) -l) || (type sh &> /dev/null && sh -l) || echo 'ERROR: sshwrapper failed to find shell'"
+}
+
 # Alias for git - see .gitconfig for subcommand aliases
 alias g='git'
+
+alias less='less -N -R'
