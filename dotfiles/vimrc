@@ -154,6 +154,8 @@ set autoread
 
 " Use space as leader Note: can only be set once
 let mapleader = " "
+" Use \ as local leader.
+let maplocalleader = "\\"
 
 "Fast saving
 nnoremap <leader>w :w!<cr>
