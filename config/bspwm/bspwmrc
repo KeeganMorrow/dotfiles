@@ -37,8 +37,8 @@ bspc config focus_by_distance   true
 # Allow consecutive switches to same desktop to toggle to previous
 bspc config auto_alternate      true
 
-# Allow changing focus with the mouse pointer
-bspc config focus_follows_pointer true
+# Prevents changing focus with the mouse pointer
+bspc config focus_follows_pointer false
 
 # Move the pointer if focus changes
 bspc config pointer_follows_monitor true
