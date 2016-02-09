@@ -32,6 +32,7 @@ Plug 'Korrow/badwolf'
 
 " Functionality improvements
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'thinca/vim-qfreplace'
 
@@ -88,8 +89,6 @@ Plug 'kopischke/unite-spell-suggest'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'Yggdroot/indentLine'
 Plug 'embear/vim-localvimrc'
-
-Plug 'scrooloose/nerdcommenter'
 
 Plug 'Lokaltog/vim-easymotion'
 
