@@ -32,7 +32,6 @@ Plug 'Korrow/badwolf'
 
 " Functionality improvements
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'thinca/vim-qfreplace'
 
