@@ -6,6 +6,7 @@ zplug "plugins/pip",                    from:oh-my-zsh
 zplug "plugins/sublime",                from:oh-my-zsh
 zplug "plugins/command-not-found",      from:oh-my-zsh
 zplug "plugins/ssh-agent",              from:oh-my-zsh
+zplug "plugins/taskwarrior",            from:oh-my-zsh
 # Other Plugins
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "willghatch/zsh-cdr"
