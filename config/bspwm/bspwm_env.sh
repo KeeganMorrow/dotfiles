@@ -15,3 +15,4 @@ export SXHKD_FREQ="30"
 # This gets passed to bspwm's top padding as well
 export BAR_HEIGHT=18
 export LEMONBAR_GEOMETRY="x${BAR_HEIGHT}++"
+export LEMONBAR_COLOR="#181818"
