@@ -7,6 +7,7 @@ export BSPWM_SOCKET="/tmp/bspwm-socket.${USER}"
 export BSPWM_WRAPPER_LOG="/dev/null"
 
 export LEMONBAR_FONT="Source Code Pro for Powerline:size=10px"
+export LEMONBAR_FONT_SYMS="Symbola:size=8px"
 
 # Frequency that sxhkd input events are limited to.
 export SXHKD_FREQ="30"
