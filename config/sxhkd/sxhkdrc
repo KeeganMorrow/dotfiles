@@ -157,6 +157,9 @@ super + shift + Return
 super + shift + w
 	~/syncsettings/repos/nmcli-dmenu/nmcli_dmenu
 
+super + shift + v
+	copyq toggle || copyq
+
 # Adjust backlight intensity
 XF86MonBrightness{Up,Down}
     xbacklight {-inc,-dec} 10
