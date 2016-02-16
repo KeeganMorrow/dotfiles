@@ -96,7 +96,7 @@ Plug 'Lokaltog/vim-easymotion'
 " => Bundle Hostname lists                                  {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lists of hostnames on which to install groups of packages
-let local_hostnames =["yorick","bubbles"]
+let local_hostnames =["jeb","bubbles","yorick"]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""{{{
 if (index(local_hostnames, $HOSTNAME) >= 0)
