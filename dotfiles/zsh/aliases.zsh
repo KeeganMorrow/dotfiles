@@ -34,3 +34,9 @@ sshwrapper(){
 alias g='git'
 
 alias less='less -N -R'
+
+# Use vi style keys for info
+alias info='info --vi-keys'
+
+# Always fork zathura into background
+alias zathura='zathura --fork'
