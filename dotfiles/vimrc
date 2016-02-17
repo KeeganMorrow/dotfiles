@@ -73,6 +73,11 @@ Plug 'arecarn/clean-fold.vim'
 Plug 'mkitt/tabline.vim'
 Plug 'wellle/visual-split.vim'
 Plug 'vim-scripts/ProportionalResize'
+Plug 'ervandew/supertab'
+
+" Snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " Unite
 Plug 'Shougo/unite.vim'
@@ -115,7 +120,6 @@ else
 " => Network Install Bundles                                {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " Lighter weight completion alternative
-    Plug 'ervandew/supertab'
 
 endif
 
@@ -574,12 +578,25 @@ if Is_plugin_loaded('vimfiler.vim')
 
 endif
 """""""""""""""""""""""""""}}}
-" => YouCompleteMe Settings{{{
+" => Completion Plugin Settings{{{
 """"""""""""""""""""""""""""""
+" Completion using YCM, Ultisnips, and SuperTab
 if Is_plugin_loaded('YouCompleteMe')
-
     let g:ycm_autoclose_preview_window_after_insertion = 1
+    let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+    let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+    let g:ycm_complete_in_comments = 1
+endif
 
+if Is_plugin_loaded('supertab')
+    let g:SuperTabDefaultCompletionType = '<C-n>'
+endif
+
+if Is_plugin_loaded('ultisnips')
+    " better key bindings for UltiSnipsExpandTrigger
+    let g:UltiSnipsExpandTrigger="<c-j>"
+    let g:UltiSnipsJumpForwardTrigger="<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
