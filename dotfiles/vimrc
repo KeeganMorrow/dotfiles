@@ -52,6 +52,8 @@ Plug 'gregsexton/gitv'
 
 " Syntax plugins
 Plug 'vim-scripts/scons.vim'
+Plug 'lopter/moin.vim'
+Plug 'confluencewiki.vim'
 Plug 'kergoth/vim-bitbake'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'hynek/vim-python-pep8-indent'
