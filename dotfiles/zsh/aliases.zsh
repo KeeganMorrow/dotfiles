@@ -27,7 +27,19 @@ alias minicom='minicom -w'
 alias ssh='sshwrapper'
 
 sshwrapper(){
-    \ssh "$@" -t "cd $(realpath .) > /dev/null 2>&1 ; (type $(basename ${SHELL}) &> /dev/null  && $(basename ${SHELL}) -l) || (type sh &> /dev/null && sh -l) || echo 'ERROR: sshwrapper failed to find shell'"
+    \ssh "$@" -t "type $(basename $SHELL) &> /dev/null" &> /dev/null
+    if [[ $? -eq 0 ]]; then
+        echo "Found matching shell $SHELL"
+        ssh_shell="$SHELL"
+    else
+        echo "Using fallback shell sh"
+        ssh_shell="sh"
+    fi
+    \ssh "$@" -t "cd $(realpath .) ; $ssh_shell -l"
+}
+
+sshcons(){
+    \ssh zardoz -t "cd $(realpath .) ; scons \"$@\""
 }
 
 # Alias for git - see .gitconfig for subcommand aliases
