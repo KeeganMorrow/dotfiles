@@ -62,9 +62,9 @@ Plug 'hynek/vim-python-pep8-indent'
 Plug 'janko-m/vim-test'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-dispatch'
 Plug 'jmcantrell/vim-virtualenv'
-Plug 'scrooloose/syntastic'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " Interface Plugins
@@ -85,6 +85,7 @@ Plug 'honza/vim-snippets'
 
 " Unite
 Plug 'Shougo/unite.vim'
+Plug 'voi/unite-ctags'
 Plug 'Shougo/unite-help'
 Plug 'majkinetor/unite-cmdmatch'
 Plug 'Shougo/vimfiler.vim'
@@ -779,6 +780,6 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
-
+let g:session_autoload = 'no'
 " vim: foldmethod=marker
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
