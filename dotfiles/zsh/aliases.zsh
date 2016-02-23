@@ -39,7 +39,7 @@ sshwrapper(){
 }
 
 sshcons(){
-    \ssh zardoz -t "cd $(realpath .) ; scons \"$@\""
+    \ssh zardoz -t "scons -C $(realpath .) $@"
 }
 
 # Alias for git - see .gitconfig for subcommand aliases
