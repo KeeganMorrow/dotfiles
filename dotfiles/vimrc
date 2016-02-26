@@ -68,6 +68,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-dispatch'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'gtags.vim'
 
 " Interface Plugins
 Plug 'bling/vim-airline'
