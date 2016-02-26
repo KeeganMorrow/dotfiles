@@ -36,6 +36,8 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'thinca/vim-qfreplace'
 Plug 'kana/vim-niceblock'
+Plug 'arecarn/spell-utils.vim'
+Plug 'Raimondi/delimitMate'
 
 
 " Session management
