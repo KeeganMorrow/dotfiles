@@ -420,7 +420,7 @@ vnoremap <leader>P "+P
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
 " Allow airline status bar use of powerline fonts
 let g:airline_powerline_fonts = 1
