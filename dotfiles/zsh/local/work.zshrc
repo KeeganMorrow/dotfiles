@@ -47,4 +47,17 @@ fi
 # Add igdev sw tools to PATH
 export PATH="$PATH:/evtfs/igdev/igdev/grponly/sw/tools/scripts"
 
+igpath(){
+    result=$(realpath "$@")
+    replaced=$(echo $result | sed 's/evtfs\/igdev/usr0/g')
+    echo -E $replaced
+}
+
+winpath(){
+    result=$(realpath "$@")
+    replaced=$(echo "$result" | sed 's/\/evtfs\/igdev/Q:/g')
+    replaced=$(echo "$replaced" | sed 's:/:\\:g')
+    echo -E $replaced
+}
+
 alias urxvt='urxvt-256color'
