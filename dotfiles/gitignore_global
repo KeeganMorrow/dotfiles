@@ -5,3 +5,5 @@
 
 # Local .vimrc files from vim-localvimrc
 .lvimrc
+# CTags files
+tags*
