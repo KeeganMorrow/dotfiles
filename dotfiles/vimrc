@@ -80,6 +80,7 @@ Plug 'mkitt/tabline.vim'
 Plug 'wellle/visual-split.vim'
 Plug 'vim-scripts/ProportionalResize'
 Plug 'ajh17/VimCompletesMe'
+Plug 'terryma/vim-multiple-cursors'
 
 " Snippets
 Plug 'Shougo/neosnippet-snippets'
