@@ -26,6 +26,10 @@ alias minicom='minicom -w'
 # Used to make ssh sessions start in the pwd
 alias ssh='sshwrapper'
 
+open(){
+    xdg-open "$@" &
+}
+
 sshwrapper(){
     \ssh "$@" -t "type $(basename $SHELL) &> /dev/null" &> /dev/null
     if [[ $? -eq 0 ]]; then
@@ -39,7 +43,7 @@ sshwrapper(){
 }
 
 sshcons(){
-    \ssh zardoz -t "scons -C $(realpath .) $@"
+    \ssh zardoz -t "zsh -c \"scons -C $(realpath .) $@\""
 }
 
 # Alias for git - see .gitconfig for subcommand aliases
