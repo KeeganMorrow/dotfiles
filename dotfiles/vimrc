@@ -79,15 +79,16 @@ Plug 'arecarn/clean-fold.vim'
 Plug 'mkitt/tabline.vim'
 Plug 'wellle/visual-split.vim'
 Plug 'vim-scripts/ProportionalResize'
-Plug 'ervandew/supertab'
+Plug 'ajh17/VimCompletesMe'
 
 " Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet.vim'
 
 " Unite
 Plug 'Shougo/unite.vim'
 Plug 'voi/unite-ctags'
+Plug 'tsukkee/unite-tag'
 Plug 'Shougo/unite-help'
 Plug 'majkinetor/unite-cmdmatch'
 Plug 'Shougo/vimfiler.vim'
@@ -118,8 +119,8 @@ if (index(local_hostnames, $HOSTNAME) >= 0)
 " For performance reasons only enable these plugins on certain
 " machines that have them installed locally
 
-    " YouCompleteMe completion
-    Plug 'Valloric/YouCompleteMe'
+    " deoplete completion
+    Plug 'Shougo/deoplete.nvim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""{{{
 else
@@ -605,6 +606,18 @@ if Is_plugin_loaded('ultisnips')
     let g:UltiSnipsJumpForwardTrigger="<c-j>"
     let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 endif
+
+if Is_plugin_loaded('deoplete.vim')
+    let g:deoplete#enable_at_startup = 1
+endif
+
+if Is_plugin_loaded('neosnippet.vim')
+    imap <C-n>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-n>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-n>     <Plug>(neosnippet_expand_target)
+endif
+
+let g:session_autoload = 'no'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Mappings                                              {{{
