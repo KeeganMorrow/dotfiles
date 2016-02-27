@@ -39,6 +39,7 @@ function TRAPINT() {
 }
 
 bindkey '^R' history-incremental-search-backward
+bindkey -M vicmd v edit-command-line
 
 #''''''''''''''''''''''''''''''
 # vi/m foreground binding
