@@ -422,9 +422,6 @@ set laststatus=2
 " Format the status line
 set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
-" Allow airline status bar use of powerline fonts
-let g:airline_powerline_fonts = 1
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Useful functions                                       {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -470,6 +467,15 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Plugin Settings                                        {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Airline  Settings     {{{
+""""""""""""""""""""""""""""""
+if Is_plugin_loaded('vim-airline')
+    let g:airline_powerline_fonts = 1
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#tab_nr_type = 1
+    let g:airline#extensions#tabline#buffer_nr_show = 1
+endif
+"""""""""""""""""""""""""""}}}
 " => NERDTREE Settings     {{{
 """"""""""""""""""""""""""""""
 if Is_plugin_loaded('nerdtree')
