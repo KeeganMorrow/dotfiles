@@ -39,11 +39,6 @@ Plug 'kana/vim-niceblock'
 Plug 'arecarn/spell-utils.vim'
 Plug 'Raimondi/delimitMate'
 
-
-" Session management
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
-
 " Git Plugins
 Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit'
@@ -521,14 +516,6 @@ if Is_plugin_loaded('vim-better-whitespace')
 
 endif
 """""""""""""""""""""""""""}}}
-" => vim-session Settings  {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('vim-session')
-
-    " Enable SessionOpen vs OpenSession, etc
-    let g:session_command_aliases = 1
-
-endif
 """""""""""""""""""""""""""}}}
 " => Staritfy Settings     {{{
 """"""""""""""""""""""""""""""
@@ -543,9 +530,6 @@ if Is_plugin_loaded('vim-startify')
     \ '',
     \ '',
     \ ]
-
-    " Use vim-session directory
-    let g:startify_session_dir = '~/.vim/sessions'
 
 endif
 """""""""""""""""""""""""""}}}
