@@ -38,6 +38,7 @@ Plug 'thinca/vim-qfreplace'
 Plug 'kana/vim-niceblock'
 Plug 'arecarn/spell-utils.vim'
 Plug 'Raimondi/delimitMate'
+Plug 'chrisbra/NrrwRgn'
 
 " Git Plugins
 Plug 'tpope/vim-fugitive'
@@ -473,6 +474,7 @@ if Is_plugin_loaded('vim-airline')
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#tab_nr_type = 1
     let g:airline#extensions#tabline#buffer_nr_show = 1
+    let g:airline#extensions#nrrwrgn#enabled = 1
 endif
 """""""""""""""""""""""""""}}}
 " => NERDTREE Settings     {{{
