@@ -104,6 +104,7 @@ Plug 'majkinetor/unite-cmdmatch'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'Yggdroot/indentLine'
 Plug 'embear/vim-localvimrc'
+Plug 'airblade/vim-rooter'
 
 Plug 'Lokaltog/vim-easymotion'
 
