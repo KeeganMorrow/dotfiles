@@ -45,7 +45,8 @@ bindkey -M vicmd v edit-command-line
 # vi/m foreground binding
 #''''''''''''''''''''''''''''''
 foreground-vi() {
-  fg %vi
+    # This should work for vi/vim and neovim
+    fg %vi || fg %nvim
 }
 zle -N foreground-vi
 bindkey '^Z' foreground-vi
