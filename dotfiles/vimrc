@@ -413,6 +413,11 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
+""""""""""""""""""""""""""""""}}}
+" => window/split related     {{{
+"""""""""""""""""""""""""""""""""
+nnoremap <leader>\ :vsplit<CR>
+nnoremap <leader>- :split<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Status line                                            {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
