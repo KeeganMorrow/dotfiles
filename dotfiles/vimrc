@@ -38,6 +38,7 @@ Plug 'thinca/vim-qfreplace'
 Plug 'kana/vim-niceblock'
 Plug 'arecarn/spell-utils.vim'
 Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-unimpaired'
 Plug 'chrisbra/NrrwRgn'
 
 " Git Plugins
