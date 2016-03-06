@@ -78,6 +78,7 @@ Plug 'wellle/visual-split.vim'
 Plug 'vim-scripts/ProportionalResize'
 Plug 'ajh17/VimCompletesMe'
 Plug 'terryma/vim-multiple-cursors'
+" Plug 'roman/golden-ratio'
 
 " Snippets
 Plug 'Shougo/neosnippet-snippets'
@@ -653,6 +654,10 @@ endif
 """""""""""""""""""""""""""}}}
 " => Misc. Plugin Mappings {{{
 """"""""""""""""""""""""""""""
+
+if Is_plugin_loaded('golden-ratio')
+    autocmd * VimResized * :GoldenRatioResize
+endif
 
 if Is_plugin_loaded('fzf')
     nnoremap <leader>r :FZF<CR>
