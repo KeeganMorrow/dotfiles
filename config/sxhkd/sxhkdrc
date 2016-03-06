@@ -184,3 +184,7 @@ super + w
 # make sxhkd reload its configuration files:
 super + Escape
 	killall sxhkd
+
+ctrl + Escape
+	i3lock -c ${I3LOCK_COLOR}
+
