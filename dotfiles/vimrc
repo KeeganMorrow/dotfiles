@@ -97,6 +97,8 @@ Plug 'Shougo/unite-outline'
 Plug 'kmnk/vim-unite-giti'
 Plug 'andreicristianpetcu/unite-vim-superman'
 Plug 'kopischke/unite-spell-suggest'
+Plug 'hewes/unite-gtags'
+Plug 'majkinetor/unite-cmdmatch'
 
 " Other plugins
 Plug 'ntpeters/vim-better-whitespace'
