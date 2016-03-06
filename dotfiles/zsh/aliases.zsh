@@ -49,6 +49,14 @@ sshcons(){
 # Alias for git - see .gitconfig for subcommand aliases
 alias g='git'
 
+# Make this a git subcommand?
+groot(){
+    local gitroot=$(git rev-parse --show-cdup)
+    if [ -d "$gitroot" ]; then
+        cd "$gitroot"
+    fi
+}
+
 alias less='less -N -R'
 
 # Use vi style keys for info
