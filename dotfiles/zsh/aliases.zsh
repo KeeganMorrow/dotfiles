@@ -57,6 +57,13 @@ groot(){
     fi
 }
 
+iv(){
+    vimiv "$@" &
+}
+alias vimiv='iv'
+
+alias vimwiki='vim -c VimwikiIndex'
+
 alias less='less -N -R'
 
 # Use vi style keys for info
