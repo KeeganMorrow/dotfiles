@@ -88,6 +88,11 @@ bindkey -M viins '^[[A'    insert-last-word
 bindkey -M viins '^[[B'    insert-next-word
 
 #''''''''''''''''''''''''''''''
+# Misc bindings
+#''''''''''''''''''''''''''''''
+# Remove default ^J accept line binding
+bindkey -r '^J'
+#''''''''''''''''''''''''''''''
 # Completion keybindings
 #''''''''''''''''''''''''''''''
 # Based off of Christian Neukirchen's blog post:
