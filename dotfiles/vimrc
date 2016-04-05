@@ -56,6 +56,7 @@ Plug 'confluencewiki.vim'
 Plug 'kergoth/vim-bitbake'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'hynek/vim-python-pep8-indent'
+Plug 'elzr/vim-json'
 
 " Tool Integration
 Plug 'janko-m/vim-test'
@@ -589,6 +590,16 @@ if Is_plugin_loaded('vimfiler.vim')
     let g:vimfiler_ignore_pattern = '^\%(\..*\|.*\.pyc\|__pycache__\)$'
 
 endif
+"""""""""""""""""""""""""""}}}
+" => vim-json Settings     {{{
+""""""""""""""""""""""""""""""
+if Is_plugin_loaded('vim-json')
+
+    " Disable annoying concealing of quotes
+    let g:vim_json_syntax_conceal=0
+
+endif
+
 """""""""""""""""""""""""""}}}
 " => Completion Plugin Settings{{{
 """"""""""""""""""""""""""""""
