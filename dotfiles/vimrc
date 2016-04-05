@@ -81,6 +81,7 @@ Plug 'vim-scripts/ProportionalResize'
 Plug 'ajh17/VimCompletesMe'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vimwiki/vimwiki'
+Plug 'vim-scripts/DrawIt'
 " Plug 'roman/golden-ratio'
 
 " Snippets
