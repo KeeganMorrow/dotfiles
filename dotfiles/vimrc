@@ -381,6 +381,9 @@ set wrap
 " Show line at 80 columns
 set colorcolumn=80
 
+" Allow editing past EOL for all modes
+set virtualedit+=all
+
 " Nicer and more useful fold text
 " Taken from http://dhruvasagar.com/2013/03/28/vim-better-foldtext
 function! NeatFoldText() "{{{
