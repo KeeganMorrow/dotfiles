@@ -80,6 +80,7 @@ Plug 'wellle/visual-split.vim'
 Plug 'vim-scripts/ProportionalResize'
 Plug 'ajh17/VimCompletesMe'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'vimwiki/vimwiki'
 " Plug 'roman/golden-ratio'
 
 " Snippets
