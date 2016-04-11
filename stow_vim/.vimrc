@@ -7,7 +7,7 @@ filetype off
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-plug header                                        {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 
 " Function to check if a vim-plug plugin is loaded
 function! Is_plugin_loaded(plugin_name)
