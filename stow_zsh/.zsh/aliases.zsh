@@ -18,7 +18,10 @@ alias v.cdsitepackages='cdsitepackages'
 alias v.cd='cdvirtualenv'
 alias v.lssitepackages='lssitepackages'
 
-alias clip='xclip -selection clipboard'
+if ! hash getclip 2> /dev/null; then
+    alias getclip='xclip -selection clipboard -o'
+    alias putclip='xclip -selection clipboard'
+fi
 
 # Make minicom always have wrapping enabled
 alias minicom='minicom -w'

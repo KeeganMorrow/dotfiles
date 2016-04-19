@@ -62,7 +62,12 @@ Plug 'elzr/vim-json'
 Plug 'janko-m/vim-test'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'ludovicchabant/vim-gutentags'
+
+" Gutentags kills Cygwin vim startup time
+if !has("win32unix")
+    Plug 'ludovicchabant/vim-gutentags'
+endif
+
 Plug 'tpope/vim-dispatch'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -81,6 +86,7 @@ Plug 'vim-scripts/ProportionalResize'
 Plug 'ajh17/VimCompletesMe'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vimwiki/vimwiki'
+Plug 'vim-scripts/DrawIt'
 " Plug 'roman/golden-ratio'
 
 " Snippets
@@ -379,6 +385,9 @@ set wrap
 
 " Show line at 80 columns
 set colorcolumn=80
+
+" Allow editing past EOL for all modes
+set virtualedit+=all
 
 " Nicer and more useful fold text
 " Taken from http://dhruvasagar.com/2013/03/28/vim-better-foldtext
