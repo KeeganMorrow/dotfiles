@@ -26,7 +26,7 @@ hash -d projMuse='/evtfs/igdev/igdev/grponly/muse'
 hash -d projAce='/evtfs/igdev/igdev/grponly/ace'
 hash -d projHutch='/evtfs/igdev/igdev/grponly/hutch'
 hash -d projScout='/evtfs/igdev/igdev/grponly/scout'
-hash -d projScout2='/evtfs/igdev/igdev/grponly/scout_two'
+hash -d projScout2='/evtfs/igdev/igdev/grponly/scout2'
 
 # CCP Repos on jeb
 hash -d ccpUBoot='/jeb/usr1/uboot-ccp'
