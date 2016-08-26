@@ -271,6 +271,9 @@ set foldcolumn=1
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
+" Disable irritating conceal feature (mostly for json)
+set conceallevel=0
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Tmuxline settings                                      {{{
@@ -518,6 +521,7 @@ if Is_plugin_loaded('vim-test')
         let test#strategy = "dispatch"
     endif
 endif
+
 """""""""""""""""""""""""""}}}
 " => committia Settings     {{{
 """"""""""""""""""""""""""""""
@@ -804,3 +808,4 @@ endfunction
 let g:session_autoload = 'no'
 " vim: foldmethod=marker
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+
