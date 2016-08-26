@@ -1,6 +1,6 @@
 [include]
     # This is where the user info, etc should go
-    path = ~/.gitconfig.local
+    path = ~/.gitconfig_local
 [color]
     ui = true
 [alias]
