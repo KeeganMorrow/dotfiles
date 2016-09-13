@@ -328,6 +328,9 @@ if has("autocmd")
         " Use SCons highlighting when opening SCons files
         au! BufRead,BufNewFile SCons* set filetype=scons
 
+        " Use C++ Syntax highlighting for Arduino files
+        autocmd BufNewFile,BufReadPost *.ino,*.pde set filetype=cpp
+
         autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 
         " Go to first line in git commit messages
