@@ -2,12 +2,12 @@
 #plugins=($plugins ssh-agent)
 
 # General purpose work paths
+hash -d grponly='/evtfs/igdev/igdev/grponly'
 hash -d igdev='/evtfs/igdev/igdev'
 hash -d sw='/evtfs/igdev/igdev/grponly/sw'
-hash -d swWorking='/evtfs/igdev/igdev/grponly/sw/working'
-hash -d swTools='/evtfs/igdev/igdev/grponly/sw/tools'
 hash -d swRelease='/evtfs/igdev/igdev/grponly/sw/release'
-hash -d grponly='/evtfs/igdev/igdev/grponly'
+hash -d swTools='/evtfs/igdev/igdev/grponly/sw/tools'
+hash -d swWorking='/evtfs/igdev/igdev/grponly/sw/working'
 hash -d swKM='/evtfs/igdev/igdev/grponly/sw/working/kmorrow'
 
 # Ace Paths
@@ -22,15 +22,15 @@ hash -d yoctoProgrammer='/zardoz/scratch/kmorrow/ccp-programmer/yocto'
 
 # Project directories
 hash -d proj='/evtfs/igdev/igdev/grponly'
-hash -d projMuse='/evtfs/igdev/igdev/grponly/muse'
 hash -d projAce='/evtfs/igdev/igdev/grponly/ace'
 hash -d projHutch='/evtfs/igdev/igdev/grponly/hutch'
-hash -d projScout='/evtfs/igdev/igdev/grponly/scout'
+hash -d projMuse='/evtfs/igdev/igdev/grponly/muse'
 hash -d projScout2='/evtfs/igdev/igdev/grponly/scout2'
+hash -d projScout='/evtfs/igdev/igdev/grponly/scout'
 
 # CCP Repos on jeb
-hash -d ccpUBoot='/jeb/usr1/uboot-ccp'
 hash -d ccpKernel='/jeb/usr1/kernel-ccp'
+hash -d ccpUBoot='/jeb/usr1/uboot-ccp'
 
 # Disable annoying ksshaskpass stuff on git push
 export SSH_ASKPASS=
