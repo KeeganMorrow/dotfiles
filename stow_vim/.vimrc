@@ -52,11 +52,13 @@ Plug 'gregsexton/gitv'
 " Syntax plugins
 Plug 'vim-scripts/scons.vim'
 Plug 'lopter/moin.vim'
+Plug 'cespare/vim-toml'
 Plug 'confluencewiki.vim'
 Plug 'kergoth/vim-bitbake'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'elzr/vim-json'
+Plug 'rust-lang/rust.vim'
 
 " Tool Integration
 Plug 'janko-m/vim-test'
