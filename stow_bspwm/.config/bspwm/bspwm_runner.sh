@@ -14,7 +14,7 @@ copyqpid=$!
 
 # Block on sxhkd
 echo "Starting shxkd"
-sxhkd -f "${SXHKD_FREQ}"
+sxhkd
 
 echo "sxhkd exited, killing remaining..."
 kill $bspwmpid $panelpid $copyqpid
