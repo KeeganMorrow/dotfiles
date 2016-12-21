@@ -4,7 +4,7 @@
 export BSPWM_SOCKET="/tmp/bspwm-socket.${USER}"
 
 #TODO: Figure out where log should go
-export BSPWM_WRAPPER_LOG="/dev/null"
+export BSPWM_WRAPPER_LOG="/home/keegan.bspwm_log.log"
 
 export LEMONBAR_FONT="Source Code Pro for Powerline:size=10px"
 export LEMONBAR_FONT_SYMS="Symbola:size=10px"
