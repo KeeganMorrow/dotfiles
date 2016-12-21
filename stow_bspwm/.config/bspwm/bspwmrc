@@ -1,72 +1,18 @@
 #! /bin/sh
 
-bspc_setup_monitors(){
-    # Right now lazily just assigns 5 per monitor
-    local count=1
-    for monitor in $(bspc query -M); do
-        echo "Found monitor $monitor"
-        bspc monitor ${monitor} -d $(expr $count + 0) $(expr $count + 1) $(expr $count + 2) $(expr $count + 3) $(expr $count + 4)
-        count=$(expr $count + 5)
-    done
-}
+sxhkd &
 
+bspc monitor -d I II III IV V VI VII VIII IX X
 
-# Reclaim any old windows (but lose their positions)
-bspc control --adopt-orphans
+bspc config border_width         2
+bspc config window_gap          12
 
-# Set up the window padding
-bspc config border_width        2
-bspc config window_gap          5
-bspc config left_padding        0
-bspc config right_padding       0
-bspc config top_padding         ${BAR_HEIGHT}
-bspc config bottom_padding      0
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
 
-bspc config split_ratio         0.52
-bspc config borderless_monocle  true
-
-# Hide gaps in monocle mode
-bspc config gapless_monocle     true
-
-# Enter monocle mode if only one window
-bspc config leaf_monocle        true
-
-# Focus windows based on distance (rather than position in tree?)
-bspc config focus_by_distance   true
-
-# Allow consecutive switches to same desktop to toggle to previous
-bspc config auto_alternate      true
-
-# Prevents changing focus with the mouse pointer
-bspc config focus_follows_pointer false
-
-# Move the pointer if focus changes
-bspc config pointer_follows_monitor true
-
-# Color scheme configuration
-bspc config focused_border_color   "#ff0000"
-
-# Set up the workspaces on the monitors
-bspc_setup_monitors
-
-bspc rule -a Gimp desktop=^8 follow=on floating=on
-bspc rule -a Chromium desktop=^2
-bspc rule -a mplayer2 floating=on
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Chromium desktop='^2'
+bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
-bspc rule -a scratchpad state=floating layer=ABOVE
-bspc rule -a volume_mixer state=floating layer=ABOVE
-bspc rule -a Steam desktop=^5 follow=no
-
-# Start network manager at start
-no-startup-id nm-applet &
-
-# Start nitrogen to set the X background
-nitrogen --restore &
-
-# Set the cursor to a normal pointer instead of an X
-xsetroot -cursor_name left_ptr
-
-# Set the key repeat rate
-xset r rate 250 30
-

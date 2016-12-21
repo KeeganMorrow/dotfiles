@@ -1,190 +1,121 @@
-# End session
-super + alt + Escape
-	bspc quit ; killall bspwm_wrapper.sh
-
-# Close windoq
-super + q
-	bspc window --close
-
-# Next layout
-super + space
-	bspc desktop --layout next
-
-# Balance desktop areas
-super + b
-	bspc desktop --balance
-
-# Toggle floating/fullscreen
-super + {s,f,t, p}
-	bspc window --state {floating,fullscreen,tiled, pseudo_tiled}
-
-# Go to last window or desktop (grave is `)
-super + {grave,Tab}
-	bspc {window,desktop} --focus last
-
-# Swap with last window
-super + apostrophe
-	bspc window --swap last
-
-# Navigate window history
-super + {o,i}
-	bspc control --record-history off; \
-	bspc window {older,newer} --focus; \
-	bspc control --record-history on
-
-# ????
-super + y
-	bspc window --to-window last.manual
-
-# Swap with largest window
-super + m
-	bspc window --swap biggest
-
-# Open scratchpad
-super + g
-    xdotool search --onlyvisible --classname scratchpad windowunmap \
-    || xdotool search --classname scratchpad windowmap \
-    || urxvt-256color -name scratchpad -geometry 80x10 &
-
-# Open scratchpad
-super + v
-    xdotool search --onlyvisible --classname volume_mixer windowunmap \
-    || xdotool search --classname volume_mixer windowmap \
-    || urxvt-256color -name volume_mixer -geometry 15x30-0+0 -e alsamixer &
-
-alt + s
-    ~/syncsettings/repos/tdrop/tdrop -a -w 1362 -y 14 -s dropdown urxvt-256color
-
-super + s
-    id=$(bspc query -W -w "focused");\
-    if [ -n "$id" ];then \
-        xprop -id $id -f _SCRATCH 32ii -set _SCRATCH $(date +%s,%N);\
-        bspc window -t "floating";\
-        xdotool windowunmap $id;\
-    fi
-
-super + shift + s
-    i=$(bspc query -W -w "focused.floating");\
-    if [ -n "$i" ];then \
-        xprop -id $i -f _SCRATCH 32ii -set _SCRATCH $(date +%s,%N);\
-        xdotool windowunmap $i;\
-    else;\
-        i=`for w in $(xwininfo -root -children | grep -e "^\s*0x[0-9a-f]\+" -o);do \
-            t=$(xprop -id $w _SCRATCH | grep ' = \(.*\)');\
-            if [ -n "$t" ];then \
-                echo $t $w;\
-            fi;\
-           done|sort -n|head -n1|cut -d" " -f 5`;\
-        if [ -n "$i" ];then \
-            xprop -id $i -remove _SCRATCH;\
-            bspc rule -a \* state=floating center=true --one-shot;\
-            xdotool windowmap $i;\
-            bspc window -f $i;\
-        fi;\
-    fi
-
-# Move focus and swap window bindings
-super + {_,shift + }{h,j,k,l}
-	bspc window --{focus,swap} {left,down,up,right}
-
-# Focus next or previous window
-super + {_,shift + }c
-	bspc window --focus {next,prev}
-
-# Rotate windows of current desktop
-super + {comma,period}
-	bspc desktop --circulate {backward,forward}
-
-# Rotate "layout" of current desktop
-super + shift + {comma,period}
-	bspc desktop --rotate {270,90}
-
-# Focus next or previous desktop
-super + bracket{left,right}
-	bspc desktop --focus {prev,next}
-
-# Preselect
-super + ctrl + {h,j,k,l}
-	bspc window --presel {left,down,up,right}
-
-# Clear preselection of current or all windows
-super + ctrl + {_,shift + }space
-	bspc {window --presel cancel,desktop --cancel-presel}
-
-# Grow current window
-super + alt + {h,j,k,l}
-	bspc window --edge {left -10,down +10,up -10,right +10}
-
-
-# Shrink current window
-super + alt + shift + {h,j,k,l}
-	bspc window --edge {right -10,up +10,down -10,left +10}
-
-# Set split ratio of current window
-super + ctrl + {1-9}
-	bspc window --ratio 0.{1-9}
-
-# Focus or move window to desktop number
-super + {_,shift + }{1-9,0}
-	bspc {desktop --focus,window --to-desktop} ^{1-9,10}
-
-# Grab button 1 events
-~button1
-	bspc pointer --grab focus
-
-# Move or resize windows
-super + button{1-3}
-	bspc pointer --grab {move,resize_side,resize_corner}
-
-# Track pointer coordinates
-super + !button{1-3}
-	bspc pointer -t %i %i
-
-# Ungrab pointer
-super + @button{1-3}
-	bspc pointer -u
-
 #
 # wm independent hotkeys
 #
 
+# terminal emulator
 super + Return
-	urxvt-256color -e tmux -2
+	urxvt
 
-super + shift + Return
-	~/syncsettings/bin/rofi_tmux.sh -location 2
-
-super + shift + w
-	~/syncsettings/repos/nmcli-dmenu/nmcli_dmenu
-
-super + shift + v
-	copyq toggle || copyq
-
-# Adjust backlight intensity
-XF86MonBrightness{Up,Down}
-    xbacklight {-inc,-dec} 10
-
-#TODO: Make this show the slider
-# Bind volume keys
-XF86Audio{Raise,Lower}Volume
-	amixer set Master 5%{+,-} unmute -q
-
-# Bind mute key
-XF86AudioMute
-	amixer set Master toggle -q
-
-# Open command interface
-super + d
-	rofi -show run -location 2
-
-# Open window selector interface
-super + w
-	rofi -show window -location 2
+# program launcher
+super + space
+	dmenu_run
 
 # make sxhkd reload its configuration files:
 super + Escape
-	killall sxhkd
+	pkill -USR1 -x sxhkd
 
-ctrl + Escape
-	i3lock -c ${I3LOCK_COLOR}
+#
+# bspwm hotkeys
+#
 
+# quit bspwm normally
+super + alt + Escape
+	bspc quit
+
+# close and kill
+super + {_,shift + }w
+	bspc node -{c,k}
+
+# alternate between the tiled and monocle layout
+super + m
+	bspc desktop -l next
+
+# if the current node is automatic, send it to the last manual, otherwise pull the last leaf
+super + y
+	bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
+
+# swap the current node and the biggest node
+super + g
+	bspc node -s biggest
+
+#
+# state/flags
+#
+
+# set the window state
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+super + ctrl + {x,y,z}
+	bspc node -g {locked,sticky,private}
+
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+super + {p,b,comma,period}
+	bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous node in the current desktop
+super + {_,shift + }c
+	bspc node -f {next,prev}.local
+
+# focus the next/previous desktop in the current monitor
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# focus the last node/desktop
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+#
+# preselect
+#
+
+# preselect the direction
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+#
+# move/resize
+#
+
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
