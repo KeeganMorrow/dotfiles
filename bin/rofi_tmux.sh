@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 options="option1\noption2\noption3"
 
