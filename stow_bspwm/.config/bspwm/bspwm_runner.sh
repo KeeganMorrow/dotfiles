@@ -11,6 +11,18 @@ panelpid=$!
 echo "Setting background"
 nitrogen --restore &
 
+# Start network manager at start
+echo "Starting network manager applet"
+nm-applet &
+
+# Set the cursor to a normal pointer instead of an X
+echo "Setting X cursor to be normal pointer"
+xsetroot -cursor_name left_ptr
+
+# Set the key repeat rate
+echo "Setting X key repeat rate"
+xset r rate 250 30
+
 # Block on sxhkd
 echo "Starting shxkd"
 sxhkd
