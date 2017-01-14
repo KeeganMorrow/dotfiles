@@ -36,10 +36,36 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'thinca/vim-qfreplace'
 Plug 'kana/vim-niceblock'
+Plug 'kana/vim-operator-replace'
+Plug 'kana/vim-operator-user'
 Plug 'arecarn/spell-utils.vim'
+Plug 'godlygeek/tabular'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-unimpaired'
 Plug 'chrisbra/NrrwRgn'
+
+" text objects
+Plug 'kana/vim-textobj-user'
+    " iS/aS - selects whitespace
+Plug 'saihoooooooo/vim-textobj-space'
+    " iv/av - selects separated by underscores
+Plug 'Julian/vim-textobj-variable-segment'
+    " ie/ae - selects entire buffer
+Plug 'kana/vim-textobj-entire'
+    " ii/ai - selects indented block
+Plug 'kana/vim-textobj-indent'
+    " ii/ai - selects indented block
+Plug 'kana/vim-textobj-line'
+    " il/al - selects line
+Plug 'mattn/vim-textobj-url'
+    " ic/ac - selects comment
+Plug 'glts/vim-textobj-comment'
+    " ib/ab - selects block - not working as expected
+Plug 'osyo-manga/vim-textobj-multiblock'
+    " if/af - selects indside a function
+Plug 'kana/vim-textobj-function'
+    " i,/a, - selects parameter of function signature or call
+Plug 'sgur/vim-textobj-parameter'
 
 " Git Plugins
 Plug 'tpope/vim-fugitive'
@@ -53,6 +79,7 @@ Plug 'gregsexton/gitv'
 Plug 'vim-scripts/scons.vim'
 Plug 'lopter/moin.vim'
 Plug 'cespare/vim-toml'
+Plug 'plasticboy/vim-markdown'
 Plug 'confluencewiki.vim'
 Plug 'kergoth/vim-bitbake'
 Plug 'octol/vim-cpp-enhanced-highlight'
