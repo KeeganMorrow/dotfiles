@@ -16,12 +16,16 @@ bspc config bottom_padding      0
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
+bspc config single_monocle       true
+
+# Allow focused window to change on click
+bspc config click_to_focus       true
 
 # Prevents changing focus with the mouse pointer
 bspc config focus_follows_pointer false
 
 # Color scheme configuration
-bspc config focused_border_color   "#ff0000"
+bspc config focused_border_color   "#00afff"
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Chromium desktop='^2'
