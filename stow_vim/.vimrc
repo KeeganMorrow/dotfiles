@@ -653,6 +653,16 @@ if Is_plugin_loaded('vim-json')
 endif
 
 """""""""""""""""""""""""""}}}
+" => vim-markdown Settings     {{{
+""""""""""""""""""""""""""""""
+if Is_plugin_loaded('vim-markdown')
+
+    " Disable annoying concealing of quotes
+    let g:vim_markdown_conceal = 0
+
+endif
+
+"""""""""""""""""""""""""""}}}
 " => Completion Plugin Settings{{{
 """"""""""""""""""""""""""""""
 " Completion using YCM, Ultisnips, and SuperTab
