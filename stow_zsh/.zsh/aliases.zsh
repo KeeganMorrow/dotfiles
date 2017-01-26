@@ -23,6 +23,10 @@ if ! hash getclip 2> /dev/null; then
     alias putclip='xclip -selection clipboard'
 fi
 
+# Aliases to get weather information from wttr.in
+alias weath='curl -s "wttr.in/Everett,Wa"'
+alias moon='curl -s "wttr.in/Moon"'
+
 # Make minicom always have wrapping enabled
 alias minicom='minicom -w'
 
