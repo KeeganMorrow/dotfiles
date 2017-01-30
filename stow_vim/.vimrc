@@ -91,12 +91,6 @@ Plug 'rust-lang/rust.vim'
 Plug 'janko-m/vim-test'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
-
-" Gutentags kills Cygwin vim startup time
-if !has("win32unix")
-    Plug 'ludovicchabant/vim-gutentags'
-endif
-
 Plug 'tpope/vim-dispatch'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
