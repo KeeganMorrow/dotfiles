@@ -116,21 +116,6 @@ Plug 'vim-scripts/DrawIt'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim'
 
-" Unite
-Plug 'Shougo/unite.vim'
-Plug 'voi/unite-ctags'
-Plug 'tsukkee/unite-tag'
-Plug 'Shougo/unite-help'
-Plug 'majkinetor/unite-cmdmatch'
-Plug 'Shougo/vimfiler.vim'
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/unite-outline'
-Plug 'kmnk/vim-unite-giti'
-Plug 'andreicristianpetcu/unite-vim-superman'
-Plug 'kopischke/unite-spell-suggest'
-Plug 'hewes/unite-gtags'
-Plug 'majkinetor/unite-cmdmatch'
-
 " Other plugins
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'Yggdroot/indentLine'
@@ -604,36 +589,6 @@ if Is_plugin_loaded('syntastic')
         \ "mode": "passive",
         \ "active_filetypes": [],
         \ "passive_filetypes": [] }
-
-endif
-"""""""""""""""""""""""""""}}}
-" => Unite Settings        {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('unite.vim')
-
-    " Use ag in unite grep source if available
-    if executable('ag')
-        let g:unite_source_grep_default_opts =
-                \ '-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
-                \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-        let g:unite_source_grep_command = 'ag'
-        let g:unite_source_grep_recursive_opt = ''
-    endif
-
-    " Enable yank tracking
-    let g:unite_source_history_yank_enable = 1
-
-endif
-"""""""""""""""""""""""""""}}}
-" => Vimfiler Settings     {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('vimfiler.vim')
-
-    " vimfiler replaces netrw
-    let g:vimfiler_as_default_explorer = 1
-
-    " Ignore dotfiles, pyc files and __pycache__ directories
-    let g:vimfiler_ignore_pattern = '^\%(\..*\|.*\.pyc\|__pycache__\)$'
 
 endif
 """""""""""""""""""""""""""}}}
