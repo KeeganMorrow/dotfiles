@@ -94,6 +94,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-dispatch'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'gtags.vim'
 Plug '5t111111/alt-gtags.vim'
 
@@ -685,8 +686,24 @@ if Is_plugin_loaded('golden-ratio')
     autocmd * VimResized * :GoldenRatioResize
 endif
 
-if Is_plugin_loaded('fzf')
-    nnoremap <leader>r :FZF<CR>
+if Is_plugin_loaded('fzf.vim')
+    nnoremap <leader>r :History:<CR>
+    nnoremap <leader>R :History<CR>
+    nnoremap <leader>/ :History/<CR>
+    nnoremap <leader>t :Files<CR>
+    nnoremap <leader>g :GFiles?<CR>
+    nnoremap <leader>G :GFiles<CR>
+    nnoremap <leader>t :BTags<CR>
+    nnoremap <leader>T :Tags<CR>
+    nnoremap <leader>m :Marks<CR>
+    nnoremap <leader>b :Buffers<CR>
+
+    nmap <leader><tab> <plug>(fzf-maps-n)
+    xmap <leader><tab> <plug>(fzf-maps-x)
+    omap <leader><tab> <plug>(fzf-maps-o)
+    " Add FZF preview window
+    let g:fzf_files_options = 
+        \ '--preview "(highlight -0 ansi {} || cat {}) 2> /dev/null | head -' .&lines.'"'
 endif
 
 if Is_plugin_loaded('undotree')
