@@ -78,3 +78,8 @@ alias info='info --vi-keys'
 
 # Always fork zathura into background
 alias zathura='zathura --fork'
+
+# Mount home machine via sshfs
+# Requires key added to authorized_keys
+alias mntkeegpi='sshfs keegan@keegpi.hopto.org:/pi/usr1 /${HOSTNAME}/keegpi'
+alias ummntkeegpi='fusermount -u /${HOSTNAME}/keegpi'
