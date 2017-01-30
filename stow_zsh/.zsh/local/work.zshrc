@@ -39,6 +39,8 @@ export SSH_ASKPASS=
 #Use colored output for nosetests
 alias nose="nosetests --rednose"
 
+#Alias for platform builder
+alias pb="platformbuilder"
 
 # Virtualenv setup stuff
 if [ -f /usr/bin/virtualenvwrapper.sh ]; then
