@@ -63,8 +63,6 @@ bindkey -a '^R' redo
 bindkey '^?' backward-delete-char
 bindkey '^H' backward-delete-char
 
-bindkey '^G' what-cursor-position
-
 #TODO: Bind something else to this
 #bindkey -M viins '^C' vi-cmd-mode
 bindkey -M viins '^W' backward-kill-word
@@ -102,4 +100,30 @@ bindkey -M menuselect '^N' undo
 bindkey -M menuselect '^[^M' accept-and-hold
 bindkey -M menuselect '^R' history-incremental-search-forward
 bindkey -M menuselect '^[[Z' reverse-menu-complete # Shift Tab
+
+join-lines() {
+  local item
+  while read item; do
+    echo -n "${(q)item} "
+  done
+}
+
+bind-git-helper() {
+  local char
+  for c in $@; do
+    eval "fzf-g$c-widget() { local result=\$(fzfg$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
+    eval "zle -N fzf-g$c-widget"
+    eval "bindkey '^g^$c' fzf-g$c-widget"
+  done
+}
+
+bind-git-helper f b t r u
+unset -f bind-git-helper
+
+# Remove default list-expand mapping
+bindkey -r '^g'
+bindkey -r '^u'
+#Bind list-expand to ^f instead
+bindkey '^f' list-expand
+
 
