@@ -653,7 +653,7 @@ if Is_plugin_loaded('fzf.vim')
     nnoremap <leader>t :Files<CR>
     nnoremap <leader>g :GFiles?<CR>
     nnoremap <leader>G :GFiles<CR>
-    nnoremap <leader>t :BTags<CR>
+    nnoremap <leader><c-t> :BTags<CR>
     nnoremap <leader>T :Tags<CR>
     nnoremap <leader>m :Marks<CR>
     nnoremap <leader>b :Buffers<CR>
