@@ -34,7 +34,6 @@ Plug 'Korrow/badwolf'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
-Plug 'thinca/vim-qfreplace'
 Plug 'kana/vim-niceblock'
 Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
@@ -70,11 +69,9 @@ Plug 'sgur/vim-textobj-parameter'
 
 " Git Plugins
 Plug 'tpope/vim-fugitive'
-Plug 'jreybert/vimagit'
 Plug 'airblade/vim-gitgutter'
 Plug 'rhysd/committia.vim'
 Plug 'rhysd/agit.vim'
-Plug 'gregsexton/gitv'
 
 " Syntax plugins
 Plug 'vim-scripts/scons.vim'
@@ -84,7 +81,6 @@ Plug 'plasticboy/vim-markdown'
 Plug 'confluencewiki.vim'
 Plug 'kergoth/vim-bitbake'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'hynek/vim-python-pep8-indent'
 Plug 'elzr/vim-json'
 Plug 'rust-lang/rust.vim'
 
@@ -112,7 +108,6 @@ Plug 'ajh17/VimCompletesMe'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-scripts/DrawIt'
-" Plug 'roman/golden-ratio'
 
 " Snippets
 Plug 'Shougo/neosnippet-snippets'
