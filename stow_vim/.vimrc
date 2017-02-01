@@ -105,10 +105,24 @@ Plug 'arecarn/clean-fold.vim'
 Plug 'mkitt/tabline.vim'
 Plug 'wellle/visual-split.vim'
 Plug 'vim-scripts/ProportionalResize'
-Plug 'ajh17/VimCompletesMe'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-scripts/DrawIt'
+Plug 'junegunn/vim-peekaboo'
+
+" Completion Plugins
+if has('nvim')
+    " Neovim Completion plugins
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'Rip-Rip/clang_complete', { 'do': 'make' }
+    Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
+    Plug 'Shougo/deoplete-zsh'
+    Plug 'Shougo/neco-syntax'
+    Plug 'Shougo/echodoc.vim'
+else
+    "Vim Completion plugins
+    Plug 'ajh17/VimCompletesMe'
+endif
 
 " Snippets
 Plug 'Shougo/neosnippet-snippets'
@@ -136,8 +150,6 @@ if (index(local_hostnames, $HOSTNAME) >= 0)
 " For performance reasons only enable these plugins on certain
 " machines that have them installed locally
 
-    " deoplete completion
-    Plug 'Shougo/deoplete.nvim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""{{{
 else
@@ -213,6 +225,10 @@ set number
 
 " Turn on the Wild menu
 set wildmenu
+
+" Set up completion
+" Disable the preview window
+set completeopt-=preview
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -617,7 +633,7 @@ if Is_plugin_loaded('echodoc.vim') "{{{2
     let g:echodoc_enable_at_startup = 1
 endif "}}}2
 
-if Is_plugin_loaded('clang_complete'):
+if Is_plugin_loaded('clang_complete')
     let g:clang_library_path='/usr/lib64/libclang.so.3.3'
 endif
 
