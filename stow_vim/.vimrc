@@ -515,14 +515,6 @@ if Is_plugin_loaded('vim-airline')
     let g:airline#extensions#nrrwrgn#enabled = 1
 endif
 """""""""""""""""""""""""""}}}
-" => NERDTREE Settings     {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('nerdtree')
-
-    let NERDTreeIgnore = ['\.pyc$']
-
-endif
-"""""""""""""""""""""""""""}}}
 " => vim-test Settings     {{{
 """"""""""""""""""""""""""""""
 if Is_plugin_loaded('vim-test')
@@ -573,26 +565,6 @@ if Is_plugin_loaded('vim-startify')
 
 endif
 """""""""""""""""""""""""""}}}
-" => Syntastic Settings    {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('syntastic')
-
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 0
-    let g:syntastic_check_on_open = 0
-    let g:syntastic_check_on_wq = 0
-
-    let g:syntastic_mode_map = {
-        \ "mode": "passive",
-        \ "active_filetypes": [],
-        \ "passive_filetypes": [] }
-
-endif
-"""""""""""""""""""""""""""}}}
 " => vim-json Settings     {{{
 """"""""""""""""""""""""""""""
 if Is_plugin_loaded('vim-json')
@@ -615,69 +587,34 @@ endif
 """""""""""""""""""""""""""}}}
 " => Completion Plugin Settings{{{
 """"""""""""""""""""""""""""""
-" Completion using YCM, Ultisnips, and SuperTab
-if Is_plugin_loaded('YouCompleteMe')
-    let g:ycm_autoclose_preview_window_after_insertion = 1
-    let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-    let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-    let g:ycm_complete_in_comments = 1
-endif
-
-if Is_plugin_loaded('supertab')
-    let g:SuperTabDefaultCompletionType = '<C-n>'
-endif
-
-if Is_plugin_loaded('ultisnips')
-    " better key bindings for UltiSnipsExpandTrigger
-    let g:UltiSnipsExpandTrigger="<c-j>"
-    let g:UltiSnipsJumpForwardTrigger="<c-j>"
-    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-endif
-
-if Is_plugin_loaded('deoplete.vim')
+if Is_plugin_loaded('deoplete.nvim') "{{{2
     let g:deoplete#enable_at_startup = 1
-endif
+endif "}}}2
 
-if Is_plugin_loaded('neosnippet.vim')
-    imap <C-n>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-n>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-n>     <Plug>(neosnippet_expand_target)
-endif
+if Is_plugin_loaded('neosnippet-snippets') "{{{2
+    " Plugin key-mappings.
+    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-let g:session_autoload = 'no'
+    " For conceal markers.
+    if has('conceal')
+      set conceallevel=2 concealcursor=niv
+    endif
+endif "}}}2
+
+if Is_plugin_loaded('echodoc.vim') "{{{2
+    let g:echodoc_enable_at_startup = 1
+endif "}}}2
+
+if Is_plugin_loaded('clang_complete'):
+    let g:clang_library_path='/usr/lib64/libclang.so.3.3'
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Mappings                                              {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Unite Mappings        {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('unite.vim')
-
-    nnoremap <leader>ut :<C-u>Unite -buffer-name=files     -start-insert file_rec/async:!<cr>
-    nnoremap <leader>uf :<C-u>Unite -buffer-name=files     -start-insert file<cr>
-    nnoremap <leader>ur :<C-u>Unite -buffer-name=mru       -start-insert file_mru<cr>
-    nnoremap <leader>uo :<C-u>Unite -buffer-name=outline                 outline<cr>
-    nnoremap <leader>uy :<C-u>Unite -buffer-name=yank      -start-insert history/yank<cr>
-    nnoremap <leader>ue :<C-u>Unite -buffer-name=buffer    -start-insert buffer<cr>
-    nnoremap <leader>ua :<C-u>Unite -buffer-name=grep                    grep<cr>
-    nnoremap <leader>uh :<C-u>Unite -buffer-name=help      -start-insert help<cr>
-    nnoremap <leader>uk :<C-u>Unite -buffer-name=man       -start-insert manpage<cr>
-    nnoremap <leader>um :<C-u>Unite -buffer-name=mapping   -start-insert mapping<cr>
-    nnoremap <leader>ugg :<C-u>Unite -buffer-name=git      -start-insert giti<cr>
-    nnoremap <leader>ugb :<C-u>Unite -buffer-name=branch   -start-insert giti/branch<cr>
-    nnoremap <leader>ugc :<C-u>Unite -buffer-name=config   -start-insert giti/config<cr>
-    nnoremap <leader>ugl :<C-u>Unite -buffer-name=log      -start-insert giti/log<cr>
-    nnoremap <leader>ugr :<C-u>Unite -buffer-name=remote   -start-insert giti/remote<cr>
-    nnoremap <leader>ugs :<C-u>Unite -buffer-name=status   -start-insert giti/status<cr>
-    cmap <C-o> <Plug>(unite_cmdmatch_complete)
-
-endif
-
-if Is_plugin_loaded('unite.vim')
-
-    nnoremap <leader>ue :VimFiler -split -winwidth=35 -columns={} -toggle -no-quit<CR>
-
-endif
 """""""""""""""""""""""""""}}}
 " => Misc. Plugin Mappings {{{
 """"""""""""""""""""""""""""""
@@ -726,15 +663,6 @@ if Is_plugin_loaded('vim-test')
     nnoremap <leader>nf :TestFile<cr>
     nnoremap <leader>nl :TestLast<cr>
     nnoremap <leader>nn :TestNearest<cr>
-
-endif
-
-" Syntastic mappings
-
-if Is_plugin_loaded('syntastic')
-
-    nnoremap <leader>sc :SyntasticCheck<cr>
-    nnoremap <leader>st :SyntasticToggleMode<cr>
 
 endif
 
