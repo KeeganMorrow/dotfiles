@@ -228,6 +228,9 @@ set ruler
 " Height of the command bar
 set cmdheight=2
 
+" Don't show the mode in the command bar
+set noshowmode
+
 " A buffer becomes hidden when it is abandoned
 set hid
 
