@@ -27,22 +27,22 @@ endfunction
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " Colorschemes
-Plug 'tomasr/molokai'
 Plug 'Korrow/badwolf'
+Plug 'tomasr/molokai'
 
 " Functionality improvements
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-repeat'
-Plug 'kana/vim-niceblock'
-Plug 'kana/vim-operator-replace'
-Plug 'kana/vim-operator-user'
 Plug 'arecarn/spell-utils.vim'
+Plug 'chrisbra/NrrwRgn'
 Plug 'godlygeek/tabular'
 " Trying subbing out for auto-pairs, consider getting rid of it
 Plug 'jiangmiao/auto-pairs'
+Plug 'kana/vim-niceblock'
+Plug 'kana/vim-operator-replace'
+Plug 'kana/vim-operator-user'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'chrisbra/NrrwRgn'
 
 " text objects
 Plug 'kana/vim-textobj-user'
@@ -68,73 +68,72 @@ Plug 'kana/vim-textobj-function'
 Plug 'sgur/vim-textobj-parameter'
 
 " Git Plugins
-Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'rhysd/committia.vim'
 Plug 'rhysd/agit.vim'
+Plug 'rhysd/committia.vim'
+Plug 'tpope/vim-fugitive'
 
 " Syntax plugins
-Plug 'vim-scripts/scons.vim'
-Plug 'lopter/moin.vim'
 Plug 'cespare/vim-toml'
-Plug 'plasticboy/vim-markdown'
 Plug 'confluencewiki.vim'
-Plug 'kergoth/vim-bitbake'
-Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'elzr/vim-json'
+Plug 'kergoth/vim-bitbake'
+Plug 'lopter/moin.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'plasticboy/vim-markdown'
 Plug 'rust-lang/rust.vim'
+Plug 'vim-scripts/scons.vim'
 
 " Tool Integration
-Plug 'janko-m/vim-test'
+Plug '5t111111/alt-gtags.vim'
+Plug 'Alok/notational-fzf-vim'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'tpope/vim-dispatch'
+Plug 'gtags.vim'
+Plug 'janko-m/vim-test'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'Alok/notational-fzf-vim'
-Plug 'gtags.vim'
-Plug '5t111111/alt-gtags.vim'
+Plug 'tpope/vim-dispatch'
 
 " Interface Plugins
+Plug 'arecarn/clean-fold.vim'
 Plug 'bling/vim-airline'
+Plug 'jez/vim-superman'
+Plug 'junegunn/vim-peekaboo'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-startify'
-Plug 'jez/vim-superman'
-Plug 'arecarn/clean-fold.vim'
 Plug 'mkitt/tabline.vim'
-Plug 'wellle/visual-split.vim'
-Plug 'vim-scripts/ProportionalResize'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'vimwiki/vimwiki'
 Plug 'vim-scripts/DrawIt'
-Plug 'junegunn/vim-peekaboo'
+Plug 'vim-scripts/ProportionalResize'
+Plug 'vimwiki/vimwiki'
+Plug 'wellle/visual-split.vim'
 
 " Completion Plugins
 if has('nvim')
     " Neovim Completion plugins
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'Rip-Rip/clang_complete', { 'do': 'make' }
-    Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
     Plug 'Shougo/deoplete-zsh'
-    Plug 'Shougo/neco-syntax'
     Plug 'Shougo/echodoc.vim'
+    Plug 'Shougo/neco-syntax'
+    Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
 else
     "Vim Completion plugins
     Plug 'ajh17/VimCompletesMe'
 endif
 
 " Snippets
-Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 
 " Other plugins
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'Yggdroot/indentLine'
-Plug 'embear/vim-localvimrc'
-Plug 'airblade/vim-rooter'
-
 Plug 'Lokaltog/vim-easymotion'
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-rooter'
+Plug 'embear/vim-localvimrc'
+Plug 'ntpeters/vim-better-whitespace'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Bundle Hostname lists                                  {{{
