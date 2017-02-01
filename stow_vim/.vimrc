@@ -40,7 +40,8 @@ Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
 Plug 'arecarn/spell-utils.vim'
 Plug 'godlygeek/tabular'
-Plug 'Raimondi/delimitMate'
+" Trying subbing out for auto-pairs, consider getting rid of it
+Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-unimpaired'
 Plug 'chrisbra/NrrwRgn'
 
