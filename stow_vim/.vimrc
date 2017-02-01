@@ -552,16 +552,25 @@ endif
 " => Staritfy Settings     {{{
 """"""""""""""""""""""""""""""
 if Is_plugin_loaded('vim-startify')
-
-    let g:startify_custom_header = [
-    \ '  __     ___             _____  _   _',
-    \ '  \ \   / (_)_ __ ___   |___  || |_| |',
-    \ '   \ \ / /| |  _   _ \     / /||___  |',
-    \ '    \ V / | | | | | | |   / /     | |',
-    \ '     \_/  |_|_| |_| |_|  /_/  (_) |_|',
-    \ '',
-    \ '',
-    \ ]
+    let g:startify_fortune_use_unicode = 1
+    if has('nvim')
+        let g:ascii = [
+              \ '               __',
+              \ '.-----..--.--.|__|.--------.',
+              \ '|  |  ||  |  ||  ||        |',
+              \ '|__|__| \___/ |__||__|__|__|',
+              \ ''
+              \]
+    else
+        let g:ascii = [
+              \ '        __',
+              \ '.--.--.|__|.--------.',
+              \ '|  |  ||  ||        |',
+              \ ' \___/ |__||__|__|__|',
+              \ ''
+              \]
+    endif
+    let g:startify_custom_header = g:ascii + startify#fortune#boxed()
 
 endif
 """""""""""""""""""""""""""}}}
