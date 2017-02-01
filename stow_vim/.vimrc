@@ -92,6 +92,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'Alok/notational-fzf-vim'
 Plug 'gtags.vim'
 Plug '5t111111/alt-gtags.vim'
 
