@@ -94,10 +94,13 @@ Plug 'janko-m/vim-test'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'metakirby5/codi.vim'
+Plug 'sbdchd/neoformat'
 Plug 'mhinz/vim-grepper'
 Plug 'tpope/vim-dispatch'
 
 " Interface Plugins
+Plug 'Shougo/vinarise.vim'
 Plug 'arecarn/clean-fold.vim'
 Plug 'bling/vim-airline'
 Plug 'jez/vim-superman'
