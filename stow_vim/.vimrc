@@ -208,13 +208,7 @@ set spelllang=en_us
 " => VIM user interface                                     {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
-
-" Avoid garbled characters in Chinese language windows OS
-let $LANG='en'
-set langmenu=en
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
+set scrolloff=7
 
 " Use hybrid of absolute and relative line numbers
 set relativenumber
@@ -288,27 +282,8 @@ set tm=500
 " Add a bit extra margin to the left
 set foldcolumn=1
 
-" Show line cursor in snert mode for Konsole
-" Could cause problems in other terminals
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
 " Disable irritating conceal feature (mostly for json)
 set conceallevel=0
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => Tmuxline settings                                      {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Note: This plugin is used to generate a Tmux status line,
-"doesn't do anything for normal use
-let g:tmuxline_preset = {
-      \'a'    : ['#(whoami)@#H'],
-      \'win'  : '#I #W',
-      \'cwin' : '#I #W',
-      \'x'    : '%a',
-      \'y'    : ['%d', '%m', '%Y'],
-      \'z'    : '%R'}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Colors and Fonts                                       {{{
@@ -344,6 +319,7 @@ if has("autocmd")
              \   exe "normal! g`\"" |
              \ endif
     augroup END
+
     augroup filetype
 
         autocmd!
@@ -365,8 +341,6 @@ if has("autocmd")
         autocmd Filetype qf set colorcolumn=
         " Disable wrapping in quickfix buffers
         autocmd Filetype qf setlocal nowrap
-
-    augroup END
 
     augroup END
 
@@ -453,11 +427,13 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
+
 """"""""""""""""""""""""""""""}}}
 " => window/split related     {{{
 """""""""""""""""""""""""""""""""
 nnoremap <leader>\ :vsplit<CR>
 nnoremap <leader>- :split<CR>
+
 """"""""""""""""""""""""""""""}}}
 " => Neovim terminal related  {{{
 """""""""""""""""""""""""""""""""
@@ -527,6 +503,19 @@ if Is_plugin_loaded('vim-airline')
     let g:airline#extensions#tabline#buffer_nr_show = 1
     let g:airline#extensions#nrrwrgn#enabled = 1
 endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
+" => Tmuxline settings                                      {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Note: This plugin is used to generate a Tmux status line,
+"doesn't do anything for normal use
+let g:tmuxline_preset = {
+      \'a'    : ['#(whoami)@#H'],
+      \'win'  : '#I #W',
+      \'cwin' : '#I #W',
+      \'x'    : '%a',
+      \'y'    : ['%d', '%m', '%Y'],
+      \'z'    : '%R'}
+
 """""""""""""""""""""""""""}}}
 " => vim-test Settings     {{{
 """"""""""""""""""""""""""""""
@@ -697,12 +686,6 @@ nnoremap K :Man <cword><CR>
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
-" Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
 """""""""""""""""""""""""""}}}
 " => Visual mode related   {{{
 """"""""""""""""""""""""""""""
@@ -719,9 +702,9 @@ map j gj
 map k gk
 
 " Tab management stuff
-nnoremap <leader>tn :tabnew<CR>
+nnoremap <leader>tc :tabnew<CR>
 nnoremap <leader>tm :tabmove<CR>
-nnoremap <leader>tc :tabclose<CR>
+nnoremap <leader>tq :tabclose<CR>
 
 """""""""""""""""""""""""""}}}
 " => Misc Mappings         {{{
@@ -763,7 +746,6 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
-let g:session_autoload = 'no'
 " vim: foldmethod=marker
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 
