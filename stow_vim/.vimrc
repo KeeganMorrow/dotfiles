@@ -517,6 +517,15 @@ let g:tmuxline_preset = {
       \'z'    : '%R'}
 
 """""""""""""""""""""""""""}}}
+" => FZF plugin settings   {{{
+""""""""""""""""""""""""""""""
+if Is_plugin_loaded('fzf.vim')
+    " Add FZF preview window
+    let g:fzf_files_options = 
+        \ '--preview "(highlight -0 ansi {} || cat {}) 2> /dev/null | head -' .&lines.'"'
+endif
+
+"""""""""""""""""""""""""""}}}
 " => vim-test Settings     {{{
 """"""""""""""""""""""""""""""
 if Is_plugin_loaded('vim-test')
@@ -549,7 +558,6 @@ if Is_plugin_loaded('vim-better-whitespace')
     let g:better_whitespace_filetypes_blacklist = ['unite', 'vimfiler', 'qf']
 
 endif
-"""""""""""""""""""""""""""}}}
 """""""""""""""""""""""""""}}}
 " => Staritfy Settings     {{{
 """"""""""""""""""""""""""""""
@@ -598,11 +606,11 @@ endif
 """""""""""""""""""""""""""}}}
 " => Completion Plugin Settings{{{
 """"""""""""""""""""""""""""""
-if Is_plugin_loaded('deoplete.nvim') "{{{2
+if Is_plugin_loaded('deoplete.nvim') "{{{
     let g:deoplete#enable_at_startup = 1
-endif "}}}2
+endif "}}}
 
-if Is_plugin_loaded('neosnippet-snippets') "{{{2
+if Is_plugin_loaded('neosnippet-snippets') "{{{
     " Plugin key-mappings.
     " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
     imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -613,31 +621,26 @@ if Is_plugin_loaded('neosnippet-snippets') "{{{2
     if has('conceal')
       set conceallevel=2 concealcursor=niv
     endif
-endif "}}}2
+endif "}}}
 
-if Is_plugin_loaded('echodoc.vim') "{{{2
+if Is_plugin_loaded('echodoc.vim') "{{{
     let g:echodoc_enable_at_startup = 1
-endif "}}}2
+endif "}}}
 
-if Is_plugin_loaded('clang_complete')
+if Is_plugin_loaded('clang_complete') "{{{
     if hostname() == 'bubbles'
         let g:clang_library_path='/usr/lib/x86_64-linux-gnu/libclang-3.9.so.1'
     elseif (hostname() == 'jeb') || (hostname() == 'yorick' )
         let g:clang_library_path='/usr/lib64/libclang.so.3.3'
     endif
-endif
+endif "}}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Mappings                                              {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""}}}
-" => Misc. Plugin Mappings {{{
+" => FZF plugin mappings   {{{
 """"""""""""""""""""""""""""""
-
-if Is_plugin_loaded('golden-ratio')
-    autocmd * VimResized * :GoldenRatioResize
-endif
-
 if Is_plugin_loaded('fzf.vim')
     nnoremap <leader>r :History:<CR>
     nnoremap <leader>R :History<CR>
@@ -653,10 +656,11 @@ if Is_plugin_loaded('fzf.vim')
     nmap <leader><tab> <plug>(fzf-maps-n)
     xmap <leader><tab> <plug>(fzf-maps-x)
     omap <leader><tab> <plug>(fzf-maps-o)
-    " Add FZF preview window
-    let g:fzf_files_options = 
-        \ '--preview "(highlight -0 ansi {} || cat {}) 2> /dev/null | head -' .&lines.'"'
 endif
+
+"""""""""""""""""""""""""""}}}
+" => Misc. Plugin Mappings {{{
+""""""""""""""""""""""""""""""
 
 if Is_plugin_loaded('undotree')
 
