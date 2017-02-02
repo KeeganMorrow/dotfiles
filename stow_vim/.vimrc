@@ -94,6 +94,7 @@ Plug 'janko-m/vim-test'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'mhinz/vim-grepper'
 Plug 'tpope/vim-dispatch'
 
 " Interface Plugins
@@ -109,6 +110,7 @@ Plug 'vim-scripts/DrawIt'
 Plug 'vim-scripts/ProportionalResize'
 Plug 'vimwiki/vimwiki'
 Plug 'wellle/visual-split.vim'
+Plug 'yssl/QFEnter'
 
 " Completion Plugins
 if has('nvim')
@@ -451,7 +453,12 @@ set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Grep tweaks                                            {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set grepprg=ack\ -H\ --nocolor\ --nogroup
+if executable('ag')
+    set grepprg=ag\ --vimgrep\ $*
+    set grepformat=%f:%l:%c:%m
+elseif executable('ack')
+    set grepprg=ack\ -H\ --nocolor\ --nogroup
+endif
 
 if has("autocmd")
 
@@ -676,6 +683,19 @@ if Is_plugin_loaded('vim-test')
     nnoremap <leader>nl :TestLast<cr>
     nnoremap <leader>nn :TestNearest<cr>
 
+endif
+
+" QFEnter mappings
+if Is_plugin_loaded('QFEnter')
+    let g:qfenter_vopen_map = ['<C-v']
+    let g:qfenter_hopen_map = ['<C-CR>', '<C-s>', '<C-x>']
+    let g:qfenter_topen_map = ['<C-t>']
+endif
+
+" QFEnter mappings
+if Is_plugin_loaded('vim-grepper')
+    let g:grepper.buffer = 1
+    let g:grepper.buffers = 0
 endif
 
 "Remap shift-k to use man plugin
