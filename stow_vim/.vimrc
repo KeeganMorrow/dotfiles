@@ -134,6 +134,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-rooter'
 Plug 'embear/vim-localvimrc'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'vim-scripts/headerguard'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Bundle Hostname lists                                  {{{
@@ -329,8 +330,6 @@ if has("autocmd")
         " Use C++ Syntax highlighting for Arduino files
         autocmd BufNewFile,BufReadPost *.ino,*.pde set filetype=cpp
 
-        autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
-
         " Go to first line in git commit messages
         autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
 
@@ -450,19 +449,6 @@ set laststatus=2
 set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => Useful functions                                       {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"Add include gates to C/C++ header files
-function! s:insert_gates()
-  let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
-  execute "normal! i#ifndef " . gatename
-  execute "normal! o#define " . gatename
-  execute "normal! Go#endif /* " . gatename . " */"
-  normal! kk
-endfunction
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Grep tweaks                                            {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set grepprg=ack\ -H\ --nocolor\ --nogroup
@@ -523,6 +509,13 @@ if Is_plugin_loaded('fzf.vim')
     " Add FZF preview window
     let g:fzf_files_options = 
         \ '--preview "(highlight -0 ansi {} || cat {}) 2> /dev/null | head -' .&lines.'"'
+endif
+
+"""""""""""""""""""""""""""}}}
+" => Headerguard settings  {{{
+""""""""""""""""""""""""""""""
+if Is_plugin_loaded('headerguard')
+    autocmd BufNewFile *.{h,hpp} call HeaderguardAdd()
 endif
 
 """""""""""""""""""""""""""}}}
