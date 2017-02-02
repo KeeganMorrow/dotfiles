@@ -620,7 +620,11 @@ if Is_plugin_loaded('echodoc.vim') "{{{2
 endif "}}}2
 
 if Is_plugin_loaded('clang_complete')
-    let g:clang_library_path='/usr/lib64/libclang.so.3.3'
+    if hostname() == 'bubbles'
+        let g:clang_library_path='/usr/lib/x86_64-linux-gnu/libclang-3.9.so.1'
+    elseif (hostname() == 'jeb') || (hostname() == 'yorick' )
+        let g:clang_library_path='/usr/lib64/libclang.so.3.3'
+    endif
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
