@@ -143,7 +143,7 @@ Plug 'vim-scripts/headerguard'
 let local_hostnames =["jeb","bubbles","yorick"]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""{{{
-if (index(local_hostnames, $HOSTNAME) >= 0)
+if (index(local_hostnames, hostname()) >= 0)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Local Install Only Bundles                             {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
