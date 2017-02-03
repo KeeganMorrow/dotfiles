@@ -73,3 +73,13 @@ fzfgr() {
     ctrl-x) git stash drop $reflog ;;
   esac
 }
+
+# Function to read a man page using the Vim superman plugin
+# https://github.com/jez/vim-superman
+vman() {
+    vim -c "SuperMan $*"
+
+    if [ "$?" != "0" ]; then
+        echo "No manual entry for $*"
+    fi
+}
