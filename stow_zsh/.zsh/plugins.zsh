@@ -1,12 +1,16 @@
-source ${HOME}/syncsettings/repos/zplug/zplug
+source ${HOME}/syncsettings/repos/zplug/init.zsh
+
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # Oh-My-Zsh plugins
 zplug "plugins/gitfast",                from:oh-my-zsh
 zplug "plugins/pip",                    from:oh-my-zsh
-zplug "plugins/sublime",                from:oh-my-zsh
 zplug "plugins/command-not-found",      from:oh-my-zsh
-zplug "plugins/ssh-agent",              from:oh-my-zsh
 zplug "plugins/taskwarrior",            from:oh-my-zsh
+zplug "modules/ssh",                    from:prezto
+zplug "modules/command-not-found",      from:prezto
+zplug "modules/python",                 from:prezto
+
 # Other Plugins
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "willghatch/zsh-cdr"
@@ -14,7 +18,7 @@ zplug "willghatch/zsh-cdr"
 zplug "zsh-users/zaw"
 
 # Themes
-zplug "korrow/zsh-themes", of:"themes/keegs.zsh-theme"
+zplug "korrow/zsh-themes", as:theme
 
 
 # Install plugins if there are plugins that have not been installed
@@ -26,6 +30,6 @@ if ! zplug check --verbose; then
 fi
 
 # Then, source plugins and add commands to $PATH
-zplug load --verbose
+zplug load
 # Enable ssh agent forwarding support
 zstyle :omz:plugins:ssh-agent agent-forwarding on
