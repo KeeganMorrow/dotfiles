@@ -68,7 +68,7 @@ Plug 'kana/vim-textobj-function'
 Plug 'sgur/vim-textobj-parameter'
 
 " Git Plugins
-Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 Plug 'rhysd/agit.vim'
 Plug 'rhysd/committia.vim'
 Plug 'tpope/vim-fugitive'
