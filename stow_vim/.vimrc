@@ -697,8 +697,8 @@ endif
 
 " QFEnter mappings
 if Is_plugin_loaded('vim-grepper')
-    let g:grepper.buffer = 1
-    let g:grepper.buffers = 0
+    " let g:grepper.buffer = 1
+    " let g:grepper.buffers = 0
 endif
 
 "Remap shift-k to use man plugin
