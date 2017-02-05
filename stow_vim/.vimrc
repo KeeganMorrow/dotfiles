@@ -34,13 +34,15 @@ Plug 'tomasr/molokai'
 Plug 'arecarn/spell-utils.vim'
 Plug 'chrisbra/NrrwRgn'
 Plug 'godlygeek/tabular'
-" Trying subbing out for auto-pairs, consider getting rid of it
 Plug 'jiangmiao/auto-pairs'
 Plug 'kana/vim-niceblock'
 Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
@@ -76,6 +78,7 @@ Plug 'tpope/vim-fugitive'
 " Syntax plugins
 Plug 'cespare/vim-toml'
 Plug 'confluencewiki.vim'
+Plug 'ekalinin/Dockerfile.vim'
 Plug 'elzr/vim-json'
 Plug 'kergoth/vim-bitbake'
 Plug 'lopter/moin.vim'
@@ -98,6 +101,7 @@ Plug 'metakirby5/codi.vim'
 Plug 'sbdchd/neoformat'
 Plug 'mhinz/vim-grepper'
 Plug 'tpope/vim-dispatch'
+Plug 'idanarye/vim-vebugger'
 
 " Interface Plugins
 Plug 'Shougo/vinarise.vim'
@@ -114,6 +118,7 @@ Plug 'vim-scripts/ProportionalResize'
 Plug 'vimwiki/vimwiki'
 Plug 'wellle/visual-split.vim'
 Plug 'yssl/QFEnter'
+Plug 'AndrewRadev/linediff.vim'
 
 " Completion Plugins
 if has('nvim')
