@@ -9,6 +9,8 @@ URxvt.keysym.Shift-Control-C: perl:clipboard:copy
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.clipboard.copycmd:  xsel -ib
 URxvt.clipboard.pastecmd: xsel -ob
+URxvt*transparent: true
+URxvt*shading: 10
 
 ! Use tmux for history, so dont need urxvt scrollback
 URxvt.saveLines: 0
