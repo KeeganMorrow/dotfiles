@@ -29,7 +29,7 @@ fzfgb() {
 
 fzfgt() {
   is_in_git_repo || return
-  git tag | sort -V |
+  git tag | sort -V --reverse |
   fzf-tmux --multi --preview-window right:70% \
     --preview 'git show --color=always {} | head -'$LINES
 }
