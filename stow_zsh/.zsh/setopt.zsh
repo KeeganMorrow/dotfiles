@@ -26,22 +26,14 @@ setopt HIST_REDUCE_BLANKS
 # Include more information about when the command was executed, etc
 setopt EXTENDED_HISTORY
 
-# ===== Completion 
-
-# Allow completion from within a word/phrase
-setopt COMPLETE_IN_WORD 
-
-# When completing from the middle of a word, move the cursor to the end of the word
-setopt ALWAYS_TO_END            
-
-# Show fancy glob completion
-setopt GLOB_COMPLETE
-
 # ===== Prompt
 
 # Enable parameter expansion, command substitution, and arithmetic expansion in the prompt
 setopt PROMPT_SUBST
 
+# Treat these characters as part of a word.
+WORDCHARS='*?_-.[]~&;!#$%^(){}<>'
 
-unsetopt MENU_COMPLETE
-setopt AUTO_MENU
+# Display CPU usage stats for commands taking more than REPORTTIME seconds
+REPORTTIME=10
+
