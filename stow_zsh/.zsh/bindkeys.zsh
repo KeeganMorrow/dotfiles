@@ -72,8 +72,10 @@ bindkey '^E' _expand_alias
 #''''''''''''''''''''''''''''''
 # History search keybindings
 #''''''''''''''''''''''''''''''
-bindkey "^n" history-beginning-search-forward
-bindkey "^p" history-beginning-search-backward
+bindkey "^n" down-line-or-search
+bindkey "^p" up-line-or-search
+bindkey -M menuselect "^n" down-line-or-search
+bindkey -M menuselect "^p" up-line-or-search
 
 # Search previously used words
 insert-next-word() {
@@ -95,9 +97,7 @@ bindkey -r '^J'
 #''''''''''''''''''''''''''''''
 # Based off of Christian Neukirchen's blog post:
 # http://chneukirchen.org/blog/archive/2013/03/10-fresh-zsh-tricks-you-may-not-know.html
-bindkey -M menuselect '/'  accept-and-infer-next-history
-bindkey -M menuselect '^N' undo
-bindkey -M menuselect '^[^M' accept-and-hold
+bindkey -M menuselect '^D' undo
 bindkey -M menuselect '^R' history-incremental-search-forward
 bindkey -M menuselect '^[[Z' reverse-menu-complete # Shift Tab
 
