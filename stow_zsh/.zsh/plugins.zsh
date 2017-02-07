@@ -5,23 +5,21 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 # Oh-My-Zsh plugins
 zplug "plugins/gitfast",                from:oh-my-zsh
 zplug "plugins/pip",                    from:oh-my-zsh
-zplug "plugins/command-not-found",      from:oh-my-zsh
 zplug "plugins/taskwarrior",            from:oh-my-zsh
+
+# Prezto plugins
 zplug "modules/ssh",                    from:prezto
-zplug "modules/command-not-found",      from:prezto
 zplug "modules/python",                 from:prezto
 
 # Other Plugins
 zplug "zsh-users/zsh-syntax-highlighting"
-zplug "willghatch/zsh-cdr"
-# Should be loaded after zsh-cdr
-zplug "zsh-users/zaw"
+zplug "zsh-users/zsh-completions"
 
 # Themes
 zplug "korrow/zsh-themes", as:theme
 
 
-# Install plugins if there are plugins that have not been installed
+# Install plugins if there are plugins that have not been installed                                                                              j
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
