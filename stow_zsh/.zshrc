@@ -26,9 +26,26 @@ fi
 stty -ixon
 
 precmd() {
-  if [[ -n "$TMUX" ]]; then
-    tmux setenv "$(tmux display -p 'TMUX_PWD_#D')" "$PWD"
-  fi
+    if [[ -n "$TMUX" ]]; then
+        tmux setenv "$(tmux display -p 'TMUX_PWD_#D')" "$PWD"
+    fi
+    case $TERM in
+        screen*)
+            # Set Tmux-title to zsh and pwd
+            print -Pn "\033k$(basename %~)\033\\"
+            # Set urxvt title to zsh and pwd
+            print -Pn "\e]2;zsh:%~\a"
+    ;;
+    esac
+}
+preexec() {
+    case $TERM in
+        screen*)
+            # Set Tmux-title to running program
+            print -Pn "\033k$(echo "$1" | cut -d' ' -f1)\a"
+            print -Pn "\e]2;zsh:%~\a"
+    ;;
+    esac
 }
 
 # Source fzf if it is available
