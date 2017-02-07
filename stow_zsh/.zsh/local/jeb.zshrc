@@ -6,3 +6,7 @@ alias vi='nvim'
 export VAL_PATH="/jeb/usr1/validare/validare/src"
 export TEST_DIR="/jeb/usr1/validare/test"
 
+export CARGO_HOME="/jeb/usr1/rust/cargo"
+export RUSTUP_HOME="/jeb/usr1/rust/rustup"
+export PATH="/jeb/usr1/rust/cargo/bin:$PATH"
+
