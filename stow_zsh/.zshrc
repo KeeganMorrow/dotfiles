@@ -5,7 +5,15 @@
 ############################################################
 # Set up Zplug
 ############################################################
-source ${HOME}/syncsettings/repos/zplug/init.zsh
+export ZPLUG_HOME="${HOME}/.zplug"
+zplug_file="${ZPLUG_HOME}/init.zsh"
+
+if [[ ! -d "${ZPLUG_HOME}" ]]; then
+    git clone https://github.com/zplug/zplug "${ZPLUG_HOME}"
+fi
+
+# shellcheck source=/dev/null
+source "${ZPLUG_HOME}/init.zsh"
 
 # Have ZPlug managed itself
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
@@ -631,8 +639,6 @@ bindkey -r '^u'
 
 #Bind list-expand to ^f instead
 bindkey '^f' list-expand
-
-source ~/.zsh/exports.zsh
 
 ################################################################################
 # Exports
