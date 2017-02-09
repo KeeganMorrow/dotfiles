@@ -673,26 +673,30 @@ fi
 ################################################################################
 # Special function overrides
 ################################################################################
-# TODO: Use hooks instead
-precmd() {
+autoload -U add-zsh-hook
+
+add-zsh-hook precmd precmd_hook_tmux
+precmd_hook_tmux() {
     if [[ -n "$TMUX" ]]; then
         tmux setenv "$(tmux display -p 'TMUX_PWD_#D')" "$PWD"
     fi
     case $TERM in
         screen*)
-            # Set Tmux-title to zsh and pwd
-            print -Pn "\033k$(basename %~)\033\\"
+            # Set Tmux-title to abbreviated pwd
+            print -Pn "\033k%3~\033\\"
             # Set urxvt title to zsh and pwd
-            print -Pn "\e]2;zsh:%~\a"
+            print -Pn "\e]2:tmux:%~\a"
     ;;
     esac
 }
-preexec() {
+
+add-zsh-hook preexec preexec_hook_tmux
+preexec_hook_tmux() {
     case $TERM in
         screen*)
             # Set Tmux-title to running program
-            print -Pn "\033k$(echo "$1" | cut -d' ' -f1)\a"
-            print -Pn "\e]2;zsh:%~\a"
+            print -Pn "\033k$(echo "$1" | cut -d' ' -f1)\033\\"
+            print -Pn "\e]2;tmux:$(echo "$1" | cut -d' ' -f1)\a"
     ;;
     esac
 }
