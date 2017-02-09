@@ -4,10 +4,10 @@
 
 # terminal emulator
 super + Return
-	urxvt -e tmux -2
+	eval "${BSPWM_TERM} -e tmux -2"
 
 super + shift + Return
-	~/syncsettings/bin/rofi_tmux.sh -location 2
+	TERMINAL="$BSPWM_TERM" ~/syncsettings/bin/rofi_tmux.sh -location 2
 
 super + shift + w
 	~/syncsettings/repos/nmcli-dmenu/nmcli_dmenu
