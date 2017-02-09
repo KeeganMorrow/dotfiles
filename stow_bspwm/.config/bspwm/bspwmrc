@@ -21,6 +21,7 @@ bspc_setup_monitors(){
             (( screen++ ))
         done
         echo "bspc monitor ${monitor} -d $monitorstring"
+        bspc monitor ${monitor} -d $monitorstring
     done
 }
 
