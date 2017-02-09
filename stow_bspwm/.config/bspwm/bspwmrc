@@ -1,6 +1,30 @@
 #! /bin/sh
 
-bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+bspc_setup_monitors(){
+    # Right now lazily just assigns 5 per monitor
+    local count=1
+    monitors=$(bspc query -M)
+    monitor_count=$(echo "$monitors" | wc -l)
+    screens_per_monitor=$((10/$monitor_count))
+    echo "Found ${monitor_count} monitors, doing ${screens_per_monitor} per monitor"
+    echo "$monitors" | while read monitor; do
+        echo "Found monitor $monitor"
+        monitorstring=""
+        screen=0
+        until [ $screen -eq $screens_per_monitor ]; do
+            # Make sure that only use 1-0, repeating if necessary
+            realcount=$((count++))
+            if [ $realcount -gt 9 ];then
+                realcount=$((realcount % 10))
+            fi
+            monitorstring="$monitorstring $realcount"
+            (( screen++ ))
+        done
+        echo "bspc monitor ${monitor} -d $monitorstring"
+    done
+}
+
+bspc_setup_monitors
 
 # Reclaim any old windows (but lose their positions)
 bspc wm --adopt-orphans
