@@ -21,3 +21,7 @@ export I3LOCK_COLOR="000000"
 
 # Source the local file
 source $(dirname "$0")/bspwm_env_local.sh
+
+# Amixer info (Used for volume keys and display)
+export AMIXER_DEVICE="default"
+export AMIXER_SCONTROL="Master"

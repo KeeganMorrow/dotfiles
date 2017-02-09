@@ -29,16 +29,16 @@ super + Escape
 
 # Adjust backlight intensity
 XF86MonBrightness{Up,Down}
-    xbacklight {-inc,-dec} 10
+    xbacklight {-inc,-Dec} 10
 
-#TODO: Make this show the slider
+#DODO: Make this show the slider
 # Bind volume keys
 XF86Audio{Raise,Lower}Volume
-	amixer -D pulse set Master 5%{+,-} unmute -q
+	amixer -D ${AMIXER_DEVICE} set ${AMIXER_SCONTROL} 5%{+,-} unmute -q
 
 # Bind mute key
 XF86AudioMute
-	amixer -D pulse set Master toggle -q
+	amixer -D ${AMIXER_DEVICE} set ${AMIXER_SCONTROL} toggle -q
 #
 # bspwm hotkeys
 #
