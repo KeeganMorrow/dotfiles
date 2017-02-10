@@ -21,7 +21,7 @@ detached_windows="$(echo -e "$windows" | awk '!/attached/')"
 choice=$(echo -e "$detached_windows \n$attached_windows" | rofi -dmenu $@)
 target=$(echo -e "$choice" | sed 's/:.*//')
 if [ ! -z "$target" ] ; then
-    eval "$term -e zsh -c "tmux attach -t '${target}'" &"
+    eval "$term -e zsh -c \"tmux attach -t '${target}'\" &"
 else
     echo "No user input selected!"
 fi
