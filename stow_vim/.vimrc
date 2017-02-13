@@ -558,6 +558,14 @@ if Is_plugin_loaded('committia.vim')
     endfunction
 
 endif
+
+"""""""""""""""""""""""""""}}}
+" => Notational Settings   {{{
+""""""""""""""""""""""""""""""
+if Is_plugin_loaded('notational-fzf-vim')
+    let g:nv_directories = ['~/notes']
+endif
+
 """""""""""""""""""""""""""}}}
 " => Better Whitespace     {{{
 """"""""""""""""""""""""""""""
