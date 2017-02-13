@@ -702,8 +702,13 @@ endif
 
 " QFEnter mappings
 if Is_plugin_loaded('vim-grepper')
-    " let g:grepper.buffer = 1
-    " let g:grepper.buffers = 0
+    nmap gs <plug>(GrepperOperator)
+    xmap gs <plug>(GrepperOperator)
+endif
+
+if Is_plugin_loaded('vim-operator-replace')
+    " Mapping for the replace operator
+    map g" <Plug>(operator-replace)
 endif
 
 "Remap shift-k to use man plugin
