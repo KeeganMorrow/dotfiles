@@ -35,6 +35,7 @@ Plug 'arecarn/spell-utils.vim'
 Plug 'chrisbra/NrrwRgn'
 Plug 'godlygeek/tabular'
 Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-niceblock'
 Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
@@ -546,7 +547,7 @@ if Is_plugin_loaded('vim-test')
 endif
 
 """""""""""""""""""""""""""}}}
-" => committia Settings     {{{
+" => committia Settings    {{{
 """"""""""""""""""""""""""""""
 if Is_plugin_loaded('committia.vim')
     let g:committia_hooks = {}
@@ -700,7 +701,14 @@ if Is_plugin_loaded('QFEnter')
     let g:qfenter_topen_map = ['<C-t>']
 endif
 
-" QFEnter mappings
+if Is_plugin_loaded('vim-easy-align')
+    " Start interactive EasyAlign in visual mode (e.g. vipga)
+    xmap ga <Plug>(EasyAlign)
+
+    " Start interactive EasyAlign in normal mode (e.g. gaip)
+    nmap ga <Plug>(EasyAlign)
+endif
+
 if Is_plugin_loaded('vim-grepper')
     nmap gs <plug>(GrepperOperator)
     xmap gs <plug>(GrepperOperator)
