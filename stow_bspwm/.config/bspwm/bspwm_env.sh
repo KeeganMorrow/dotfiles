@@ -10,7 +10,7 @@ export LEMONBAR_FONT="Source Code Pro for Powerline-10"
 export LEMONBAR_FONT_SYMS="Symbola:size=10px"
 
 # Select the BSPWM terminal
-export BSPWM_TERM="st"
+export BSPWM_TERM="urxvt-256color"
 
 # In the format WIDTHxHEIGHT+X+Y
 # This gets passed to bspwm's top padding as well
