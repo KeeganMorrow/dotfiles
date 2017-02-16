@@ -1,5 +1,7 @@
 #include ".Xresources.d/colors/badwolf.xrdb"
 
+*fading: 0
+
 URxvt*font: xft:Source\ Code\ Pro\ Medium:pixelsize=12:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=12:antialias=true:hinting=true
 
 ! Copy paste bindings
