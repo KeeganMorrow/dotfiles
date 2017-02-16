@@ -578,7 +578,6 @@ bindkey '^E' _expand_alias
 ############################################################
 # History search keybindings
 ############################################################
-bindkey '^R' history-incremental-search-backward
 bindkey "^n" down-line-or-search
 bindkey "^p" up-line-or-search
 bindkey -M menuselect "^n" down-line-or-search
