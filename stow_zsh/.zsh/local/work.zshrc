@@ -52,7 +52,7 @@ if [ -f /usr/bin/virtualenvwrapper.sh ]; then
 fi
 
 # Add igdev sw tools to PATH
-export PATH="$PATH:/evtfs/igdev/igdev/grponly/sw/tools/scripts"
+_addpath "/evtfs/igdev/igdev/grponly/sw/tools/scripts" > /dev/null
 
 igpath(){
     result=$(realpath "$@")

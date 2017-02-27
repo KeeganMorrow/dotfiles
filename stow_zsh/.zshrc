@@ -252,6 +252,27 @@ compdef _bangfalse_tilde -tilde-
 ###############################################################################
 # Functions
 ###############################################################################
+# Path modification functions
+
+# Takes a single value to be checked for and
+_addpath(){
+    addition="$1"
+    if [[ ":$PATH:" == *":$addition:"* ]];then
+        echo "$addition found in path"
+    else
+        echo "$addition not found in path, adding"
+        export PATH=$PATH:"$addition"
+        echo "PATH is now $PATH"
+    fi
+}
+
+# Takes a zsh array of path additions
+_addpaths(){
+    for addition in ${(P)1}; do
+        _addpath "$addition"
+    done
+}
+
 ############################################################
 # FZF Functions
 ############################################################
@@ -642,8 +663,20 @@ bindkey '^f' list-expand
 ################################################################################
 # Exports
 ################################################################################
+
+############################################################
+# Path setup
+############################################################
+_additional_paths=(
+"/sbin"
+"/usr/sbin"
+"${HOME}/syncsettings/bin"
+"${HOME}/bin/bin"
+)
+
+_addpaths _additional_paths > /dev/null
+
 export EDITOR=vim
-export PATH="$PATH:${HOME}/bin/bin:${HOME}/syncsettings/bin"
 
 # Socket to use for communicating with bspwm, also in config/bspwm/bspwm_wrapper.sh
 export BSPWM_SOCKET="/tmp/bspwm-socket.${USER}"
