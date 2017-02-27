@@ -41,10 +41,6 @@ zplug "modules/python",                 from:prezto
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
 
-# Source fzf if it is available
-FZF_TMUX=0
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 ########################################
 # Themes
 ########################################
@@ -538,6 +534,7 @@ export KEYTIMEOUT=1
 # should all be together, so here we go.
 
 # Use vi keys
+
 bindkey -v
 ########################################
 # This stuff came from Pawel Goscicki. Thanks dude!
@@ -671,6 +668,7 @@ _additional_paths=(
 "/sbin"
 "/usr/sbin"
 "${HOME}/syncsettings/bin"
+"${HOME}/syncsettings/repos/fzf/bin"
 "${HOME}/bin/bin"
 )
 
@@ -703,6 +701,17 @@ if [ -d "$workpath" ]; then
 fi
 
 ################################################################################
+# FZF Setup
+################################################################################
+FZF_TMUX=0
+if [ -f ~/syncsettings/repos/fzf/bin/fzf ]; then
+    source ~/syncsettings/repos/fzf/shell/completion.zsh
+    source ~/syncsettings/repos/fzf/shell/key-bindings.zsh
+else
+    echo "Please run the install script for fzf"
+fi
+
+################################################################################
 # Special function overrides
 ################################################################################
 autoload -U add-zsh-hook
@@ -732,3 +741,4 @@ preexec_hook_tmux() {
     ;;
     esac
 }
+
