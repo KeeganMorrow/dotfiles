@@ -9,27 +9,15 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-# Start network manager at start
-exec --no-startup-id nm-applet
-
-# Start nitrogen to set the X background
-exec --no-startup-id nitrogen --restore
-
-# Color scheme
-# class                     border  backgr. text    indicator
-client.urgent               #181818 #ef0000 #ffffff #323232
-client.focused              #181818 #ef0000 #ffffff #323232
-client.focused_inactive     #181818 #a02222 #ffffff #ff4040
-client.unfocused            #181818 #442424 #ffffff #ff4040
-
-# Set up mod key
 set $mod Mod4
-
-set $i3pystatus_conf ${HOME}/syncsettings/config/i3/i3pystatus_conf.py
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Source Code Pro for Powerline 12px
+font pango:monospace 8
+
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+#font pango:DejaVu Sans Mono 8
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -42,28 +30,23 @@ font pango:Source Code Pro for Powerline 12px
 floating_modifier $mod
 
 # start a terminal
-# bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec urxvt-256color -e tmux
-bindsym $mod+Shift+Return exec ~/syncsettings/bin/rofi_tmux.sh
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start rofi (a program launcher)
-bindsym $mod+d exec rofi -show run
-bindsym $mod+w exec rofi -show window
-# bindsym $mod+s exec rofi -show ssh
-
+# start dmenu (a program launcher)
+bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -78,23 +61,23 @@ bindsym $mod+Shift+l move up
 bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
-# bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+backslash split h
+bindsym $mod+h split h
 
 # split in vertical orientation
-bindsym $mod+minus split v
+bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+t layout tabbed
+bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -142,46 +125,32 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-    # These bindings trigger as soon as you enter the resize mode
+        # These bindings trigger as soon as you enter the resize mode
 
-    # Pressing left will shrink the window’s width.
-    # Pressing right will grow the window’s width.
-    # Pressing up will shrink the window’s height.
-    # Pressing down will grow the window’s height.
-    bindsym h resize shrink width 10 px or 10 ppt
-    bindsym j resize grow height 10 px or 10 ppt
-    bindsym k resize shrink height 10 px or 10 ppt
-    bindsym l resize grow width 10 px or 10 ppt
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
 
-    # same bindings, but for the arrow keys
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Down resize grow height 10 px or 10 ppt
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
 
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
 
-# Volume key bindings, also updates volume in i3blocks
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5%+ unmute ; exec --no-startup-id pkill -RTMIN+10 i3blocks
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5%- unmute ; exec --no-startup-id pkill -RTMIN+10 i3blocks
-bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle ; exec --no-startup-id pkill -RTMIN+10 i3blocks
-
-# Update caps/num lock indicator when key is pressed
-bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
-bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
-
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    colors {
-        background #080808
-        statusline #d0d0d0
-    }
-    status_command python3 $i3pystatus_conf
-    tray_output primary
+        status_command i3status
 }
