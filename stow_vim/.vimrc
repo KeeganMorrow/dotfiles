@@ -39,6 +39,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-niceblock'
 Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
+Plug 'milsen/vim-operator-substitute'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
@@ -725,6 +726,13 @@ endif
 if Is_plugin_loaded('vim-operator-replace')
     " Mapping for the replace operator
     map g" <Plug>(operator-replace)
+endif
+
+if Is_plugin_loaded('vim-operator-substitute')
+    map s <Plug>(operator-substitute)
+    map S <Plug>(operator-substitute)$
+    map & <Plug>(operator-substitute-repeat)
+    map g& <Plug>(operator-substitute-repeat-no-flags)
 endif
 
 "Remap shift-k to use man plugin
