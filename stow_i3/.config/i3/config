@@ -52,6 +52,17 @@ bindsym $mod+d exec rofi -show run
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
+# Bind volume keys
+set $pactl_sink 0
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $pactl_sink +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $pactl_sink -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute $pactl_sink toggle
+
+# Screen brightness controls
+# TODO: Test this on laptop
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
