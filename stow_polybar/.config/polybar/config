@@ -8,23 +8,41 @@
 ;=====================================================
 
 [colors]
+dark = #181818
+light = f8f6f2
+blue = #00afff
+darkblue = #005888
+green = #afff00
+darkgreen = #588800
+orange = #ffaf00
+darkorange = #885800
+red = #ff2c4b
 ;background = ${xrdb:color0:#222}
-background = #222
-background-alt = #444
+background = ${colors.dark}
+background-alt = #000000
 ;foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
-foreground-alt = #555
-primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
+foreground = ${colors.light}
+foreground-alt = #ffffff
+primary = ${colors.blue}
+secondary = ${colors.green}
+alert = ${colors.red}
+;statusline #ffaf00
+;separator #ffffff
+;background #262626
 
-[bar/example]
+;# Type             border  background text
+;focused_workspace  #000000 #afff00    #000000
+;active_workspace   #000000 #00afff    #000000
+;inactive_workspace #000000 #444444    #ffffff
+;urgent_workspace   #000000 #ffaf00    #000000
+
+[bar/top]
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
-height = 27
+height = 16
 ;offset-x = 1%
 ;offset-y = 1%
-radius = 6.0
+radius 0.0
 fixed-center = false
 
 background = ${colors.background}
@@ -33,8 +51,8 @@ foreground = ${colors.foreground}
 line-size = 3
 line-color = #f00
 
-border-size = 4
-border-color = #00000000
+border-size = 1
+border-color = ${colors.background}
 
 padding-left = 0
 padding-right = 2
@@ -42,13 +60,15 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = fixed:pixelsize=10;1
+font-0 = Source Code Pro for Powerline Medium:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 
+separator = 
+
 modules-left = bspwm i3
-modules-center = 
-modules-right = filesystem xbacklight volume xkeyboard memory cpu battery temperature date powermenu
+modules-center = xkeyboard
+modules-right = filesystem xbacklight volume memory cpu battery temperature date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -56,35 +76,32 @@ tray-padding = 2
 ;tray-background = #0063ff
 
 ;wm-restack = bspwm
-;wm-restack = i3
+wm-restack = i3
 
 ;override-redirect = true
 
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
 
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
-
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:30:...%
+; scroll-up = i3wm-wsnext
+; scroll-down = i3wm-wsprev
 
 [module/xkeyboard]
 type = internal/xkeyboard
-blacklist-0 = num lock
+; blacklist-0 = num lock
 
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
+format-prefix =
+format-prefix-foreground = ${colors.foreground}
+format-prefix-underline = ${colors.blue}
 
-label-layout = %layout%
+label-layout =
 label-layout-underline = ${colors.secondary}
 
 label-indicator-padding = 2
 label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
+label-indicator-foreground = ${colors.dark}
+label-in;icator-background = ${colors.red}
+label-indicator-underline = ${colors.light}
 
 [module/filesystem]
 type = internal/fs
@@ -120,22 +137,28 @@ type = internal/i3
 format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
+; format-prefix = 
+; format-suffix = 
 
 ; Only show workspaces on the same output as the bar
 ;pin-workspaces = true
 
-label-mode-padding = 2
-label-mode-foreground = #000
-label-mode-background = ${colors.primary}
+label-mode-padding = 0
+label-mode-foreground = ${colors.foreground}
+label-mode-background = ${colors.green}
 
 ; focused = Active workspace on focused monitor
 label-focused = %index%
-label-focused-background = ${module/bspwm.label-focused-background}
-label-focused-underline = ${module/bspwm.label-focused-underline}
+label-focused-background = ${colors.green}
+label-focused-foreground = ${colors.background}
+label-focused-underline = ${colors.green}
 label-focused-padding = ${module/bspwm.label-focused-padding}
 
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %index%
+label-unfocused-background = ${colors.blue}
+label-unfocused-foreground = ${colors.background}
+label-unfocused-underline = ${colors.blue}
 label-unfocused-padding = ${module/bspwm.label-occupied-padding}
 
 ; visible = Active workspace on unfocused monitor
@@ -171,13 +194,14 @@ label = BL
 bar-width = 10
 bar-indicator = |
 bar-indicator-foreground = #ff
-bar-indicator-font = 2
-bar-fill = ─
+bar-indicator-font = 1
+bar-fill = ▰
 bar-fill-font = 2
 bar-fill-foreground = #9f78e1
-bar-empty = ─
-bar-empty-font = 2
+bar-ed-empty = ▱
+bar-empty-font = 1
 bar-empty-foreground = ${colors.foreground-alt}
+bar-used-font = 1
 
 [module/backlight-acpi]
 inherit = module/xbacklight
@@ -188,17 +212,41 @@ card = intel_backlight
 type = internal/cpu
 interval = 2
 format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
+; format-foreground = ${colors.dark}
+; format-background = ${colors.blue}
+format-underline = ${colors.blue}
+format = <label> <ramp-coreload>
 label = %percentage%%
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+ramp-coreload-7 = █
 
 [module/memory]
 type = internal/memory
 interval = 2
 format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
+format = <label> <bar-used>
+; format-foreground = ${colors.dark}
+; format-background = ${colors.blue}
+format-underline = ${colors.green}
 label = %percentage_used%%
+; Only applies if <bar-used> is used
+bar-used-indicator =
+bar-used-width = 5
+bar-used-foreground-0 = ${colors.blue}
+bar-used-foreground-1 = ${colors.green}
+bar-used-foreground-2 = ${colors.orange}
+bar-used-foreground-3 = ${colors.red}
+bar-used-font = 1
+bar-used-fill = ▰
+bar-used-empty-font = 1
+bar-used-empty = ▱
+bar-used-empty-foreground = ${colors.foreground}
 
 [module/wlan]
 type = internal/network
@@ -206,10 +254,10 @@ interface =
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
+format-connected-underline = ${color.green}
 label-connected = %essid%
 
-format-disconnected =
+format-disconnected = ${color.red}
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
@@ -242,8 +290,8 @@ format-disconnected =
 type = internal/date
 interval = 5
 
-date =
-date-alt = " %Y-%m-%d"
+date = " %Y-%m-%d"
+date-alt =
 
 time = %H:%M
 time-alt = %H:%M:%S
@@ -265,21 +313,18 @@ format-muted-prefix = " "
 format-muted-foreground = ${colors.foreground-alt}
 label-muted = sound muted
 
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
+bar-volume-width = 5
+bar-volume-foreground-0 = ${colors.blue}
+bar-volume-foreground-1 = ${colors.green}
+bar-volume-foreground-2 = ${colors.orange}
+bar-volume-foreground-3 = ${colors.red}
 bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
+bar-volume-indicator = ▰
+bar-volume-indicator-font = 1
+bar-volume-fill-font = 1
+bar-volume-fill = ▰
+bar-volume-empty-font = 1
+bar-volume-empty = ▱
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/battery]
