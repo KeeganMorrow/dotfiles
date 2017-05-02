@@ -31,3 +31,6 @@
 	path = repos/zplug
 	url = https://github.com/b4b4r07/zplug
 	branch = master
+[submodule "repos/siji"]
+	path = repos/siji
+	url = https://github.com/stark/siji
