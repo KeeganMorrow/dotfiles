@@ -646,10 +646,10 @@ if Is_plugin_loaded('echodoc.vim') "{{{
 endif "}}}
 
 if Is_plugin_loaded('clang_complete') "{{{
-    if hostname() == 'bubbles'
-        let g:clang_library_path='/usr/lib/x86_64-linux-gnu/libclang-3.9.so.1'
-    elseif (hostname() == 'jeb') || (hostname() == 'yorick' )
-        let g:clang_library_path='/usr/lib64/libclang.so.3.3'
+    " OpenSuse 13.1
+    if hostname() == 'zardoz'
+    " Ubuntu 16.04+
+    elseif (hostname() == 'jeb') || (hostname() == 'bubbles' ) || (hostname() == 'yocto')
     endif
 endif "}}}
 
