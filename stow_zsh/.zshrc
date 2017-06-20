@@ -602,14 +602,14 @@ bindkey -M menuselect "^n" down-line-or-search
 bindkey -M menuselect "^p" up-line-or-search
 
 # Search previously used words
-insert-next-word() {
+_insert-next-word() {
     zle insert-last-word 1
 }
-zle -N insert-next-word
+zle -N _insert-next-word
 
 # Bind this functionality to ctrl+up/down
 bindkey -M viins '^[[A'    insert-last-word
-bindkey -M viins '^[[B'    insert-next-word
+bindkey -M viins '^[[B'    _insert-next-word
 
 ############################################################
 # Completion keybindings
