@@ -14,12 +14,6 @@ hash -d swKM='/evtfs/igdev/igdev/grponly/sw/working/kmorrow'
 hash -d aceRepos='/evtfs/igdev/igdev/grponly/sw/working/kmorrow/ace/aceRepos'
 hash -d wallApp='/evtfs/igdev/igdev/grponly/sw/working/kmorrow/ace/aceRepos/wallapp'
 
-# Yocto Build systems on Frogstar
-hash -d yoctoAce='/frogstar/scratch/kmorrow/ace/poky'
-hash -d yoctoCcp='/frogstar/scratch/kmorrow/ccp/yocto'
-hash -d yoctoMuse='/zardoz/scratch/kmorrow/muse/yocto'
-hash -d yoctoProgrammer='/zardoz/scratch/kmorrow/ccp-programmer/yocto'
-
 # Project directories
 hash -d proj='/evtfs/igdev/igdev/grponly'
 hash -d projAce='/evtfs/igdev/igdev/grponly/ace'
