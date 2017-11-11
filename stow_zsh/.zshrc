@@ -13,10 +13,7 @@ if [[ ! -d "${ZPLUG_HOME}" ]]; then
 fi
 
 # shellcheck source=/dev/null
-source "${ZPLUG_HOME}/init.zsh"
-
-# Have ZPlug managed itself
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+source "${zplug_file}"
 
 ############################################################
 # Plugins
@@ -40,6 +37,13 @@ zplug "modules/python",                 from:prezto
 ########################################
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
+
+# This way of doing things stolen from arecarn's dotfiles
+# https://github.com/arecarn/dotfiles/blob/master/zsh/.zshrc
+zplug 'junegunn/fzf', \
+    use:"shell", \
+    hook-build:'./install --all --no-update-rc --no-key-bindings'
+zplug 'junegunn/fzf', as:"command", use:"bin/*"
 
 ########################################
 # Themes
@@ -628,7 +632,7 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete # Shift Tab
 bindkey -r '^J'
 
 ########################################
-# FZF git keymappings
+# FZF keymappings
 ########################################
 join-lines() {
   local item
@@ -649,6 +653,9 @@ bind-git-helper() {
 bind-git-helper f b t r u
 unset -f bind-git-helper
 
+bindkey -M viins '^T' fzf-file-widget
+bindkey -M viins '^Y' fzf-cd-widget
+bindkey -M viins '^R' fzf-history-widget
 
 # Remove default list-expand mapping
 bindkey -r '^g'
@@ -668,7 +675,6 @@ _additional_paths=(
 "/sbin"
 "/usr/sbin"
 "${HOME}/syncsettings/bin"
-"${HOME}/syncsettings/repos/fzf/bin"
 "${HOME}/bin/bin"
 )
 
@@ -698,17 +704,6 @@ fi
 if [ -d "$workpath" ]; then
     echo "Using work zshrc"
     source $workrc
-fi
-
-################################################################################
-# FZF Setup
-################################################################################
-FZF_TMUX=0
-if [ -f ~/syncsettings/repos/fzf/bin/fzf ]; then
-    source ~/syncsettings/repos/fzf/shell/completion.zsh
-    source ~/syncsettings/repos/fzf/shell/key-bindings.zsh
-else
-    echo "Please run the install script for fzf"
 fi
 
 ################################################################################
