@@ -24,7 +24,6 @@ source "${zplug_file}"
 ########################################
 zplug "plugins/gitfast",                from:oh-my-zsh
 zplug "plugins/pip",                    from:oh-my-zsh
-zplug "plugins/taskwarrior",            from:oh-my-zsh
 
 ########################################
 # Prezto plugins
