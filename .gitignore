@@ -1,2 +1,6 @@
 dotfiles/zsh/cache
 stow_git/.gitconfig_local
+
+stow_vim/.vim/.netrwhist
+stow_vim/.vim/.
+stow_zsh/.zsh/zplug/
