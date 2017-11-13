@@ -37,9 +37,9 @@ floating_modifier $mod
 set $term rvxt-unicode
 
 # start a terminal
-bindsym $mod+Return exec rxvt-unicode -e tmux -2
+bindsym $mod+Return exec alacritty -e tmux -2
 
-bindsym $mod+Shift+Return exec TERMINAL=rxvt-unicode ~/syncsettings/bin/rofi_tmux.sh -location 2
+bindsym $mod+Shift+Return exec TERMINAL=alacritty ~/syncsettings/bin/rofi_tmux.sh -location 2
 
 # Bind i3lock
 bindsym $mod+Escape exec i3lock -c 000000 -d

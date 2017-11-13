@@ -5,7 +5,7 @@
 ############################################################
 # Set up Zplug
 ############################################################
-export ZPLUG_HOME="${HOME}/.zplug"
+export ZPLUG_HOME="${HOME}/.zsh/zplug"
 zplug_file="${ZPLUG_HOME}/init.zsh"
 
 if [[ ! -d "${ZPLUG_HOME}" ]]; then
@@ -13,10 +13,7 @@ if [[ ! -d "${ZPLUG_HOME}" ]]; then
 fi
 
 # shellcheck source=/dev/null
-source "${ZPLUG_HOME}/init.zsh"
-
-# Have ZPlug managed itself
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+source "${zplug_file}"
 
 ############################################################
 # Plugins
@@ -27,7 +24,6 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 ########################################
 zplug "plugins/gitfast",                from:oh-my-zsh
 zplug "plugins/pip",                    from:oh-my-zsh
-zplug "plugins/taskwarrior",            from:oh-my-zsh
 
 ########################################
 # Prezto plugins
@@ -40,6 +36,13 @@ zplug "modules/python",                 from:prezto
 ########################################
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
+
+# This way of doing things stolen from arecarn's dotfiles
+# https://github.com/arecarn/dotfiles/blob/master/zsh/.zshrc
+zplug 'junegunn/fzf', \
+    use:"shell", \
+    hook-build:'./install --all --no-update-rc --no-key-bindings'
+zplug 'junegunn/fzf', as:"command", use:"bin/*"
 
 ########################################
 # Themes
@@ -99,11 +102,8 @@ stty -ixon
 # History Configuration
 ############################################################
 
-# Allow multiple terminal sessions to all append to one zsh command history
-setopt append_history 
-
-# Add commands as they are typed, don't wait until shell exit
-setopt inc_append_history 
+# Share history between zsh sessions
+setopt share_history
 
 # Do not write events to history that are duplicates of previous events
 setopt hist_ignore_dups
@@ -118,8 +118,8 @@ setopt hist_reduce_blanks
 setopt extended_history
 
 # Set up the history file
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=500000
+SAVEHIST=500000
 HISTFILE=~/.zsh_history
 
 ############################################################
@@ -385,13 +385,6 @@ vman() {
     fi
 }
 
-#######################################
-# Function for running Scons using ssh
-#######################################
-sshcons(){
-    \ssh zardoz -t "zsh -c \"scons -C $(realpath .) $@\""
-}
-
 ########################################
 # Fucntion for returning to git repo root
 ########################################
@@ -408,25 +401,6 @@ groot(){
 ################################################################################
 # Always use colordiff
 alias diff=colordiff
-
-#TODO: Remove this
-# If ag isn't available then set up an alias for ack
-if ! hash ag 2>/dev/null; then
-    alias ag='ack'
-fi
-
-#TODO: Remove these
-# Aliases for virtualenvwrapper
-# Taken from http://mrcoles.com/tips-using-pip-virtualenv-virtualenvwrapper/
-alias v='workon'
-alias v.deactivate='deactivate'
-alias v.mk='mkvirtualenv'
-alias v.rm='rmvirtualenv'
-alias v.switch='workon'
-alias v.add2virtualenv='add2virtualenv'
-alias v.cdsitepackages='cdsitepackages'
-alias v.cd='cdvirtualenv'
-alias v.lssitepackages='lssitepackages'
 
 ############################################################
 # Clipboard Aliases
@@ -450,9 +424,7 @@ alias minicom='minicom -w'
 ############################################################
 # Make ssh sessions start in PWD
 ############################################################
-alias ssh='sshwrapper'
-
-sshwrapper(){
+sshcd(){
     \ssh "$@" -t "type $(basename $SHELL) &> /dev/null" &> /dev/null
     if [[ $? -eq 0 ]]; then
         echo "Found matching shell $SHELL"
@@ -598,8 +570,8 @@ bindkey '^E' _expand_alias
 ############################################################
 bindkey "^n" history-beginning-search-forward
 bindkey "^p" history-beginning-search-backward
-bindkey -M menuselect "^n" down-line-or-search
-bindkey -M menuselect "^p" up-line-or-search
+bindkey -M menuselect "^n" down-history
+bindkey -M menuselect "^p" up-history
 
 # Search previously used words
 _insert-next-word() {
@@ -628,7 +600,7 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete # Shift Tab
 bindkey -r '^J'
 
 ########################################
-# FZF git keymappings
+# FZF keymappings
 ########################################
 join-lines() {
   local item
@@ -649,10 +621,16 @@ bind-git-helper() {
 bind-git-helper f b t r u
 unset -f bind-git-helper
 
+bindkey -M viins '^T' fzf-file-widget
+# This is actually intended for ctr+/
+bindkey -M viins '^_' fzf-cd-widget
+bindkey -M viins '^R' fzf-history-widget
+
+# This lets us interrupt a command in the middle of typing to run another
+bindkey '^Q' push-line
 
 # Remove default list-expand mapping
 bindkey -r '^g'
-bindkey -r '^u'
 
 #Bind list-expand to ^f instead
 bindkey '^f' list-expand
@@ -668,7 +646,6 @@ _additional_paths=(
 "/sbin"
 "/usr/sbin"
 "${HOME}/syncsettings/bin"
-"${HOME}/syncsettings/repos/fzf/bin"
 "${HOME}/bin/bin"
 )
 
@@ -698,17 +675,6 @@ fi
 if [ -d "$workpath" ]; then
     echo "Using work zshrc"
     source $workrc
-fi
-
-################################################################################
-# FZF Setup
-################################################################################
-FZF_TMUX=0
-if [ -f ~/syncsettings/repos/fzf/bin/fzf ]; then
-    source ~/syncsettings/repos/fzf/shell/completion.zsh
-    source ~/syncsettings/repos/fzf/shell/key-bindings.zsh
-else
-    echo "Please run the install script for fzf"
 fi
 
 ################################################################################

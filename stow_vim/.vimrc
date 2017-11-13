@@ -78,8 +78,9 @@ Plug 'rhysd/committia.vim'
 Plug 'tpope/vim-fugitive'
 
 " Syntax plugins
+Plug 'sheerun/vim-polyglot'
 Plug 'cespare/vim-toml'
-Plug 'confluencewiki.vim'
+Plug 'vim-scripts/confluencewiki.vim'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'elzr/vim-json'
 Plug 'kergoth/vim-bitbake'
@@ -94,7 +95,7 @@ Plug '5t111111/alt-gtags.vim'
 Plug 'Alok/notational-fzf-vim'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'gtags.vim'
+Plug 'vim-scripts/gtags.vim'
 Plug 'janko-m/vim-test'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -108,7 +109,8 @@ Plug 'idanarye/vim-vebugger'
 " Interface Plugins
 Plug 'Shougo/vinarise.vim'
 Plug 'arecarn/clean-fold.vim'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'jez/vim-superman'
 Plug 'junegunn/vim-peekaboo'
 Plug 'mbbill/undotree'
@@ -318,7 +320,7 @@ set ffs=unix,dos,mac
 
 " Draw whitespace (cuz I'm paranoid)
 " note: These ones need utf-8
-set list listchars=tab:→\ ,trail:·
+set list listchars=tab:→\ ,space:·
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Filetype handling                                      {{{
