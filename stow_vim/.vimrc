@@ -268,6 +268,11 @@ if has('mouse')
   set mouse=a
 endif
 
+" Enable inccommand if available (neovim only)
+if has('nvim')
+  set inccommand=nosplit
+endif
+
 " Ignore case when searching
 set ignorecase
 
