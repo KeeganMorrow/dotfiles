@@ -622,12 +622,15 @@ bind-git-helper f b t r u
 unset -f bind-git-helper
 
 bindkey -M viins '^T' fzf-file-widget
-bindkey -M viins '^Y' fzf-cd-widget
+# This is actually intended for ctr+/
+bindkey -M viins '^_' fzf-cd-widget
 bindkey -M viins '^R' fzf-history-widget
+
+# This lets us interrupt a command in the middle of typing to run another
+bindkey '^Q' push-line
 
 # Remove default list-expand mapping
 bindkey -r '^g'
-bindkey -r '^u'
 
 #Bind list-expand to ^f instead
 bindkey '^f' list-expand
