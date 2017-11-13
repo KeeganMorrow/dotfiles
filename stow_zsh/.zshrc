@@ -570,8 +570,8 @@ bindkey '^E' _expand_alias
 ############################################################
 bindkey "^n" history-beginning-search-forward
 bindkey "^p" history-beginning-search-backward
-bindkey -M menuselect "^n" down-line-or-search
-bindkey -M menuselect "^p" up-line-or-search
+bindkey -M menuselect "^n" down-history
+bindkey -M menuselect "^p" up-history
 
 # Search previously used words
 _insert-next-word() {
