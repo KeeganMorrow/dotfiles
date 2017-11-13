@@ -105,6 +105,9 @@ Plug 'sbdchd/neoformat'
 Plug 'mhinz/vim-grepper'
 Plug 'tpope/vim-dispatch'
 Plug 'idanarye/vim-vebugger'
+Plug 'w0rp/ale'
+Plug 'xolox/vim-easytags'
+Plug 'xolox/vim-misc'
 
 " Interface Plugins
 Plug 'Shougo/vinarise.vim'
