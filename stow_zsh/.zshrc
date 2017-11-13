@@ -102,11 +102,8 @@ stty -ixon
 # History Configuration
 ############################################################
 
-# Allow multiple terminal sessions to all append to one zsh command history
-setopt append_history 
-
-# Add commands as they are typed, don't wait until shell exit
-setopt inc_append_history 
+# Share history between zsh sessions
+setopt share_history
 
 # Do not write events to history that are duplicates of previous events
 setopt hist_ignore_dups
@@ -121,8 +118,8 @@ setopt hist_reduce_blanks
 setopt extended_history
 
 # Set up the history file
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=500000
+SAVEHIST=500000
 HISTFILE=~/.zsh_history
 
 ############################################################
