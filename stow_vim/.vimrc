@@ -320,7 +320,7 @@ set ffs=unix,dos,mac
 
 " Draw whitespace (cuz I'm paranoid)
 " note: These ones need utf-8
-set list listchars=tab:→\ ,trail:·
+set list listchars=tab:→\ ,space:·
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Filetype handling                                      {{{
