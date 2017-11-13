@@ -5,7 +5,7 @@
 ############################################################
 # Set up Zplug
 ############################################################
-export ZPLUG_HOME="${HOME}/.zplug"
+export ZPLUG_HOME="${HOME}/.zsh/zplug"
 zplug_file="${ZPLUG_HOME}/init.zsh"
 
 if [[ ! -d "${ZPLUG_HOME}" ]]; then
