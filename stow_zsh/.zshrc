@@ -24,6 +24,7 @@ source "${zplug_file}"
 ########################################
 zplug "plugins/gitfast",                from:oh-my-zsh
 zplug "plugins/pip",                    from:oh-my-zsh
+zplug "plugins/fancy-ctrl-z",           from:oh-my-zsh
 
 ########################################
 # Prezto plugins
@@ -537,15 +538,8 @@ function TRAPINT() {
 
 bindkey -M vicmd '^V' edit-command-line
 
-########################################
-# vi/m foreground binding
-########################################
-foreground-vi() {
-    # This should work for vi/vim and neovim
-    fg %vi || fg %nvim
-}
-zle -N foreground-vi
-bindkey '^Z' foreground-vi
+# Not sure why rebinding this seems to be necessary
+bindkey '^Z' fancy-ctrl-z
 
 ########################################
 # more vim-like key bindings
