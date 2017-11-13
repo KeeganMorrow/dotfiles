@@ -585,8 +585,6 @@ bindkey -a '^R' redo
 bindkey '^?' backward-delete-char
 bindkey '^H' backward-delete-char
 
-#TODO: Bind something else to this
-#bindkey -M viins '^C' vi-cmd-mode
 bindkey -M viins '^W' backward-kill-word
 
 bindkey '^E' _expand_alias
