@@ -438,6 +438,38 @@ sshcd(){
 }
 
 ############################################################
+# ptpython aliases
+############################################################
+alias ptpython='python -m ptpython --vi'
+alias ptpython2='python2 -m ptpython --vi'
+alias ptpython3='python3 -m ptpython --vi'
+
+############################################################
+# Function to show a binary diff in vim
+############################################################
+binview(){
+    if [ ! -z "$1" ]; then
+        echo "Viewing $1"
+        vimdiff $1 -c Vinarise
+    else
+        echo "Usage: binview [file]"
+    fi
+}
+
+
+############################################################
+# Function to show a binary diff in vim
+############################################################
+bindiff(){
+    if [ ! -z "$1" ] && [ ! -z "$2" ]; then
+        echo "Comparing $1 and $2"
+        vimdiff <(hexdump -C $1) <(hexdump -C $2)
+    else
+        echo "Usage: bindiff [file1] [file2]"
+    fi
+}
+
+############################################################
 # Alias for opening files
 ############################################################
 
