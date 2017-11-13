@@ -389,13 +389,6 @@ vman() {
     fi
 }
 
-#######################################
-# Function for running Scons using ssh
-#######################################
-sshcons(){
-    \ssh zardoz -t "zsh -c \"scons -C $(realpath .) $@\""
-}
-
 ########################################
 # Fucntion for returning to git repo root
 ########################################
@@ -435,9 +428,7 @@ alias minicom='minicom -w'
 ############################################################
 # Make ssh sessions start in PWD
 ############################################################
-alias ssh='sshwrapper'
-
-sshwrapper(){
+sshcd(){
     \ssh "$@" -t "type $(basename $SHELL) &> /dev/null" &> /dev/null
     if [[ $? -eq 0 ]]; then
         echo "Found matching shell $SHELL"
