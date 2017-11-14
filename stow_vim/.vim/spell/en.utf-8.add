@@ -19,3 +19,5 @@ subcommands
 pylint
 flake8
 linter
+platformbuilder
+platbuild
