@@ -407,6 +407,17 @@ alias diff=colordiff
 alias ls='ls --color=auto'
 
 ############################################################
+# neovim aliases
+############################################################
+if hash nvim 2> /dev/null; then
+    alias vim='nvim'
+    alias vi='nvim'
+    alias vimdiff='nvim -d'
+else
+    alias vi='vim'
+fi
+
+############################################################
 # Clipboard Aliases
 ############################################################
 if ! hash getclip 2> /dev/null; then
