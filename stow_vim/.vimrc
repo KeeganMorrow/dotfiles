@@ -551,7 +551,7 @@ endif
 if Is_plugin_loaded('vim-test')
     if has('nvim')
         let test#strategy = "neovim"
-        let test#python#nose#options = '--rednose'
+        let test#python#pytest#options = '--verbose'
     else
         let test#strategy = "dispatch"
     endif
