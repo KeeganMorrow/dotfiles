@@ -98,7 +98,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-scripts/gtags.vim'
 Plug 'janko-m/vim-test'
 Plug 'jmcantrell/vim-virtualenv'
-Plug 'junegunn/fzf', { 'dir': '~/.zsh/zplug/repos/junegunn/fzf'}
+Plug 'junegunn/fzf', { 'dir':$ZPLUG_HOME.'/repos/junegunn/fzf' }
 Plug 'junegunn/fzf.vim'
 Plug 'metakirby5/codi.vim'
 Plug 'sbdchd/neoformat'
