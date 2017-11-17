@@ -8,15 +8,15 @@
 ;=====================================================
 
 [colors]
-dark = #181818
-light = f8f6f2
-blue = #00afff
+dark = #292d3e
+light = #eaeaea
+blue = #82b1ff
 darkblue = #005888
-green = #afff00
+green = #c3e88d
 darkgreen = #588800
 orange = #ffaf00
 darkorange = #885800
-red = #ff2c4b
+red = #be5046
 ;background = ${xrdb:color0:#222}
 background = ${colors.dark}
 background-alt = #000000
