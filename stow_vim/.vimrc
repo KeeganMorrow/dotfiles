@@ -28,6 +28,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " Colorschemes
 Plug 'Korrow/badwolf'
+Plug 'drewtempelmeyer/palenight.vim'
 Plug 'tomasr/molokai'
 
 " Functionality improvements
@@ -317,8 +318,15 @@ syntax enable
 " Enable 256 color mode
 set t_Co=256
 
-color badwolf
-let g:badwolf_tabline = 1
+" Enable true color in the terminal if applicable
+if (has("termguicolors"))
+    set termguicolors
+endif
+
+" Set and configure colorscheme
+set background=dark
+let g:palenight_terminal_italics=1
+colorscheme palenight
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -510,6 +518,7 @@ endif
 " => Airline  Settings     {{{
 """"""""""""""""""""""""""""""
 if Is_plugin_loaded('vim-airline')
+    let g:airline_theme='onedark'
     let g:airline_powerline_fonts = 1
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#tab_nr_type = 1
