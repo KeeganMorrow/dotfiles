@@ -21,3 +21,8 @@ flake8
 linter
 platformbuilder
 platbuild
+eMMC
+RTC
+RNDIS
+MUSB
+ethernet
