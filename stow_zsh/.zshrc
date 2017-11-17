@@ -54,7 +54,7 @@ zplug "korrow/zsh-themes", as:theme
 # More zplug boilerplate
 ############################################################
 
-# Install plugins if there are plugins that have not been installed                                                                              j
+# Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
@@ -144,7 +144,7 @@ zmodload -i zsh/complist
 ########################################
 
 # Bring up completion menu on abiguous completion
-setopt menu_complete 
+setopt menu_complete
 
 # Unset as to not to collide with menu_complete
 unsetopt auto_menu
