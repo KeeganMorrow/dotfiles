@@ -32,7 +32,7 @@ padding:
 tabspaces: 4
 
 # When true, bold text is drawn using the bright variant of colors.
-draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: false
 
 # Font configuration (changes require restart)
 #
@@ -106,7 +106,7 @@ custom_cursor_colors: false
 colors:
   # Default colors
   primary:
-    background: '0x000000'
+    background: '0x292d3e'
     foreground: '0xeaeaea'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
@@ -116,18 +116,18 @@ colors:
 
   # Normal colors
   normal:
-    black:   '0x000000'
-    red:     '0xd54e53'
-    green:   '0xb9ca4a'
-    yellow:  '0xe6c547'
-    blue:    '0x7aa6da'
-    magenta: '0xc397d8'
-    cyan:    '0x70c0ba'
-    white:   '0xffffff'
+    black:   '0x292d3e' # black from palenight
+    red:     '0xbe5046' # darkred from palenight
+    green:   '0xc3e88d' # green from palenight
+    yellow:  '0xffcb6b' # yellow from palenight
+    blue:    '0x82b1ff' # blue from palenight
+    magenta: '0xff5370' # red from palenight
+    cyan:    '0x89ddff' #cyan from palenight
+    white:   '0xbfc7d5' # white from palenight
 
   # Bright colors
   bright:
-    black:   '0x666666'
+    black:   '0x3e4452'
     red:     '0xff3334'
     green:   '0x9ec400'
     yellow:  '0xe7c547'
