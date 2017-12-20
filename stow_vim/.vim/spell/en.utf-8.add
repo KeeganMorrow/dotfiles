@@ -26,3 +26,4 @@ RTC
 RNDIS
 MUSB
 ethernet
+filesystem
