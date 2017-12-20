@@ -437,6 +437,19 @@ alias moon='curl -s "wttr.in/Moon"'
 alias minicom='minicom -w'
 
 ############################################################
+# Colored dmesg output through less
+############################################################
+alias lmesg='dmesg -L=always | less'
+
+############################################################
+# less support for more filetypes
+############################################################
+# Not technically an alias, but fills a similar role
+if hash lesspipe 2> /dev/null; then
+    eval $(lesspipe)
+fi
+
+############################################################
 # Make ssh sessions start in PWD
 ############################################################
 sshcd(){
