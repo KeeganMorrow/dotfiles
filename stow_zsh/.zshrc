@@ -713,6 +713,16 @@ export BSPWM_SOCKET="/tmp/bspwm-socket.${USER}"
 # Use rg with fzf
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
+# Use fd instead of find
+ _fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
 ################################################################################
 # Exports based on what is in the path
 ################################################################################
