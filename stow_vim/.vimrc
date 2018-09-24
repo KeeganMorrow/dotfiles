@@ -582,7 +582,7 @@ endif
 " => Notational Settings   {{{
 """"""""""""""""""""""""""""""
 if Is_plugin_loaded('notational-fzf-vim')
-    let g:nv_directories = ['~/notes']
+    let g:nv_search_paths = ['~/notes']
 endif
 
 """""""""""""""""""""""""""}}}
