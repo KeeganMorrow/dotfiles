@@ -4,16 +4,19 @@ read -r -d '' ubuntu_packages << EOM
 cmake
 curl
 dmenu
+exuberant-ctags
+gawk
 git
+libfontconfig1-dev
+libfreetype6-dev
 neovim
 net-tools
-exuberant-ctags
 python-pip
 python2
 python3
 python3-pip
 tmux
-gawk
+xclip
 zsh
 EOM
 
