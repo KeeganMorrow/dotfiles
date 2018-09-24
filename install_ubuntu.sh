@@ -3,7 +3,6 @@
 read -r -d '' ubuntu_packages << EOM
 cmake
 curl
-dmenu
 exuberant-ctags
 gawk
 git
@@ -15,6 +14,7 @@ python-pip
 python2
 python3
 python3-pip
+rofi
 tmux
 xclip
 zsh
