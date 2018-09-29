@@ -16,6 +16,7 @@ python3
 python3-pip
 rofi
 tmux
+tree
 xclip
 zsh
 EOM
