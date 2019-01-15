@@ -130,6 +130,7 @@ Plug 'yssl/QFEnter'
 Plug 'AndrewRadev/linediff.vim'
 
 " Completion Plugins
+Plug 'wellle/tmux-complete.vim'
 if has('nvim')
     " Neovim Completion plugins
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
