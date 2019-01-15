@@ -204,18 +204,37 @@ zstyle ':completion:*' group-name ''
 # Add simple colors to kill
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
-####################
-# Messages                     #
-####################
-# format all messages not formatted in bold prefixed with ----
-zstyle ':completion:*' format "%F{214}%B-- %d --%b%f"
-# format descriptions
-zstyle ':completion:*:descriptions' format $"$fg[green]completing %B%d%b%"
-# bold and underline normal messages
-zstyle ':completion:*:messages' format '%B%U---- %d%u%b'
-# format in bold red error messages
-zstyle ':completion:*:warnings' format "%B$fg[red]%}---- No match for: $fg[white]%d%b"
+# Completion Styles
 
+# use completion menu, where select is the number of items needed for the menu
+# to open
+zstyle ':completion:*' menu yes select _complete _ignored _approximate
+
+# list of completion types to use
+zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
+
+# allow one error for every three characters typed in approximate completer
+zstyle ':completion:*:approximate:*' max-errors 3
+
+# Formatting and messages
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:matches' group yes
+zstyle ':completion:*:options' description yes
+zstyle ':completion:*:descriptions' format "$fg[green]%B-- %d --%b"
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format "$fg[red]No matches for:$reset_color %d"
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:options' auto-description '%d'
+
+# when doing an expansion use a custom order of tags
+zstyle ':completion:*:expand:*' group-order original all-expansions expansions
+
+# match uppercase from lowercase, and left-side substrings
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+l:|=*'
+
+# command completion: highlight matching part
+zstyle -e ':completion:*:default' list-colors 'reply=( '\''=(#b)('\''$words[CURRENT]'\''|)*-- #(*)=0=38;5;45=38;5;136'\'' '\''=(#b)('\''$words[CURRENT]'\''|)*=0=38;5;45'\'' )'
 
 ############################################################
 # Additional completions
