@@ -4,15 +4,15 @@
 # General purpose work paths
 hash -d grponly='/evtfs/igdev/igdev/grponly'
 hash -d igdev='/evtfs/igdev/igdev'
-hash -d sw='/evtfs/igdev/igdev/grponly/sw'
-hash -d swRelease='/evtfs/igdev/igdev/grponly/sw/release'
-hash -d swTools='/evtfs/igdev/igdev/grponly/sw/tools'
-hash -d swWorking='/evtfs/igdev/igdev/grponly/sw/working'
-hash -d swKM='/evtfs/igdev/igdev/grponly/sw/working/kmorrow'
+hash -d sw='/evtfs/igdevsw/igdevsw/grponly/sw'
+hash -d swRelease='/evtfs/igdevsw/igdevsw/grponly/sw/release'
+hash -d swTools='/evtfs/igdevsw/igdevsw/grponly/sw/tools'
+hash -d swWorking='/evtfs/igdevsw/igdevsw/grponly/sw/working'
+hash -d swKM='/evtfs/igdevsw/igdevsw/grponly/sw/working/kmorrow'
 
 # Ace Paths
-hash -d aceRepos='/evtfs/igdev/igdev/grponly/sw/working/kmorrow/ace/aceRepos'
-hash -d wallApp='/evtfs/igdev/igdev/grponly/sw/working/kmorrow/ace/aceRepos/wallapp'
+hash -d aceRepos='/evtfs/igdevsw/igdevsw/grponly/sw/working/kmorrow/ace/aceRepos'
+hash -d wallApp='/evtfs/igdevsw/igdevsw/grponly/sw/working/kmorrow/ace/aceRepos/wallapp'
 
 # Project directories
 hash -d proj='/evtfs/igdev/igdev/grponly'
@@ -46,7 +46,7 @@ if [ -f /usr/bin/virtualenvwrapper.sh ]; then
 fi
 
 # Add igdev sw tools to PATH
-_addpath "/evtfs/igdev/igdev/grponly/sw/tools/scripts" > /dev/null
+_addpath "/evtfs/igdevsw/igdevsw/grponly/sw/tools/scripts" > /dev/null
 
 igpath(){
     result=$(realpath "$@")
