@@ -376,7 +376,7 @@ if has("autocmd")
 
     augroup syntax
 
-        autocmd Syntax c,cpp,vim,xml,html,xhtml setlocal foldmethod=syntax
+        autocmd Syntax c,cpp,vim,zsh,sh,xml,html,xhtml setlocal foldmethod=syntax
         autocmd Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
 
         autocmd Syntax python setlocal foldmethod=indent
