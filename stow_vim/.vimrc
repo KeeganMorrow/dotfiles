@@ -651,7 +651,6 @@ if Is_plugin_loaded('vim-easytags')
 endif
 
 """""""""""""""""""""""""""}}}
-"""""""""""""""""""""""""""}}}
 " => vim-backup-tree settings   {{{
 """"""""""""""""""""""""""""""
 if Is_plugin_loaded('vim-backup-tree')
