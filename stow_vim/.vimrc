@@ -678,6 +678,13 @@ if Is_plugin_loaded('vim-markdown')
 endif
 
 """""""""""""""""""""""""""}}}
+" => vinarise.vim          {{{
+""""""""""""""""""""""""""""""
+if Is_plugin_loaded('vinarise.vim')
+    let g:vinarise_enable_auto_detect = 1
+endif
+
+"""""""""""""""""""""""""""}}}
 " => Completion Plugin Settings{{{
 """"""""""""""""""""""""""""""
 if Is_plugin_loaded('deoplete.nvim') "{{{
