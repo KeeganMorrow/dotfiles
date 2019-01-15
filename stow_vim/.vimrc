@@ -35,6 +35,7 @@ Plug 'tomasr/molokai'
 Plug 'arecarn/vim-backup-tree'
 Plug 'arecarn/spell-utils.vim'
 Plug 'chrisbra/NrrwRgn'
+Plug 'easymotion/vim-easymotion'
 Plug 'godlygeek/tabular'
 Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-niceblock'
@@ -536,6 +537,27 @@ let g:tmuxline_preset = {
       \'x'    : '%a',
       \'y'    : ['%d', '%m', '%Y'],
       \'z'    : '%R'}
+
+"""""""""""""""""""""""""""}}}
+" => EasyMotion settings   {{{
+""""""""""""""""""""""""""""""
+if Is_plugin_loaded('vim-easymotion')
+    " EasyMotion configuration
+    " <Leader>f{char} to move to {char}
+    map  <Leader>f <Plug>(easymotion-bd-f)
+    nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+    " s{char}{char} to move to {char}{char}
+    nmap s <Plug>(easymotion-overwin-f2)
+
+    " Move to line
+    map <Leader>L <Plug>(easymotion-bd-jk)
+    nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+    " Move to word
+    map  <Leader>w <Plug>(easymotion-bd-w)
+    nmap <Leader>w <Plug>(easymotion-overwin-w)
+endif
 
 """""""""""""""""""""""""""}}}
 " => FZF plugin settings   {{{
