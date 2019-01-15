@@ -108,8 +108,8 @@ Plug 'mhinz/vim-grepper'
 Plug 'tpope/vim-dispatch'
 Plug 'idanarye/vim-vebugger'
 Plug 'w0rp/ale'
-Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
+Plug 'jsfaint/gen_tags.vim'
 
 " Interface Plugins
 Plug 'Shougo/vinarise.vim'
