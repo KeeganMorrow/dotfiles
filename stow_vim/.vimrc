@@ -32,6 +32,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'tomasr/molokai'
 
 " Functionality improvements
+Plug 'arecarn/vim-backup-tree'
 Plug 'arecarn/spell-utils.vim'
 Plug 'chrisbra/NrrwRgn'
 Plug 'godlygeek/tabular'
@@ -618,6 +619,13 @@ if Is_plugin_loaded('vim-startify')
     let g:startify_custom_header = g:ascii + startify#fortune#boxed()
 
 endif
+"""""""""""""""""""""""""""}}}
+" => vim-backup-tree settings   {{{
+""""""""""""""""""""""""""""""
+if Is_plugin_loaded('vim-backup-tree')
+    let g:backup_tree = $HOME."/.vim_backup_tree"
+endif
+
 """""""""""""""""""""""""""}}}
 " => vim-json Settings     {{{
 """"""""""""""""""""""""""""""
