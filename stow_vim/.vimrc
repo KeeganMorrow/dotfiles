@@ -92,7 +92,6 @@ Plug 'vim-scripts/scons.vim'
 
 " Tool Integration
 Plug '5t111111/alt-gtags.vim'
-Plug 'Alok/notational-fzf-vim'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-scripts/gtags.vim'
