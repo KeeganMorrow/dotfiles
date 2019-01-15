@@ -49,6 +49,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'junegunn/vim-slash'
 
 " text objects
 Plug 'kana/vim-textobj-user'
@@ -641,6 +642,16 @@ if Is_plugin_loaded('vim-startify')
     let g:startify_custom_header = g:ascii + startify#fortune#boxed()
 
 endif
+
+"""""""""""""""""""""""""""}}}
+" => vim-easytags settings   {{{
+""""""""""""""""""""""""""""""
+if Is_plugin_loaded('vim-easytags')
+    " Enable asynchronous easytags
+    let g:easytags_async = 1
+endif
+
+"""""""""""""""""""""""""""}}}
 """""""""""""""""""""""""""}}}
 " => vim-backup-tree settings   {{{
 """"""""""""""""""""""""""""""
