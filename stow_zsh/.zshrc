@@ -755,19 +755,9 @@ fi
 ################################################################################
 # Machine specific zsh files
 ################################################################################
-
-machinerc="${HOME}/.zsh/local/$(hostname).zshrc"
-workrc="${HOME}/.zsh/local/work.zshrc"
-workpath="/usr0/igdev/"
-
 if [ -e "$machinerc" ];then
     echo "Using zshrc for $(hostname)"
     source $machinerc
-fi
-
-if [ -d "$workpath" ]; then
-    echo "Using work zshrc"
-    source $workrc
 fi
 
 ################################################################################
