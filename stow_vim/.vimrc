@@ -712,7 +712,7 @@ if Is_plugin_loaded('echodoc.vim') "{{{
 endif "}}}
 
 if Is_plugin_loaded('clang_complete') "{{{
-    if (hostname() == 'jeb') || (hostname() == 'yorick' ) || (hostname() == 'yocto') || hostname() == 'bubbles'
+    if (hostname() == 'sonOfJeb')
         let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang.so.1'
     endif
 endif "}}}
