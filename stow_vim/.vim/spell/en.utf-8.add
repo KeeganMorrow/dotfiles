@@ -37,3 +37,16 @@ userspace
 packagegroup
 packagegroups
 init
+haptic
+gpio
+submodules
+toolchain
+env
+usr
+sysroots
+mutexes
+PWM
+Tolka
+Doxygen
+structs
+docstrings
