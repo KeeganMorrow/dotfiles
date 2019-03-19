@@ -102,6 +102,8 @@ Plug 'mhinz/vim-grepper'
 Plug 'tpope/vim-dispatch'
 Plug 'xolox/vim-misc'
 Plug 'jsfaint/gen_tags.vim'
+Plug 'gregsexton/gitv'
+Plug 'ludovicchabant/vim-gutentags'
 
 " Interface Plugins
 Plug 'Shougo/vinarise.vim'
@@ -123,6 +125,7 @@ Plug 'AndrewRadev/linediff.vim'
 
 " Completion Plugins
 Plug 'wellle/tmux-complete.vim'
+Plug 'Shougo/echodoc.vim'
 if has('nvim')
     Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 else
