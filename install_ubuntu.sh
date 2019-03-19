@@ -2,16 +2,22 @@
 # Ubuntu Packages
 read -r -d '' ubuntu_packages << EOM
 cmake
+colordiff
 curl
 exuberant-ctags
 gawk
 git
+global
 libfontconfig1-dev
 libfreetype6-dev
 neovim
 net-tools
+nitrogen
+picocom
 python-pip
 python2
+lua5.3
+liblua5.1-0-dev
 python3
 python3-pip
 rofi
@@ -53,6 +59,7 @@ if hash rustup 2>/dev/null; then
 else
     echo "Installing Rust"
     curl https://sh.rustup.rs -sSf | sh
+    source ~/.profile
 fi
 
 if hash alacritty 2>dev/null; then
