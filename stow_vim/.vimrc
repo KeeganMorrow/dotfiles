@@ -446,6 +446,12 @@ vnoremap  <leader>y  "+y
 nnoremap  <leader>Y  "+y$
 nnoremap  <leader>y  "+y
 
+" Delete to clipboard
+nnoremap <leader>d "+d
+nnoremap <leader>D "+D
+vnoremap <leader>d "+d
+vnoremap <leader>D "+D
+
 " " Paste from clipboard
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
