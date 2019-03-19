@@ -43,7 +43,6 @@ Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
 Plug 'milsen/vim-operator-substitute'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
@@ -94,20 +93,13 @@ Plug 'rust-lang/rust.vim'
 Plug 'vim-scripts/scons.vim'
 
 " Tool Integration
-Plug '5t111111/alt-gtags.vim'
-Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-scripts/gtags.vim'
-Plug 'janko-m/vim-test'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'junegunn/fzf', { 'dir':$ZPLUG_HOME.'/repos/junegunn/fzf' }
 Plug 'junegunn/fzf.vim'
-Plug 'metakirby5/codi.vim'
-Plug 'sbdchd/neoformat'
 Plug 'mhinz/vim-grepper'
 Plug 'tpope/vim-dispatch'
-Plug 'idanarye/vim-vebugger'
-Plug 'w0rp/ale'
 Plug 'xolox/vim-misc'
 Plug 'jsfaint/gen_tags.vim'
 
@@ -148,7 +140,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-rooter'
 Plug 'embear/vim-localvimrc'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'vim-scripts/headerguard'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Bundle Hostname lists                                  {{{
@@ -690,31 +681,14 @@ endif
 """""""""""""""""""""""""""}}}
 " => Completion Plugin Settings{{{
 """"""""""""""""""""""""""""""
-if Is_plugin_loaded('deoplete.nvim') "{{{
-    let g:deoplete#enable_at_startup = 1
-endif "}}}
-
-if Is_plugin_loaded('neosnippet-snippets') "{{{
-    " Plugin key-mappings.
-    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-    " For conceal markers.
-    if has('conceal')
-      set conceallevel=2 concealcursor=niv
-    endif
-endif "}}}
 
 if Is_plugin_loaded('echodoc.vim') "{{{
     let g:echodoc_enable_at_startup = 1
 endif "}}}
 
-if Is_plugin_loaded('clang_complete') "{{{
-    if (hostname() == 'sonOfJeb')
-        let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang.so.1'
-    endif
+if Is_plugin_loaded('vim-tmux-navigator') "{{{
+    " Disable vim->tmux navigation when the Vim pane is zoomed in tmux
+    let g:tmux_navigator_disable_when_zoomed = 1
 endif "}}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
