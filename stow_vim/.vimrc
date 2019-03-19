@@ -132,13 +132,7 @@ Plug 'AndrewRadev/linediff.vim'
 " Completion Plugins
 Plug 'wellle/tmux-complete.vim'
 if has('nvim')
-    " Neovim Completion plugins
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'Rip-Rip/clang_complete', { 'do': 'make' }
-    Plug 'Shougo/deoplete-zsh'
-    Plug 'Shougo/echodoc.vim'
-    Plug 'Shougo/neco-syntax'
-    Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 else
     "Vim Completion plugins
     Plug 'ajh17/VimCompletesMe'
@@ -525,6 +519,8 @@ if Is_plugin_loaded('vim-airline')
     let g:airline#extensions#tabline#tab_nr_type = 1
     let g:airline#extensions#tabline#buffer_nr_show = 1
     let g:airline#extensions#nrrwrgn#enabled = 1
+    let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+    let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Tmuxline settings                                      {{{
@@ -795,6 +791,28 @@ if Is_plugin_loaded('vim-operator-substitute')
     map S <Plug>(operator-substitute)$
     map & <Plug>(operator-substitute-repeat)
     map g& <Plug>(operator-substitute-repeat-no-flags)
+endif
+
+if Is_plugin_loaded('coc.nvim')
+    nmap <leader>ld <Plug>(coc-definition)
+    nmap <leader>lt <Plug>(coc-type-definition)
+    nmap <leader>li <Plug>(coc-implementation)
+    nmap <leader>lD <Plug>(coc-diagnostic-info)
+    nmap <leader>lr <Plug>(coc-references)
+    nmap <leader>lp <Plug>(coc-diagnostic-prev)
+    nmap <leader>ln <Plug>(coc-diagnostic-next)
+    nmap <leader>lR <Plug>(coc-rename)
+    vmap <leader>lf <Plug>(coc-format-selected)
+    nmap <leader>lf <Plug>(coc-format-selected)
+    nmap <leader>lF :call CocAction('format')<cr>
+    vmap <leader>la <Plug>(coc-codeaction-selected)
+    nmap <leader>la <Plug>(coc-codeaction-selected)
+    nmap <leader>lA <Plug>(coc-codeaction)
+    nmap <leader>lD :call CocAction('fold', <f-args>)<cr>
+    nmap <silent> [l <Plug>(coc-diagnostic-next)
+    nmap <silent> ]l <Plug>(coc-diagnostic-prev)
+    nnoremap <silent> <leader>lh :call CocAction('doHover')<cr>
+    inoremap <silent> <expr> <c-space> coc#refresh()
 endif
 
 "Remap shift-k to use man plugin
