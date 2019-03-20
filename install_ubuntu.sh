@@ -3,6 +3,7 @@
 read -r -d '' ubuntu_packages << EOM
 cmake
 colordiff
+compton
 curl
 exuberant-ctags
 gawk
@@ -10,14 +11,14 @@ git
 global
 libfontconfig1-dev
 libfreetype6-dev
+liblua5.1-0-dev
+lua5.3
 neovim
 net-tools
 nitrogen
 picocom
 python-pip
 python2
-lua5.3
-liblua5.1-0-dev
 python3
 python3-pip
 rofi
