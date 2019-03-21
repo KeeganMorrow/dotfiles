@@ -38,12 +38,14 @@ zplug "modules/python",                 from:prezto
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
 
-# This way of doing things stolen from arecarn's dotfiles
-# https://github.com/arecarn/dotfiles/blob/master/zsh/.zshrc
-zplug 'junegunn/fzf', \
-    use:"shell", \
-    hook-build:'./install --all --no-update-rc --no-key-bindings'
-zplug 'junegunn/fzf', as:"command", use:"bin/*"
+# This way of loading fzf taken from
+# https://github.com/zplug/zplug/issues/509#issuecomment-464930143
+zplug "junegunn/fzf-bin", \
+    from:gh-r, \
+    as:command, \
+    rename-to:fzf, \
+    use:"*linux*amd64*"
+zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
 
 ########################################
 # Themes
