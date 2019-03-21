@@ -796,6 +796,10 @@ if Is_plugin_loaded('coc.nvim')
     nmap <silent> ]l <Plug>(coc-diagnostic-prev)
     nnoremap <silent> <leader>lh :call CocAction('doHover')<cr>
     inoremap <silent> <expr> <c-space> coc#refresh()
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+    inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
+    let g:coc_snippet_next = '<TAB>'
+    let g:coc_snippet_prev = '<S-TAB>'
 endif
 
 "Remap shift-k to use man plugin
