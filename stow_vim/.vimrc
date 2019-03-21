@@ -867,6 +867,9 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE
+
 " vim: foldmethod=marker
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 
