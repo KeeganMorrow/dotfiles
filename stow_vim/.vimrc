@@ -60,9 +60,9 @@ Plug 'Julian/vim-textobj-variable-segment'
 Plug 'kana/vim-textobj-entire'
     " ii/ai - selects indented block
 Plug 'kana/vim-textobj-indent'
-    " ii/ai - selects indented block
-Plug 'kana/vim-textobj-line'
     " il/al - selects line
+Plug 'kana/vim-textobj-line'
+    " iu/au - selects url
 Plug 'mattn/vim-textobj-url'
     " ic/ac - selects comment
 Plug 'glts/vim-textobj-comment'
