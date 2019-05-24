@@ -51,3 +51,4 @@ Doxygen
 structs
 docstrings
 struct
+PROTOBUF_GENERATE_CPP
