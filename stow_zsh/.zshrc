@@ -723,6 +723,18 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete # Shift Tab
 # Remove default ^J accept line binding (Used by tmux)
 bindkey -r '^J'
 
+ # Insert "sudo " at the beginning of the line
+function prepend-sudo {
+    if [[ $BUFFER != "sudo "* ]]; then
+        BUFFER="sudo $BUFFER"; CURSOR+=5
+    else
+        BUFFER="${BUFFER:gs/sudo /}"
+    fi
+}
+
+zle -N prepend-sudo
+bindkey -M viins '^s' prepend-sudo
+
 ########################################
 # FZF keymappings
 ########################################
