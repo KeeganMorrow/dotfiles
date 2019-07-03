@@ -1,5 +1,8 @@
 {
-  "coc.preferences.echodocSupport": true,
+  "suggest.echodocSupport": true,
+  "python.autoComplete.addBrackets": true,
+  "python.formatting.provider": "yapf",
+  "python.jediEnabled": true,
   "languageserver": {
     "ccls": {
       "command": "ccls",
