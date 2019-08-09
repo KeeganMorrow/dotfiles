@@ -519,21 +519,34 @@ if Is_plugin_loaded('vim-airline')
     let g:airline#extensions#tabline#tab_nr_type = 1
     let g:airline#extensions#tabline#buffer_nr_show = 1
     let g:airline#extensions#nrrwrgn#enabled = 1
+    let g:airline#extensions#tmuxline#enabled = 0
     let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
     let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => Tmuxline settings                                      {{{
+" => Tmuxline settings                                      {{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Note: This plugin is used to generate a Tmux status line,
 "doesn't do anything for normal use
 let g:tmuxline_preset = {
-      \'a'    : ['#(whoami)@#H'],
+      \'a'    : '#(whoami)@#H',
+      \'b'    : '#S',
+      \'c'    : '',
       \'win'  : '#I #W',
       \'cwin' : '#I #W',
-      \'x'    : '%a',
-      \'y'    : ['%d', '%m', '%Y'],
-      \'z'    : '%R'}
+      \'y'    : ['%a', '%d', '%m', '%Y'],
+      \'z'    : '%R:%S'}
+let g:tmuxline_theme = {
+        \ 'a'            : [ 'black', 'yellow' ],
+        \ 'b'            : [ 'black', 'blue'],
+        \ 'c'            : [ 'black', 'black'],
+        \ 'x'            : [ 'black', 'black'],
+        \ 'y'            : [ 'black', 'blue'],
+        \ 'z'            : [ 'black', 'green' ],
+        \ 'bg'           : [ 'black', 'black'],
+        \ 'win'          : [ 'black', 'black'],
+        \ 'win.activity' : [ 'black', 'red'],
+        \ 'cwin'         : [ 'black', 'green']}
 
 """""""""""""""""""""""""""}}}
 " => EasyMotion settings   {{{
