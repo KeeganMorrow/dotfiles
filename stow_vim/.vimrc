@@ -264,6 +264,10 @@ if has('nvim')
   set inccommand=nosplit
 endif
 
+if has('nvim')
+  set pumblend=20
+endif
+
 " Ignore case when searching
 set ignorecase
 
@@ -576,6 +580,28 @@ if Is_plugin_loaded('fzf.vim')
     " Add FZF preview window
     let g:fzf_files_options = 
         \ '--preview "(highlight -0 ansi {} || cat {}) 2> /dev/null | head -' .&lines.'"'
+    let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+    if has('nvim')
+        function! FloatingFZF()
+          let buf = nvim_create_buf(v:false, v:true)
+          call setbufvar(buf, '&signcolumn', 'no')
+
+          let winheight = winheight(0)
+          let winwidth = winwidth(0)
+
+          let width = float2nr(winwidth-(winwidth*2/10))
+
+          let opts = {
+                \ 'relative': 'editor',
+                \ 'row': &lines - 3,
+                \ 'col': float2nr((winwidth-width)/2),
+                \ 'width': width,
+                \ 'height': &lines - 3
+                \ }
+
+          call nvim_open_win(buf, v:true, opts)
+        endfunction
+    endif
 endif
 
 """""""""""""""""""""""""""}}}
@@ -699,7 +725,11 @@ endif
 """"""""""""""""""""""""""""""
 
 if Is_plugin_loaded('echodoc.vim') "{{{
-    let g:echodoc_enable_at_startup = 1
+     let g:echodoc#enable_at_startup = 1
+    let g:echodoc#type = 'floating'
+    " To use a custom highlight for the float window,
+    " change Pmenu to your highlight group
+    highlight link EchoDocFloat Pmenu
 endif "}}}
 
 if Is_plugin_loaded('vim-tmux-navigator') "{{{
