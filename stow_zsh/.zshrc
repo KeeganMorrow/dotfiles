@@ -792,18 +792,29 @@ _addpaths _additional_paths > /dev/null
 # Socket to use for communicating with bspwm, also in config/bspwm/bspwm_wrapper.sh
 export BSPWM_SOCKET="/tmp/bspwm-socket.${USER}"
 
-# Use rg with fzf
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+if hash rg 2> /dev/null; then
+    # Use rg with fzf
+    export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+fi
 
-# Use fd instead of find
- _fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
-}
+# Use preview with fzf ctrl-t and completion
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+export FZF_COMPLETION_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 
-# Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
+# Use preview with fzf ctrl r
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:wrap"
+
+if hash fd 2> /dev/null; then
+    # Use fd instead of find with fzf
+     _fzf_compgen_path() {
+      fd --hidden --follow --exclude ".git" . "$1"
+    }
+
+    # Use fd to generate the list for directory completion
+    _fzf_compgen_dir() {
+      fd --type d --hidden --follow --exclude ".git" . "$1"
+    }
+fi
 
 ################################################################################
 # Exports based on what is in the path
