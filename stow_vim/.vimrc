@@ -94,16 +94,13 @@ Plug 'vim-scripts/scons.vim'
 
 " Tool Integration
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'vim-scripts/gtags.vim'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'junegunn/fzf', { 'dir':$ZPLUG_HOME.'/repos/junegunn/fzf' }
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'tpope/vim-dispatch'
 Plug 'xolox/vim-misc'
-Plug 'jsfaint/gen_tags.vim'
 Plug 'gregsexton/gitv'
-Plug 'ludovicchabant/vim-gutentags'
 
 " Interface Plugins
 Plug 'Shougo/vinarise.vim'
@@ -202,9 +199,6 @@ let mapleader = " "
 " Use \ as local leader.
 let maplocalleader = "\\"
 
-"Fast saving
-nnoremap <leader>w :w!<cr>
-
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
 command! W w !sudo tee % > /dev/null
@@ -264,6 +258,7 @@ if has('nvim')
   set inccommand=nosplit
 endif
 
+" Fancy neovim blending for popup menus
 if has('nvim')
   set pumblend=20
 endif
@@ -480,35 +475,15 @@ set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Grep tweaks                                            {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if executable('ag')
+
+if executable('rg')
+    set grepprg=rg\ --vimgrep
+    set grepformat=%f:%l:%c:%m
+elseif executable('ag')
     set grepprg=ag\ --vimgrep\ $*
     set grepformat=%f:%l:%c:%m
 elseif executable('ack')
     set grepprg=ack\ -H\ --nocolor\ --nogroup
-endif
-
-if has("autocmd")
-
-    augroup QuickFix
-        autocmd!
-        "opens quick fix window on the bottom of all screens
-        autocmd FileType qf wincmd J
-
-        " Automatically open, but do not go to (if there are errors) the quickfix /
-        " location list window, or close it when is has become empty.
-        "
-        " Note: Must allow nesting of autocmds to enable any customizations for quickfix
-        " buffers.
-        " Note: Normally, :cwindow jumps to the quickfix window if the command opens it
-        " (but not if it's already open). However, as part of the autocmd, this doesn't
-        " seem to happen.
-        autocmd QuickFixCmdPost [^l]* nested cwindow
-        autocmd QuickFixCmdPost    l* nested lwindow
-        "TODO: Get this mapping working properly
-        autocmd FileType qf nnoremap <buffer> O <Enter><C-w>p
-        autocmd FileType qf nnoremap <buffer> q :q<CR>
-    augroup END
-
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
@@ -650,6 +625,16 @@ if Is_plugin_loaded('vim-better-whitespace')
 
     " Blacklist some filetypes
     let g:better_whitespace_filetypes_blacklist = ['unite', 'vimfiler', 'qf']
+
+endif
+
+"""""""""""""""""""""""""""}}}
+" => Better Whitespace     {{{
+""""""""""""""""""""""""""""""
+if Is_plugin_loaded('indentLine')
+
+    " Don't conceal characters
+    let g:indentLine_setConceal = 0
 
 endif
 """""""""""""""""""""""""""}}}
@@ -803,8 +788,8 @@ if Is_plugin_loaded('vim-easy-align')
 endif
 
 if Is_plugin_loaded('vim-grepper')
-    nmap gs <plug>(GrepperOperator)
-    xmap gs <plug>(GrepperOperator)
+    nmap gs <Plug>(GrepperOperator)
+    xmap gs <Plug>(GrepperOperator)
 endif
 
 if Is_plugin_loaded('vim-operator-replace')
