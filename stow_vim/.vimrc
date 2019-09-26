@@ -82,7 +82,6 @@ Plug 'tpope/vim-fugitive'
 " Syntax plugins
 Plug 'sheerun/vim-polyglot'
 Plug 'cespare/vim-toml'
-Plug 'vim-scripts/confluencewiki.vim'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'elzr/vim-json'
 Plug 'kergoth/vim-bitbake'
@@ -915,9 +914,6 @@ if Is_plugin_loaded('coc.nvim')
 
 endif
 
-"Remap shift-k to use man plugin
-nnoremap K :Man <cword><CR>
-
 """""""""""""""""""""""""""}}}
 " => Spelling Mappings     {{{
 """"""""""""""""""""""""""""""
@@ -953,6 +949,9 @@ nnoremap <S-l> gt
 
 " Remap Q to run register q as a macro
 nnoremap Q @q
+
+" Conveniently open man page for current word
+nnoremap <leader>k :Man<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Helper functions                                       {{{
