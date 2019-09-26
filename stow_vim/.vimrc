@@ -501,6 +501,12 @@ if Is_plugin_loaded('vim-airline')
     let g:airline#extensions#tmuxline#enabled = 0
     let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
     let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
+    if Is_plugin_loaded('coc.nvim')
+        let g:airline#extensions#coc#enabled = 1
+        let airline#extensions#coc#warning_symbol = ' '
+        let airline#extensions#coc#error_symbol = ' '
+    endif
+
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Tmuxline settings                                      {{
@@ -824,10 +830,89 @@ if Is_plugin_loaded('coc.nvim')
     nmap <silent> ]l <Plug>(coc-diagnostic-prev)
     nnoremap <silent> <leader>lh :call CocAction('doHover')<cr>
     inoremap <silent> <expr> <c-space> coc#refresh()
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
-    inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
-    let g:coc_snippet_next = '<TAB>'
-    let g:coc_snippet_prev = '<S-TAB>'
+
+    " if hidden is not set, TextEdit might fail.
+    set hidden
+
+    " You will have bad experience for diagnostic messages when it's default 4000.
+    set updatetime=300
+
+    " don't give |ins-completion-menu| messages.
+    set shortmess+=c
+
+    " Use tab for trigger completion with characters ahead and navigate.
+    " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+    inoremap <silent><expr> <TAB>
+          \ pumvisible() ? "\<C-n>" :
+          \ <SID>check_back_space() ? "\<TAB>" :
+          \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+    function! s:check_back_space() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    " Use <c-space> to trigger completion.
+    inoremap <silent><expr> <c-space> coc#refresh()
+
+    " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+    " Coc only does snippet and additional edit on confirm.
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    " Or use `complete_info` if your vim support it, like:
+    " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+    " Use K to show documentation in preview window
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    function! s:show_documentation()
+      if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+      else
+        call CocAction('doHover')
+      endif
+    endfunction
+
+    " Highlight symbol under cursor on CursorHold
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+
+    augroup mygroup
+      autocmd!
+      " Setup formatexpr specified filetype(s).
+      autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+      " Update signature help on jump placeholder
+      autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    augroup end
+
+    " Create mappings for function text object, requires document symbols feature of languageserver.
+
+    xmap if <Plug>(coc-funcobj-i)
+    xmap af <Plug>(coc-funcobj-a)
+    omap if <Plug>(coc-funcobj-i)
+    omap af <Plug>(coc-funcobj-a)
+
+    " Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+    nmap <silent> <C-d> <Plug>(coc-range-select)
+    xmap <silent> <C-d> <Plug>(coc-range-select)
+
+    " Using CocList
+    " Show all diagnostics
+    nnoremap <silent> <leader>ca  :<C-u>CocList diagnostics<cr>
+    " Manage extensions
+    nnoremap <silent> <leader>ce  :<C-u>CocList extensions<cr>
+    " Show commands
+    nnoremap <silent> <leader>cc  :<C-u>CocList commands<cr>
+    " Find symbol of current document
+    nnoremap <silent> <leader>co  :<C-u>CocList outline<cr>
+    " Search workspace symbols
+    nnoremap <silent> <leader>cs  :<C-u>CocList -I symbols<cr>
+    " Do default action for next item.
+    nnoremap <silent> <leader>cj  :<C-u>CocNext<CR>
+    " Do default action for previous item.
+    nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
+    " Resume latest coc list
+    nnoremap <silent> <leader>cp  :<C-u>CocListResume<CR>
+
 endif
 
 "Remap shift-k to use man plugin
