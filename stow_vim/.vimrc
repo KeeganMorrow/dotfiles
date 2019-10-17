@@ -134,7 +134,6 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
 " Other plugins
-Plug 'Lokaltog/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-rooter'
 Plug 'embear/vim-localvimrc'
