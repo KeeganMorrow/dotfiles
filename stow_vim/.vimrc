@@ -865,10 +865,6 @@ if Is_plugin_loaded('coc.nvim')
     omap if <Plug>(coc-funcobj-i)
     omap af <Plug>(coc-funcobj-a)
 
-    " Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-    nmap <silent> <C-d> <Plug>(coc-range-select)
-    xmap <silent> <C-d> <Plug>(coc-range-select)
-
     " Using CocList
     " Show all diagnostics
     nnoremap <silent> <leader>ca  :<C-u>CocList diagnostics<cr>
