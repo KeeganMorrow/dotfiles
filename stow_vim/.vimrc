@@ -140,30 +140,6 @@ Plug 'embear/vim-localvimrc'
 Plug 'ntpeters/vim-better-whitespace'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => Bundle Hostname lists                                  {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Lists of hostnames on which to install groups of packages
-let local_hostnames =["jeb","bubbles","yorick"]
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""{{{
-if (index(local_hostnames, hostname()) >= 0)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
-" => Local Install Only Bundles                             {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" For performance reasons only enable these plugins on certain
-" machines that have them installed locally
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""{{{
-else
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
-" => Network Install Bundles                                {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    " Lighter weight completion alternative
-
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Blue Moon Bundles                                      {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " These are bundles that I only use very rarely
