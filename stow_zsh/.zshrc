@@ -520,21 +520,6 @@ if hash lesspipe 2> /dev/null; then
 fi
 
 ############################################################
-# Make ssh sessions start in PWD
-############################################################
-sshcd(){
-    \ssh "$@" -t "type $(basename $SHELL) &> /dev/null" &> /dev/null
-    if [[ $? -eq 0 ]]; then
-        echo "Found matching shell $SHELL"
-        ssh_shell="$SHELL"
-    else
-        echo "Using fallback shell sh"
-        ssh_shell="sh"
-    fi
-    \ssh "$@" -t "cd $(realpath .) ; $ssh_shell -l"
-}
-
-############################################################
 # ptpython aliases
 ############################################################
 alias ptpython='python -m ptpython --vi'
@@ -592,11 +577,6 @@ iv(){
 alias vimiv='iv'
 
 ########################################
-# Alias to start vimwiki
-########################################
-alias vimwiki='vim -c VimwikiIndex'
-
-########################################
 # Alias make less always have line numbers
 ########################################
 alias less='less -N -R'
@@ -605,19 +585,6 @@ alias less='less -N -R'
 # Use vi style keys for info
 ########################################
 alias info='info --vi-keys'
-
-########################################
-# Always fork zathura into background
-########################################
-alias zathura='zathura --fork'
-
-
-########################################
-# Mount home machine via sshfs
-# Requires key added to authorized_keys
-########################################
-alias mntkeegpi='sshfs keegan@keegpi.hopto.org:/pi/usr1 /${HOSTNAME}/keegpi'
-alias ummntkeegpi='fusermount -u /${HOSTNAME}/keegpi'
 
 ################################################################################
 # Key bindings
@@ -638,33 +605,6 @@ export KEYTIMEOUT=1
 # Use vi keys
 
 bindkey -v
-########################################
-# This stuff came from Pawel Goscicki. Thanks dude!
-# http://paulgoscicki.com/archives/2012/09/vi-mode-indicator-in-zsh-prompt/
-########################################
-vim_ins_mode="[INS]"
-vim_cmd_mode="[CMD]"
-vim_mode=$vim_ins_mode
-
-function zle-keymap-select {
-  vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
-  zle reset-prompt
-}
-zle -N zle-keymap-select
-
-function zle-line-finish {
-  vim_mode=$vim_ins_mode
-}
-zle -N zle-line-finish
-
-# Fix a bug when you C-c in CMD mode and you'd be prompted with CMD mode indicator, while in fact you would be in INS mode
-# Fixed by catching SIGINT (C-c), set vim_mode to INS and then repropagate the SIGINT, so if anything else depends on it, we will not break it
-# Thanks Ron! (see comments from above blog post)
-function TRAPINT() {
-  vim_mode=$vim_ins_mode
-  return $(( 128 + $1 ))
-}
-
 bindkey -M vicmd '^V' edit-command-line
 
 # Not sure why rebinding this seems to be necessary
@@ -679,7 +619,6 @@ bindkey -a G end-of-buffer-or-history
 
 bindkey -a u undo
 bindkey -a '^R' redo
-bindkey '^?' backward-delete-char
 bindkey '^H' backward-delete-char
 
 bindkey -M viins '^W' backward-kill-word
