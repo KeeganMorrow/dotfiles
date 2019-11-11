@@ -626,6 +626,7 @@ bindkey -a G end-of-buffer-or-history
 bindkey -a u undo
 bindkey -a '^R' redo
 bindkey '^H' backward-delete-char
+bindkey '^?' backward-delete-char
 
 bindkey -M viins '^W' backward-kill-word
 
