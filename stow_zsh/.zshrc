@@ -45,7 +45,8 @@ zplug "junegunn/fzf-bin", \
     as:command, \
     rename-to:fzf, \
     use:"*linux*amd64*"
-zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
+zplug "junegunn/fzf", as:plugin, use:"shell/*.zsh", defer:2
+zplug "junegunn/fzf", as:command, use:"bin/*"
 
 ########################################
 # Themes
@@ -605,14 +606,19 @@ export KEYTIMEOUT=1
 # Use vi keys
 
 bindkey -v
-bindkey -M vicmd '^V' edit-command-line
 
-# Not sure why rebinding this seems to be necessary
+########################################
+# Overrides for lost bindings
+########################################
+# Bindkey -v removes bindings that are used by these plugins, re-instante them
+bindkey '^I' fzf-completion
 bindkey '^Z' fancy-ctrl-z
 
 ########################################
 # more vim-like key bindings
 ########################################
+bindkey -M vicmd '^V' edit-command-line
+
 bindkey -a 'gg' beginning-of-buffer-or-history
 bindkey -a 'g~' vi-oper-swap-case
 bindkey -a G end-of-buffer-or-history
