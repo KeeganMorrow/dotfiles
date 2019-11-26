@@ -118,6 +118,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'wellle/visual-split.vim'
 Plug 'yssl/QFEnter'
 Plug 'AndrewRadev/linediff.vim'
+Plug 'liuchengxu/vista.vim'
 
 " Completion Plugins
 Plug 'wellle/tmux-complete.vim'
@@ -702,6 +703,12 @@ if Is_plugin_loaded('vim-tmux-navigator') "{{{
     let g:tmux_navigator_disable_when_zoomed = 1
 endif "}}}
 
+if Is_plugin_loaded('coc.nvim')
+    if Is_plugin_loaded('vista.vim')
+        let g:vista_default_executive = 'coc'
+    endif
+endif
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Mappings                                              {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -884,6 +891,12 @@ if Is_plugin_loaded('coc.nvim')
     nnoremap <silent> <leader>cp  :<C-u>CocListResume<CR>
 
 endif
+
+if Is_plugin_loaded('vista.vim')
+    nnoremap <silent> <leader>co :<C-u>Vista!!<cr>
+    nnoremap <silent> <leader>cs :<C-u>Vista finder<cr>
+endif
+
 
 """""""""""""""""""""""""""}}}
 " => Spelling Mappings     {{{
