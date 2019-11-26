@@ -3,6 +3,11 @@
     "python.autoComplete.addBrackets": true,
     "python.formatting.provider": "yapf",
     "python.jediEnabled": true,
+    "diagnostic.checkCurrentLine": "true",
+    "diagnostic.errorSign":"☓",
+    "diagnostic.warningSign":"⚠",
+    "diagnostic.infoSign":"🛈",
+    "diagnostic.hintSign":"☞",
     "languageserver": {
         "clangd": {
             "command": "clangd",
