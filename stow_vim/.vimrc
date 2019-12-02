@@ -100,12 +100,12 @@ Plug 'mhinz/vim-grepper'
 Plug 'tpope/vim-dispatch'
 Plug 'xolox/vim-misc'
 Plug 'gregsexton/gitv'
+Plug 'JamshedVesuna/vim-markdown-preview'
 
 " Interface Plugins
 Plug 'Shougo/vinarise.vim'
 Plug 'arecarn/clean-fold.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'jez/vim-superman'
 Plug 'junegunn/vim-peekaboo'
 Plug 'mbbill/undotree'
@@ -464,24 +464,95 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Plugin Settings                                        {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Airline  Settings     {{{
 """"""""""""""""""""""""""""""
-if Is_plugin_loaded('vim-airline')
-    let g:airline_theme='onedark'
-    let g:airline_powerline_fonts = 1
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#tab_nr_type = 1
-    let g:airline#extensions#tabline#buffer_nr_show = 1
-    let g:airline#extensions#nrrwrgn#enabled = 1
-    let g:airline#extensions#tmuxline#enabled = 0
-    let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
-    let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
-    if Is_plugin_loaded('coc.nvim')
-        let g:airline#extensions#coc#enabled = 1
-        let airline#extensions#coc#warning_symbol = ' '
-        let airline#extensions#coc#error_symbol = ' '
-    endif
+" => Lightline  Settings     {{{
+""""""""""""""""""""""""""""""
+if Is_plugin_loaded('lightline.vim')
+    function! CocCurrentFunction()
+        return get(b:, 'coc_current_function', '')
+    endfunction
 
+    let g:lightline = {
+        \ 'colorscheme': 'palenight',
+        \ 'active': {
+        \     'right': [['fugitive'], ['cocstatus', 'currentfunction'], ['fileformat', 'fileencoding', 'filetype']],
+        \     'left': [['mode', 'paste'],
+        \                ['filename', 'modified'],
+        \                ['bufnr', 'lineinfo', 'percent']]
+        \ },
+        \ 'inactive': {
+        \     'right': [['fugitive'], ['cocstatus', 'currentfunction'], ['fileformat', 'fileencoding', 'filetype']],
+        \     'left': [['mode', 'paste'],
+        \                ['filename', 'modified'],
+        \                ['bufnr', 'lineinfo', 'percent']]
+        \ },
+        \ 'component_function': {
+        \     'fugitive': 'Lightline_fugitive',
+        \     'filename': 'Lightline_filename',
+        \     'fileformat': 'Lightline_fileformat',
+        \     'filetype': 'Lightline_filetype',
+        \     'fileencoding': 'Lightline_fileencoding',
+        \     'bufnr': 'Lightline_bufnr',
+        \     'cocstatus': 'coc#status',
+        \     'currentfunction': 'CocCurrentFunction',
+        \ },
+        \ 'separator': { 'left': '', 'right': '' },
+        \ 'subseparator': { 'left': '', 'right': '' }
+        \ }
+
+    function! Lightline_modified() abort
+        return &filetype =~# 'help\|dirvish' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+    endfunction
+
+    function! Lightline_readonly() abort
+        return &filetype !~? 'help\|dirvish' && &readonly ? 'RO' : ''
+    endfunction
+
+    function! Lightline_filename() abort
+        let file_name = bufname('%')
+
+        if file_name ==# ''
+            let file_name = '[No Name]'
+        else
+            if winwidth(0) - len(file_name) < 40
+                let file_name = substitute(file_name, '\v([^/\\:])[^/\\:]*([/\\])', '\1\2', 'g' )
+            endif
+        endif
+
+        return ('' !=# Lightline_readonly() ? Lightline_readonly() . ' ' : '') .
+                    \ file_name .
+                    \ ('' !=# Lightline_modified() ? ' ' . Lightline_modified() : '')
+    endfunction
+
+    function! Lightline_fugitive() abort
+        if &filetype !~? 'dirvish' && exists('*fugitive#head') && (winwidth(0) > 80)
+            let branch = fugitive#head()
+            return branch !=# '' ? '±'.branch : ''
+        endif
+        return ''
+    endfunction
+
+    function! Lightline_fileformat() abort
+        return winwidth(0) > 80 ? &fileformat : ''
+    endfunction
+
+    function! Lightline_filetype() abort
+        return winwidth(0) > 80 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+    endfunction
+
+    function! Lightline_fileencoding() abort
+        return winwidth(0) > 80 ? (&fileencoding !=# '' ? &fileencoding : &encoding) : ''
+    endfunction
+
+    function! Lightline_winnr() abort
+        return winnr()
+    endfunction
+
+    function! Lightline_bufnr() abort
+        return 'b:' . bufnr('%')
+    endfunction
+
+    autocmd User CocDiagnosticChange call lightline#update()
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Tmuxline settings                                      {{
@@ -704,6 +775,8 @@ if Is_plugin_loaded('vim-tmux-navigator') "{{{
 endif "}}}
 
 if Is_plugin_loaded('coc.nvim')
+    let g:coc_status_error_sign = "❌"
+    let g:coc_status_warning_sign = "⚠ "
     if Is_plugin_loaded('vista.vim')
         let g:vista_default_executive = 'coc'
     endif

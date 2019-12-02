@@ -4,7 +4,7 @@
     "python.formatting.provider": "yapf",
     "python.jediEnabled": true,
     "diagnostic.checkCurrentLine": "true",
-    "diagnostic.errorSign":"☓",
+    "diagnostic.errorSign":"❌",
     "diagnostic.warningSign":"⚠",
     "diagnostic.infoSign":"🛈",
     "diagnostic.hintSign":"☞",
