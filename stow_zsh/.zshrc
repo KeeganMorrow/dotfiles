@@ -51,7 +51,10 @@ zplug "junegunn/fzf", as:command, use:"bin/*"
 ########################################
 # Themes
 ########################################
-zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
+zplug "romkatv/powerlevel10k", as:theme, depth:1
+
+# Enable the transient prompt
+POWERLEVEL9K_TRANSIENT_PROMPT=always
 
 # Prompt element configuration
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir_writable dir vcs newline context vi_mode)
@@ -115,7 +118,7 @@ if ! zplug check --verbose; then
 fi
 
 # Then, source plugins and add commands to $PATH
-zplug load
+zplug load 2>&1 > /dev/null
 
 ############################################################
 # Plugin Configuration
