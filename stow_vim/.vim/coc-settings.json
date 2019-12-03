@@ -22,6 +22,7 @@
             "initializationOptions": {
                 "cacheDirectory": "/tmp/ccls"
             },
+        },
         "bash": {
             "command": "bash-language-server",
             "args": ["start"],
