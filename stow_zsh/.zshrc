@@ -151,9 +151,6 @@ WORDCHARS='*?_-.[]~&;!#$%^(){}<>'
 # Display CPU usage stats for commands taking more than REPORTTIME seconds
 REPORTTIME=10
 
-# Disable <C-s> and <C-q>
-stty -ixon
-
 ############################################################
 # History Configuration
 ############################################################
@@ -775,3 +772,10 @@ preexec_hook_tmux() {
     ;;
     esac
 }
+
+################################################################################
+# Last minute options
+################################################################################
+# Disable <C-s> and <C-q>
+stty -ixon
+stty stop undef
