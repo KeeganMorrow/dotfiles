@@ -70,6 +70,10 @@ POWERLEVEL9K_TRANSIENT_PROMPT=always
 # Prompt element configuration
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir_writable dir vcs newline context vi_mode)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status time root_indicator virtualenv background_jobs)
+typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_CONTENT_EXPANSION='$'
+typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_FOREGROUND=76
+typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_VIINS_CONTENT_EXPANSION='$'
+typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_VIINS_FOREGROUND=196
 
 # Mode configuration
 POWERLEVEL9K_MODE=nerdfont-complete
