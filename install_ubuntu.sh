@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Ubuntu Packages
 read -r -d '' ubuntu_packages << EOM
+automake
 cmake
+gettext
 colordiff
 compton
 curl
@@ -9,10 +11,12 @@ exuberant-ctags
 gawk
 git
 global
+npm
 libfontconfig1-dev
 libfreetype6-dev
 liblua5.1-0-dev
 lua5.3
+m4
 neovim
 net-tools
 nitrogen
@@ -24,6 +28,7 @@ python3-pip
 rofi
 tmux
 tree
+unzip
 xclip
 zsh
 EOM
