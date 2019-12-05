@@ -566,7 +566,9 @@ let g:tmuxline_preset = {
       \'win'  : '#I #W',
       \'cwin' : '#I #W',
       \'y'    : ['%a', '%d', '%m', '%Y'],
-      \'z'    : '%R:%S'}
+      \'z'    : '%R:%S',
+      \'options' : {'status-justify' : 'left'}}
+
 let g:tmuxline_theme = {
         \ 'a'            : [ 'black', 'yellow' ],
         \ 'b'            : [ 'black', 'blue'],
@@ -575,7 +577,7 @@ let g:tmuxline_theme = {
         \ 'y'            : [ 'black', 'blue'],
         \ 'z'            : [ 'black', 'green' ],
         \ 'bg'           : [ 'black', 'black'],
-        \ 'win'          : [ 'black', 'black'],
+        \ 'win'          : [ 'green', 'black'],
         \ 'win.activity' : [ 'black', 'red'],
         \ 'cwin'         : [ 'black', 'green']}
 
