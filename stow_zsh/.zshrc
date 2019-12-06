@@ -474,7 +474,7 @@ alias ls='ls --color=auto'
 ############################################################
 # neovim aliases
 ############################################################
-if hash nvim 2> /dev/null; then
+if (( $+commands[nvim] )) ; then
     alias vim='nvim'
     alias vi='nvim'
     alias vimdiff='nvim -d'
@@ -485,7 +485,7 @@ fi
 ############################################################
 # Clipboard Aliases
 ############################################################
-if ! hash getclip 2> /dev/null; then
+if (( $+commands[getclip] )) ; then
     alias getclip='xclip -selection clipboard -o'
     alias putclip='xclip -selection clipboard'
 fi
@@ -505,7 +505,7 @@ alias lmesg='dmesg -L=always | less'
 # less support for more filetypes
 ############################################################
 # Not technically an alias, but fills a similar role
-if hash lesspipe 2> /dev/null; then
+if (( $+commands[lesspipe] )) ; then
     eval $(lesspipe)
 fi
 
@@ -716,7 +716,7 @@ _additional_paths=(
 
 _addpaths _additional_paths > /dev/null
 
-if hash rg 2> /dev/null; then
+if (( $+commands[rg] )); then
     # Use rg with fzf
     export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 fi
@@ -728,7 +728,7 @@ export FZF_COMPLETION_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || 
 # Use preview with fzf ctrl r
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:wrap"
 
-if hash fd 2> /dev/null; then
+if (( $+commands[fd] )); then
     # Use fd instead of find with fzf
      _fzf_compgen_path() {
       fd --hidden --follow --exclude ".git" . "$1"
@@ -744,10 +744,12 @@ fi
 # Exports based on what is in the path
 ################################################################################
 # Set editor based on what is available
-if hash nvim 2> /dev/null; then
+if (( $+commands[nvim] )); then
     export EDITOR='nvim'
-elif hash vim 2> /dev/null; then
+elif (( $+commands[vim] )); then
     export EDITOR='vim'
+elif (( $+commands[vi] )); then
+    export EDITOR='vi'
 fi
 
 ################################################################################
