@@ -31,3 +31,6 @@
 [submodule "repos/siji"]
 	path = repos/siji
 	url = https://github.com/stark/siji
+[submodule "repos/dein.vim"]
+	path = repos/dein.vim
+	url = https://github.com/Shougo/dein.vim
