@@ -559,27 +559,29 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Note: This plugin is used to generate a Tmux status line,
 "doesn't do anything for normal use
-let g:tmuxline_preset = {
-      \'a'    : '#(whoami)@#H',
-      \'b'    : '#S',
-      \'c'    : '',
-      \'win'  : '#I #W',
-      \'cwin' : '#I #W',
-      \'y'    : ['%a', '%d', '%m', '%Y'],
-      \'z'    : '%R:%S',
-      \'options' : {'status-justify' : 'left'}}
+if Is_plugin_loaded('tmuxline.vim')
+    let g:tmuxline_preset = {
+          \'a'    : '#(whoami)@#H',
+          \'b'    : '#S',
+          \'c'    : '',
+          \'win'  : '#I #W',
+          \'cwin' : '#I #W',
+          \'y'    : ['%a', '%d', '%m', '%Y'],
+          \'z'    : '%R:%S',
+          \'options' : {'status-justify' : 'left'}}
 
-let g:tmuxline_theme = {
-        \ 'a'            : [ 'black', 'yellow' ],
-        \ 'b'            : [ 'black', 'blue'],
-        \ 'c'            : [ 'black', 'black'],
-        \ 'x'            : [ 'black', 'black'],
-        \ 'y'            : [ 'black', 'blue'],
-        \ 'z'            : [ 'black', 'green' ],
-        \ 'bg'           : [ 'black', 'black'],
-        \ 'win'          : [ 'green', 'black'],
-        \ 'win.activity' : [ 'black', 'red'],
-        \ 'cwin'         : [ 'black', 'green']}
+    let g:tmuxline_theme = {
+            \ 'a'            : [ 'black', 'yellow' ],
+            \ 'b'            : [ 'black', 'blue'],
+            \ 'c'            : [ 'black', 'black'],
+            \ 'x'            : [ 'black', 'black'],
+            \ 'y'            : [ 'black', 'blue'],
+            \ 'z'            : [ 'black', 'green' ],
+            \ 'bg'           : [ 'black', 'black'],
+            \ 'win'          : [ 'green', 'black'],
+            \ 'win.activity' : [ 'black', 'red'],
+            \ 'cwin'         : [ 'black', 'green']}
+endif
 
 """""""""""""""""""""""""""}}}
 " => EasyMotion settings   {{{
