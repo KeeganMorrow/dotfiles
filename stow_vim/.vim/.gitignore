@@ -1,7 +1,6 @@
 plugged/*
-dein.vim/*
-!dein.vim/repos/github.com/Shougo/dein.vim
 sessions/*
 dein.vim/*
 autoload/*
 .netrwhist*
+!/dein.vim/repos/github.com/Shougo/dein.vim
