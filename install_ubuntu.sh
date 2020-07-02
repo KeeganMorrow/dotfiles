@@ -49,12 +49,23 @@ for i in $python3_packages ; do
     sudo -H pip3 install "$i"
 done
 
+if hash fd 2>/dev/null ; then
+    echo "fd already installed"
+else
+    echo "Installing fd"
+    pushd buildir
+    fd_version="7.4.0"
+    curl -LO "https://github.com/sharkdp/fd/releases/download/v${fd_version}/fd-musl_${fd_version}_amd64.deb"
+    sudo dpkg -i fd-musl_7.4.0_amd64.deb
+    popd
+fi
+
 if hash rg 2>/dev/null ; then
     echo "Ripgrep already installed"
 else
     echo "Installing ripgrep"
     pushd builddir
-    ripgrep_version="0.10.0"
+    ripgrep_version="11.0.2"
     curl -LO "https://github.com/BurntSushi/ripgrep/releases/download/${ripgrep_version}/ripgrep_${ripgrep_version}_amd64.deb"
     sudo dpkg -i "ripgrep_${ripgrep_version}_amd64.deb"
     popd
