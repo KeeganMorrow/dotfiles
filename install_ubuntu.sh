@@ -40,6 +40,7 @@ EOM
 
 
 echo "Installing Ubuntu packages"
+sudo apt update
 for i in $ubuntu_packages ; do
     sudo apt install -y "$i"
 done
