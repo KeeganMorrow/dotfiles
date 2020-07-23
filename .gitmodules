@@ -34,3 +34,9 @@
 [submodule "repos/dein.vim"]
 	path = repos/dein.vim
 	url = https://github.com/Shougo/dein.vim
+[submodule "repos/powerline-for-polybar"]
+	path = repos/powerline-for-polybar
+	url = https://github.com/bacara/powerline-for-polybar
+[submodule "repos/polybar-scripts"]
+	path = repos/polybar-scripts
+	url = https://github.com/polybar/polybar-scripts
