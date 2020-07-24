@@ -49,6 +49,7 @@ zplug "modules/python",                 from:prezto
 ########################################
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
+zplug "pawel-slowik/zsh-term-title"
 
 # This way of loading fzf taken from
 # https://github.com/zplug/zplug/issues/509#issuecomment-464930143
@@ -760,34 +761,7 @@ fi
 ################################################################################
 # Special function overrides
 ################################################################################
-autoload -U add-zsh-hook
-
-add-zsh-hook precmd precmd_hook_tmux
-precmd_hook_tmux() {
-    if [[ -n "$TMUX" ]]; then
-        tmux setenv "$(tmux display -p 'TMUX_PWD_#D')" "$PWD"
-    fi
-    case $TERM in
-        screen*)
-            # Set Tmux-title to abbreviated pwd
-            print -Pn "\033k%3~\033\\"
-            # Set urxvt title to zsh and pwd
-            print -Pn "\e]2:tmux:%~\a"
-    ;;
-    esac
-}
-
-add-zsh-hook preexec preexec_hook_tmux
-preexec_hook_tmux() {
-    case $TERM in
-        screen*)
-            # Set Tmux-title to running program
-            print -Pn "\033k$(echo "$1" | cut -d' ' -f1)\033\\"
-            print -Pn "\e]2;tmux:$(echo "$1" | cut -d' ' -f1)\a"
-    ;;
-    esac
-}
-
+#
 ################################################################################
 # Last minute options
 ################################################################################
