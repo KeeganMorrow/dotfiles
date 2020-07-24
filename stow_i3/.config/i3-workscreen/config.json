@@ -1,0 +1,14 @@
+{
+    "disableEmptyOutputs": true,
+    "outputs": [
+        {
+            "name": "HDMI-0",
+            "workspaces": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ]
+        },
+        {
+            "name": "DP-4",
+            "xrandr": ["--right-of", "HDMI-0"],
+            "workspaces": [ "6", "7", "8", "9", "10" ]
+        }
+    ]
+}

@@ -13,7 +13,7 @@ exec nitrogen --restore
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-exec --no-startup-id compton --opacity-rule '100:window_type = "dock" && class_g = "i3bar"' --config ~/.config/compton.conf -b
+exec --no-startup-id picom --config ~/.config/picom/picom.conf -b
 
 set $mod Mod4
 
@@ -35,13 +35,13 @@ font pango:Source Code Pro Medium 14px
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# TODO: Use $term variable
-set $term rvxt-unicode
+set $term alacritty
+set $font "SauceCodePro Nerd Font Mono"
 
 # start a terminal
-bindsym $mod+Return exec alacritty -e tmux -2
+bindsym $mod+Return exec $term -e tmux -2
 
-bindsym $mod+Shift+Return exec TERMINAL=alacritty ~/syncsettings/bin/rofi_tmux.sh -location 2
+bindsym $mod+Shift+Return exec TERMINAL=$term ~/syncsettings/bin/rofi_tmux.sh -location 2
 
 # Bind i3lock
 bindsym $mod+Escape exec i3lock -c 000000 -d
@@ -50,7 +50,11 @@ bindsym $mod+Escape exec i3lock -c 000000 -d
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec rofi -show combi -combi-modi "window#drun" -modi combi "SauceCodePro Nerd Font Mono 20" -show-icons -dpi 160
+
+# Start locate powered file finder for ROFI
+bindsym $mod+t exec locate -e -i --regex "/home/$USER/[^\.]+" | rofi -dmenu -i | xargs -r -0 xdg-open
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -73,11 +77,11 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
+# Use cursor keys to move workspaces between monitors
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+Control+h move workspace to output left
+bindsym $mod+Control+l move workspace to output right
 
 # move focused window
 bindsym $mod+Shift+h move left
@@ -95,7 +99,7 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+Shift+backslash split h
 
 # split in vertical orientation
-bindsym $mod+Shift+minus split v
+bindsym $mod+minus split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -146,7 +150,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec i3-nagbar -f "SauceCodePro:20px" -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Exit i3' 'i3-msg exit'
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -181,11 +185,18 @@ gaps inner 10
 gaps outer 0
 smart_gaps on
 
-# Set up window colors (need to choose good colors
-# class                 border  backgr. text    indicator child_border
-client.focused          #4c7899 #285577 #ffffff #afff00   #008058
-client.focused_inactive #333333 #5f676a #ffffff #00afff   #005880
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+# These colors taken from Katuva's i3 config based on pale night colors
+# https://github.com/Katuva/my-dotfiles/blob/master/.i3/config
+client.focused          #728cbb #728cbb #e2e2e2 #bfc7d5
+client.focused_inactive #666666 #666666 #728cbb #666666
+client.unfocused        #1a1c1d #1a1c1d #728cbb #1a1c1d
+client.urgent           #de935f #de935f #1a1c1d #de935f
+client.placeholder      #1a1c1d #1a1c1d #de935f #1a1c1d 
+client.background       #1a1c1d
+
+# This is a python tool that uses a configuration file to set up monitors
+# and how workspaces are distributed to them, as well as calling xrandr to set
+# them up.
+# Do this at the end
+exec -nno-startup-id "i3-workscreen"
 

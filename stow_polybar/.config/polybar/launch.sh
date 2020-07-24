@@ -6,8 +6,8 @@ killall -q polybar
 # Wait until the processes have been shut down
 while pgrep -x polybar >/dev/null; do sleep 1; done
 
-MONITOR=DVI-D-0 polybar top & 
-MONITOR=DVI-I-1 polybar top & 
+MONITOR=HDMI-0 polybar example -c $HOME/.config/polybar/config.ini &
+MONITOR=DP-4 polybar example -c $HOME/.config/polybar/config.ini &
 
 # Launch bar1 and bar2
 # polybar bar1 &
