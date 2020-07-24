@@ -3,23 +3,21 @@
 set nocompatible
 filetype off
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => dein.vim
+" => vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => dein.vim header
+" => vim-plug header
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if &compatible
   set nocompatible
 endif
 
-" Add the dein installation directory into runtimepath
-set runtimepath+=~/.vim/dein.vim/repos/github.com/Shougo/dein.vim
-
-if dein#load_state('~/.vim/dein.vim')
-    call dein#begin('~/.vim/dein.vim')
-    call dein#add('~/.vim/dein.vim/repos/github.com/Shougo/dein.vim')
-    if !has('nvim')
-        call dein#add('roxma/nvim-yarp')
-        call dein#add('roxma/vim-hug-neovim-rpc')
+" Function to check if a vim-plug plugin is loaded
+function! Is_plugin_loaded(plugin_name)
+    if has_key(g:plugs, a:plugin_name)
+        let thing = fnamemodify(g:plugs[a:plugin_name].dir, ':h')
+        if stridx(&rtp, thing) >= 0
+            return 1
+        endif
     endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
@@ -27,135 +25,134 @@ if dein#load_state('~/.vim/dein.vim')
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " vimproc
-call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 " Colorschemes
-call dein#add('Korrow/badwolf')
-call dein#add('drewtempelmeyer/palenight.vim')
-call dein#add('tomasr/molokai')
+Plug 'Korrow/badwolf'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'tomasr/molokai'
 
 " Functionality improvements
-call dein#add('arecarn/vim-backup-tree')
-call dein#add('arecarn/spell-utils.vim')
-call dein#add('chrisbra/NrrwRgn')
-call dein#add('easymotion/vim-easymotion')
-call dein#add('godlygeek/tabular')
-call dein#add('junegunn/vim-easy-align')
-call dein#add('kana/vim-niceblock')
-call dein#add('kana/vim-operator-replace')
-call dein#add('kana/vim-operator-user')
-call dein#add('milsen/vim-operator-substitute')
-call dein#add('nathanaelkane/vim-indent-guides')
-call dein#add('tpope/vim-commentary')
-call dein#add('tpope/vim-repeat')
-call dein#add('tpope/vim-speeddating')
-call dein#add('machakann/vim-sandwich')
-call dein#add('tpope/vim-unimpaired')
-call dein#add('junegunn/vim-slash')
+Plug 'arecarn/vim-backup-tree'
+Plug 'arecarn/spell-utils.vim'
+Plug 'chrisbra/NrrwRgn'
+Plug 'easymotion/vim-easymotion'
+Plug 'godlygeek/tabular'
+Plug 'junegunn/vim-easy-align'
+Plug 'kana/vim-niceblock'
+Plug 'kana/vim-operator-replace'
+Plug 'kana/vim-operator-user'
+Plug 'milsen/vim-operator-substitute'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-speeddating'
+Plug 'machakann/vim-sandwich'
+Plug 'tpope/vim-unimpaired'
+Plug 'junegunn/vim-slash'
 
 " text objects
-call dein#add('kana/vim-textobj-user')
+Plug 'kana/vim-textobj-user'
     " iS/aS - selects whitespace
-call dein#add('saihoooooooo/vim-textobj-space')
+Plug 'saihoooooooo/vim-textobj-space'
     " iv/av - selects separated by underscores
-call dein#add('Julian/vim-textobj-variable-segment')
+Plug 'Julian/vim-textobj-variable-segment'
     " ie/ae - selects entire buffer
-call dein#add('kana/vim-textobj-entire')
+Plug 'kana/vim-textobj-entire'
     " ii/ai - selects indented block
-call dein#add('kana/vim-textobj-indent')
+Plug 'kana/vim-textobj-indent'
     " il/al - selects line
-call dein#add('kana/vim-textobj-line')
+Plug 'kana/vim-textobj-line'
     " iu/au - selects url
-call dein#add('mattn/vim-textobj-url')
+Plug 'mattn/vim-textobj-url'
     " ic/ac - selects comment
-call dein#add('glts/vim-textobj-comment')
+Plug 'glts/vim-textobj-comment'
     " ib/ab - selects block - not working as expected
-call dein#add('osyo-manga/vim-textobj-multiblock')
+Plug 'osyo-manga/vim-textobj-multiblock'
     " if/af - selects indside a function
-call dein#add('kana/vim-textobj-function')
+Plug 'kana/vim-textobj-function'
     " i,/a, - selects parameter of function signature or call
-call dein#add('sgur/vim-textobj-parameter')
+Plug 'sgur/vim-textobj-parameter'
 
 " Git Plugins
-call dein#add('mhinz/vim-signify')
-call dein#add('rhysd/git-messenger.vim')
-call dein#add('rhysd/agit.vim')
-call dein#add('rhysd/committia.vim')
-call dein#add('tpope/vim-fugitive')
+Plug 'mhinz/vim-signify'
+Plug 'rhysd/git-messenger.vim'
+Plug 'rhysd/agit.vim'
+Plug 'rhysd/committia.vim'
+Plug 'tpope/vim-fugitive'
 
 " Syntax plugins
-call dein#add('sheerun/vim-polyglot')
-call dein#add('cespare/vim-toml')
-call dein#add('ekalinin/Dockerfile.vim')
-call dein#add('elzr/vim-json')
-call dein#add('kergoth/vim-bitbake')
-call dein#add('lopter/moin.vim')
-call dein#add('octol/vim-cpp-enhanced-highlight')
-call dein#add('plasticboy/vim-markdown')
-call dein#add('rust-lang/rust.vim')
-call dein#add('vim-scripts/scons.vim')
+Plug 'sheerun/vim-polyglot'
+Plug 'cespare/vim-toml'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'elzr/vim-json'
+Plug 'kergoth/vim-bitbake'
+Plug 'lopter/moin.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'plasticboy/vim-markdown'
+Plug 'rust-lang/rust.vim'
+Plug 'vim-scripts/scons.vim'
 
 " Tool Integration
-call dein#add('christoomey/vim-tmux-navigator')
-call dein#add('jmcantrell/vim-virtualenv')
-call dein#add('junegunn/fzf', { 'path':$ZPLUG_HOME.'/repos/junegunn/fzf' })
-call dein#add('junegunn/fzf.vim')
-call dein#add('mhinz/vim-grepper')
-call dein#add('tpope/vim-dispatch')
-call dein#add('xolox/vim-misc')
-call dein#add('gregsexton/gitv')
-call dein#add('JamshedVesuna/vim-markdown-preview')
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'jmcantrell/vim-virtualenv'
+Plug 'junegunn/fzf', { 'dir':$ZPLUG_HOME.'/repos/junegunn/fzf' }
+Plug 'junegunn/fzf.vim'
+Plug 'mhinz/vim-grepper'
+Plug 'tpope/vim-dispatch'
+Plug 'xolox/vim-misc'
+Plug 'gregsexton/gitv'
+Plug 'JamshedVesuna/vim-markdown-preview'
 
 " Interface Plugins
-call dein#add('Shougo/vinarise.vim')
-call dein#add('arecarn/clean-fold.vim')
-call dein#add('itchyny/lightline.vim')
-call dein#add('jez/vim-superman')
-call dein#add('junegunn/vim-peekaboo')
-call dein#add('mbbill/undotree')
-call dein#add('mhinz/vim-startify')
-call dein#add('mkitt/tabline.vim')
-call dein#add('vim-scripts/DrawIt')
-call dein#add('drzel/vim-in-proportion')
-call dein#add('vimwiki/vimwiki')
-call dein#add('wellle/visual-split.vim')
-call dein#add('yssl/QFEnter')
-call dein#add('AndrewRadev/linediff.vim')
-call dein#add('liuchengxu/vista.vim')
+Plug 'Shougo/vinarise.vim'
+Plug 'arecarn/clean-fold.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'jez/vim-superman'
+Plug 'junegunn/vim-peekaboo'
+Plug 'mbbill/undotree'
+Plug 'mhinz/vim-startify'
+Plug 'mkitt/tabline.vim'
+Plug 'vim-scripts/DrawIt'
+Plug 'drzel/vim-in-proportion'
+Plug 'vimwiki/vimwiki'
+Plug 'wellle/visual-split.vim'
+Plug 'yssl/QFEnter'
+Plug 'AndrewRadev/linediff.vim'
+Plug 'liuchengxu/vista.vim'
 
 " Completion Plugins
-call dein#add('wellle/tmux-complete.vim')
-call dein#add('Shougo/echodoc.vim')
+Plug 'wellle/tmux-complete.vim'
+Plug 'Shougo/echodoc.vim'
 if has('nvim')
-    call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 else
     "Vim Completion plugins
-    call dein#add('ajh17/VimCompletesMe')
+    Plug 'ajh17/VimCompletesMe'
 endif
 
 " Snippets
-call dein#add('Shougo/neosnippet.vim')
-call dein#add('Shougo/neosnippet-snippets')
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 
 " Other plugins
-call dein#add('Yggdroot/indentLine')
-call dein#add('airblade/vim-rooter')
-call dein#add('embear/vim-localvimrc')
-call dein#add('ntpeters/vim-better-whitespace')
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-rooter'
+Plug 'embear/vim-localvimrc'
+Plug 'ntpeters/vim-better-whitespace'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Blue Moon Bundles                                      {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " These are bundles that I only use very rarely
 " Only used when need to regenerate tmux theme
-" call dein#add('edkolev/tmuxline.vim'
+" Plug 'edkolev/tmuxline.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => dein.vim footer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-  call dein#end()
-  call dein#save_state()
-endif
+ " Initialize plugin system
+call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Pre-packaged plugins                                   {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -471,7 +468,7 @@ endif
 """"""""""""""""""""""""""""""
 " => Lightline  Settings     {{{
 """"""""""""""""""""""""""""""
-if dein#tap('lightline.vim')
+if Is_plugin_loaded('lightline.vim')
     function! CocCurrentFunction()
         return get(b:, 'coc_current_function', '')
     endfunction
@@ -563,7 +560,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Note: This plugin is used to generate a Tmux status line,
 "doesn't do anything for normal use
-if dein#tap('tmuxline.vim')
+if Is_plugin_loaded('tmuxline.vim')
     let g:tmuxline_preset = {
           \'a'    : '#(whoami)@#H',
           \'b'    : '#S',
@@ -590,7 +587,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => EasyMotion settings   {{{
 """"""""""""""""""""""""""""""
-if dein#tap('vim-easymotion')
+if Is_plugin_loaded('vim-easymotion')
     " EasyMotion configuration
     " <Leader>f{char} to move to {char}
     map  <Leader>f <Plug>(easymotion-bd-f)
@@ -611,7 +608,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => FZF plugin settings   {{{
 """"""""""""""""""""""""""""""
-if dein#tap('fzf.vim')
+if Is_plugin_loaded('fzf.vim')
     " Add FZF preview window
     let g:fzf_files_options = 
         \ '--preview "(highlight -0 ansi {} || cat {}) 2> /dev/null | head -' .&lines.'"'
@@ -642,14 +639,14 @@ endif
 """""""""""""""""""""""""""}}}
 " => Headerguard settings  {{{
 """"""""""""""""""""""""""""""
-if dein#tap('headerguard')
+if Is_plugin_loaded('headerguard')
     autocmd BufNewFile *.{h,hpp} call HeaderguardAdd()
 endif
 
 """""""""""""""""""""""""""}}}
 " => vim-test Settings     {{{
 """"""""""""""""""""""""""""""
-if dein#tap('vim-test')
+if Is_plugin_loaded('vim-test')
     if has('nvim')
         let test#strategy = "neovim"
         let test#python#pytest#options = '--verbose'
@@ -661,7 +658,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => committia Settings    {{{
 """"""""""""""""""""""""""""""
-if dein#tap('committia.vim')
+if Is_plugin_loaded('committia.vim')
     let g:committia_hooks = {}
     function! g:committia_hooks.edit_open(info)
         " Additional settings
@@ -674,14 +671,14 @@ endif
 """""""""""""""""""""""""""}}}
 " => Notational Settings   {{{
 """"""""""""""""""""""""""""""
-if dein#tap('notational-fzf-vim')
+if Is_plugin_loaded('notational-fzf-vim')
     let g:nv_search_paths = ['~/notes']
 endif
 
 """""""""""""""""""""""""""}}}
 " => Better Whitespace     {{{
 """"""""""""""""""""""""""""""
-if dein#tap('vim-better-whitespace')
+if Is_plugin_loaded('vim-better-whitespace')
 
     " Blacklist some filetypes
     let g:better_whitespace_filetypes_blacklist = ['unite', 'vimfiler', 'qf']
@@ -691,7 +688,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => Better Whitespace     {{{
 """"""""""""""""""""""""""""""
-if dein#tap('indentLine')
+if Is_plugin_loaded('indentLine')
 
     " Don't conceal characters
     let g:indentLine_setConceal = 0
@@ -700,7 +697,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => Staritfy Settings     {{{
 """"""""""""""""""""""""""""""
-if dein#tap('vim-startify')
+if Is_plugin_loaded('vim-startify')
     let g:startify_fortune_use_unicode = 1
     if has('nvim')
         let g:ascii = [
@@ -726,7 +723,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => vim-easytags settings   {{{
 """"""""""""""""""""""""""""""
-if dein#tap('vim-easytags')
+if Is_plugin_loaded('vim-easytags')
     " Enable asynchronous easytags
     let g:easytags_async = 1
 endif
@@ -734,14 +731,14 @@ endif
 """""""""""""""""""""""""""}}}
 " => vim-backup-tree settings   {{{
 """"""""""""""""""""""""""""""
-if dein#tap('vim-backup-tree')
+if Is_plugin_loaded('vim-backup-tree')
     let g:backup_tree = $HOME."/.vim_backup_tree"
 endif
 
 """""""""""""""""""""""""""}}}
 " => vim-json Settings     {{{
 """"""""""""""""""""""""""""""
-if dein#tap('vim-json')
+if Is_plugin_loaded('vim-json')
 
     " Disable annoying concealing of quotes
     let g:vim_json_syntax_conceal=0
@@ -751,7 +748,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => vim-markdown Settings     {{{
 """"""""""""""""""""""""""""""
-if dein#tap('vim-markdown')
+if Is_plugin_loaded('vim-markdown')
 
     " Disable annoying concealing of quotes
     let g:vim_markdown_conceal = 0
@@ -761,7 +758,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => vinarise.vim          {{{
 """"""""""""""""""""""""""""""
-if dein#tap('vinarise.vim')
+if Is_plugin_loaded('vinarise.vim')
     let g:vinarise_enable_auto_detect = 1
 endif
 
@@ -769,7 +766,7 @@ endif
 " => Completion Plugin Settings{{{
 """"""""""""""""""""""""""""""
 
-if dein#tap('echodoc.vim') "{{{
+if Is_plugin_loaded('echodoc.vim') "{{{
      let g:echodoc#enable_at_startup = 1
     let g:echodoc#type = 'floating'
     " To use a custom highlight for the float window,
@@ -777,15 +774,15 @@ if dein#tap('echodoc.vim') "{{{
     highlight link EchoDocFloat Pmenu
 endif "}}}
 
-if dein#tap('vim-tmux-navigator') "{{{
+if Is_plugin_loaded('vim-tmux-navigator') "{{{
     " Disable vim->tmux navigation when the Vim pane is zoomed in tmux
     let g:tmux_navigator_disable_when_zoomed = 1
 endif "}}}
 
-if dein#tap('coc.nvim')
+if Is_plugin_loaded('coc.nvim')
     let g:coc_status_error_sign = "❌"
     let g:coc_status_warning_sign = "⚠ "
-    if dein#tap('vista.vim')
+    if Is_plugin_loaded('vista.vim')
         let g:vista_default_executive = 'coc'
     endif
 endif
@@ -796,7 +793,7 @@ endif
 """""""""""""""""""""""""""}}}
 " => FZF plugin mappings   {{{
 """"""""""""""""""""""""""""""
-if dein#tap('fzf.vim')
+if Is_plugin_loaded('fzf.vim')
     nnoremap <leader>r :History:<CR>
     nnoremap <leader>R :History<CR>
     nnoremap <leader>/ :History/<CR>
@@ -817,13 +814,13 @@ endif
 " => Misc. Plugin Mappings {{{
 """"""""""""""""""""""""""""""
 
-if dein#tap('undotree')
+if Is_plugin_loaded('undotree')
 
     nnoremap <leader>uu :UndotreeToggle<CR>
 
 endif
 
-if dein#tap('vim-better-whitespace')
+if Is_plugin_loaded('vim-better-whitespace')
 
     "Remap ctrl-backspace to strip whitespace
     nnoremap <leader>d :.StripWhitespace<CR>
@@ -831,7 +828,7 @@ if dein#tap('vim-better-whitespace')
 endif
 
 " vim-test mappings
-if dein#tap('vim-test')
+if Is_plugin_loaded('vim-test')
 
     nnoremap <leader>ns :TestSuite<cr>
     nnoremap <leader>nf :TestFile<cr>
@@ -841,13 +838,13 @@ if dein#tap('vim-test')
 endif
 
 " QFEnter mappings
-if dein#tap('QFEnter')
+if Is_plugin_loaded('QFEnter')
     let g:qfenter_vopen_map = ['<C-v']
     let g:qfenter_hopen_map = ['<C-CR>', '<C-s>', '<C-x>']
     let g:qfenter_topen_map = ['<C-t>']
 endif
 
-if dein#tap('vim-easy-align')
+if Is_plugin_loaded('vim-easy-align')
     " Start interactive EasyAlign in visual mode (e.g. vipga)
     xmap ga <Plug>(EasyAlign)
 
@@ -855,24 +852,24 @@ if dein#tap('vim-easy-align')
     nmap ga <Plug>(EasyAlign)
 endif
 
-if dein#tap('vim-grepper')
+if Is_plugin_loaded('vim-grepper')
     nmap gs <Plug>(GrepperOperator)
     xmap gs <Plug>(GrepperOperator)
 endif
 
-if dein#tap('vim-operator-replace')
+if Is_plugin_loaded('vim-operator-replace')
     " Mapping for the replace operator
     map g" <Plug>(operator-replace)
 endif
 
-if dein#tap('vim-operator-substitute')
+if Is_plugin_loaded('vim-operator-substitute')
     map s <Plug>(operator-substitute)
     map S <Plug>(operator-substitute)$
     map & <Plug>(operator-substitute-repeat)
     map g& <Plug>(operator-substitute-repeat-no-flags)
 endif
 
-if dein#tap('coc.nvim')
+if Is_plugin_loaded('coc.nvim')
     nmap <leader>ld <Plug>(coc-definition)
     nmap <leader>lt <Plug>(coc-type-definition)
     nmap <leader>li <Plug>(coc-implementation)
@@ -973,7 +970,7 @@ if dein#tap('coc.nvim')
 
 endif
 
-if dein#tap('vista.vim')
+if Is_plugin_loaded('vista.vim')
     nnoremap <silent> <leader>co :<C-u>Vista!!<cr>
     nnoremap <silent> <leader>cs :<C-u>Vista finder<cr>
 endif
