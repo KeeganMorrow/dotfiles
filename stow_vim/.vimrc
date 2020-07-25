@@ -19,6 +19,13 @@ function! Is_plugin_loaded(plugin_name)
             return 1
         endif
     endif
+endfunction
+
+
+ " Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Global Bundles                                         {{{
@@ -109,6 +116,7 @@ Plug 'Shougo/vinarise.vim'
 Plug 'arecarn/clean-fold.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'jez/vim-superman'
+Plug 'skywind3000/vim-cppman'
 Plug 'junegunn/vim-peekaboo'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-startify'
