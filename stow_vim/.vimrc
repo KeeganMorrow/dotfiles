@@ -49,6 +49,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-niceblock'
 Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
+Plug 'lambdalisue/suda.vim'
 Plug 'milsen/vim-operator-substitute'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-commentary'
@@ -185,7 +186,9 @@ let maplocalleader = "\\"
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
-command! W w !sudo tee % > /dev/null
+" Note - due to a bug in neovim this is being handled using the suda.vim plugin
+" command! W w !sudo tee % > /dev/null
+command! W w suda://%
 
 " Spelling settings
 set spell
