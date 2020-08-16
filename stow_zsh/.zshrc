@@ -765,3 +765,7 @@ fi
 ################################################################################
 # Last minute options
 ################################################################################
+# Prevents ^s from stopping terminal
+# <$TTY >$TTY is needed per powerlevel10k author
+# https://github.com/romkatv/powerlevel10k/issues/388
+stty -ixon <$TTY >$TTY
