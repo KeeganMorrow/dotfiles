@@ -54,3 +54,7 @@ struct
 PROTOBUF_GENERATE_CPP
 dBm
 whitespace
+POSIX
+pthread
+Globbing
+timestamp
