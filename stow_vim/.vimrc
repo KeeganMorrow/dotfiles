@@ -88,7 +88,6 @@ Plug 'rhysd/committia.vim'
 Plug 'tpope/vim-fugitive'
 
 " Syntax plugins
-Plug 'sheerun/vim-polyglot'
 Plug 'cespare/vim-toml'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'elzr/vim-json'
