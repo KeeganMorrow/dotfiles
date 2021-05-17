@@ -2,16 +2,21 @@
 
 clang_executables="\
 clang
-clang-apply-replacements
-clang-cl
-clang-format-diff
-clang-rename
-clang-tidy
 clang++
+clang-apply-replacements
+clang-change-namespace
 clang-check
+clang-check
+clang-cl
 clang-format
+clang-format-diff
+clang-include-fixer
 clang-query
+clang-rename
+clang-reorder-fields
 clang-tblgen
+clang-tidy
+clangd
 "
 
 confirm_always=-1
