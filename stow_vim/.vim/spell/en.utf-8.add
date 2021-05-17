@@ -58,3 +58,6 @@ POSIX
 pthread
 Globbing
 timestamp
+json
+webhook
+websocket
