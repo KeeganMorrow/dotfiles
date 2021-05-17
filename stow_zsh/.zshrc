@@ -50,6 +50,7 @@ zplug "modules/python",                 from:prezto
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
 zplug "pawel-slowik/zsh-term-title"
+zplug "jeffreytse/zsh-vi-mode"
 
 # This way of loading fzf taken from
 # https://github.com/zplug/zplug/issues/509#issuecomment-464930143
@@ -576,40 +577,10 @@ alias info='info --vi-keys'
 # Use 10ms timeout for key sequences
 export KEYTIMEOUT=1
 
-############################################################
-# Vi Mode Settings
-############################################################
-# Not all of these belong in this section strictly speaking, but they
-# should all be together, so here we go.
-
-# Use vi keys
-
-bindkey -v
-
 ########################################
 # Overrides for lost bindings
 ########################################
 # Bindkey -v removes bindings that are used by these plugins, re-instante them
-bindkey '^I' fzf-completion
-bindkey '^Z' fancy-ctrl-z
-
-########################################
-# more vim-like key bindings
-########################################
-bindkey -M vicmd '^V' edit-command-line
-
-bindkey -a 'gg' beginning-of-buffer-or-history
-bindkey -a 'g~' vi-oper-swap-case
-bindkey -a G end-of-buffer-or-history
-
-bindkey -a u undo
-bindkey -a '^R' redo
-bindkey '^H' backward-delete-char
-bindkey '^?' backward-delete-char
-
-bindkey -M viins '^W' backward-kill-word
-
-bindkey '^E' _expand_alias
 
 ############################################################
 # History search keybindings
@@ -624,10 +595,6 @@ _insert-next-word() {
     zle insert-last-word 1
 }
 zle -N _insert-next-word
-
-# Bind this functionality to ctrl+up/down
-bindkey -M viins '^[[A'    insert-last-word
-bindkey -M viins '^[[B'    _insert-next-word
 
 ############################################################
 # Completion keybindings
@@ -655,10 +622,9 @@ function prepend-sudo {
 }
 
 zle -N prepend-sudo
-bindkey -M viins '^s' prepend-sudo
 
 ########################################
-# FZF keymappings
+# FZF keymapping helpers
 ########################################
 join-lines() {
   local item
@@ -676,23 +642,37 @@ bind-git-helper() {
   done
 }
 
-bind-git-helper f b t r u
-unset -f bind-git-helper
 
-bindkey -M viins '^T' fzf-file-widget
-# This is actually intended for ctr+/
-bindkey -M viins '^_' fzf-cd-widget
-bindkey -M viins '^R' fzf-history-widget
+function zvm_after_init() {
+    # FZF Git functions
+    bind-git-helper f b t r u
+    unset -f bind-git-helper
+    bindkey -M viins '^T' fzf-file-widget
+    # This is actually intended for ctr+/
+    bindkey -M viins '^_' fzf-cd-widget
+    bindkey -M viins '^R' fzf-history-widget
 
-# This lets us interrupt a command in the middle of typing to run another
-bindkey '^Q' push-line
+    # This lets us interrupt a command in the middle of typing to run another
+    bindkey '^Q' push-line
 
-# Remove default list-expand mapping
-bindkey -r '^g'
+    # Remove default list-expand mapping
+    bindkey -r '^g'
 
-#Bind list-expand to ^f instead
-bindkey '^f' list-expand
+    #Bind list-expand to ^f instead
+    bindkey '^f' list-expand
 
+    # Bind this functionality to ctrl+up/down
+    bindkey -M viins '^[[A'    insert-last-word
+    bindkey -M viins '^[[B'    _insert-next-word
+
+    # Fancy ctrl z plugin
+    bindkey '^Z' fancy-ctrl-z
+
+    # Prepend sudo function
+    bindkey -M viins '^s' prepend-sudo
+
+    bindkey -M viins '^E' _expand_alias
+}
 ################################################################################
 # Exports
 ################################################################################
