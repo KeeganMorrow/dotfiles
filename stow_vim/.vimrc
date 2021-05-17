@@ -389,7 +389,7 @@ set cindent
 set wrap
 
 " Show line at 80 columns
-set colorcolumn=80
+set colorcolumn=80,100
 
 " Allow editing past EOL for all modes
 set virtualedit+=all
@@ -507,9 +507,9 @@ if Is_plugin_loaded('lightline.vim')
         \     'cocstatus': 'coc#status',
         \     'currentfunction': 'CocCurrentFunction',
         \ },
-        \ 'separator': { 'left': '', 'right': '' },
         \ 'subseparator': { 'left': '', 'right': '' }
         \ }
+    let g:lightline.separator = { 'left': '', 'right': '' }
 
     function! Lightline_modified() abort
         return &filetype =~# 'help\|dirvish' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -763,6 +763,9 @@ if Is_plugin_loaded('vim-markdown')
 
     " Disable annoying concealing of quotes
     let g:vim_markdown_conceal = 0
+
+    " Disable folding
+    let g:vim_markdown_folding_disabled = 1
 
 endif
 
