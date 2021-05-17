@@ -820,6 +820,14 @@ if Is_plugin_loaded('fzf.vim')
 endif
 
 """""""""""""""""""""""""""}}}
+" => Vim Sandwich mappings {{{
+""""""""""""""""""""""""""""""
+
+if Is_plugin_loaded('vim-sandwich')
+    " Use surround style keys
+    runtime macros/sandwich/keymap/surround.vim
+endif
+"""""""""""""""""""""""""""}}}
 " => Misc. Plugin Mappings {{{
 """"""""""""""""""""""""""""""
 
