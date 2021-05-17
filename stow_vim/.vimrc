@@ -35,9 +35,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 " Colorschemes
-Plug 'Korrow/badwolf'
 Plug 'drewtempelmeyer/palenight.vim'
-Plug 'tomasr/molokai'
 
 " Functionality improvements
 Plug 'arecarn/vim-backup-tree'
