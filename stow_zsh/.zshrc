@@ -585,10 +585,6 @@ export KEYTIMEOUT=1
 ############################################################
 # History search keybindings
 ############################################################
-bindkey "^n" history-beginning-search-forward
-bindkey "^p" history-beginning-search-backward
-bindkey -M menuselect "^n" down-history
-bindkey -M menuselect "^p" up-history
 
 # Search previously used words
 _insert-next-word() {
@@ -672,6 +668,12 @@ function zvm_after_init() {
     bindkey -M viins '^s' prepend-sudo
 
     bindkey -M viins '^E' _expand_alias
+
+    # History search functionality
+    bindkey "^n" history-beginning-search-forward
+    bindkey "^p" history-beginning-search-backward
+    bindkey -M menuselect "^n" down-history
+    bindkey -M menuselect "^p" up-history
 }
 ################################################################################
 # Exports
