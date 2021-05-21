@@ -38,6 +38,7 @@ dploy
 jedi
 EOM
 
+mkdir -p builddir
 
 echo "Installing Ubuntu packages"
 sudo apt update
@@ -55,9 +56,20 @@ if hash fd 2>/dev/null ; then
 else
     echo "Installing fd"
     pushd buildir
-    fd_version="7.4.0"
-    curl -LO "https://github.com/sharkdp/fd/releases/download/v${fd_version}/fd-musl_${fd_version}_amd64.deb"
-    sudo dpkg -i fd-musl_7.4.0_amd64.deb
+    fd_version="8.2.1"
+    curl -LO "https://github.com/sharkdp/fd/releases/download/v${fd_version}/fd_${fd_version}_amd64.deb"
+    sudo dpkg -i fd_${fd_version}_amd64.deb
+    popd
+fi
+
+if hash bat 2>/dev/null ; then
+    echo "bat already installed"
+else
+    echo "Installing bat"
+    pushd builddir
+    bat_version="0.18.1"
+    curl -LO "https://github.com/sharkdp/bat/releases/download/v0.18.1/bat_${bat_version}_amd64.deb"
+    sudo dpkg -i bat_${bat_version}_amd64.deb
     popd
 fi
 
@@ -66,7 +78,7 @@ if hash rg 2>/dev/null ; then
 else
     echo "Installing ripgrep"
     pushd builddir
-    ripgrep_version="11.0.2"
+    ripgrep_version="12.1.1"
     curl -LO "https://github.com/BurntSushi/ripgrep/releases/download/${ripgrep_version}/ripgrep_${ripgrep_version}_amd64.deb"
     sudo dpkg -i "ripgrep_${ripgrep_version}_amd64.deb"
     popd
