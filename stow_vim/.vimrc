@@ -3,17 +3,9 @@
 set nocompatible
 filetype off
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => vim-plug
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim-plug header
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if &compatible
-  set nocompatible
-endif
-
 " Function to check if a vim-plug plugin is loaded
 function! Is_plugin_loaded(plugin_name)
-    return 1
+    return 0
     if has_key(g:plugs, a:plugin_name)
         let thing = fnamemodify(g:plugs[a:plugin_name].dir, ':h')
         if stridx(&rtp, thing) >= 0
@@ -21,141 +13,13 @@ function! Is_plugin_loaded(plugin_name)
         endif
     endif
 endfunction
-
-
- " Specify a directory for plugins
-" - For Neovim: stdpath('data') . '/plugged'
-" - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.vim/plugged')
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Global Bundles                                         {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Colorschemes
-Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
-Plug 'kyazdani42/nvim-web-devicons'
-
-" Functionality improvements
-Plug 'arecarn/vim-backup-tree'
-Plug 'phaazon/hop.nvim'
-Plug 'junegunn/vim-easy-align'
-Plug 'kana/vim-niceblock'
-Plug 'kana/vim-operator-replace'
-Plug 'kana/vim-operator-user'
-Plug 'lambdalisue/suda.vim'
-Plug 'milsen/vim-operator-substitute'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-speeddating'
-Plug 'machakann/vim-sandwich'
-Plug 'tpope/vim-unimpaired'
-Plug 'junegunn/vim-slash'
-Plug 'b3nj5m1n/kommentary', {'branch': 'main'}
-Plug 'famiu/nvim-reload'
-Plug 'kevinhwang91/nvim-bqf'
-
-" text objects
-Plug 'kana/vim-textobj-user'
-    " iS/aS - selects whitespace
-Plug 'saihoooooooo/vim-textobj-space'
-    " iv/av - selects separated by underscores
-Plug 'Julian/vim-textobj-variable-segment'
-    " ie/ae - selects entire buffer
-Plug 'kana/vim-textobj-entire'
-    " ii/ai - selects indented block
-Plug 'kana/vim-textobj-indent'
-    " il/al - selects line
-Plug 'kana/vim-textobj-line'
-    " iu/au - selects url
-Plug 'mattn/vim-textobj-url'
-    " ic/ac - selects comment
-Plug 'glts/vim-textobj-comment'
-    " ib/ab - selects block - not working as expected
-Plug 'osyo-manga/vim-textobj-multiblock'
-    " if/af - selects indside a function
-Plug 'kana/vim-textobj-function'
-    " i,/a, - selects parameter of function signature or call
-Plug 'sgur/vim-textobj-parameter'
-
-" Git Plugins
-Plug 'mhinz/vim-signify'
-Plug 'rhysd/git-messenger.vim'
-Plug 'rhysd/committia.vim'
-Plug 'tpope/vim-fugitive'
-
-" Syntax plugins
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'lewis6991/spellsitter.nvim'
-Plug 'ekalinin/Dockerfile.vim'
-Plug 'kergoth/vim-bitbake'
-
-" Tool Integration
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'jmcantrell/vim-virtualenv'
-Plug 'junegunn/fzf', { 'dir':$ZPLUG_HOME.'/repos/junegunn/fzf' }
-Plug 'junegunn/fzf.vim'
-Plug 'vijaymarupudi/nvim-fzf'
-Plug 'vijaymarupudi/nvim-fzf-commands'
-Plug 'mhinz/vim-grepper'
-Plug 'JamshedVesuna/vim-markdown-preview'
-
-" Interface Plugins
-Plug 'Shougo/vinarise.vim'
-Plug 'hoob3rt/lualine.nvim'
-Plug 'jez/vim-superman'
-Plug 'skywind3000/vim-cppman'
-Plug 'tversteeg/registers.nvim', {'branch': 'main'}
-Plug 'mbbill/undotree'
-Plug 'mhinz/vim-startify'
-Plug 'mkitt/tabline.vim'
-Plug 'drzel/vim-in-proportion'
-Plug 'wellle/visual-split.vim'
-Plug 'yssl/QFEnter'
-Plug 'AndrewRadev/linediff.vim'
-Plug 'liuchengxu/vista.vim'
-Plug 'folke/trouble.nvim'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'folke/todo-comments.nvim'
-Plug 'romgrk/barbar.nvim'
-
-" Completion Plugins
-Plug 'wellle/tmux-complete.vim'
-if has('nvim')
-    Plug 'kabouzeid/nvim-lspinstall'
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'hrsh7th/nvim-compe'
-    Plug 'glepnir/lspsaga.nvim'
-    Plug 'onsails/lspkind-nvim'
-    Plug 'ray-x/lsp_signature.nvim'
-else
-    "Vim Completion plugins
-    Plug 'ajh17/VimCompletesMe'
-endif
-
-" Snippets
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'rafamadriz/friendly-snippets'
-
-" Other plugins
-Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
-Plug 'airblade/vim-rooter'
-Plug 'ntpeters/vim-better-whitespace'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => Blue Moon Bundles                                      {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" These are bundles that I only use very rarely
-" Only used when need to regenerate tmux theme
-" Plug 'edkolev/tmuxline.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => dein.vim footer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
- " Initialize plugin system
-call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Pre-packaged plugins                                   {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -717,32 +581,249 @@ hi! NonText ctermbg=NONE guibg=NONE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 
 lua << EOF
--- Set up LSP Servers
+
 --------------------------------------------------------------------------------
-require'compe'.setup {
-    enabled = true;
-    autocomplete = true;
-    debug = false;
-    min_length = 1;
-    preselect = 'enable';
-    throttle_time = 80;
-    source_timeout = 200;
-    incomplete_delay = 400;
-    max_abbr_width = 100;
-    max_kind_width = 100;
-    max_menu_width = 100;
-    documentation = true;
-    source = {
-        path = true;
-        buffer = true;
-        calc = true;
-        nvim_lsp = true;
-        nvim_lua = true;
-        vsnip = true;
-        ultisnips = false;
-        spell = true;
-    };
-}
+-- Packer bootstrap script
+--------------------------------------------------------------------------------
+local execute = vim.api.nvim_command
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
+  execute 'packadd packer.nvim'
+end
+
+--------------------------------------------------------------------------------
+-- Packer Setup
+--------------------------------------------------------------------------------
+-- Only required if you have packer configured as `opt`
+vim.cmd [[packadd packer.nvim]]
+
+return require('packer').startup(function()
+  -- Packer can manage itself
+    use {'wbthomason/packer.nvim'}
+-- Colorschemes
+    use {'ChristianChiarulli/nvcode-color-schemes.vim'}
+    use {'kyazdani42/nvim-web-devicons', config = function()
+        require'nvim-web-devicons'.setup {
+            default = true;
+        };
+        end
+    }
+
+-- Functionality improvements
+    use {'arecarn/vim-backup-tree'}
+    use {'phaazon/hop.nvim'}
+    use {'junegunn/vim-easy-align'}
+    use {'kana/vim-niceblock'}
+    use {'kana/vim-operator-replace'}
+    use {'kana/vim-operator-user'}
+    use {'lambdalisue/suda.vim'}
+    use {'milsen/vim-operator-substitute'}
+    use {'tpope/vim-repeat'}
+    use {'tpope/vim-speeddating'}
+    use {'machakann/vim-sandwich'}
+    use {'tpope/vim-unimpaired'}
+    use {'junegunn/vim-slash'}
+    use {'b3nj5m1n/kommentary', branch = 'main'}
+    use {'famiu/nvim-reload'}
+    use {'kevinhwang91/nvim-bqf'}
+
+-- text objects
+    use {'kana/vim-textobj-user'}
+  -- iS/aS - selects whitespace
+    use {'saihoooooooo/vim-textobj-space'}
+  -- iv/av - selects separated by underscores
+    use {'Julian/vim-textobj-variable-segment'}
+  -- ie/ae - selects entire buffer
+    use {'kana/vim-textobj-entire'}
+  -- ii/ai - selects indented block
+    use {'kana/vim-textobj-indent'}
+  -- il/al - selects line
+    use {'kana/vim-textobj-line'}
+  -- iu/au - selects url
+    use {'mattn/vim-textobj-url'}
+  -- ic/ac - selects comment
+    use {'glts/vim-textobj-comment'}
+  -- ib/ab - selects block - not working as expected
+    use {'osyo-manga/vim-textobj-multiblock'}
+  -- if/af - selects indside a function
+    use {'kana/vim-textobj-function'}
+  -- i,/a, - selects parameter of function signature or call
+    use {'sgur/vim-textobj-parameter'}
+
+-- Git Plugins
+    use {'mhinz/vim-signify'}
+    use {'rhysd/git-messenger.vim'}
+    use {'rhysd/committia.vim'}
+    use {'tpope/vim-fugitive'}
+
+-- Syntax plugins
+    use {'nvim-treesitter/nvim-treesitter', run= ':TSUpdate', config = function()
+        require'nvim-treesitter.configs'.setup {
+            ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+            ignore_install = {}, -- List of parsers to ignore installing
+            highlight = {
+                enable = true,              -- false will disable the whole extension
+                disable = {},  -- list of language that will be disabled
+            },
+            indent = {
+                enable = true
+           }
+        }
+        end
+    }
+    use {'lewis6991/spellsitter.nvim', config = function()
+            require('spellsitter').setup()
+        end
+    }
+
+
+    use {'ekalinin/Dockerfile.vim'}
+    use {'kergoth/vim-bitbake'}
+
+-- Tool Integration
+    use {'christoomey/vim-tmux-navigator'}
+    use {'jmcantrell/vim-virtualenv'}
+  -- use {'junegunn/fzf', { 'dir':$ZPLUG_HOME.'/repos/junegunn/fzf' }
+    use {'junegunn/fzf.vim'}
+    use {'vijaymarupudi/nvim-fzf'}
+    use {'vijaymarupudi/nvim-fzf-commands'}
+    use {'mhinz/vim-grepper'}
+    use {'JamshedVesuna/vim-markdown-preview'}
+
+-- Interface Plugins
+    use {'Shougo/vinarise.vim'}
+    use {'hoob3rt/lualine.nvim', config = function()
+        require('lualine').setup ({
+            options = {
+                theme = 'palenight'
+            },
+            sections = {
+                lualine_a = {{'mode', lower = false}},
+                lualine_b = {{'branch'}},
+                lualine_c = {{'filename', path = 1}, {'filetype'}, {'fileformat'}, {'fileencoding'}},
+                lualine_x = {{'diff'}, {connected_lsp_clients},{'diagnostics', sources = {'nvim_lsp'}}},
+            },
+            extensions = {'quickfix', 'fzf'}
+        })
+        end
+    }
+    use {'jez/vim-superman'}
+    use {'skywind3000/vim-cppman'}
+    use {'tversteeg/registers.nvim', branch= 'main'}
+    use {'mbbill/undotree'}
+    use {'mhinz/vim-startify'}
+    use {'mkitt/tabline.vim'}
+    use {'drzel/vim-in-proportion'}
+    use {'wellle/visual-split.vim'}
+    use {'yssl/QFEnter'}
+    use {'AndrewRadev/linediff.vim'}
+    use {'liuchengxu/vista.vim'}
+    use {'folke/trouble.nvim', config = function()
+        require("trouble").setup {
+            indent_lines = true,
+        }
+        end
+    }
+    use {'nvim-lua/popup.nvim'}
+    use {'nvim-lua/plenary.nvim'}
+    use {'nvim-telescope/telescope.nvim'}
+    use {'folke/todo-comments.nvim'}
+    use {'romgrk/barbar.nvim'}
+
+-- Completion Plugins
+    use {'wellle/tmux-complete.vim'}
+-- if has('nvim')
+    use {'kabouzeid/nvim-lspinstall', config = function()
+        require('lspinstall').setup()
+        end
+    }
+    use {'neovim/nvim-lspconfig'}
+    use {'hrsh7th/nvim-compe', config = function()
+        require'compe'.setup {
+            enabled = true;
+            autocomplete = true;
+            debug = false;
+            min_length = 1;
+            preselect = 'enable';
+            throttle_time = 80;
+            source_timeout = 200;
+            incomplete_delay = 400;
+            max_abbr_width = 100;
+            max_kind_width = 100;
+            max_menu_width = 100;
+            documentation = true;
+            source = {
+                path = true;
+                buffer = true;
+                calc = true;
+                nvim_lsp = true;
+                nvim_lua = true;
+                vsnip = true;
+                ultisnips = false;
+                spell = true;
+            };
+        }
+    end
+    }
+
+    use {'glepnir/lspsaga.nvim', config = function()
+        require('lspsaga').init_lsp_saga({
+            error_sign = "",
+            warn_sign = "",
+            hint_sign = "",
+            infor_sign = "",
+            dianostic_header_icon = "﫠",
+            code_action_icon = "﫠",
+        })
+        end
+    }
+
+    use {'onsails/lspkind-nvim', config = function ()
+            require('lspkind').init()
+        end
+    }
+    use {'ray-x/lsp_signature.nvim', config = function()
+        require('lsp_signature').on_attach({
+            bind = true, -- This is mandatory, otherwise border config won't get registered.
+            handler_opts = {
+                border = "none"
+            },
+            use_lspsaga = true
+        })
+        end
+    }
+
+-- Snippets
+    use {'hrsh7th/vim-vsnip'}
+    use {'hrsh7th/vim-vsnip-integ'}
+    use {'rafamadriz/friendly-snippets'}
+
+-- Other plugins
+    use {'lukas-reineke/indent-blankline.nvim', branch = 'lua', config = function()
+        vim.g.indent_blankline_char_highlight_list = {'Comment', 'TSEmphasis'}
+        vim.g.indent_blankline_space_char = '·'
+        vim.g.indent_blankline_space_char_blankline = ' '
+        vim.g.indent_blankline_use_treesitter = true
+        end
+    }
+    use {'airblade/vim-rooter'}
+    use {'ntpeters/vim-better-whitespace'}
+
+--------------------------------------------------------------------------------
+-- Occasional use only
+--------------------------------------------------------------------------------
+-- Only used when need to regenerate tmux theme
+use {'edkolev/tmuxline.vim', opt=true}
+
+--------------------------------------------------------------------------------
+-- Packer plug end
+--------------------------------------------------------------------------------
+end)
+EOF
+lua << EOF
+--------------------------------------------------------------------------------
 
 
 -- Set up Key bindings
@@ -775,6 +856,7 @@ _G.tab_complete = function()
     return vim.fn['compe#complete']()
   end
 end
+
 _G.s_tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t "<C-p>"
@@ -791,47 +873,6 @@ vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
-require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-    ignore_install = {}, -- List of parsers to ignore installing
-    highlight = {
-        enable = true,              -- false will disable the whole extension
-        disable = {},  -- list of language that will be disabled
-    },
-    indent = {
-        enable = true
-   }
-}
-
-require('lspkind').init()
-
-require('spellsitter').setup()
-
-require('lspsaga').init_lsp_saga({
-    error_sign = "",
-    warn_sign = "",
-    hint_sign = "",
-    infor_sign = "",
-    dianostic_header_icon = "﫠",
-    code_action_icon = "﫠",
-})
-
-require'lsp_signature'.on_attach({
-    bind = true, -- This is mandatory, otherwise border config won't get registered.
-    handler_opts = {
-        border = "none"
-    },
-    use_lspsaga = true
-})
-
-require("trouble").setup {
-    indent_lines = true,
-}
-
-require'nvim-web-devicons'.setup {
-    default = true;
-};
-
 -- Helper function to get and show list of active lsp clients
 function connected_lsp_clients()
     local clients = {}
@@ -843,26 +884,6 @@ function connected_lsp_clients()
 
     return table.concat(clients, ' ')
 end
-
-require('lualine').setup ({
-    options = {
-        theme = 'palenight'
-    },
-    sections = {
-        lualine_a = {{'mode', lower = false}},
-        lualine_b = {{'branch'}},
-        lualine_c = {{'filename', path = 1}, {'filetype'}, {'fileformat'}, {'fileencoding'}},
-        lualine_x = {{'diff'}, {connected_lsp_clients},{'diagnostics', sources = {'nvim_lsp'}}},
-    },
-    extensions = {'quickfix', 'fzf'}
-
-})
-
-vim.g.indent_blankline_char_highlight_list = {'Comment', 'TSEmphasis'}
-vim.g.indent_blankline_space_char = '·'
-vim.g.indent_blankline_space_char_blankline = ' '
-
-require('lspinstall').setup()
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -902,8 +923,12 @@ local on_attach = function(client, bufnr)
 
 end
 
-local servers = require'lspinstall'.installed_servers()
+local servers = require('lspinstall').installed_servers()
 for _, server in pairs(servers) do
+    -- Fixups for cases where the lspinstall server name doesn't match lspconfig
+    if server == 'cpp' then server = 'clangd' end
+    if server == 'bash' then server = 'bashls' end
+
     require('lspconfig')[server].setup({capabilities = capabilities, on_attach = on_attach})
 end
 
@@ -913,12 +938,8 @@ require('lspinstall').post_install_hook = function ()
     vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
 
-
-require("todo-comments").setup{
-
-}
-
 EOF
+
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldenable
