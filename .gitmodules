@@ -37,6 +37,3 @@
 [submodule "repos/polybar-scripts"]
 	path = repos/polybar-scripts
 	url = https://github.com/polybar/polybar-scripts
-[submodule "repos/vim-plug"]
-	path = repos/vim-plug
-	url = https://github.com/junegunn/vim-plug
