@@ -13,6 +13,7 @@ endif
 
 " Function to check if a vim-plug plugin is loaded
 function! Is_plugin_loaded(plugin_name)
+    return 1
     if has_key(g:plugs, a:plugin_name)
         let thing = fnamemodify(g:plugs[a:plugin_name].dir, ':h')
         if stridx(&rtp, thing) >= 0
@@ -31,31 +32,27 @@ call plug#begin('~/.vim/plugged')
 " => Global Bundles                                         {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" vimproc
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-
 " Colorschemes
-Plug 'drewtempelmeyer/palenight.vim'
+Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
+Plug 'kyazdani42/nvim-web-devicons'
 
 " Functionality improvements
 Plug 'arecarn/vim-backup-tree'
-Plug 'arecarn/spell-utils.vim'
-Plug 'chrisbra/NrrwRgn'
-Plug 'easymotion/vim-easymotion'
-Plug 'godlygeek/tabular'
+Plug 'phaazon/hop.nvim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-niceblock'
 Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
 Plug 'lambdalisue/suda.vim'
 Plug 'milsen/vim-operator-substitute'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/vim-slash'
+Plug 'b3nj5m1n/kommentary', {'branch': 'main'}
+Plug 'famiu/nvim-reload'
+Plug 'kevinhwang91/nvim-bqf'
 
 " text objects
 Plug 'kana/vim-textobj-user'
@@ -83,67 +80,68 @@ Plug 'sgur/vim-textobj-parameter'
 " Git Plugins
 Plug 'mhinz/vim-signify'
 Plug 'rhysd/git-messenger.vim'
-Plug 'rhysd/agit.vim'
 Plug 'rhysd/committia.vim'
 Plug 'tpope/vim-fugitive'
 
 " Syntax plugins
-Plug 'cespare/vim-toml'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'lewis6991/spellsitter.nvim'
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'elzr/vim-json'
 Plug 'kergoth/vim-bitbake'
-Plug 'plasticboy/vim-markdown'
-Plug 'rust-lang/rust.vim'
-Plug 'vim-scripts/scons.vim'
 
 " Tool Integration
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'junegunn/fzf', { 'dir':$ZPLUG_HOME.'/repos/junegunn/fzf' }
 Plug 'junegunn/fzf.vim'
+Plug 'vijaymarupudi/nvim-fzf'
+Plug 'vijaymarupudi/nvim-fzf-commands'
 Plug 'mhinz/vim-grepper'
-Plug 'tpope/vim-dispatch'
-Plug 'xolox/vim-misc'
-Plug 'gregsexton/gitv'
 Plug 'JamshedVesuna/vim-markdown-preview'
 
 " Interface Plugins
 Plug 'Shougo/vinarise.vim'
-Plug 'arecarn/clean-fold.vim'
-Plug 'itchyny/lightline.vim'
+Plug 'hoob3rt/lualine.nvim'
 Plug 'jez/vim-superman'
 Plug 'skywind3000/vim-cppman'
-Plug 'junegunn/vim-peekaboo'
+Plug 'tversteeg/registers.nvim', {'branch': 'main'}
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-startify'
 Plug 'mkitt/tabline.vim'
-Plug 'vim-scripts/DrawIt'
 Plug 'drzel/vim-in-proportion'
-Plug 'vimwiki/vimwiki'
 Plug 'wellle/visual-split.vim'
 Plug 'yssl/QFEnter'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'liuchengxu/vista.vim'
+Plug 'folke/trouble.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'folke/todo-comments.nvim'
+Plug 'romgrk/barbar.nvim'
 
 " Completion Plugins
 Plug 'wellle/tmux-complete.vim'
-Plug 'Shougo/echodoc.vim'
 if has('nvim')
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'kabouzeid/nvim-lspinstall'
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/nvim-compe'
+    Plug 'glepnir/lspsaga.nvim'
+    Plug 'onsails/lspkind-nvim'
+    Plug 'ray-x/lsp_signature.nvim'
 else
     "Vim Completion plugins
     Plug 'ajh17/VimCompletesMe'
 endif
 
 " Snippets
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'honza/vim-snippets'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'rafamadriz/friendly-snippets'
 
 " Other plugins
-Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
 Plug 'airblade/vim-rooter'
-Plug 'embear/vim-localvimrc'
 Plug 'ntpeters/vim-better-whitespace'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
@@ -202,10 +200,6 @@ set number
 
 " Turn on the Wild menu
 set wildmenu
-
-" Set up completion
-" Disable the preview window
-set completeopt-=preview
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -296,8 +290,6 @@ if (has("termguicolors"))
 endif
 
 " Set and configure colorscheme
-set background=dark
-let g:palenight_terminal_italics=1
 colorscheme palenight
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -321,41 +313,20 @@ if has("autocmd")
              \ if line("'\"") > 0 && line("'\"") <= line("$") |
              \   exe "normal! g`\"" |
              \ endif
+
+        autocmd BufWinEnter * 
+            \ let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
+
     augroup END
 
     augroup filetype
-
-        autocmd!
-        " Use SCons highlighting when opening SCons files
-        au! BufRead,BufNewFile SCons* set filetype=scons
-
-        " Use C++ Syntax highlighting for Arduino files
-        autocmd BufNewFile,BufReadPost *.ino,*.pde set filetype=cpp
-
-        " Go to first line in git commit messages
-        autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
-
         " Use tabs in dts files
         autocmd FileType dts set noexpandtab
 
-        " Disable color column in quickfix
-        autocmd Filetype qf set colorcolumn=
         " Disable wrapping in quickfix buffers
         autocmd Filetype qf setlocal nowrap
 
     augroup END
-
-    augroup syntax
-
-        autocmd Syntax c,cpp,vim,zsh,sh,xml,html,xhtml setlocal foldmethod=syntax
-        autocmd Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
-
-        autocmd Syntax python setlocal foldmethod=indent
-        autocmd Syntax python normal zR
-
-        autocmd Syntax json set conceallevel=0
-
-    augroup end
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Files, backups and undo                                {{{
@@ -446,14 +417,6 @@ nnoremap <leader>- :split<CR>
 if has('nvim')
     tnoremap <esc><esc> <C-\><C-n>
 endif
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => Status line                                            {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Always show the status line
-set laststatus=2
-
-" Format the status line
-set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Grep tweaks                                            {{{
@@ -472,195 +435,25 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => Plugin Settings                                        {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""
-" => Lightline  Settings     {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('lightline.vim')
-    function! CocCurrentFunction()
-        return get(b:, 'coc_current_function', '')
-    endfunction
-
-    let g:lightline = {
-        \ 'colorscheme': 'palenight',
-        \ 'active': {
-        \     'right': [['fugitive'], ['cocstatus', 'currentfunction'], ['fileformat', 'fileencoding', 'filetype']],
-        \     'left': [['mode', 'paste'],
-        \                ['filename', 'modified'],
-        \                ['bufnr', 'lineinfo', 'percent']]
-        \ },
-        \ 'inactive': {
-        \     'right': [['fugitive'], ['cocstatus', 'currentfunction'], ['fileformat', 'fileencoding', 'filetype']],
-        \     'left': [['mode', 'paste'],
-        \                ['filename', 'modified'],
-        \                ['bufnr', 'lineinfo', 'percent']]
-        \ },
-        \ 'component_function': {
-        \     'fugitive': 'Lightline_fugitive',
-        \     'filename': 'Lightline_filename',
-        \     'fileformat': 'Lightline_fileformat',
-        \     'filetype': 'Lightline_filetype',
-        \     'fileencoding': 'Lightline_fileencoding',
-        \     'bufnr': 'Lightline_bufnr',
-        \     'cocstatus': 'coc#status',
-        \     'currentfunction': 'CocCurrentFunction',
-        \ },
-        \ 'subseparator': { 'left': '', 'right': '' }
-        \ }
-    let g:lightline.separator = { 'left': '', 'right': '' }
-
-    function! Lightline_modified() abort
-        return &filetype =~# 'help\|dirvish' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-    endfunction
-
-    function! Lightline_readonly() abort
-        return &filetype !~? 'help\|dirvish' && &readonly ? 'RO' : ''
-    endfunction
-
-    function! Lightline_filename() abort
-        let file_name = bufname('%')
-
-        if file_name ==# ''
-            let file_name = '[No Name]'
-        else
-            if winwidth(0) - len(file_name) < 40
-                let file_name = substitute(file_name, '\v([^/\\:])[^/\\:]*([/\\])', '\1\2', 'g' )
-            endif
-        endif
-
-        return ('' !=# Lightline_readonly() ? Lightline_readonly() . ' ' : '') .
-                    \ file_name .
-                    \ ('' !=# Lightline_modified() ? ' ' . Lightline_modified() : '')
-    endfunction
-
-    function! Lightline_fugitive() abort
-        if &filetype !~? 'dirvish' && exists('*fugitive#head') && (winwidth(0) > 80)
-            let branch = fugitive#head()
-            return branch !=# '' ? '±'.branch : ''
-        endif
-        return ''
-    endfunction
-
-    function! Lightline_fileformat() abort
-        return winwidth(0) > 80 ? &fileformat : ''
-    endfunction
-
-    function! Lightline_filetype() abort
-        return winwidth(0) > 80 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-    endfunction
-
-    function! Lightline_fileencoding() abort
-        return winwidth(0) > 80 ? (&fileencoding !=# '' ? &fileencoding : &encoding) : ''
-    endfunction
-
-    function! Lightline_winnr() abort
-        return winnr()
-    endfunction
-
-    function! Lightline_bufnr() abort
-        return 'b:' . bufnr('%')
-    endfunction
-
-  " Use autocmd to force lightline update.
-    autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-endif
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => Tmuxline settings                                      {{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Note: This plugin is used to generate a Tmux status line,
-"doesn't do anything for normal use
-if Is_plugin_loaded('tmuxline.vim')
-    let g:tmuxline_preset = {
-          \'a'    : '#(whoami)@#H',
-          \'b'    : '#S',
-          \'c'    : '',
-          \'win'  : '#I #W',
-          \'cwin' : '#I #W',
-          \'y'    : ['%a', '%d', '%m', '%Y'],
-          \'z'    : '%R:%S',
-          \'options' : {'status-justify' : 'left'}}
-
-    let g:tmuxline_theme = {
-            \ 'a'            : [ 'black', 'yellow' ],
-            \ 'b'            : [ 'black', 'blue'],
-            \ 'c'            : [ 'black', 'black'],
-            \ 'x'            : [ 'black', 'black'],
-            \ 'y'            : [ 'black', 'blue'],
-            \ 'z'            : [ 'black', 'green' ],
-            \ 'bg'           : [ 'black', 'black'],
-            \ 'win'          : [ 'green', 'black'],
-            \ 'win.activity' : [ 'black', 'red'],
-            \ 'cwin'         : [ 'black', 'green']}
-endif
-
 """""""""""""""""""""""""""}}}
-" => EasyMotion settings   {{{
+" => Hop.nvim settings   {{{
 """"""""""""""""""""""""""""""
-if Is_plugin_loaded('vim-easymotion')
+if Is_plugin_loaded('hop.nvim')
     " EasyMotion configuration
     " <Leader>f{char} to move to {char}
-    map  <Leader>f <Plug>(easymotion-bd-f)
-    nmap <Leader>f <Plug>(easymotion-overwin-f)
+    map  <Leader>f :HopChar1<CR>
+    nmap <Leader>f :HopChar1<CR>
 
     " s{char}{char} to move to {char}{char}
-    nmap <Leader>s <Plug>(easymotion-overwin-f2)
+    nmap <Leader>s :HopChar2<CR>
 
     " Move to line
-    map <Leader>L <Plug>(easymotion-bd-jk)
-    nmap <Leader>L <Plug>(easymotion-overwin-line)
+    map <Leader>L :HopLine<CR>
+    nmap <Leader>L :HopLine<CR>
 
     " Move to word
-    map  <Leader>w <Plug>(easymotion-bd-w)
-    nmap <Leader>w <Plug>(easymotion-overwin-w)
-endif
-
-"""""""""""""""""""""""""""}}}
-" => FZF plugin settings   {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('fzf.vim')
-    " Add FZF preview window
-    let g:fzf_files_options = 
-        \ '--preview "(highlight -0 ansi {} || cat {}) 2> /dev/null | head -' .&lines.'"'
-    let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-    if has('nvim')
-        function! FloatingFZF()
-          let buf = nvim_create_buf(v:false, v:true)
-          call setbufvar(buf, '&signcolumn', 'no')
-
-          let winheight = winheight(0)
-          let winwidth = winwidth(0)
-
-          let width = float2nr(winwidth-(winwidth*2/10))
-
-          let opts = {
-                \ 'relative': 'editor',
-                \ 'row': &lines - 3,
-                \ 'col': float2nr((winwidth-width)/2),
-                \ 'width': width,
-                \ 'height': &lines - 3
-                \ }
-
-          call nvim_open_win(buf, v:true, opts)
-        endfunction
-    endif
-endif
-
-"""""""""""""""""""""""""""}}}
-" => Headerguard settings  {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('headerguard')
-    autocmd BufNewFile *.{h,hpp} call HeaderguardAdd()
-endif
-
-"""""""""""""""""""""""""""}}}
-" => vim-test Settings     {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('vim-test')
-    if has('nvim')
-        let test#strategy = "neovim"
-        let test#python#pytest#options = '--verbose'
-    else
-        let test#strategy = "dispatch"
-    endif
+    map  <Leader>w :HopWord<CR>
+    nmap <Leader>w :HopWord<CR>
 endif
 
 """""""""""""""""""""""""""}}}
@@ -677,13 +470,6 @@ if Is_plugin_loaded('committia.vim')
 endif
 
 """""""""""""""""""""""""""}}}
-" => Notational Settings   {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('notational-fzf-vim')
-    let g:nv_search_paths = ['~/notes']
-endif
-
-"""""""""""""""""""""""""""}}}
 " => Better Whitespace     {{{
 """"""""""""""""""""""""""""""
 if Is_plugin_loaded('vim-better-whitespace')
@@ -693,15 +479,6 @@ if Is_plugin_loaded('vim-better-whitespace')
 
 endif
 
-"""""""""""""""""""""""""""}}}
-" => Better Whitespace     {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('indentLine')
-
-    " Don't conceal characters
-    let g:indentLine_setConceal = 0
-
-endif
 """""""""""""""""""""""""""}}}
 " => Staritfy Settings     {{{
 """"""""""""""""""""""""""""""
@@ -729,14 +506,6 @@ if Is_plugin_loaded('vim-startify')
 endif
 
 """""""""""""""""""""""""""}}}
-" => vim-easytags settings   {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('vim-easytags')
-    " Enable asynchronous easytags
-    let g:easytags_async = 1
-endif
-
-"""""""""""""""""""""""""""}}}
 " => vim-backup-tree settings   {{{
 """"""""""""""""""""""""""""""
 if Is_plugin_loaded('vim-backup-tree')
@@ -754,19 +523,6 @@ if Is_plugin_loaded('vim-json')
 endif
 
 """""""""""""""""""""""""""}}}
-" => vim-markdown Settings     {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('vim-markdown')
-
-    " Disable annoying concealing of quotes
-    let g:vim_markdown_conceal = 0
-
-    " Disable folding
-    let g:vim_markdown_folding_disabled = 1
-
-endif
-
-"""""""""""""""""""""""""""}}}
 " => vinarise.vim          {{{
 """"""""""""""""""""""""""""""
 if Is_plugin_loaded('vinarise.vim')
@@ -777,57 +533,11 @@ endif
 " => Completion Plugin Settings{{{
 """"""""""""""""""""""""""""""
 
-if Is_plugin_loaded('echodoc.vim') "{{{
-     let g:echodoc#enable_at_startup = 1
-    let g:echodoc#type = 'floating'
-    " To use a custom highlight for the float window,
-    " change Pmenu to your highlight group
-    highlight link EchoDocFloat Pmenu
-endif "}}}
-
 if Is_plugin_loaded('vim-tmux-navigator') "{{{
     " Disable vim->tmux navigation when the Vim pane is zoomed in tmux
     let g:tmux_navigator_disable_when_zoomed = 1
 endif "}}}
 
-if Is_plugin_loaded('coc.nvim')
-    let g:coc_status_error_sign = "❌"
-    let g:coc_status_warning_sign = "⚠ "
-    if Is_plugin_loaded('vista.vim')
-        let g:vista_default_executive = 'coc'
-    endif
-
-    let g:coc_global_extensions = [
-                \ 'coc-markdownlint',
-                \ 'coc-snippets',
-                \ 'coc-json',
-                \ 'coc-cmake',
-                \ 'coc-clangd',
-                \ 'coc-ccls'
-                \]
-
-    " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-    " delays and poor user experience.
-    set updatetime=300
-
-    " Don't pass messages to |ins-completion-menu|.
-    set shortmess+=c
-
-    " Always show the signcolumn, otherwise it would shift the text each time
-    " diagnostics appear/become resolved.
-    if has("patch-8.1.1564")
-      " Recently vim can merge signcolumn and number column into one
-      set signcolumn=number
-    else
-      set signcolumn=yes
-    endif
-
-endif
-if Is_plugin_loaded('vim-lsp-cxx-highlight')
-    hi link LspCxxHlGroupEnumConstant Constant
-    hi link LspCxxHlGroupNamespace Special
-    hi link LspCxxHlGroupMemberVariable Identifier
-endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Mappings                                              {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -844,7 +554,7 @@ if Is_plugin_loaded('fzf.vim')
     nnoremap <leader><c-t> :BTags<CR>
     nnoremap <leader>T :Tags<CR>
     nnoremap <leader>m :Marks<CR>
-    nnoremap <leader>b :Buffers<CR>
+    nnoremap <leader>B :Buffers<CR>
 
     nmap <leader><tab> <plug>(fzf-maps-n)
     xmap <leader><tab> <plug>(fzf-maps-x)
@@ -902,6 +612,20 @@ if Is_plugin_loaded('vim-easy-align')
 endif
 
 if Is_plugin_loaded('vim-grepper')
+    aug Grepper
+        au!
+        au User Grepper call setqflist([], 'r',
+                    \ {'context': {'bqf': {'pattern_hl': histget('/')}}}) |
+                    \ botright copen
+    aug END
+
+    let g:grepper = {
+        \ 'open': 0,
+        \ 'quickfix': 1,
+        \ 'searchreg': 1,
+        \ 'highlight': 0,
+    \ }
+
     nmap gs <Plug>(GrepperOperator)
     xmap gs <Plug>(GrepperOperator)
 endif
@@ -909,161 +633,6 @@ endif
 if Is_plugin_loaded('vim-operator-replace')
     " Mapping for the replace operator
     map g" <Plug>(operator-replace)
-endif
-
-if Is_plugin_loaded('vim-operator-substitute')
-    map s <Plug>(operator-substitute)
-    map S <Plug>(operator-substitute)$
-    map & <Plug>(operator-substitute-repeat)
-    map g& <Plug>(operator-substitute-repeat-no-flags)
-endif
-
-if Is_plugin_loaded('coc.nvim')
-    " Use tab for trigger completion with characters ahead and navigate.
-    " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-    " other plugin before putting this into your config.
-    "inoremap <silent><expr> <TAB>
-    "      \ pumvisible() ? "\<C-n>" :
-    "      \ <SID>check_back_space() ? "\<TAB>" :
-    "      \ coc#refresh()
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-    function! s:check_back_space() abort
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
-
-    " Use <c-space> to trigger completion.
-    if has('nvim')
-      inoremap <silent><expr> <c-space> coc#refresh()
-    else
-      inoremap <silent><expr> <c-@> coc#refresh()
-    endif
-
-    " Use `[g` and `]g` to navigate diagnostics
-    " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-    nmap <silent> [g <Plug>(coc-diagnostic-prev)
-    nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-    " GoTo code navigation.
-    nmap <silent> <leader>ld <Plug>(coc-definition)
-    nmap <silent> <leader>lt <Plug>(coc-type-definition)
-    nmap <silent> <leader>li <Plug>(coc-implementation)
-    nmap <silent> <leader>lr <Plug>(coc-references)
-
-    " Use K to show documentation in preview window.
-    nnoremap <silent> <leader>lh :call <SID>show_documentation()<CR>
-
-    function! s:show_documentation()
-      if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-      elseif (coc#rpc#ready())
-        call CocActionAsync('doHover')
-      else
-        execute '!' . &keywordprg . " " . expand('<cword>')
-      endif
-    endfunction
-
-    " Highlight the symbol and its references when holding the cursor.
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-
-    " Symbol renaming.
-    nmap <leader>ls <Plug>(coc-rename)
-
-    " Formatting selected code.
-    xmap <leader>lfm  <Plug>(coc-format-selected)
-    nmap <leader>ffm  <Plug>(coc-format-selected)
-
-    augroup coc_group
-      autocmd!
-      " Setup formatexpr specified filetype(s).
-      autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-      " Update signature help on jump placeholder.
-      autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-    augroup end
-
-    " Applying codeAction to the selected region.
-    " Example: `<leader>aap` for current paragraph
-    xmap <leader>la  <Plug>(coc-codeaction-selected)
-    nmap <leader>la  <Plug>(coc-codeaction-selected)
-
-    " Apply AutoFix to problem on the current line.
-    nmap <leader>lf  <Plug>(coc-fix-current)
-    vmap <leader>lf  <Plug>(coc-fix-current)
-
-    " Map function and class text objects
-    " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-    xmap if <Plug>(coc-funcobj-i)
-    omap if <Plug>(coc-funcobj-i)
-    xmap af <Plug>(coc-funcobj-a)
-    omap af <Plug>(coc-funcobj-a)
-    xmap icl <Plug>(coc-classobj-i)
-    omap icl <Plug>(coc-classobj-i)
-    xmap acl <Plug>(coc-classobj-a)
-    omap acl <Plug>(coc-classobj-a)
-
-    " Remap <C-f> and <C-b> for scroll float windows/popups.
-    " Note coc#float#scroll works on neovim >= 0.4.3 or vim >= 8.2.0750
-    nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-    nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-    inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-    inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-
-    " Use CTRL-S for selections ranges.
-    " Requires 'textDocument/selectionRange' support of language server.
-    nmap <silent> <C-s> <Plug>(coc-range-select)
-    xmap <silent> <C-s> <Plug>(coc-range-select)
-
-    " Add `:Format` command to format current buffer.
-    command! -nargs=0 Format :call CocAction('format')
-
-    " Add `:Fold` command to fold current buffer.
-    command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-    " Add `:OR` command for organize imports of the current buffer.
-    command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-    " Mappings for CoCList
-    nnoremap <silent><nowait> <leader>ll :<C-u>CocList<cr>
-    " Show all diagnostics.
-    nnoremap <silent><nowait> <leader>lld :<C-u>CocList diagnostics<cr>
-    " Manage extensions.
-    nnoremap <silent><nowait> <leader>lle :<C-u>CocList extensions<cr>
-    " Show commands.
-    nnoremap <silent><nowait> <leader>llc :<C-u>CocList commands<cr>
-    " Find symbol of current document.
-    nnoremap <silent><nowait> <leader>llo :<C-u>CocList outline<cr>
-    " Search workspace symbols.
-    nnoremap <silent><nowait> <leader>lls :<C-u>CocList --interactive symbols<cr>
-    " Do default action for next item.
-    nnoremap <silent><nowait> <leader>llj :<C-u>CocNext<CR>
-    " Do default action for previous item.
-    nnoremap <silent><nowait> <leader>llk :<C-u>CocPrev<CR>
-    " Resume latest coc list.
-    nnoremap <silent><nowait> <leader>llr :<C-u>CocListResume<CR>
-    " List recent yanks
-    nnoremap <silent><nowait> <leader>ly :<C-u>CocList --auto-preview --yank<CR>
-
-    " VS Code style snippet interaction
-     inoremap <silent><expr> <TAB>
-          \ pumvisible() ? coc#_select_confirm() :
-          \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-          \ <SID>check_back_space() ? "\<TAB>" :
-          \ coc#refresh()
-
-    " Make <CR> auto-select the first completion item and notify coc.nvim to
-    " format on enter, <cr> could be remapped by other vim plugin
-    inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                                  \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-    function! s:check_back_space() abort
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
-
-    let g:coc_snippet_next = '<tab>'
-    let g:coc_snippet_prev = '<S-Tab>'
-
 endif
 
 if Is_plugin_loaded('vista.vim')
@@ -1118,7 +687,7 @@ function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
     unmenu Foo
-endfunction 
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -1147,3 +716,248 @@ hi! NonText ctermbg=NONE guibg=NONE
 " vim: foldmethod=marker
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 
+lua << EOF
+-- Set up LSP Servers
+--------------------------------------------------------------------------------
+require'compe'.setup {
+    enabled = true;
+    autocomplete = true;
+    debug = false;
+    min_length = 1;
+    preselect = 'enable';
+    throttle_time = 80;
+    source_timeout = 200;
+    incomplete_delay = 400;
+    max_abbr_width = 100;
+    max_kind_width = 100;
+    max_menu_width = 100;
+    documentation = true;
+    source = {
+        path = true;
+        buffer = true;
+        calc = true;
+        nvim_lsp = true;
+        nvim_lua = true;
+        vsnip = true;
+        ultisnips = false;
+        spell = true;
+    };
+}
+
+
+-- Set up Key bindings
+--------------------------------------------------------------------------------
+
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+        return true
+    else
+        return false
+    end
+end
+
+-- Use (s-)tab to:
+--- move to prev/next item in completion menuone
+--- jump to prev/next snippet's placeholder
+_G.tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-n>"
+  elseif vim.fn.call("vsnip#available", {1}) == 1 then
+    return t "<Plug>(vsnip-expand-or-jump)"
+  elseif check_back_space() then
+    return t "<Tab>"
+  else
+    return vim.fn['compe#complete']()
+  end
+end
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
+  else
+    -- If <S-Tab> is not working in your terminal, change it to <C-h>
+    return t "<S-Tab>"
+  end
+end
+
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    ignore_install = {}, -- List of parsers to ignore installing
+    highlight = {
+        enable = true,              -- false will disable the whole extension
+        disable = {},  -- list of language that will be disabled
+    },
+    indent = {
+        enable = true
+   }
+}
+
+require('lspkind').init()
+
+require('spellsitter').setup()
+
+require('lspsaga').init_lsp_saga({
+    error_sign = "",
+    warn_sign = "",
+    hint_sign = "",
+    infor_sign = "",
+    dianostic_header_icon = "﫠",
+    code_action_icon = "﫠",
+})
+
+require'lsp_signature'.on_attach({
+    bind = true, -- This is mandatory, otherwise border config won't get registered.
+    handler_opts = {
+        border = "none"
+    },
+    use_lspsaga = true
+})
+
+require("trouble").setup {
+    indent_lines = true,
+}
+
+require'nvim-web-devicons'.setup {
+    default = true;
+};
+
+-- Helper function to get and show list of active lsp clients
+function connected_lsp_clients()
+    local clients = {}
+    local icon = ' '
+
+    for _, client in pairs(vim.lsp.buf_get_clients()) do
+        clients[#clients+1] = icon .. client.name
+    end
+
+    return table.concat(clients, ' ')
+end
+
+require('lualine').setup ({
+    options = {
+        theme = 'palenight'
+    },
+    sections = {
+        lualine_a = {{'mode', lower = false}},
+        lualine_b = {{'branch'}},
+        lualine_c = {{'filename', path = 1}, {'filetype'}, {'fileformat'}, {'fileencoding'}},
+        lualine_x = {{'diff'}, {connected_lsp_clients},{'diagnostics', sources = {'nvim_lsp'}}},
+    },
+    extensions = {'quickfix', 'fzf'}
+
+})
+
+vim.g.indent_blankline_char_highlight_list = {'Comment', 'TSEmphasis'}
+vim.g.indent_blankline_space_char = '·'
+vim.g.indent_blankline_space_char_blankline = ' '
+
+require('lspinstall').setup()
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  --Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+    buf_set_keymap('n', '<leader>lD', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', '<leader>lI', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_set_keymap('n', '<leader>lt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    buf_set_keymap("n", "<leader>lF", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+
+  -- Set some keybinds conditional on server capabilities
+    if client.resolved_capabilities.document_formatting then
+        buf_set_keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    end
+    if client.resolved_capabilities.document_range_formatting then
+        buf_set_keymap("v", "<leader>lf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+    end
+
+end
+
+local servers = require'lspinstall'.installed_servers()
+for _, server in pairs(servers) do
+    require('lspconfig')[server].setup({capabilities = capabilities, on_attach = on_attach})
+end
+
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require('lspinstall').post_install_hook = function ()
+    setup_servers() -- reload installed servers
+    vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
+
+
+require("todo-comments").setup{
+
+}
+
+EOF
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set foldenable
+
+nnoremap <silent> <leader>la <cmd>lua require('lspsaga.codeaction').code_action()<CR>
+vnoremap <silent> <leader>la :<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>
+nnoremap <silent> <leader>lh <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
+nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
+nnoremap <silent> <leader>ls <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
+nnoremap <silent> <leader>lr <cmd>lua require('lspsaga.rename').rename()<CR>
+nnoremap <silent> <leader>ld :Lspsaga preview_definition<CR>
+nnoremap <silent> [d <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
+nnoremap <silent> ]d <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>tf <cmd>Telescope find_files<cr>
+nnoremap <leader>tg <cmd>Telescope live_grep<cr>
+nnoremap <leader>tb <cmd>Telescope buffers<cr>
+nnoremap <leader>th <cmd>Telescope help_tags<cr>
+nnoremap <leader>tD <cmd>Telescope lsp_document_diagnostics<cr>
+nnoremap <leader>td <cmd>Telescope lsp_workspace_diagnostics<cr>
+nnoremap <leader>tr <cmd>Telescope lsp_references<cr>
+nnoremap <leader>tS <cmd>Telescope treesitter<cr>
+nnoremap <leader>ts <cmd>Telescope lsp_document_symbols<cr>
+nnoremap <leader>tl <cmd>Telescope git_bcommits<cr>
+nnoremap <leader>tq <cmd>Telescope gquickfix<cr>
+nnoremap z=< cmd>Telescope spell_suggest<cr>
+
+" Compe key bindings
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+set completeopt=menuone,noselect
+
+nnoremap <silent> [b :BufferPrevious<CR>
+nnoremap <silent> ]b :BufferNext<CR>
+
+nnoremap <leader>b :BufferPick<CR>
