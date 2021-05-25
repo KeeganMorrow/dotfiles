@@ -803,7 +803,8 @@ return require('packer').startup(function()
 
 -- Other plugins
     use {'lukas-reineke/indent-blankline.nvim', branch = 'lua', config = function()
-        vim.g.indent_blankline_char_highlight_list = {'Comment', 'TSEmphasis'}
+        vim.g.indent_blankline_char_highlight_list = {'TSStructure', 'TSString', 'TSFunction', 'TSConditional'}
+        vim.g.indent_blankline_char_list = {'|', '¦', '┆', '┊'}
         vim.g.indent_blankline_space_char = '·'
         vim.g.indent_blankline_space_char_blankline = ' '
         vim.g.indent_blankline_use_treesitter = true
@@ -940,11 +941,17 @@ require('lspinstall').post_install_hook = function ()
 end
 
 EOF
-
+"-------------------------------------------------------------------------------
+"  Enable treesitter Folds
+"-------------------------------------------------------------------------------
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldenable
 
+"-------------------------------------------------------------------------------
+"  LSP Related keybinds
+"-------------------------------------------------------------------------------
+" Lspsaga key bindings
 nnoremap <silent> <leader>la <cmd>lua require('lspsaga.codeaction').code_action()<CR>
 vnoremap <silent> <leader>la :<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>
 nnoremap <silent> <leader>lh <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
@@ -955,6 +962,15 @@ nnoremap <silent> <leader>lr <cmd>lua require('lspsaga.rename').rename()<CR>
 nnoremap <silent> <leader>ld :Lspsaga preview_definition<CR>
 nnoremap <silent> [d <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
 nnoremap <silent> ]d <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
+
+" Compe key bindings
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+set completeopt=menuone,noselect
 
 " Find files using Telescope command-line sugar.
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
@@ -969,15 +985,6 @@ nnoremap <leader>ts <cmd>Telescope lsp_document_symbols<cr>
 nnoremap <leader>tl <cmd>Telescope git_bcommits<cr>
 nnoremap <leader>tq <cmd>Telescope gquickfix<cr>
 nnoremap z=< cmd>Telescope spell_suggest<cr>
-
-" Compe key bindings
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-
-set completeopt=menuone,noselect
 
 nnoremap <silent> [b :BufferPrevious<CR>
 nnoremap <silent> ]b :BufferNext<CR>
