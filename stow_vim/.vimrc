@@ -925,12 +925,25 @@ local on_attach = function(client, bufnr)
 
 end
 
+-- Automatically install the following servers if needed
+local required_servers = {"bash", "cmake", "cpp", "json", "lua", "python", "vim", "vim", "yaml" }
+local installed_servers = require('lspinstall').installed_servers()
+for _, server in pairs(required_servers) do
+    if not vim.tbl_contains(installed_servers, server) then
+        require('lspinstall').install_server(server)
+    end
+end
+
 local servers = require('lspinstall').installed_servers()
 for _, server in pairs(servers) do
     -- Fixups for cases where the lspinstall server name doesn't match lspconfig
-    if server == 'cpp' then server = 'clangd' end
     if server == 'bash' then server = 'bashls' end
-
+    if server == 'cpp' then server = 'clangd' end
+    if server == 'json' then server = 'jsonls' end
+    if server == 'lua' then server = 'sumneko_lua' end
+    if server == 'python' then server = 'pyright' end
+    if server == 'vim' then server = 'vimls' end
+    if server == 'yaml' then server = 'yamlls' end
     require('lspconfig')[server].setup({capabilities = capabilities, on_attach = on_attach})
 end
 
