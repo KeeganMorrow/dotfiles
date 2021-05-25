@@ -612,6 +612,7 @@ return require('packer').startup(function()
     }
 
 -- Functionality improvements
+    use {'dstein64/vim-startuptime'}
     use {'arecarn/vim-backup-tree'}
     use {'phaazon/hop.nvim'}
     use {'junegunn/vim-easy-align'}
