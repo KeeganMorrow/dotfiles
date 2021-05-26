@@ -97,7 +97,7 @@ do_link_clang(){
                 echo "Warning: File exists in link_path $link_path"
             fi
         else
-            echo "Warning: Could not find original file $origin_path"
+            echo "Warning: Could not find original file $executable-$version"
         fi
     done
 }
