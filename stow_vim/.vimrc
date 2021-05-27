@@ -1,21 +1,12 @@
 " => Keegan's vimrc                                         {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible
-filetype off
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" Function to check if a vim-plug plugin is loaded
-function! Is_plugin_loaded(plugin_name)
-    return 0
-    if has_key(g:plugs, a:plugin_name)
-        let thing = fnamemodify(g:plugs[a:plugin_name].dir, ':h')
-        if stridx(&rtp, thing) >= 0
-            return 1
-        endif
-    endif
-endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => General                                                {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set nocompatible
+filetype off
+
 " Sets how many lines of history VIM has to remember
 set history=700
 
@@ -285,112 +276,9 @@ elseif executable('ack')
     set grepprg=ack\ -H\ --nocolor\ --nogroup
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => Plugin Settings                                        {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""}}}
-" => committia Settings    {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('committia.vim')
-    let g:committia_hooks = {}
-    function! g:committia_hooks.edit_open(info)
-        " Additional settings
-        setlocal spell
-        set colorcolumn=72
-    endfunction
-
-endif
-
-"""""""""""""""""""""""""""}}}
-" => Staritfy Settings     {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('vim-startify')
-    let g:startify_fortune_use_unicode = 1
-    if has('nvim')
-        let g:ascii = [
-              \ '               __',
-              \ '.-----..--.--.|__|.--------.',
-              \ '|  |  ||  |  ||  ||        |',
-              \ '|__|__| \___/ |__||__|__|__|',
-              \ ''
-              \]
-    else
-        let g:ascii = [
-              \ '        __',
-              \ '.--.--.|__|.--------.',
-              \ '|  |  ||  ||        |',
-              \ ' \___/ |__||__|__|__|',
-              \ ''
-              \]
-    endif
-    let g:startify_custom_header = g:ascii + startify#fortune#boxed()
-
-endif
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Mappings                                              {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""}}}
-" => FZF plugin mappings   {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('fzf.vim')
-    nnoremap <leader>r :History:<CR>
-    nnoremap <leader>R :History<CR>
-    nnoremap <leader>/ :History/<CR>
-    nnoremap <leader>t :Files<CR>
-    nnoremap <leader>g :GFiles?<CR>
-    nnoremap <leader>G :GFiles<CR>
-    nnoremap <leader><c-t> :BTags<CR>
-    nnoremap <leader>T :Tags<CR>
-    nnoremap <leader>m :Marks<CR>
-    nnoremap <leader>B :Buffers<CR>
-
-    nmap <leader><tab> <plug>(fzf-maps-n)
-    xmap <leader><tab> <plug>(fzf-maps-x)
-    omap <leader><tab> <plug>(fzf-maps-o)
-endif
-
-"""""""""""""""""""""""""""}}}
-" => Vim Sandwich mappings {{{
-""""""""""""""""""""""""""""""
-
-if Is_plugin_loaded('vim-sandwich')
-    " Use surround style keys
-    runtime macros/sandwich/keymap/surround.vim
-endif
-"""""""""""""""""""""""""""}}}
-" => Misc. Plugin Mappings {{{
-""""""""""""""""""""""""""""""
-
-" vim-test mappings
-if Is_plugin_loaded('vim-test')
-
-    nnoremap <leader>ns :TestSuite<cr>
-    nnoremap <leader>nf :TestFile<cr>
-    nnoremap <leader>nl :TestLast<cr>
-    nnoremap <leader>nn :TestNearest<cr>
-
-endif
-if Is_plugin_loaded('vim-grepper')
-    aug Grepper
-        au!
-        au User Grepper call setqflist([], 'r',
-                    \ {'context': {'bqf': {'pattern_hl': histget('/')}}}) |
-                    \ botright copen
-    aug END
-
-    let g:grepper = {
-        \ 'open': 0,
-        \ 'quickfix': 1,
-        \ 'searchreg': 1,
-        \ 'highlight': 0,
-    \ }
-
-    nmap gs <Plug>(GrepperOperator)
-    xmap gs <Plug>(GrepperOperator)
-endif
-
 """""""""""""""""""""""""""}}}
 " => Spelling Mappings     {{{
 """"""""""""""""""""""""""""""
@@ -471,6 +359,10 @@ lua << EOF
 --------------------------------------------------------------------------------
 -- Configuration helper functions
 --------------------------------------------------------------------------------
+function map(type, input, output)
+    vim.api.nvim_set_keymap(type, input, output, { noremap = false })
+end
+
 function noremap(type, input, output)
     vim.api.nvim_set_keymap(type, input, output, { noremap = true })
 end
@@ -534,14 +426,15 @@ return require('packer').startup(function()
         nnoremap('<Leader>hw', ':HopWord<CR>')
     end
     }
+
     use {'junegunn/vim-easy-align', config = function()
             -- Start interactive EasyAlign in visual mode (e.g. vipga)
-            noremap('x', 'ga', '<Plug>(EasyAlign')
+            map('x', 'ga', '<Plug>(EasyAlign)')
             -- Start interactive EasyAlign in normal mode (e.g. gaip)
-            nnoremap('ga', '<Plug>(EasyAlign')
+            map('n', 'ga', '<Plug>(EasyAlign)')
         end
     }
-    use {'kawna/vim-niceblock'}
+    use {'kana/vim-niceblock'}
     use {'kana/vim-operator-replace', config = function()
             --Mapping for the replace operator
             noremap('', 'g"', '<Plug>(operator-replace)')
@@ -552,7 +445,13 @@ return require('packer').startup(function()
     use {'milsen/vim-operator-substitute'}
     use {'tpope/vim-repeat'}
     use {'tpope/vim-speeddating'}
-    use {'machakann/vim-sandwich'}
+
+    use {'blackCauldron7/surround.nvim', config = function()
+        require "surround".setup {}
+        vim.g.surround_mappings_style = 'sandwich'
+        vim.g.surround_load_keymaps = true
+      end
+    }
     use {'tpope/vim-unimpaired'}
     use {'junegunn/vim-slash'}
     use {'b3nj5m1n/kommentary', branch = 'main'}
@@ -583,7 +482,16 @@ return require('packer').startup(function()
     use {'sgur/vim-textobj-parameter'}
 
     use {'rhysd/git-messenger.vim'}
-    use {'rhysd/committia.vim'}
+    use {'rhysd/committia.vim', config = function()
+            vim.cmd('let g:committia_hooks = {}')
+            vim.api.nvim_exec([[
+            function! g:committia_hooks.edit_open(info)
+                setlocal spell
+                set colorcolumn=72
+            endfunction
+            ]], true)
+        end
+    }
     use {'tpope/vim-fugitive'}
 
 -- Syntax plugins
@@ -625,10 +533,47 @@ return require('packer').startup(function()
         end
     }
     use {vim.env.ZPLUG_HOME .. '/repos/junegunn/fzf'}
-    use {'junegunn/fzf.vim'}
+    use {'junegunn/fzf.vim', config = function()
+            nnoremap('<leader>r', ':History:<CR>')
+            nnoremap('<leader>R', ':History<CR>')
+            nnoremap('<leader>/', ':History/<CR>')
+            nnoremap('<leader>t', ':Files<CR>')
+            nnoremap('<leader>g', ':GFiles?<CR>')
+            nnoremap('<leader>G', ':GFiles<CR>')
+            nnoremap('<leader><c-t>', ':BTags<CR>')
+            nnoremap('<leader>T', ':Tags<CR>')
+            nnoremap('<leader>m', ':Marks<CR>')
+            nnoremap('<leader>B', ':Buffers<CR>')
+
+            map('n' ,'<leader><tab>', '<plug>(fzf-maps-n)')
+            map('x', '<leader><tab>', '<plug>(fzf-maps-x)')
+            map('o', '<leader><tab>', '<plug>(fzf-maps-o)')
+        end
+    }
+use {'vim-test/vim-test', config = function()
+
+            nnoremap('<leader>ns', ':TestSuite<cr>')
+            nnoremap('<leader>nf', ':TestFile<cr>')
+            nnoremap('<leader>nl', ':TestLast<cr>')
+            nnoremap('<leader>nn', ':TestNearest<cr>')
+        end
+    }
     use {'vijaymarupudi/nvim-fzf'}
     use {'vijaymarupudi/nvim-fzf-commands'}
-    use {'mhinz/vim-grepper'}
+    use {'mhinz/vim-grepper', config = function()
+            vim.cmd(
+                [[augroup Grepper
+                    autocmd!
+                    autocmd User Grepper call setqflist([], 'r', {'context': {'bqf': {'pattern_hl': histget('/')}}}) | botright copen
+                aug END
+            ]])
+
+            vim.g.grepper = {open = 0, quickfix = 1, searchreg = 1, highlight = 0}
+
+            map('n', 'gs', '<Plug>(GrepperOperator)')
+            map('x', 'gs', '<Plug>(GrepperOperator)')
+        end
+    }
     use {'JamshedVesuna/vim-markdown-preview'}
     use {'iamcco/markdown-preview.nvim'}
     use {'pwntester/octo.nvim'}
@@ -660,7 +605,18 @@ return require('packer').startup(function()
             nnoremap('<leader>uu', ':UndotreeToggle<CR>')
         end
     }
-    -- use {'mhinz/vim-startify'}
+    use {'mhinz/vim-startify', disable=true, config = function()
+            vim.g.startify_fortune_use_unicode = 1
+            -- vim.g.ascii = {
+            --     '               __',
+            --     '.-----..--.--.|__|.--------.',
+            --     '|  |  ||  |  ||  ||        |',
+            --     '|__|__| \\___/ |__||__|__|__|',
+            --     ''
+            -- }
+            -- vim.g.startify_custom_header = {unpack(vim.g.ascii), unpack(vim.call('startify#fortune#boxed'))}
+        end
+    }
     use {'glepnir/dashboard-nvim', config = function()
             vim.g.dashboard_default_executive = 'fzf'
         end
@@ -792,19 +748,20 @@ return require('packer').startup(function()
 
 -- Other plugins
     use {'lukas-reineke/indent-blankline.nvim', branch = 'lua', config = function()
-        vim.g.indent_blankline_char_highlight_list = {'TSStructure', 'TSString', 'TSFunction', 'TSConditional'}
-        vim.g.indent_blankline_char_list = {'|', '¦', '┆', '┊'}
-        vim.g.indent_blankline_space_char = '·'
-        vim.g.indent_blankline_space_char_blankline = ' '
-        vim.g.indent_blankline_use_treesitter = true
+            vim.g.indent_blankline_char_highlight_list = {'TSStructure', 'TSString', 'TSFunction', 'TSConditional'}
+            vim.g.indent_blankline_char_list = {'|', '¦', '┆', '┊'}
+            vim.g.indent_blankline_space_char = '·'
+            vim.g.indent_blankline_space_char_blankline = ' '
+            vim.g.indent_blankline_use_treesitter = true
+            vim.g.indent_blankline_filetype_exclude = {'help', 'dashboard', 'unite'}
         end
     }
     use {'airblade/vim-rooter'}
     use {'ntpeters/vim-better-whitespace', config = function()
-        vim.g.better_whitespace_operator='<leader>w'
-        vim.g.better_whitespace_filetypes_blacklist={'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'dashboard'}
+            vim.g.better_whitespace_operator='<leader>w'
+            vim.g.better_whitespace_filetypes_blacklist={'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'dashboard'}
 
-        nnoremap('<leader>W', ':StripWhitespace<CR>')
+            nnoremap('<leader>W', ':StripWhitespace<CR>')
         end
     }
 
