@@ -619,6 +619,11 @@ use {'vim-test/vim-test', config = function()
     }
     use {'glepnir/dashboard-nvim', config = function()
             vim.g.dashboard_default_executive = 'fzf'
+
+            vim.g.dashboard_preview_command = 'cat'
+            vim.g.dashboard_preview_file = vim.env.HOME .. '/.config/nvim/sunjon.cat'
+            vim.g.dashboard_preview_file_height = 12
+            vim.g.dashboard_preview_file_width = 80
         end
     }
     use {'mkitt/tabline.vim'}
