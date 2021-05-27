@@ -13,17 +13,6 @@ function! Is_plugin_loaded(plugin_name)
         endif
     endif
 endfunction
-" => Global Bundles                                         {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
-" => dein.vim footer
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
-" => Pre-packaged plugins                                   {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 " => General                                                {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -300,27 +289,6 @@ endif
 " => Plugin Settings                                        {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""}}}
-" => Hop.nvim settings   {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('hop.nvim')
-    " EasyMotion configuration
-    " <Leader>f{char} to move to {char}
-    map  <Leader>f :HopChar1<CR>
-    nmap <Leader>f :HopChar1<CR>
-
-    " s{char}{char} to move to {char}{char}
-    nmap <Leader>s :HopChar2<CR>
-
-    " Move to line
-    map <Leader>L :HopLine<CR>
-    nmap <Leader>L :HopLine<CR>
-
-    " Move to word
-    map  <Leader>w :HopWord<CR>
-    nmap <Leader>w :HopWord<CR>
-endif
-
-"""""""""""""""""""""""""""}}}
 " => committia Settings    {{{
 """"""""""""""""""""""""""""""
 if Is_plugin_loaded('committia.vim')
@@ -330,16 +298,6 @@ if Is_plugin_loaded('committia.vim')
         setlocal spell
         set colorcolumn=72
     endfunction
-
-endif
-
-"""""""""""""""""""""""""""}}}
-" => Better Whitespace     {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('vim-better-whitespace')
-
-    " Blacklist some filetypes
-    let g:better_whitespace_filetypes_blacklist = ['unite', 'vimfiler', 'qf']
 
 endif
 
@@ -369,38 +327,6 @@ if Is_plugin_loaded('vim-startify')
 
 endif
 
-"""""""""""""""""""""""""""}}}
-" => vim-backup-tree settings   {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('vim-backup-tree')
-    let g:backup_tree = $HOME."/.vim_backup_tree"
-endif
-
-"""""""""""""""""""""""""""}}}
-" => vim-json Settings     {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('vim-json')
-
-    " Disable annoying concealing of quotes
-    let g:vim_json_syntax_conceal=0
-
-endif
-
-"""""""""""""""""""""""""""}}}
-" => vinarise.vim          {{{
-""""""""""""""""""""""""""""""
-if Is_plugin_loaded('vinarise.vim')
-    let g:vinarise_enable_auto_detect = 1
-endif
-
-"""""""""""""""""""""""""""}}}
-" => Completion Plugin Settings{{{
-""""""""""""""""""""""""""""""
-
-if Is_plugin_loaded('vim-tmux-navigator') "{{{
-    " Disable vim->tmux navigation when the Vim pane is zoomed in tmux
-    let g:tmux_navigator_disable_when_zoomed = 1
-endif "}}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""}}}}}}
 " => Mappings                                              {{{
@@ -437,19 +363,6 @@ endif
 " => Misc. Plugin Mappings {{{
 """"""""""""""""""""""""""""""
 
-if Is_plugin_loaded('undotree')
-
-    nnoremap <leader>uu :UndotreeToggle<CR>
-
-endif
-
-if Is_plugin_loaded('vim-better-whitespace')
-
-    "Remap ctrl-backspace to strip whitespace
-    nnoremap <leader>d :.StripWhitespace<CR>
-
-endif
-
 " vim-test mappings
 if Is_plugin_loaded('vim-test')
 
@@ -459,22 +372,6 @@ if Is_plugin_loaded('vim-test')
     nnoremap <leader>nn :TestNearest<cr>
 
 endif
-
-" QFEnter mappings
-if Is_plugin_loaded('QFEnter')
-    let g:qfenter_vopen_map = ['<C-v']
-    let g:qfenter_hopen_map = ['<C-CR>', '<C-s>', '<C-x>']
-    let g:qfenter_topen_map = ['<C-t>']
-endif
-
-if Is_plugin_loaded('vim-easy-align')
-    " Start interactive EasyAlign in visual mode (e.g. vipga)
-    xmap ga <Plug>(EasyAlign)
-
-    " Start interactive EasyAlign in normal mode (e.g. gaip)
-    nmap ga <Plug>(EasyAlign)
-endif
-
 if Is_plugin_loaded('vim-grepper')
     aug Grepper
         au!
@@ -493,17 +390,6 @@ if Is_plugin_loaded('vim-grepper')
     nmap gs <Plug>(GrepperOperator)
     xmap gs <Plug>(GrepperOperator)
 endif
-
-if Is_plugin_loaded('vim-operator-replace')
-    " Mapping for the replace operator
-    map g" <Plug>(operator-replace)
-endif
-
-if Is_plugin_loaded('vista.vim')
-    nnoremap <silent> <leader>co :<C-u>Vista!!<cr>
-    nnoremap <silent> <leader>cs :<C-u>Vista finder<cr>
-endif
-
 
 """""""""""""""""""""""""""}}}
 " => Spelling Mappings     {{{
@@ -583,6 +469,25 @@ hi! NonText ctermbg=NONE guibg=NONE
 lua << EOF
 
 --------------------------------------------------------------------------------
+-- Configuration helper functions
+--------------------------------------------------------------------------------
+function noremap(type, input, output)
+    vim.api.nvim_set_keymap(type, input, output, { noremap = true })
+end
+
+function nnoremap(input, output)
+    noremap('n', input, output)
+end
+
+function inoremap(input, output)
+    noremap('i', input, output)
+end
+
+function vnoremap(input, output)
+    noremap('v', input, output)
+end
+
+--------------------------------------------------------------------------------
 -- Packer bootstrap script
 --------------------------------------------------------------------------------
 local execute = vim.api.nvim_command
@@ -612,12 +517,36 @@ return require('packer').startup(function()
     }
 
 -- Functionality improvements
+    use {"folke/which-key.nvim", config = function()
+        require("which-key").setup {}
+      end
+    }
     use {'dstein64/vim-startuptime'}
-    use {'arecarn/vim-backup-tree'}
-    use {'phaazon/hop.nvim'}
-    use {'junegunn/vim-easy-align'}
-    use {'kana/vim-niceblock'}
-    use {'kana/vim-operator-replace'}
+    use {'arecarn/vim-backup-tree', config = function()
+        vim.g.backup_tree = vim.env.HOME .. '/' .. '.vim_backup_tree'
+    end
+    }
+    use {'phaazon/hop.nvim', config = function()
+        nnoremap('<Leader>hf', ':HopChar1<CR>')
+        nnoremap('<Leader>hs', ':HopChar2<CR>')
+        nnoremap('<Leader>hl', ':HopLine<CR>')
+        nnoremap('<Leader>hl', ':HopLine<CR>')
+        nnoremap('<Leader>hw', ':HopWord<CR>')
+    end
+    }
+    use {'junegunn/vim-easy-align', config = function()
+            -- Start interactive EasyAlign in visual mode (e.g. vipga)
+            noremap('x', 'ga', '<Plug>(EasyAlign')
+            -- Start interactive EasyAlign in normal mode (e.g. gaip)
+            nnoremap('ga', '<Plug>(EasyAlign')
+        end
+    }
+    use {'kawna/vim-niceblock'}
+    use {'kana/vim-operator-replace', config = function()
+            --Mapping for the replace operator
+            noremap('', 'g"', '<Plug>(operator-replace)')
+        end
+    }
     use {'kana/vim-operator-user'}
     use {'lambdalisue/suda.vim'}
     use {'milsen/vim-operator-substitute'}
@@ -653,8 +582,6 @@ return require('packer').startup(function()
   -- i,/a, - selects parameter of function signature or call
     use {'sgur/vim-textobj-parameter'}
 
--- Git Plugins
-    use {'mhinz/vim-signify'}
     use {'rhysd/git-messenger.vim'}
     use {'rhysd/committia.vim'}
     use {'tpope/vim-fugitive'}
@@ -684,17 +611,33 @@ return require('packer').startup(function()
     use {'kergoth/vim-bitbake'}
 
 -- Tool Integration
-    use {'christoomey/vim-tmux-navigator'}
-    use {'jmcantrell/vim-virtualenv'}
-  -- use {'junegunn/fzf', { 'dir':$ZPLUG_HOME.'/repos/junegunn/fzf' }
+    use {'numToStr/Navigator.nvim', config = function()
+            require('Navigator').setup({
+                auto_save = nil,
+                disable_on_zoom = true
+            })
+
+            -- Set up keybindings now
+            nnoremap("<C-h>", "<CMD>lua require('Navigator').left()<CR>")
+            nnoremap("<C-k>", "<CMD>lua require('Navigator').up()<CR>")
+            nnoremap("<C-l>", "<CMD>lua require('Navigator').right()<CR>")
+            nnoremap("<C-j>", "<CMD>lua require('Navigator').down()<CR>")
+        end
+    }
+    use {vim.env.ZPLUG_HOME .. '/repos/junegunn/fzf'}
     use {'junegunn/fzf.vim'}
     use {'vijaymarupudi/nvim-fzf'}
     use {'vijaymarupudi/nvim-fzf-commands'}
     use {'mhinz/vim-grepper'}
     use {'JamshedVesuna/vim-markdown-preview'}
+    use {'iamcco/markdown-preview.nvim'}
+    use {'pwntester/octo.nvim'}
 
 -- Interface Plugins
-    use {'Shougo/vinarise.vim'}
+    use {'Shougo/vinarise.vim', config = function()
+            vim.g.vinarise_enable_auto_detect = 1
+        end
+    }
     use {'hoob3rt/lualine.nvim', config = function()
         require('lualine').setup ({
             options = {
@@ -713,14 +656,31 @@ return require('packer').startup(function()
     use {'jez/vim-superman'}
     use {'skywind3000/vim-cppman'}
     use {'tversteeg/registers.nvim', branch= 'main'}
-    use {'mbbill/undotree'}
-    use {'mhinz/vim-startify'}
+    use {'mbbill/undotree', config = function()
+            nnoremap('<leader>uu', ':UndotreeToggle<CR>')
+        end
+    }
+    -- use {'mhinz/vim-startify'}
+    use {'glepnir/dashboard-nvim', config = function()
+            vim.g.dashboard_default_executive = 'fzf'
+        end
+    }
     use {'mkitt/tabline.vim'}
     use {'drzel/vim-in-proportion'}
     use {'wellle/visual-split.vim'}
-    use {'yssl/QFEnter'}
+    use {'yssl/QFEnter', config = function()
+            vim.g.qfenter_vopen_map = {'<C-v'}
+            vim.g.qfenter_hopen_map = {'<C-CR>', '<C-s>', '<C-x>'}
+            vim.g.qfenter_topen_map = {'<C-t>'}
+        end
+    }
     use {'AndrewRadev/linediff.vim'}
-    use {'liuchengxu/vista.vim'}
+    use {'liuchengxu/vista.vim', config = function()
+            nnoremap('<leader>v', ':<C-u>Vista!!<CR>')
+            nnoremap('<leader>V', ':<C-u>Vista finder<CR>')
+            vim.g.vista_default_executive = 'nvim_lsp'
+        end
+    }
     use {'folke/trouble.nvim', config = function()
         require("trouble").setup {
             indent_lines = true,
@@ -732,12 +692,41 @@ return require('packer').startup(function()
     use {'nvim-telescope/telescope.nvim'}
     use {'folke/todo-comments.nvim'}
     use {'romgrk/barbar.nvim'}
+    use {'haringsrob/nvim_context_vt'}
+    use {'romgrk/nvim-treesitter-context', config  = function()
+        require('treesitter-context.config').setup {
+            enable = true
+        }
+        end
+    }
 
 -- Completion Plugins
     use {'wellle/tmux-complete.vim'}
 -- if has('nvim')
     use {'kabouzeid/nvim-lspinstall', config = function()
         require('lspinstall').setup()
+
+        -- Automatically install the following servers if needed
+        local required_servers = {"bash", "cmake", "cpp", "json", "lua", "python", "vim", "vim", "yaml" }
+        local installed_servers = require('lspinstall').installed_servers()
+        for _, server in pairs(required_servers) do
+            if not vim.tbl_contains(installed_servers, server) then
+                require('lspinstall').install_server(server)
+            end
+        end
+
+        local servers = require('lspinstall').installed_servers()
+        for _, server in pairs(servers) do
+            -- Fixups for cases where the lspinstall server name doesn't match lspconfig
+            require('lspconfig')[server].setup({capabilities = capabilities, on_attach = on_attach})
+        end
+
+        -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+        require('lspinstall').post_install_hook = function ()
+            setup_servers() -- reload installed servers
+            vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+        end
+
         end
     }
     use {'neovim/nvim-lspconfig'}
@@ -811,7 +800,13 @@ return require('packer').startup(function()
         end
     }
     use {'airblade/vim-rooter'}
-    use {'ntpeters/vim-better-whitespace'}
+    use {'ntpeters/vim-better-whitespace', config = function()
+        vim.g.better_whitespace_operator='<leader>w'
+        vim.g.better_whitespace_filetypes_blacklist={'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'dashboard'}
+
+        nnoremap('<leader>W', ':StripWhitespace<CR>')
+        end
+    }
 
 --------------------------------------------------------------------------------
 -- Occasional use only
@@ -923,34 +918,6 @@ local on_attach = function(client, bufnr)
         buf_set_keymap("v", "<leader>lf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
     end
 
-end
-
--- Automatically install the following servers if needed
-local required_servers = {"bash", "cmake", "cpp", "json", "lua", "python", "vim", "vim", "yaml" }
-local installed_servers = require('lspinstall').installed_servers()
-for _, server in pairs(required_servers) do
-    if not vim.tbl_contains(installed_servers, server) then
-        require('lspinstall').install_server(server)
-    end
-end
-
-local servers = require('lspinstall').installed_servers()
-for _, server in pairs(servers) do
-    -- Fixups for cases where the lspinstall server name doesn't match lspconfig
-    if server == 'bash' then server = 'bashls' end
-    if server == 'cpp' then server = 'clangd' end
-    if server == 'json' then server = 'jsonls' end
-    if server == 'lua' then server = 'sumneko_lua' end
-    if server == 'python' then server = 'pyright' end
-    if server == 'vim' then server = 'vimls' end
-    if server == 'yaml' then server = 'yamlls' end
-    require('lspconfig')[server].setup({capabilities = capabilities, on_attach = on_attach})
-end
-
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require('lspinstall').post_install_hook = function ()
-    setup_servers() -- reload installed servers
-    vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
 
 EOF
