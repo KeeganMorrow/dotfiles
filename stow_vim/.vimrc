@@ -443,12 +443,7 @@ return require('packer').startup(function()
     use {'tpope/vim-repeat'}
     use {'tpope/vim-speeddating'}
 
-    use {'blackCauldron7/surround.nvim', config = function()
-        require "surround".setup {}
-        vim.g.surround_mappings_style = 'sandwich'
-        vim.g.surround_load_keymaps = true
-      end
-    }
+    use {'machakann/vim-sandwich'}
     use {'tpope/vim-unimpaired'}
     use {'junegunn/vim-slash'}
     use {'b3nj5m1n/kommentary', branch = 'main'}
@@ -602,30 +597,45 @@ use {'vim-test/vim-test', config = function()
             nnoremap('<leader>uu', ':UndotreeToggle<CR>')
         end
     }
-    use {'mhinz/vim-startify', disable=true, config = function()
+    use {'mhinz/vim-startify', config = function()
             vim.g.startify_fortune_use_unicode = 1
-            -- vim.g.ascii = {
-            --     '               __',
-            --     '.-----..--.--.|__|.--------.',
-            --     '|  |  ||  |  ||  ||        |',
-            --     '|__|__| \\___/ |__||__|__|__|',
-            --     ''
-            -- }
+            vim.g.ascii = {
+                '               __',
+                '.-----..--.--.|__|.--------.',
+                '|  |  ||  |  ||  ||        |',
+                '|__|__| \\___/ |__||__|__|__|',
+                ''
+            }
             -- vim.g.startify_custom_header = {unpack(vim.g.ascii), unpack(vim.call('startify#fortune#boxed'))}
         end
     }
-    use {'glepnir/dashboard-nvim', config = function()
+
+    use {'glepnir/dashboard-nvim', disable=true, config = function()
             vim.g.dashboard_default_executive = 'fzf'
 
             vim.g.dashboard_preview_command = 'cat'
             vim.g.dashboard_preview_file = vim.env.HOME .. '/.config/nvim/sunjon.cat'
             vim.g.dashboard_preview_file_height = 12
             vim.g.dashboard_preview_file_width = 80
+--            vim.g.dashboard_custom_shortcut = {
+--                book_marks         = '[1]',
+--                change_colorscheme = '[1]',
+--                find_file          = '[2]',
+--                find_history       = '[3]',
+--                find_word          = '[4]',
+--                last_session       = '[5]',
+--                new_file           = '[6]',
+--            }
+--
+        vim.api.nvim_set_keymap('n','<Leader>fh',':DashboardFindHistory<CR>', { noremap = true , silent = false })
+        vim.api.nvim_set_keymap('n','<Leader>sl',':<C-u>SessionLoad<CR>', { noremap = true , silent = false })
+        vim.api.nvim_set_keymap('n','<Leader>fa',':DashboardFindWord<CR>', { noremap = true , silent = false })
+        vim.api.nvim_set_keymap('n','<Leader>fb',':DashboardJumpMark<CR>', { noremap = true , silent = false })
+
         end
     }
     use {'mkitt/tabline.vim'}
     use {'drzel/vim-in-proportion'}
-    use {'wellle/visual-split.vim'}
     use {'yssl/QFEnter', config = function()
             vim.g.qfenter_vopen_map = {'<C-v'}
             vim.g.qfenter_hopen_map = {'<C-CR>', '<C-s>', '<C-x>'}
@@ -721,6 +731,9 @@ use {'vim-test/vim-test', config = function()
         end
     }
 
+    -- use {'nikvdp/neomux'}
+    use {'mhinz/neovim-remote'}
+
     use {'onsails/lspkind-nvim', config = function ()
             require('lspkind').init()
         end
@@ -748,13 +761,13 @@ use {'vim-test/vim-test', config = function()
             vim.g.indent_blankline_space_char = '·'
             vim.g.indent_blankline_space_char_blankline = ' '
             vim.g.indent_blankline_use_treesitter = true
-            vim.g.indent_blankline_filetype_exclude = {'help', 'dashboard', 'unite'}
+            vim.g.indent_blankline_filetype_exclude = {'help', 'dashboard', 'unite', 'startify'}
         end
     }
     use {'airblade/vim-rooter'}
     use {'ntpeters/vim-better-whitespace', config = function()
             vim.g.better_whitespace_operator='<leader>w'
-            vim.g.better_whitespace_filetypes_blacklist={'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'dashboard'}
+            vim.g.better_whitespace_filetypes_blacklist={'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'dashboard', 'startify'}
 
             nnoremap('<leader>W', ':StripWhitespace<CR>')
         end
