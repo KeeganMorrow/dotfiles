@@ -22,12 +22,6 @@ let mapleader = " "
 " Use \ as local leader.
 let maplocalleader = "\\"
 
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-" Note - due to a bug in neovim this is being handled using the suda.vim plugin
-" command! W w !sudo tee % > /dev/null
-command! W w suda://%
-
 " Spelling settings
 set spell
 set spelllang=en_us
@@ -441,7 +435,10 @@ return require('packer').startup(function()
         end
     }
     use {'kana/vim-operator-user'}
-    use {'lambdalisue/suda.vim'}
+    use {'lambdalisue/suda.vim', config = function()
+            vim.cmd('command! W w suda://%')
+        end
+    }
     use {'milsen/vim-operator-substitute'}
     use {'tpope/vim-repeat'}
     use {'tpope/vim-speeddating'}
@@ -574,8 +571,7 @@ use {'vim-test/vim-test', config = function()
             map('x', 'gs', '<Plug>(GrepperOperator)')
         end
     }
-    use {'JamshedVesuna/vim-markdown-preview'}
-    use {'iamcco/markdown-preview.nvim'}
+    use {'iamcco/markdown-preview.nvim', run = 'cd app && npm install'}
     use {'pwntester/octo.nvim'}
 
 -- Interface Plugins
@@ -653,13 +649,6 @@ use {'vim-test/vim-test', config = function()
     use {'nvim-telescope/telescope.nvim'}
     use {'folke/todo-comments.nvim'}
     use {'romgrk/barbar.nvim'}
-    use {'haringsrob/nvim_context_vt'}
-    use {'romgrk/nvim-treesitter-context', config  = function()
-        require('treesitter-context.config').setup {
-            enable = true
-        }
-        end
-    }
 
 -- Completion Plugins
     use {'wellle/tmux-complete.vim'}
