@@ -490,6 +490,7 @@ return require('packer').startup(function()
         end
     }
     use {'tpope/vim-fugitive'}
+    use {'mhinz/vim-signify'}
 
 -- Syntax plugins
     use {'nvim-treesitter/nvim-treesitter', run= ':TSUpdate', config = function()
