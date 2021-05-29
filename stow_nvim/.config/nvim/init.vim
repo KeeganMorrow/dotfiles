@@ -663,12 +663,11 @@ use {'vim-test/vim-test', config = function()
 
 -- Completion Plugins
     use {'wellle/tmux-complete.vim'}
--- if has('nvim')
     use {'kabouzeid/nvim-lspinstall', config = function()
         require('lspinstall').setup()
 
         -- Automatically install the following servers if needed
-        local required_servers = {"bash", "cmake", "cpp", "json", "lua", "python", "vim", "vim", "yaml" }
+        local required_servers = {"bash", "cmake", "cpp", "json", "lua", "python", "vim", "yaml" }
         local installed_servers = require('lspinstall').installed_servers()
         for _, server in pairs(required_servers) do
             if not vim.tbl_contains(installed_servers, server) then
