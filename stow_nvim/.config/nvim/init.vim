@@ -274,12 +274,6 @@ endif
 " => Mappings                                              {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""}}}
-" => Spelling Mappings     {{{
-""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-"""""""""""""""""""""""""""}}}
 " => Visual mode related   {{{
 """"""""""""""""""""""""""""""
 " Visual mode pressing * or # searches for the current selection
@@ -412,6 +406,22 @@ return require('packer').startup(function()
         vim.g.backup_tree = vim.env.HOME .. '/' .. '.vim_backup_tree'
     end
     }
+    use {'rmagatti/auto-session', config = function()
+            require('auto-session').setup {
+              auto_session_enable_last_session = false,
+              auto_session_enabled = true,
+              auto_save_enabled = nil,
+              auto_restore_enabled = nil,
+              auto_session_suppress_dirs = nil
+            }
+        end
+    }
+    use {'rmagatti/session-lens',
+        config = function()
+            require('session-lens').setup({--[[your custom config--]]})
+        end
+    }
+
     use {'phaazon/hop.nvim', config = function()
         nnoremap('<Leader>hf', ':HopChar1<CR>')
         nnoremap('<Leader>hs', ':HopChar2<CR>')
@@ -419,6 +429,23 @@ return require('packer').startup(function()
         nnoremap('<Leader>hl', ':HopLine<CR>')
         nnoremap('<Leader>hw', ':HopWord<CR>')
     end
+    }
+    use {'mizlan/iswap.nvim', config = function()
+            require('iswap').setup{
+                 -- Highlight group for the sniping value (asdf etc.)
+                 -- default 'Search'
+                 hl_snipe = 'ErrorMsg',
+
+                 -- Highlight group for the visual selection of terms
+                 -- default 'Visual'
+                 hl_selection = 'WarningMsg',
+
+                 -- Highlight group for the greyed background
+                 -- default 'Comment'
+                 hl_grey = 'LineNr'
+            }
+            nnoremap('<Leader>s', ':ISwap<CR>')
+        end
     }
 
     use {'junegunn/vim-easy-align', config = function()
@@ -607,31 +634,6 @@ use {'vim-test/vim-test', config = function()
                 ''
             }
             -- vim.g.startify_custom_header = {unpack(vim.g.ascii), unpack(vim.call('startify#fortune#boxed'))}
-        end
-    }
-
-    use {'glepnir/dashboard-nvim', disable=true, config = function()
-            vim.g.dashboard_default_executive = 'fzf'
-
-            vim.g.dashboard_preview_command = 'cat'
-            vim.g.dashboard_preview_file = vim.env.HOME .. '/.config/nvim/sunjon.cat'
-            vim.g.dashboard_preview_file_height = 12
-            vim.g.dashboard_preview_file_width = 80
---            vim.g.dashboard_custom_shortcut = {
---                book_marks         = '[1]',
---                change_colorscheme = '[1]',
---                find_file          = '[2]',
---                find_history       = '[3]',
---                find_word          = '[4]',
---                last_session       = '[5]',
---                new_file           = '[6]',
---            }
---
-        vim.api.nvim_set_keymap('n','<Leader>fh',':DashboardFindHistory<CR>', { noremap = true , silent = false })
-        vim.api.nvim_set_keymap('n','<Leader>sl',':<C-u>SessionLoad<CR>', { noremap = true , silent = false })
-        vim.api.nvim_set_keymap('n','<Leader>fa',':DashboardFindWord<CR>', { noremap = true , silent = false })
-        vim.api.nvim_set_keymap('n','<Leader>fb',':DashboardJumpMark<CR>', { noremap = true , silent = false })
-
         end
     }
     use {'mkitt/tabline.vim'}
