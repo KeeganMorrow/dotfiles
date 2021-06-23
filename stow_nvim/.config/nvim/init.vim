@@ -659,7 +659,72 @@ use {'vim-test/vim-test', config = function()
     }
     use {'nvim-lua/popup.nvim'}
     use {'nvim-lua/plenary.nvim'}
-    use {'nvim-telescope/telescope.nvim'}
+    use {'camspiers/snap', rocks = {'fzy'}, config = function()
+            local snap = require('snap')
+
+            -- Key bindings
+
+            snap.register.map({"n"}, {"<Leader>fb"}, function ()
+                snap.run {
+                    prompt = "Buffer>",
+                    producer = snap.get'consumer.fzy'(snap.get'producer.vim.buffer'),
+                    select = snap.get'select.file'.select,
+                    multiselect = snap.get'select.file'.multiselect,
+                    views = {snap.get'preview.file'}
+                }
+            end)
+            snap.register.map({"n"}, {"<Leader>ff"}, function ()
+                snap.run {
+                    prompt = "File>",
+                    producer = snap.get'consumer.fzf'(snap.get'producer.ripgrep.file'),
+                    select = snap.get'select.file'.select,
+                    multiselect = snap.get'select.file'.multiselect,
+                    views = {snap.get'preview.file'}
+                }
+            end)
+            snap.register.map({"n"}, {"<Leader>fh"}, function ()
+                snap.run {
+                    prompt = "Help>",
+                    producer = snap.get'consumer.fzy'(snap.get'producer.vim.help'),
+                    select = snap.get'select.help'.select,
+                    views = {snap.get'preview.help'}
+                }
+            end)
+            snap.register.map({"n"}, {"<Leader>fr"}, function ()
+                snap.run {
+                    prompt = "Grep>",
+                    producer = snap.get'consumer.limit'(100000, snap.get'producer.ripgrep.vimgrep'),
+                    select = snap.get'select.vimgrep'.select,
+                    multiselect = snap.get'select.vimgrep'.multiselect,
+                    views = {snap.get'preview.vimgrep'}
+                }
+            end)
+
+            snap.register.map({"n"}, {"<Leader>fo"}, function ()
+                snap.run {
+                    prompt = "OldFile>",
+                    producer = snap.get'consumer.fzy'(snap.get'producer.vim.oldfile'),
+                    select = snap.get'select.file'.select,
+                    multiselect = snap.get'select.file'.multiselect,
+                    views = {snap.get'preview.file'}
+                }
+            end)
+            snap.register.map({"n"}, {"<Leader>fg"}, function ()
+                snap.run {
+                    prompt = "Git>",
+                    producer = snap.get'consumer.fzf'(
+                        snap.get'consumer.try'(
+                            snap.get'producer.git.file',
+                            snap.get'producer.ripgrep.file'
+                        )
+                    ),
+                    select = snap.get'select.file'.select,
+                    multiselect = snap.get'select.file'.multiselect,
+                    views = {snap.get'preview.file'}
+                }
+            end)
+        end
+    }
     use {'folke/todo-comments.nvim'}
     use {'romgrk/barbar.nvim'}
 
@@ -679,7 +744,6 @@ use {'vim-test/vim-test', config = function()
 
         local servers = require('lspinstall').installed_servers()
         for _, server in pairs(servers) do
-            -- Fixups for cases where the lspinstall server name doesn't match lspconfig
             require('lspconfig')[server].setup({capabilities = capabilities, on_attach = on_attach})
         end
 
