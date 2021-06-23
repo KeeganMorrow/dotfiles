@@ -416,12 +416,6 @@ return require('packer').startup(function()
             }
         end
     }
-    use {'rmagatti/session-lens',
-        config = function()
-            require('session-lens').setup({--[[your custom config--]]})
-        end
-    }
-
     use {'phaazon/hop.nvim', config = function()
         nnoremap('<Leader>hf', ':HopChar1<CR>')
         nnoremap('<Leader>hs', ':HopChar2<CR>')
@@ -649,6 +643,7 @@ use {'vim-test/vim-test', config = function()
             nnoremap('<leader>v', ':<C-u>Vista!!<CR>')
             nnoremap('<leader>V', ':<C-u>Vista finder<CR>')
             vim.g.vista_default_executive = 'nvim_lsp'
+            vim.g.vista_fzf_preview = {'right:50%'}
         end
     }
     use {'folke/trouble.nvim', config = function()
