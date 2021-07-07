@@ -412,8 +412,8 @@ return require('packer').startup(function()
             require('auto-session').setup {
               auto_session_enable_last_session = false,
               auto_session_enabled = true,
-              auto_save_enabled = nil,
-              auto_restore_enabled = nil,
+              auto_save_enabled = true,
+              auto_restore_enabled = false,
               auto_session_suppress_dirs = nil
             }
         end
@@ -724,6 +724,17 @@ use {'vim-test/vim-test', config = function()
                     views = {snap.get'preview.file'}
                 }
             end)
+            snap.register.map({"n"}, {"<Leader>fs"}, function ()
+                snap.run {
+                    producer = snap.get'producer.ripgrep.file'.args({}, vim.fn.stdpath('data').."/sessions"),
+                    select = function(arg)
+                        local filepath = arg:gsub("%%", "\\%%")
+                        local cmd = 'source '.. filepath
+                        vim.cmd(cmd)
+                    end,
+                }
+                end
+            )
         end
     }
     use {'folke/todo-comments.nvim'}
