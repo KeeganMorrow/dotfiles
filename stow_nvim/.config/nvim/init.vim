@@ -129,6 +129,8 @@ endif
 
 " Set and configure colorscheme
 colorscheme palenight
+" Fix up palenight to have nicer tabs
+hi TabLineSel ctermfg=251 guifg=#bfc7d5 ctermbg=60 guibg=#697098
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -592,6 +594,11 @@ use {'vim-test/vim-test', config = function()
     use {'pwntester/octo.nvim'}
 
 -- Interface Plugins
+    use {'alvarosevilla95/luatab.nvim', config = function()
+        Tabline = require'luatab'.tabline
+        vim.cmd[[ set tabline=%!luaeval('Tabline()') ]]
+        end
+    }
     use {'Shougo/vinarise.vim', config = function()
             vim.g.vinarise_enable_auto_detect = 1
         end
@@ -630,7 +637,6 @@ use {'vim-test/vim-test', config = function()
             -- vim.g.startify_custom_header = {unpack(vim.g.ascii), unpack(vim.call('startify#fortune#boxed'))}
         end
     }
-    use {'mkitt/tabline.vim'}
     use {'drzel/vim-in-proportion'}
     use {'yssl/QFEnter', config = function()
             vim.g.qfenter_vopen_map = {'<C-v'}
@@ -721,7 +727,6 @@ use {'vim-test/vim-test', config = function()
         end
     }
     use {'folke/todo-comments.nvim'}
-    use {'romgrk/barbar.nvim'}
 
 -- Completion Plugins
     use {'wellle/tmux-complete.vim'}
@@ -991,7 +996,8 @@ nnoremap <leader>tl <cmd>Telescope git_bcommits<cr>
 nnoremap <leader>tq <cmd>Telescope gquickfix<cr>
 nnoremap z=< cmd>Telescope spell_suggest<cr>
 
-nnoremap <silent> [b :BufferPrevious<CR>
-nnoremap <silent> ]b :BufferNext<CR>
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
 
 nnoremap <leader>b :BufferPick<CR>
+
