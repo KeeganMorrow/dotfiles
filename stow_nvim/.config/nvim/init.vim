@@ -820,7 +820,7 @@ use {'vim-test/vim-test', config = function()
     use {'rafamadriz/friendly-snippets'}
 
 -- Other plugins
-    use {'lukas-reineke/indent-blankline.nvim', branch = 'lua', config = function()
+    use {'lukas-reineke/indent-blankline.nvim', config = function()
             vim.g.indent_blankline_char_highlight_list = {'TSStructure', 'TSString', 'TSFunction', 'TSConditional'}
             vim.g.indent_blankline_char_list = {'|', '¦', '┆', '┊'}
             vim.g.indent_blankline_space_char = '·'
