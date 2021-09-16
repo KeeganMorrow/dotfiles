@@ -385,7 +385,6 @@ return require('packer').startup(function()
         require("which-key").setup {}
       end
     }
-    use {'dstein64/vim-startuptime'}
     use {'arecarn/vim-backup-tree', config = function()
         vim.g.backup_tree = vim.env.HOME .. '/' .. '.vim_backup_tree'
     end
@@ -400,14 +399,7 @@ return require('packer').startup(function()
             }
         end
     }
-    use {'phaazon/hop.nvim', config = function()
-        nnoremap('<Leader>hf', ':HopChar1<CR>')
-        nnoremap('<Leader>hs', ':HopChar2<CR>')
-        nnoremap('<Leader>hl', ':HopLine<CR>')
-        nnoremap('<Leader>hl', ':HopLine<CR>')
-        nnoremap('<Leader>hw', ':HopWord<CR>')
-    end
-    }
+
     use {'mizlan/iswap.nvim', config = function()
             require('iswap').setup{
                  -- Highlight group for the sniping value (asdf etc.)
@@ -425,6 +417,8 @@ return require('packer').startup(function()
             nnoremap('<Leader>s', ':ISwap<CR>')
         end
     }
+
+    use {'ggandor/lightspeed.nvim'}
 
     use {'junegunn/vim-easy-align', config = function()
             -- Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -548,7 +542,7 @@ return require('packer').startup(function()
             omap('<leader><tab>', '<plug>(fzf-maps-o)', 'FZF O Mappings')
         end
     }
-use {'vim-test/vim-test', config = function()
+    use {'vim-test/vim-test', config = function()
 
             nnoremap('<leader>ns', ':TestSuite<cr>', 'Run Test Suite')
             nnoremap('<leader>nf', ':TestFile<cr>', 'Run Test Files')
