@@ -652,10 +652,19 @@ return require('packer').startup(function()
         end
     }
     use {'folke/todo-comments.nvim'}
+    use {'romgrk/barbar.nvim'}
+    use {'windwp/nvim-autopairs', config = function()
+        require('nvim-autopairs').setup({
+            disable_filetype = { "TelescopePrompt" , "vim" },
+        })
+    end}
 
 -- Completion Plugins
     use {'wellle/tmux-complete.vim'}
-    use {'kabouzeid/nvim-lspinstall', config = function()
+-- if has('nvim')
+    use {'kabouzeid/nvim-lspinstall', requires={'hrsh7th/cmp-nvim-lsp'}, config = function()
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
         require('lspinstall').setup()
 
         -- Automatically install the following servers if needed
@@ -682,33 +691,95 @@ return require('packer').startup(function()
         end
     }
     use {'neovim/nvim-lspconfig'}
-    use {'hrsh7th/nvim-compe', config = function()
-        require'compe'.setup {
-            enabled = true;
-            autocomplete = true;
-            debug = false;
-            min_length = 1;
-            preselect = 'enable';
-            throttle_time = 80;
-            source_timeout = 200;
-            incomplete_delay = 400;
-            max_abbr_width = 100;
-            max_kind_width = 100;
-            max_menu_width = 100;
-            documentation = true;
-            source = {
-                path = true;
-                buffer = true;
-                calc = true;
-                nvim_lsp = true;
-                nvim_lua = true;
-                vsnip = true;
-                ultisnips = false;
-                spell = true;
-            };
-        }
-    end
-    }
+    use {'hrsh7th/nvim-cmp', requires = {
+            "hrsh7th/vim-vsnip",
+            "hrsh7th/cmp-buffer",
+            "f3fora/cmp-spell",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-nvim-lua",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-calc",
+            "hrsh7th/cmp-vsnip",
+            "onsails/lspkind-nvim"
+        },
+        config = function()
+            local has_words_before = function()
+                if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+                    return false
+                end
+                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+                return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+            end
+
+            local feedkey = function(key, mode)
+                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+            end
+
+            local cmp = require('cmp')cmp.setup({
+                snippet = {
+                    expand = function(args)
+                        vim.fn["vsnip#anonymous"](args.body)
+                    end,
+                },
+               formatting = {
+	           format = function(entry, vim_item)
+                       -- fancy icons and a name of kind
+                       vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+
+	               -- set a name for each source
+	               vim_item.menu = ({
+                       buffer = "[Buffer]",
+                       nvim_lsp = "[LSP]",
+                       luasnip = "[LuaSnip]",
+                       vim_lua = "[Lua]",
+                       latex_symbols = "[Latex]",
+				   })[entry.source.name]
+
+                    return vim_item
+
+                end
+                },
+                mapping = {
+                    ['<C-p>'] = cmp.mapping.select_prev_item(),
+                    ['<C-n>'] = cmp.mapping.select_next_item(),
+                    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                    ['<C-Space>'] = cmp.mapping.complete(),
+                    ['<C-e>'] = cmp.mapping.close(),
+                    ['<CR>'] = cmp.mapping.confirm {
+                        behavior = cmp.ConfirmBehavior.Replace,
+                        select = true,
+                    },
+                    ['<Tab>'] = function(fallback)
+                        if vim.fn.pumvisible() == 1 then
+                            feedkey("<C-n>", "n")
+                        elseif vim.fn["vsnip#available"]() == 1 then
+                            feedkey("<Plug>(vsnip-expand-or-jump)", "")
+                        else
+                            fallback()
+                        end
+                    end,
+                    ['<S-Tab>'] = function(fallback)
+                        if vim.fn.pumvisible() == 1 then
+                            feedkey("<C-p>", "n")
+                        elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+                            feedkey("<Plug>(vsnip-jump-prev)", "")
+                        else
+                            fallback()
+                        end
+                    end,
+                },
+                sources = {
+                    { name = 'nvim_lua' },
+                    { name = 'nvim_lsp' },
+                    { name = 'spell' },
+                    { name = 'path' },
+                    { name = 'calc' },
+                    { name = 'vsnip' },
+                    { name = 'buffer' }
+                }
+            })
+    end}
 
     use {'glepnir/lspsaga.nvim', config = function()
         require('lspsaga').init_lsp_saga({
@@ -726,7 +797,9 @@ return require('packer').startup(function()
     use {'mhinz/neovim-remote'}
 
     use {'onsails/lspkind-nvim', config = function ()
-            require('lspkind').init()
+            require('lspkind').init({
+                preset = 'default'
+	    })
         end
     }
     use {'ray-x/lsp_signature.nvim', config = function()
@@ -782,50 +855,6 @@ lua << EOF
 -- Set up Key bindings
 --------------------------------------------------------------------------------
 
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        return true
-    else
-        return false
-    end
-end
-
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  elseif vim.fn.call("vsnip#available", {1}) == 1 then
-    return t "<Plug>(vsnip-expand-or-jump)"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn['compe#complete']()
-  end
-end
-
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-    return t "<Plug>(vsnip-jump-prev)"
-  else
-    -- If <S-Tab> is not working in your terminal, change it to <C-h>
-    return t "<S-Tab>"
-  end
-end
-
-vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-
 -- Helper function to get and show list of active lsp clients
 function connected_lsp_clients()
     local clients = {}
@@ -837,16 +866,6 @@ function connected_lsp_clients()
 
     return table.concat(clients, ' ')
 end
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  }
-}
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
