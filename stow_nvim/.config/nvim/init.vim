@@ -347,29 +347,6 @@ hi! NonText ctermbg=NONE guibg=NONE
 lua << EOF
 
 --------------------------------------------------------------------------------
--- Configuration helper functions
---------------------------------------------------------------------------------
-function map(type, input, output)
-    vim.api.nvim_set_keymap(type, input, output, { noremap = false })
-end
-
-function noremap(type, input, output)
-    vim.api.nvim_set_keymap(type, input, output, { noremap = true })
-end
-
-function nnoremap(input, output)
-    noremap('n', input, output)
-end
-
-function inoremap(input, output)
-    noremap('i', input, output)
-end
-
-function vnoremap(input, output)
-    noremap('v', input, output)
-end
-
---------------------------------------------------------------------------------
 -- Packer bootstrap script
 --------------------------------------------------------------------------------
 local execute = vim.api.nvim_command
@@ -389,6 +366,11 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
   -- Packer can manage itself
     use {'wbthomason/packer.nvim'}
+
+-- Mapx used to map keys
+    use {"b0o/mapx.nvim"}
+    require("mapx").setup { global=true, whichkey=true }
+
 -- Colorschemes
     use {'ChristianChiarulli/nvcode-color-schemes.vim'}
     use {'kyazdani42/nvim-web-devicons', config = function()
@@ -446,15 +428,15 @@ return require('packer').startup(function()
 
     use {'junegunn/vim-easy-align', config = function()
             -- Start interactive EasyAlign in visual mode (e.g. vipga)
-            map('x', 'ga', '<Plug>(EasyAlign)')
+            xmap('ga', '<Plug>(EasyAlign)', 'Easy Align')
             -- Start interactive EasyAlign in normal mode (e.g. gaip)
-            map('n', 'ga', '<Plug>(EasyAlign)')
+            xmap('ga', '<Plug>(EasyAlign)', 'Easy Align')
         end
     }
     use {'kana/vim-niceblock'}
     use {'kana/vim-operator-replace', config = function()
             --Mapping for the replace operator
-            noremap('', 'g"', '<Plug>(operator-replace)')
+            noremap('g"', '<Plug>(operator-replace)', 'Replace Operator')
         end
     }
     use {'kana/vim-operator-user'}
@@ -542,36 +524,36 @@ return require('packer').startup(function()
             })
 
             -- Set up keybindings now
-            nnoremap("<C-h>", "<CMD>lua require('Navigator').left()<CR>")
-            nnoremap("<C-k>", "<CMD>lua require('Navigator').up()<CR>")
-            nnoremap("<C-l>", "<CMD>lua require('Navigator').right()<CR>")
-            nnoremap("<C-j>", "<CMD>lua require('Navigator').down()<CR>")
+            nnoremap("<C-h>", "<CMD>lua require('Navigator').left()<CR>", 'Navigator Left')
+            nnoremap("<C-k>", "<CMD>lua require('Navigator').up()<CR>", 'Navigator Up')
+            nnoremap("<C-l>", "<CMD>lua require('Navigator').right()<CR>", 'Navigator Right')
+            nnoremap("<C-j>", "<CMD>lua require('Navigator').down()<CR>", 'Navigator Down')
         end
     }
     use {vim.env.ZPLUG_HOME .. '/repos/junegunn/fzf'}
     use {'junegunn/fzf.vim', config = function()
-            nnoremap('<leader>r', ':History:<CR>')
-            nnoremap('<leader>R', ':History<CR>')
-            nnoremap('<leader>/', ':History/<CR>')
-            nnoremap('<leader>t', ':Files<CR>')
-            nnoremap('<leader>g', ':GFiles?<CR>')
-            nnoremap('<leader>G', ':GFiles<CR>')
-            nnoremap('<leader><c-t>', ':BTags<CR>')
-            nnoremap('<leader>T', ':Tags<CR>')
-            nnoremap('<leader>m', ':Marks<CR>')
-            nnoremap('<leader>B', ':Buffers<CR>')
+            nnoremap('<leader>r', ':History:<CR>', 'FZF History')
+            nnoremap('<leader>R', ':History<CR>', 'FZF History' )
+            nnoremap('<leader>/', ':History/<CR>', 'FZF History')
+            nnoremap('<leader>t', ':Files<CR>', 'FZF Files')
+            nnoremap('<leader>g', ':GFiles?<CR>', 'FZF Git Files')
+            nnoremap('<leader>G', ':GFiles<CR>', 'FZF Git Files')
+            nnoremap('<leader><c-t>', ':BTags<CR>', 'FZF Buffer Tags')
+            nnoremap('<leader>T', ':Tags<CR>', 'FZF Tags')
+            nnoremap('<leader>m', ':Marks<CR>', 'FZF Marks')
+            nnoremap('<leader>B', ':Buffers<CR>', 'FZF Buffers')
 
-            map('n' ,'<leader><tab>', '<plug>(fzf-maps-n)')
-            map('x', '<leader><tab>', '<plug>(fzf-maps-x)')
-            map('o', '<leader><tab>', '<plug>(fzf-maps-o)')
+            nmap('<leader><tab>', '<plug>(fzf-maps-n)', 'FZF N Mappings')
+            xmap('<leader><tab>', '<plug>(fzf-maps-x)', 'FZF X Mappings')
+            omap('<leader><tab>', '<plug>(fzf-maps-o)', 'FZF O Mappings')
         end
     }
 use {'vim-test/vim-test', config = function()
 
-            nnoremap('<leader>ns', ':TestSuite<cr>')
-            nnoremap('<leader>nf', ':TestFile<cr>')
-            nnoremap('<leader>nl', ':TestLast<cr>')
-            nnoremap('<leader>nn', ':TestNearest<cr>')
+            nnoremap('<leader>ns', ':TestSuite<cr>', 'Run Test Suite')
+            nnoremap('<leader>nf', ':TestFile<cr>', 'Run Test Files')
+            nnoremap('<leader>nl', ':TestLast<cr>', 'Run Last Test')
+            nnoremap('<leader>nn', ':TestNearest<cr>', 'Run nearest test')
         end
     }
     use {'vijaymarupudi/nvim-fzf'}
@@ -586,8 +568,8 @@ use {'vim-test/vim-test', config = function()
 
             vim.g.grepper = {open = 0, quickfix = 1, searchreg = 1, highlight = 0}
 
-            map('n', 'gs', '<Plug>(GrepperOperator)')
-            map('x', 'gs', '<Plug>(GrepperOperator)')
+            nmap('gs', '<Plug>(GrepperOperator)', 'Grepper Operator')
+            xmap('gs', '<Plug>(GrepperOperator)', 'Grepper Operator')
         end
     }
     use {'iamcco/markdown-preview.nvim', run = 'cd app && npm install'}
@@ -622,7 +604,7 @@ use {'vim-test/vim-test', config = function()
     use {'skywind3000/vim-cppman'}
     use {'tversteeg/registers.nvim', branch= 'main'}
     use {'mbbill/undotree', config = function()
-            nnoremap('<leader>uu', ':UndotreeToggle<CR>')
+            nnoremap('<leader>uu', ':UndotreeToggle<CR>', 'Undo Tree Toggle')
         end
     }
     use {'mhinz/vim-startify', config = function()
@@ -646,8 +628,8 @@ use {'vim-test/vim-test', config = function()
     }
     use {'AndrewRadev/linediff.vim'}
     use {'liuchengxu/vista.vim', config = function()
-            nnoremap('<leader>v', ':<C-u>Vista!!<CR>')
-            nnoremap('<leader>V', ':<C-u>Vista finder<CR>')
+            nnoremap('<leader>v', ':<C-u>Vista!!<CR>', 'Vista')
+            nnoremap('<leader>V', ':<C-u>Vista finder<CR>', 'Vista Finder')
             vim.g.vista_default_executive = 'nvim_lsp'
             vim.g.vista_fzf_preview = {'right:50%'}
         end
@@ -784,7 +766,7 @@ use {'vim-test/vim-test', config = function()
             vim.g.better_whitespace_operator='<leader>w'
             vim.g.better_whitespace_filetypes_blacklist={'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'dashboard', 'startify'}
 
-            nnoremap('<leader>W', ':StripWhitespace<CR>')
+            nnoremap('<leader>W', ':StripWhitespace<CR>', 'Strip Whitespace')
         end
     }
 
@@ -900,40 +882,48 @@ local on_attach = function(client, bufnr)
 
 end
 
+-------------------------------------------------------------------------------
+-- LSP Related keybinds
+-------------------------------------------------------------------------------
+-- Lspsaga key bindings
+nnoremap('<leader>la', '<cmd>lua require(\'lspsaga.codeaction\').code_action()<CR>', 'silent', 'LSP Action')
+vnoremap('<leader>la', ':<C-U>lua require(\'lspsaga.codeaction\').range_code_action()<CR>', 'silent', 'LSP Action')
+nnoremap('<leader>lh', '<cmd>lua require(\'lspsaga.hover\').render_hover_doc()<CR>', 'silent', 'LSP Hover')
+nnoremap('<C-f>', '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(1)<CR>', 'silent', 'LSP Scroll Up')
+nnoremap('<C-b>', '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>', 'silent', 'LSP Scroll Down')
+nnoremap('<leader>ls', '<cmd>lua require(\'lspsaga.signaturehelp\').signature_help()<CR>', 'silent', 'LSP Signature')
+nnoremap('<leader>lr', '<cmd>lua require(\'lspsaga.rename\').rename()<CR>', 'silent', 'LSP Rename')
+nnoremap('<leader>ld', ':Lspsaga preview_definition<CR>', 'silent', 'Preview LSP Definition')
+nnoremap('[d', '<cmd>lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_prev()<CR>', 'silent', 'Prev Diagnostic')
+nnoremap(']d', '<cmd>lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_next()<CR>', 'silent', 'Next Diagnostic')
+
+
+-- Find files using Telescope command-line sugar.
+nnoremap('<leader>tf', '<cmd>Telescope find_files<cr>')
+nnoremap('<leader>tg', '<cmd>Telescope live_grep<cr>')
+nnoremap('<leader>tb', '<cmd>Telescope buffers<cr>')
+nnoremap('<leader>th', '<cmd>Telescope help_tags<cr>')
+nnoremap('<leader>tD', '<cmd>Telescope lsp_document_diagnostics<cr>')
+nnoremap('<leader>td', '<cmd>Telescope lsp_workspace_diagnostics<cr>')
+nnoremap('<leader>tr', '<cmd>Telescope lsp_references<cr>')
+nnoremap('<leader>tS', '<cmd>Telescope treesitter<cr>')
+nnoremap('<leader>ts', '<cmd>Telescope lsp_document_symbols<cr>')
+nnoremap('<leader>tl', '<cmd>Telescope git_bcommits<cr>')
+nnoremap('<leader>tq', '<cmd>Telescope gquickfix<cr>')
+nnoremap('z=', '<cmd>Telescope spell_suggest<cr>')
+
+nnoremap('[b', ':BufferPrevious<CR>', 'silent')
+nnoremap(']b', ':BufferNext<CR>', 'silent')
+
+nnoremap('<leader>b', ':BufferPick<CR>')
+
 EOF
+
+set completeopt=menuone,noselect
 "-------------------------------------------------------------------------------
 "  Enable treesitter Folds
 "-------------------------------------------------------------------------------
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldenable
-
-"-------------------------------------------------------------------------------
-"  LSP Related keybinds
-"-------------------------------------------------------------------------------
-" Lspsaga key bindings
-nnoremap <silent> <leader>la <cmd>lua require('lspsaga.codeaction').code_action()<CR>
-vnoremap <silent> <leader>la :<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>
-nnoremap <silent> <leader>lh <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
-nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
-nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
-nnoremap <silent> <leader>ls <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
-nnoremap <silent> <leader>lr <cmd>lua require('lspsaga.rename').rename()<CR>
-nnoremap <silent> <leader>ld :Lspsaga preview_definition<CR>
-nnoremap <silent> [d <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
-nnoremap <silent> ]d <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
-
-" Compe key bindings
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-
-set completeopt=menuone,noselect
-
-nnoremap <silent> [b :bprevious<CR>
-nnoremap <silent> ]b :bnext<CR>
-
-nnoremap <leader>b :BufferPick<CR>
 
