@@ -51,6 +51,14 @@ for i in $python3_packages ; do
     sudo -H pip3 install "$i"
 done
 
+if hash fzf 2>/dev/null; then
+    echo "FZF already installed"
+else
+    echo "Installing FZF"
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    echo "n\n" | ~/.fzf/install
+fi
+
 if hash fd 2>/dev/null ; then
     echo "fd already installed"
 else

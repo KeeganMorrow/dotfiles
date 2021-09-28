@@ -175,7 +175,6 @@ return require('packer').startup(function(use)
             nnoremap("<C-j>", "<CMD>lua require('Navigator').down()<CR>", 'Navigator Down')
         end
     }
-    use {vim.env.ZPLUG_HOME .. '/repos/junegunn/fzf'}
     use {'junegunn/fzf.vim', config = function()
             nnoremap('<leader>r', ':History:<CR>', 'FZF History')
             nnoremap('<leader>R', ':History<CR>', 'FZF History' )

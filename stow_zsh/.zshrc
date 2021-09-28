@@ -15,17 +15,14 @@ fi
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
 
 ############################################################
-# Set up Zplug
+# Set up zcomet
 ############################################################
-export ZPLUG_HOME="${HOME}/.zsh/zplug"
-zplug_file="${ZPLUG_HOME}/init.zsh"
-
-if [[ ! -d "${ZPLUG_HOME}" ]]; then
-    git clone https://github.com/zplug/zplug "${ZPLUG_HOME}"
+# Clone zcomet if necessary
+if [[ ! -f ${ZDOTDIR:-${HOME}}/.zcomet/bin/zcomet.zsh ]]; then
+  command git clone https://github.com/agkozak/zcomet.git ${ZDOTDIR:-${HOME}}/.zcomet/bin
 fi
 
-# shellcheck source=/dev/null
-source "${zplug_file}"
+source ${ZDOTDIR:-${HOME}}/.zcomet/bin/zcomet.zsh
 
 ############################################################
 # Plugins
@@ -34,38 +31,29 @@ source "${zplug_file}"
 ########################################
 # Oh-My-Zsh plugins
 ########################################
-zplug "plugins/gitfast",                from:oh-my-zsh
-zplug "plugins/pip",                    from:oh-my-zsh
-zplug "plugins/fancy-ctrl-z",           from:oh-my-zsh
+zcomet load ohmyzsh plugins/gitfast
+zcomet load ohmyzsh plugins/pip
+zcomet load ohmyzsh plugins/fancy-ctrl-z
 
 ########################################
 # Prezto plugins
 ########################################
-zplug "modules/ssh",                    from:prezto
-zplug "modules/python",                 from:prezto
+zcomet load prezto init.zsh
+zcomet load prezto modules/ssh
+# zcomet load prezto modules/python
 
 ########################################
 # Other Plugins
 ########################################
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-completions"
-zplug "pawel-slowik/zsh-term-title"
-zplug "jeffreytse/zsh-vi-mode"
-
-# This way of loading fzf taken from
-# https://github.com/zplug/zplug/issues/509#issuecomment-464930143
-zplug "junegunn/fzf-bin", \
-    from:gh-r, \
-    as:command, \
-    rename-to:fzf, \
-    use:"*linux*amd64*"
-zplug "junegunn/fzf", as:plugin, use:"shell/*.zsh", defer:2
-zplug "junegunn/fzf", as:command, use:"bin/*"
+zcomet load "zsh-users/zsh-syntax-highlighting"
+zcomet load "zsh-users/zsh-completions"
+zcomet load "pawel-slowik/zsh-term-title"
+zcomet load "jeffreytse/zsh-vi-mode@1549325615a5da5ec570289dfa08687cece1c5f6"
 
 ########################################
 # Themes
 ########################################
-zplug "romkatv/powerlevel10k", as:theme, depth:1
+zcomet load "romkatv/powerlevel10k"
 
 # Enable the transient prompt
 POWERLEVEL9K_TRANSIENT_PROMPT=always
@@ -119,21 +107,6 @@ POWERLEVEL9K_CONTEXT_REMOTE_SUDO_BACKGROUND='red'
 
 # status configuration
 POWERLEVEL9K_STATUS_OK_BACKGROUND='grey'
-
-############################################################
-# More zplug boilerplate
-############################################################
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# Then, source plugins and add commands to $PATH
-zplug load 2>&1 > /dev/null
 
 ############################################################
 # Plugin Configuration
@@ -201,7 +174,7 @@ setopt PROMPT_SUBST
 # Completion Configuration
 ###############################################################################
 
-autoload -U compinit && compinit
+zcomet compinit
 zmodload -i zsh/complist
 ############################################################
 # Completion options
@@ -694,6 +667,7 @@ _additional_paths=(
 "/usr/sbin"
 "${HOME}/syncsettings/bin"
 "${HOME}/bin/bin"
+"${HOME}/.fzf/bin"
 )
 
 _addpaths _additional_paths > /dev/null
@@ -753,3 +727,5 @@ fi
 # <$TTY >$TTY is needed per powerlevel10k author
 # https://github.com/romkatv/powerlevel10k/issues/388
 stty -ixon <$TTY >$TTY
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
