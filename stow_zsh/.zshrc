@@ -48,7 +48,12 @@ zcomet load prezto modules/ssh
 zcomet load "zsh-users/zsh-syntax-highlighting"
 zcomet load "zsh-users/zsh-completions"
 zcomet load "pawel-slowik/zsh-term-title"
-zcomet load "jeffreytse/zsh-vi-mode@1549325615a5da5ec570289dfa08687cece1c5f6"
+zcomet load "jeffreytse/zsh-vi-mode"
+
+# Taken from zcomet readme
+zcomet load junegunn/fzf shell completion.zsh key-bindings.zsh
+(( ${+commands[fzf]} )) || ~[fzf]/install --bin
+
 
 ########################################
 # Themes
