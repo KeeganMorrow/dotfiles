@@ -307,38 +307,11 @@ return require('packer').startup(function(use)
 -- Completion Plugins
     use {'wellle/tmux-complete.vim'}
 -- if has('nvim')
-    use {'kabouzeid/nvim-lspinstall', requires={'hrsh7th/cmp-nvim-lsp'}, config = function()
-
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
-        local lspinstall = require('lspinstall')
-        local lspconfig = require('lspconfig')
-        lspinstall.setup()
-
-        -- Automatically install the following servers if needed
-        local required_servers = {"bash", "cmake", "cpp", "json", "lua", "python", "vim", "yaml" }
-        local installed_servers = lspinstall.installed_servers()
-        for _, server in pairs(required_servers) do
-            if not vim.tbl_contains(installed_servers, server) then
-                lspinstall.install_server(server)
-            end
-        end
-
-        local servers = lspinstall.installed_servers()
-        for _, server in pairs(servers) do
-            lspconfig[server].setup({capabilities = capabilities, on_attach = on_attach})
-        end
-
-        -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-        require('lspinstall').post_install_hook = function ()
-            setup_servers() -- reload installed servers
-            vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-        end
-
-        end
+--
+    use {
+        'neovim/nvim-lspconfig',
+        'williamboman/nvim-lsp-installer',
     }
-    use {'neovim/nvim-lspconfig'}
     use {'hrsh7th/nvim-cmp', requires = {
             "hrsh7th/vim-vsnip",
             "hrsh7th/cmp-buffer",
