@@ -233,7 +233,7 @@ return require('packer').startup(function(use)
                 lualine_a = {{'mode', lower = false}},
                 lualine_b = {{'branch'}},
                 lualine_c = {{'filename', path = 1}, {'filetype'}, {'fileformat'}, {'fileencoding'}},
-                lualine_x = {{'diff'}, {connected_lsp_clients},{'diagnostics', sources = {'nvim_lsp'}}},
+                lualine_x = {{'diff'}, {connected_lsp_clients},{'diagnostics', sources = {'nvim_diagnostic'}}},
             },
             extensions = {'quickfix', 'fzf'}
         })
@@ -308,10 +308,7 @@ return require('packer').startup(function(use)
     use {'wellle/tmux-complete.vim'}
 -- if has('nvim')
 --
-    use {
-        'neovim/nvim-lspconfig',
-        'williamboman/nvim-lsp-installer',
-    }
+    use { 'neovim/nvim-lspconfig', 'williamboman/nvim-lsp-installer'}
     use {'hrsh7th/nvim-cmp', requires = {
             "hrsh7th/vim-vsnip",
             "hrsh7th/cmp-buffer",

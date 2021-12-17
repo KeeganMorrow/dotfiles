@@ -349,6 +349,7 @@ lua << EOF
 
 require 'user.plugins'
 require 'user.mappings'
+require 'user.lsp'
 
 EOF
 
