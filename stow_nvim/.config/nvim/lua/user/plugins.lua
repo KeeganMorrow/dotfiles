@@ -221,8 +221,7 @@ return require('packer').startup(function(use)
 
 -- Interface Plugins
     use {'alvarosevilla95/luatab.nvim', config = function()
-        Tabline = require'luatab'.tabline
-        vim.cmd[[ set tabline=%!luaeval('Tabline()') ]]
+            require('luatab').setup{}
         end
     }
     use {'hoob3rt/lualine.nvim', config = function()
