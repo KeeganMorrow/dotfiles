@@ -175,7 +175,7 @@ return require('packer').startup(function(use)
             nnoremap("<C-j>", "<CMD>lua require('Navigator').down()<CR>", 'Navigator Down')
         end
     }
-    use {'junegunn/fzf.vim', config = function()
+    use {'junegunn/fzf.vim', 'junegunn/fzf', config = function()
             nnoremap('<leader>r', ':History:<CR>', 'FZF History')
             nnoremap('<leader>R', ':History<CR>', 'FZF History' )
             nnoremap('<leader>/', ':History/<CR>', 'FZF History')
