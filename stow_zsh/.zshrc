@@ -39,8 +39,7 @@ zcomet load ohmyzsh plugins/fancy-ctrl-z
 # Prezto plugins
 ########################################
 zcomet load prezto init.zsh
-zcomet load prezto modules/ssh
-# zcomet load prezto modules/python
+# zcomet load prezto modules/gpg
 
 ########################################
 # Other Plugins
@@ -49,6 +48,7 @@ zcomet load "zsh-users/zsh-syntax-highlighting"
 zcomet load "zsh-users/zsh-completions"
 zcomet load "pawel-slowik/zsh-term-title"
 zcomet load "jeffreytse/zsh-vi-mode"
+zcomet load "laggardkernel/zsh-gpg-agent"
 
 # Taken from zcomet readme
 zcomet load junegunn/fzf shell completion.zsh key-bindings.zsh

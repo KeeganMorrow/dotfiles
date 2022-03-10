@@ -162,6 +162,10 @@ return require('packer').startup(function(use)
     use {'kergoth/vim-bitbake'}
 
 -- Tool Integration
+    use {'danymat/neogen', config = function()
+            require('neogen').setup {}
+        end
+    }
     use {'numToStr/Navigator.nvim', config = function()
             require('Navigator').setup({
                 auto_save = nil,
@@ -175,7 +179,7 @@ return require('packer').startup(function(use)
             nnoremap("<C-j>", "<CMD>lua require('Navigator').down()<CR>", 'Navigator Down')
         end
     }
-    use {'junegunn/fzf.vim', 'junegunn/fzf', config = function()
+    use {'junegunn/fzf.vim', requires = 'junegunn/fzf', config = function()
             nnoremap('<leader>r', ':History:<CR>', 'FZF History')
             nnoremap('<leader>R', ':History<CR>', 'FZF History' )
             nnoremap('<leader>/', ':History/<CR>', 'FZF History')
