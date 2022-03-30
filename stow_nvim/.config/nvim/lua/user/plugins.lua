@@ -51,6 +51,7 @@ return require('packer').startup(function(use)
         end
     }
 
+    use {'tpope/vim-sleuth'}
     use {'mizlan/iswap.nvim', config = function()
             require('iswap').setup{
                  -- Highlight group for the sniping value (asdf etc.)
