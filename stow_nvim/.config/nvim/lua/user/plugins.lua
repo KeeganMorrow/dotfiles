@@ -141,7 +141,12 @@ return require('packer').startup(function(use)
 -- Syntax plugins
     use {'nvim-treesitter/nvim-treesitter', run= ':TSUpdate', config = function()
         require'nvim-treesitter.configs'.setup {
-            ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+            ensure_installed = {
+                "bash", "c", "c_sharp", "cpp", "cmake", "comment", "commonlisp", "css",
+                "devicetree", "dockerfile", "go", "gomod", "gowork", "glsl", "html", "http",
+                "java", "javascript", "json", "json5", "lua", "make", "ninja", "perl", "python",
+                "rust", "rst", "todotxt", "toml", "typescript", "verilog", "vim", "yaml"
+            },
             ignore_install = {}, -- List of parsers to ignore installing
             highlight = {
                 enable = true,              -- false will disable the whole extension
@@ -303,11 +308,6 @@ return require('packer').startup(function(use)
     }
     use {'folke/todo-comments.nvim'}
     use {'romgrk/barbar.nvim'}
-    use {'windwp/nvim-autopairs', config = function()
-        require('nvim-autopairs').setup({
-            disable_filetype = { "TelescopePrompt" , "vim" },
-        })
-    end}
 
 -- Completion Plugins
     use {'wellle/tmux-complete.vim'}
@@ -371,7 +371,7 @@ return require('packer').startup(function(use)
                     ['<C-e>'] = cmp.mapping.close(),
                     ['<CR>'] = cmp.mapping.confirm {
                         behavior = cmp.ConfirmBehavior.Replace,
-                        select = true,
+                        select = false,
                     },
                     ['<Tab>'] = function(fallback)
                         if vim.fn.pumvisible() == 1 then
@@ -403,18 +403,6 @@ return require('packer').startup(function(use)
                 }
             })
     end}
-
-    use {'glepnir/lspsaga.nvim', config = function()
-        require('lspsaga').init_lsp_saga({
-            error_sign = "",
-            warn_sign = "",
-            hint_sign = "",
-            infor_sign = "",
-            dianostic_header_icon = "﫠",
-            code_action_icon = "﫠",
-        })
-        end
-    }
 
     -- use {'nikvdp/neomux'}
     use {'mhinz/neovim-remote'}

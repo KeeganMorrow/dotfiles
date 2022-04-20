@@ -486,6 +486,9 @@ if (( $+commands[lesspipe] )) ; then
     eval $(lesspipe)
 fi
 
+if (( $+commands[exa] )) ; then
+    alias ls='exa'
+fi
 ############################################################
 # Function to show a binary file in vim
 ############################################################
