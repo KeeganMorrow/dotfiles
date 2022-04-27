@@ -75,6 +75,19 @@ return require('packer').startup(function(use)
         end
     }
 
+    use {'echasnovski/mini.nvim', config = function()
+        require('mini.tabline').setup({
+            show_icons = true,
+            set_vim_settings = true,
+            tabpage_section = 'left'
+        })
+        require('mini.trailspace').setup({
+            only_in_normal_buffers = true,
+        })
+        nnoremap('<leader>W', ':MiniTrailspace.trim<CR>')
+
+    end
+    }
     use {'tpope/vim-sleuth'}
     use {'mizlan/iswap.nvim', config = function()
             require('iswap').setup{
@@ -331,7 +344,6 @@ return require('packer').startup(function(use)
         end
     }
     use {'folke/todo-comments.nvim'}
-    use {'romgrk/barbar.nvim'}
 
 -- Completion Plugins
     use {'wellle/tmux-complete.vim'}
@@ -464,13 +476,6 @@ return require('packer').startup(function(use)
         end
     }
     use {'airblade/vim-rooter'}
-    use {'ntpeters/vim-better-whitespace', config = function()
-            vim.g.better_whitespace_operator='<leader>w'
-            vim.g.better_whitespace_filetypes_blacklist={'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'dashboard', 'startify'}
-
-            nnoremap('<leader>W', ':StripWhitespace<CR>', 'Strip Whitespace')
-        end
-    }
 
 --------------------------------------------------------------------------------
 -- Occasional use only
