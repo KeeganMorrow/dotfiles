@@ -328,6 +328,7 @@ return require('packer').startup(function(use)
     }
     use {'nvim-lua/popup.nvim'}
     use {'nvim-lua/plenary.nvim'}
+    use {'stevearc/dressing.nvim'}
     use {'nvim-telescope/telescope.nvim', config = function()
             nnoremap('<leader>tf', '<cmd>Telescope find_files<cr>')
             nnoremap('<leader>tg', '<cmd>Telescope live_grep<cr>')
