@@ -6,14 +6,22 @@ local lsp_installer = require "nvim-lsp-installer"
 -- Include the servers you want to have installed by default below
 local servers = {
   "bashls",
-  "cmake",
   "clangd",
+  "cmake",
+  "cssls",
+  "dockerls",
+  "eslint",
+  "hls",
+  "html",
   "jsonls",
   "pyright",
+  "rust_analyzer",
   "sumneko_lua",
+  "verible",
   "vimls",
-  "yamlls"
+  "yamlls",
 }
+
 
 for _, name in pairs(servers) do
   local server_is_found, server = lsp_installer.get_server(name)
@@ -25,55 +33,79 @@ for _, name in pairs(servers) do
   end
 end
 
-local function on_attach(client, bufnr)
-  -- Set up buffer-local keymaps (vim.api.nvim_buf_set_keymap()), etc.
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+local enhance_server_opts = {
+    ['sumneko_lua'] = function(options)
+        options.settings = {
+            Lua = {
+                diagnostics = {
+                    globals = { 'vim' },
+                },
+            },
+        }
+    end,
+    ['tsserver'] = function(options)
+        options.on_attach = function(client, bufnr)
+            local ts_utils = require("nvim-lsp-ts-utils")
+            ts_utils.setup({})
+            ts_utils.setup_client(client)
 
-  --Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+            -- no default maps, so you may want to define some here
+            local opts = { silent = true }
+            vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", opts)
+            -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":TSLspRenameFile<CR>", opts)
+            vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", opts)
+      end
+    end,
 
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-    buf_set_keymap('n', '<leader>lD', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', '<leader>lI', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<leader>lt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap("n", "<leader>lF", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    buf_set_keymap("n", "<leader>lr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-
-  -- Set some keybinds conditional on server capabilities
-    if client.resolved_capabilities.document_formatting then
-        buf_set_keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    ['clangd'] = function(options)
+        options.on_attach = function(client, bufnr)
+            client.resolved_capabilities.document_formatting = true
+            client.resolved_capabilities.document_range_formatting = true
+        end
+        options.settings = {
+            format = { enable = true }, -- this will enable formatting
+        }
     end
-    if client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap("v", "<leader>lf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-    end
+}
 
+-- global on_attach
+local on_attach_base = function(client, bufnr)
+    client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.document_range_formatting = false
+end
+
+local enhance_global_opts = function(server, options)
+  local options = {}
+
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  options.capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+  -- server specific configs
+  if enhance_server_opts[server.name] then
+    enhance_server_opts[server.name](options)
+  end
+
+  -- prepend global config options
+  local server_on_attach = options.on_attach
+  options.on_attach = function(client, bufnr)
+    on_attach_base(client, bufnnr)
+
+    require('navigator.lspclient.mapping').setup({
+      client = client,
+      bufnr = bufnr,
+      cap = capabilities,
+    })
+
+    if (server_on_attach) then
+      server_on_attach(client, bufnr)
+    end
+  end
+
+  return options
 end
 
 lsp_installer.on_server_ready(function(server)
-  -- Specify the default options which we'll use to setup all servers
-  local default_opts = {
-    on_attach = on_attach,
-  }
-
-  -- Now we'll create a server_opts table where we'll specify our custom LSP server configuration
-  local server_opts = {
-    -- Provide settings that should only apply to the "eslintls" server
-    ["eslintls"] = function()
-      default_opts.settings = {
-        format = {
-          enable = true,
-                  },
-      }
-    end,
-  }
-
-  -- Use the server's custom settings, if they exist, otherwise default to the default options
-  local server_options = server_opts[server.name] and server_opts[server.name]() or default_opts
-  server:setup(server_options)
+    server:setup(enhance_global_opts(server, options))
 end)
 
 -- Helper function to get and show list of active lsp clients

@@ -359,13 +359,11 @@ return require('packer').startup(function(use)
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-calc",
             "hrsh7th/cmp-vsnip",
-            "onsails/lspkind-nvim"
+            "onsails/lspkind-nvim",
+            "petertriho/cmp-git"
         },
         config = function()
             local has_words_before = function()
-                if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-                    return false
-                end
                 local line, col = unpack(vim.api.nvim_win_get_cursor(0))
                 return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
             end
@@ -374,29 +372,25 @@ return require('packer').startup(function(use)
                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
             end
 
+            require("cmp_git").setup()
+
             local cmp = require('cmp')cmp.setup({
                 snippet = {
                     expand = function(args)
                         vim.fn["vsnip#anonymous"](args.body)
                     end,
                 },
-               formatting = {
-	           format = function(entry, vim_item)
-                       -- fancy icons and a name of kind
-                       vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
-
-	               -- set a name for each source
-	               vim_item.menu = ({
-                       buffer = "[Buffer]",
-                       nvim_lsp = "[LSP]",
-                       luasnip = "[LuaSnip]",
-                       vim_lua = "[Lua]",
-                       latex_symbols = "[Latex]",
-				   })[entry.source.name]
-
-                    return vim_item
-
-                end
+                formatting = {
+                    format = require('lspkind').cmp_format({
+                        mode = "symbol_text",
+                        menu = ({
+                            buffer = "[Buffer]",
+                            nvim_lsp = "[LSP]",
+                            luasnip = "[LuaSnip]",
+                            nvim_lua = "[Lua]",
+                            latex_symbols = "[Latex]",
+                        })
+                    }),
                 },
                 mapping = {
                     ['<C-p>'] = cmp.mapping.select_prev_item(),
@@ -409,24 +403,24 @@ return require('packer').startup(function(use)
                         behavior = cmp.ConfirmBehavior.Replace,
                         select = false,
                     },
-                    ['<Tab>'] = function(fallback)
-                        if vim.fn.pumvisible() == 1 then
-                            feedkey("<C-n>", "n")
-                        elseif vim.fn["vsnip#available"]() == 1 then
+                    ["<Tab>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_next_item()
+                        elseif vim.fn["vsnip#available"](1) == 1 then
                             feedkey("<Plug>(vsnip-expand-or-jump)", "")
+                        elseif has_words_before() then
+                            cmp.complete()
                         else
-                            fallback()
+                            fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
                         end
-                    end,
-                    ['<S-Tab>'] = function(fallback)
-                        if vim.fn.pumvisible() == 1 then
-                            feedkey("<C-p>", "n")
+                    end, { "i", "s" }),
+                    ["<S-Tab>"] = cmp.mapping(function()
+                        if cmp.visible() then
+                            cmp.select_prev_item()
                         elseif vim.fn["vsnip#jumpable"](-1) == 1 then
                             feedkey("<Plug>(vsnip-jump-prev)", "")
-                        else
-                            fallback()
                         end
-                    end,
+                    end, { "i", "s" }),
                 },
                 sources = {
                     { name = 'nvim_lua' },
@@ -435,9 +429,25 @@ return require('packer').startup(function(use)
                     { name = 'path' },
                     { name = 'calc' },
                     { name = 'vsnip' },
-                    { name = 'buffer' }
+                    { name = 'buffer' },
+                    { name = 'git_cmp' }
                 }
             })
+        cmp.setup.filetype('gitcommit', {
+            sources = cmp.config.sources({
+                { name = 'cmp_git' },
+            }, {
+                { name = 'buffer' },
+            })
+        })
+
+        -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+        cmp.setup.cmdline('/', {
+          mapping = cmp.mapping.preset.cmdline(),
+          sources = {
+            { name = 'buffer' }
+          }
+        })
     end}
 
     -- use {'nikvdp/neomux'}
@@ -449,13 +459,96 @@ return require('packer').startup(function(use)
 	    })
         end
     }
+    use {'ray-x/navigator.lua', requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'}, config = function()
+            require('navigator').setup(
+            {
+                lsp_installer = true,
+                default_mapping = false,
+                keymaps = {
+                  { key = '<Leader>lr', func = "require('navigator.reference').async_ref()" },
+                  { mode = 'i', key = '<M-k>', func = 'signature_help()' },
+                  { key = '<c-k>', func = 'signature_help()' },
+                  { key = '<Leader>lS', func = "require('navigator.symbols').document_symbols()" },
+                  { key = '<Leader>ls', func = "require('navigator.workspace').workspace_symbol()" },
+                  { key = '<c-]>', func = "require('navigator.definition').definition()" },
+                  { key = '<Leader>ld', func = "require('navigator.definition').definition()" },
+                  { key = '<Leader>lD', func = "declaration({ border = 'rounded', max_width = 80 })" },
+                  { key = '<Leader>lp', func = "require('navigator.definition').definition_preview()" },
+                  { key = '<Leader>gt', func = "require('navigator.treesitter').buf_ts()" },
+                  { key = '<Leader>gT', func = "require('navigator.treesitter').bufs_ts()" },
+                  { key = 'K', func = 'hover({ popup_opts = { border = single, max_width = 80 }})' },
+                  { key = '<Leader>la', mode = 'n', func = "require('navigator.codeAction').code_action()" },
+                  { key = '<Leader>lA', mode = 'v', func = 'range_code_action()' },
+                  { key = '<Leader>lR', func = "require('navigator.rename').rename()" },
+                  { key = '<Leader>lci', func = 'incoming_calls()' },
+                  { key = '<Leader>lco', func = 'outgoing_calls()' },
+                  { key = '<Leader>li', func = 'implementation()' },
+                  { key = '<Leader>lt', func = 'type_definition()' },
+                  { key = '<Leader>gL', func = "require('navigator.diagnostics').show_diagnostics()" },
+                  { key = '<Leader>D', func = "require('navigator.diagnostics').show_buf_diagnostics()" },
+                  { key = '<Leader>d', func = "require('navigator.diagnostics').toggle_diagnostics()" },
+                  { key = ']d', func = "diagnostic.goto_next({ border = 'rounded', max_width = 80})" },
+                  { key = '[d', func = "diagnostic.goto_prev({ border = 'rounded', max_width = 80})" },
+                  { key = ']O', func = 'diagnostic.set_loclist()' },
+                  { key = ']r', func = "require('navigator.treesitter').goto_next_usage()" },
+                  { key = '[r', func = "require('navigator.treesitter').goto_previous_usage()" },
+                  { key = '<C-LeftMouse>', func = 'definition()' },
+                  { key = 'g<LeftMouse>', func = 'implementation()' },
+                  { key = '<Leader>k', func = "require('navigator.dochighlight').hi_symbol()" },
+                  { key = '<Leader>wa', func = "require('navigator.workspace').add_workspace_folder()" },
+                  { key = '<Leader>wr', func = "require('navigator.workspace').remove_workspace_folder()" },
+                  { key = '<Leader>lf', func = 'formatting()', mode = 'n' },
+                  { key = '<Leader>lf', func = 'range_formatting()', mode = 'v' },
+                  { key = '<Leader>wl', func = "require('navigator.workspace').list_workspace_folders()" },
+                  { key = '<Leader>lA', mode = 'n', func = "require('navigator.codelens').run_action()" },
+                  { key = '<Leader>la', mode = 'n', func = "require('navigator.codeAction').code_action()" },
+                  { key = '<Leader>la', mode = 'v', func = 'range_code_action()' },
+                },
+                icons = {
+                    icons = true, -- set to false to use system default ( if you using a terminal does not have nerd/icon)
+                    -- Code action
+                    code_action_icon = '🏏', -- "",
+                    -- code lens
+                    code_lens_action_icon = '👓',
+                    -- Diagnostics
+                    diagnostic_head = '🐛',
+                    diagnostic_err = '📛',
+                    diagnostic_warn = '👎',
+                    diagnostic_info = [[👩]],
+                    diagnostic_hint = [[💁]],
+
+                    diagnostic_head_severity_1 = '🈲',
+                    diagnostic_head_severity_2 = '☣️',
+                    diagnostic_head_severity_3 = '👎',
+                    diagnostic_head_description = '👹',
+                    diagnostic_virtual_text = '🦊',
+                    diagnostic_file = '🚑',
+                    -- Values
+                    value_changed = '📝',
+                    value_definition = '🐶🍡', -- it is easier to see than 🦕
+                    -- Treesitter
+                    match_kinds = {
+                      var = ' ', -- "👹", -- Vampire
+                      method = 'ƒ ', --  "🍔", -- mac
+                      ['function'] = ' ', -- "🤣", -- Fun
+                      parameter = '  ', -- Pi
+                      associated = '🤝',
+                      namespace = '🚀',
+                      type = ' ',
+                      field = '🏈',
+                    },
+                    treesitter_defult = '🌲',
+                },
+            })
+
+        end
+    }
     use {'ray-x/lsp_signature.nvim', config = function()
         require('lsp_signature').on_attach({
             bind = true, -- This is mandatory, otherwise border config won't get registered.
             handler_opts = {
                 border = "none"
             },
-            use_lspsaga = true
         })
         end
     }
