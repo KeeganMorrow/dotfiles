@@ -128,9 +128,7 @@ if (has("termguicolors"))
 endif
 
 " Set and configure colorscheme
-colorscheme palenight
-" Fix up palenight to have nicer tabs
-hi TabLineSel ctermfg=251 guifg=#bfc7d5 ctermbg=60 guibg=#697098
+colorscheme nightfox
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8

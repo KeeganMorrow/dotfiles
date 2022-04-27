@@ -23,7 +23,31 @@ return require('packer').startup(function(use)
     use {"b0o/mapx.nvim"}
 
 -- Colorschemes
-    use {'ChristianChiarulli/nvcode-color-schemes.vim'}
+    use {'EdenEast/nightfox.nvim', config = function()
+        require('nightfox').setup({
+            options = {
+                transparent = false,
+                terminal_colors = true,
+                dim_inactive = true,
+                styles = {
+                    functions = "bold",
+                    keywords = "bold",
+                    conditional = "italic",
+                },
+                inverse = {
+                    match_paren = false,
+                    visual = true,
+                    search = true,
+                },
+            },
+            palettes = {
+                duskfox = {
+                    bg1 = "#27253f"
+                }
+            },
+        })
+        vim.cmd("colorscheme duskfox")
+    end}
     use {'kyazdani42/nvim-web-devicons', config = function()
         require'nvim-web-devicons'.setup {
             default = true;
@@ -237,7 +261,7 @@ return require('packer').startup(function(use)
     use {'hoob3rt/lualine.nvim', config = function()
         require('lualine').setup ({
             options = {
-                theme = 'palenight'
+                theme = 'duskfox'
             },
             sections = {
                 lualine_a = {{'mode', lower = false}},
