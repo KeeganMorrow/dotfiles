@@ -340,7 +340,7 @@ return require('packer').startup(function(use)
             nnoremap('<leader>ts', '<cmd>Telescope lsp_document_symbols<cr>')
             nnoremap('<leader>tl', '<cmd>Telescope git_bcommits<cr>')
             nnoremap('<leader>tq', '<cmd>Telescope gquickfix<cr>')
-            nnoremap('<leader>z', '<cmd>Telescope spell_suggest<cr>')
+            nnoremap('z=', '<cmd>Telescope spell_suggest<cr>')
         end
     }
     use {'folke/todo-comments.nvim'}
