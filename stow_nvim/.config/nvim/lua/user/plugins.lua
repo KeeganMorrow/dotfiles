@@ -28,7 +28,7 @@ return require('packer').startup(function(use)
             options = {
                 transparent = false,
                 terminal_colors = true,
-                dim_inactive = true,
+                dim_inactive = false,
                 styles = {
                     functions = "bold",
                     keywords = "bold",
@@ -75,12 +75,14 @@ return require('packer').startup(function(use)
         end
     }
 
-    use {'echasnovski/mini.nvim', config = function()
-        require('mini.tabline').setup({
-            show_icons = true,
-            set_vim_settings = true,
-            tabpage_section = 'left'
+    use {"nanozuki/tabby.nvim", config = function()
+        require("tabby").setup({
+            tabline = require("tabby.presets").active_wins_at_tail
         })
+    end,
+    }
+
+    use {'echasnovski/mini.nvim', config = function()
         require('mini.trailspace').setup({
             only_in_normal_buffers = true,
         })
