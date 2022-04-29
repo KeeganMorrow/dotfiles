@@ -133,7 +133,9 @@ return require('packer').startup(function(use)
     use {'tpope/vim-repeat'}
     -- use {'tpope/vim-speeddating'}
 
-    use {'machakann/vim-sandwich'}
+    use {'machakann/vim-sandwich', config = function()
+        vim.api.nvim_command('runtime macros/sandwich/keymap/surround.vim')
+    end}
     use {'tpope/vim-unimpaired'}
     use {'junegunn/vim-slash'}
     use {'b3nj5m1n/kommentary', branch = 'main'}
