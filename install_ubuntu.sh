@@ -63,7 +63,7 @@ if hash fd 2>/dev/null ; then
     echo "fd already installed"
 else
     echo "Installing fd"
-    pushd buildir
+    pushd builddir
     fd_version="8.3.2"
     curl -LO "https://github.com/sharkdp/fd/releases/download/v${fd_version}/fd_${fd_version}_amd64.deb"
     sudo dpkg -i fd_${fd_version}_amd64.deb
