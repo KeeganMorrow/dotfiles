@@ -75,6 +75,36 @@ return require('packer').startup(function(use)
         end
     }
 
+    use {"chentau/marks.nvim", config = function()
+        require('marks').setup({
+            default_mappings=true
+        })
+        end
+    }
+
+    use {"https://github.com/haya14busa/vim-asterisk"}
+
+    use {"kevinhwang91/nvim-hlslens", config = function()
+        require('hlslens').setup({
+            calm_down = true,
+            nearest_float_when = 'always'
+        })
+
+        nmap('*', "<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>")
+        nmap('#', "<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>")
+        nmap('g*', "<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>")
+        nmap('g#', "<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>")
+
+        xmap('*', "<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>")
+        xmap('#', "<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>")
+        xmap('g*', "<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>")
+        xmap('g#', "<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>")
+
+        vim.cmd('let g:asterisk#keeppos = 1')
+
+        end
+    }
+
     use {"nanozuki/tabby.nvim", config = function()
         require("tabby").setup({
             tabline = require("tabby.presets").active_wins_at_tail
@@ -137,7 +167,6 @@ return require('packer').startup(function(use)
         vim.api.nvim_command('runtime macros/sandwich/keymap/surround.vim')
     end}
     use {'tpope/vim-unimpaired'}
-    use {'junegunn/vim-slash'}
     use {'b3nj5m1n/kommentary', branch = 'main'}
     use {'famiu/nvim-reload'}
     use {'kevinhwang91/nvim-bqf'}
@@ -336,7 +365,7 @@ return require('packer').startup(function(use)
     use {'nvim-telescope/telescope.nvim', config = function()
             nnoremap('<leader>tf', '<cmd>Telescope find_files<cr>')
             nnoremap('<leader>tg', '<cmd>Telescope live_grep<cr>')
-            nnoremap('<leader>tb', '<cmd>Telescope buffers<cr>')
+            nnoremap('<leader>b', '<cmd>Telescope buffers<cr>')
             nnoremap('<leader>th', '<cmd>Telescope help_tags<cr>')
             nnoremap('<leader>tD', '<cmd>Telescope lsp_document_diagnostics<cr>')
             nnoremap('<leader>td', '<cmd>Telescope lsp_workspace_diagnostics<cr>')
