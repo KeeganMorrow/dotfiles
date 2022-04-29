@@ -182,62 +182,37 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: true
 
-# Colors (Tomorrow Night Bright)
+# Nightfox Alacritty Colors
+# Style: duskfox
+# Upstream: https://github.com/edeneast/nightfox.nvim/raw/main/extra/duskfox/nightfox_alacritty.yml
 colors:
   # Default colors
   primary:
-    background: '0x292d3e'
-    foreground: '0xeaeaea'
-
-    # (Optional) Bright and Dim foreground colors
-    #
-    # The dimmed foreground color is calculated automatically if it is not present.
-    # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
-    # is `false`, the normal foreground color will be used.
-    #
-    # dim_foreground: '0x9a9a9a'
-    # bright_foreground: '0xffffff'
-
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: '0x000000'
-    cursor: '0xffffff'
-
+    background: '0x232136'
+    foreground: '0xe0def4'
   # Normal colors
   normal:
-    black:   '0x292d3e' # black from palenight
-    red:     '0xbe5046' # darkred from palenight
-    green:   '0xc3e88d' # green from palenight
-    yellow:  '0xffcb6b' # yellow from palenight
-    blue:    '0x82b1ff' # blue from palenight
-    magenta: '0xff5370' # red from palenight
-    cyan:    '0x89ddff' #cyan from palenight
-    white:   '0xbfc7d5' # white from palenight
-
+    black:   '0x393552'
+    red:     '0xeb6f92'
+    green:   '0xa3be8c'
+    yellow:  '0xf6c177'
+    blue:    '0x569fba'
+    magenta: '0xc4a7e7'
+    cyan:    '0x9ccfd8'
+    white:   '0xe0def4'
   # Bright colors
   bright:
-    black:   '0x3e4452'
-    red:     '0xff3334'
-    green:   '0x9ec400'
-    yellow:  '0xe7c547'
-    blue:    '0x7aa6da'
-    magenta: '0xb77ee0'
-    cyan:    '0x54ced6'
-    white:   '0xffffff'
-
-  # Dim colors (Optional)
-  dim:
-    black:   '0x333333'
-    red:     '0xf2777a'
-    green:   '0x99cc99'
-    yellow:  '0xffcc66'
-    blue:    '0x6699cc'
-    magenta: '0xcc99cc'
-    cyan:    '0x66cccc'
-    white:   '0xdddddd'
-
-
-
+    black:   '0x47407d'
+    red:     '0xf083a2'
+    green:   '0xb1d196'
+    yellow:  '0xf9cb8c'
+    blue:    '0x65b1cd'
+    magenta: '0xccb1ed'
+    cyan:    '0xa6dae3'
+    white:   '0xe2e0f7'
+  indexed_colors:
+    - { index: 16, color: '0xea9a97' }
+    - { index: 17, color: '0xeb98c3' }
   # Indexed Colors
   #
   # The indexed colors include all colors from 16 to 256.

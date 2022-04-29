@@ -15,17 +15,14 @@ fi
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
 
 ############################################################
-# Set up Zplug
+# Set up zcomet
 ############################################################
-export ZPLUG_HOME="${HOME}/.zsh/zplug"
-zplug_file="${ZPLUG_HOME}/init.zsh"
-
-if [[ ! -d "${ZPLUG_HOME}" ]]; then
-    git clone https://github.com/zplug/zplug "${ZPLUG_HOME}"
+# Clone zcomet if necessary
+if [[ ! -f ${ZDOTDIR:-${HOME}}/.zcomet/bin/zcomet.zsh ]]; then
+  command git clone https://github.com/agkozak/zcomet.git ${ZDOTDIR:-${HOME}}/.zcomet/bin
 fi
 
-# shellcheck source=/dev/null
-source "${zplug_file}"
+source ${ZDOTDIR:-${HOME}}/.zcomet/bin/zcomet.zsh
 
 ############################################################
 # Plugins
@@ -34,38 +31,34 @@ source "${zplug_file}"
 ########################################
 # Oh-My-Zsh plugins
 ########################################
-zplug "plugins/gitfast",                from:oh-my-zsh
-zplug "plugins/pip",                    from:oh-my-zsh
-zplug "plugins/fancy-ctrl-z",           from:oh-my-zsh
+zcomet load ohmyzsh plugins/gitfast
+zcomet load ohmyzsh plugins/pip
+zcomet load ohmyzsh plugins/fancy-ctrl-z
 
 ########################################
 # Prezto plugins
 ########################################
-zplug "modules/ssh",                    from:prezto
-zplug "modules/python",                 from:prezto
+zcomet load prezto init.zsh
+# zcomet load prezto modules/gpg
 
 ########################################
 # Other Plugins
 ########################################
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-completions"
-zplug "pawel-slowik/zsh-term-title"
-zplug "jeffreytse/zsh-vi-mode"
+zcomet load "zsh-users/zsh-syntax-highlighting"
+zcomet load "zsh-users/zsh-completions"
+zcomet load "pawel-slowik/zsh-term-title"
+zcomet load "jeffreytse/zsh-vi-mode"
+zcomet load "laggardkernel/zsh-gpg-agent"
 
-# This way of loading fzf taken from
-# https://github.com/zplug/zplug/issues/509#issuecomment-464930143
-zplug "junegunn/fzf-bin", \
-    from:gh-r, \
-    as:command, \
-    rename-to:fzf, \
-    use:"*linux*amd64*"
-zplug "junegunn/fzf", as:plugin, use:"shell/*.zsh", defer:2
-zplug "junegunn/fzf", as:command, use:"bin/*"
+# Taken from zcomet readme
+zcomet load junegunn/fzf shell completion.zsh key-bindings.zsh
+(( ${+commands[fzf]} )) || ~[fzf]/install --bin
+
 
 ########################################
 # Themes
 ########################################
-zplug "romkatv/powerlevel10k", as:theme, depth:1
+zcomet load "romkatv/powerlevel10k"
 
 # Enable the transient prompt
 POWERLEVEL9K_TRANSIENT_PROMPT=always
@@ -119,21 +112,6 @@ POWERLEVEL9K_CONTEXT_REMOTE_SUDO_BACKGROUND='red'
 
 # status configuration
 POWERLEVEL9K_STATUS_OK_BACKGROUND='grey'
-
-############################################################
-# More zplug boilerplate
-############################################################
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# Then, source plugins and add commands to $PATH
-zplug load 2>&1 > /dev/null
 
 ############################################################
 # Plugin Configuration
@@ -201,7 +179,7 @@ setopt PROMPT_SUBST
 # Completion Configuration
 ###############################################################################
 
-autoload -U compinit && compinit
+zcomet compinit
 zmodload -i zsh/complist
 ############################################################
 # Completion options
@@ -355,10 +333,9 @@ fzfgf() {
     is_in_git_repo || return
     git -c color.status=always status --short |
     fzf-tmux -m --ansi --nth 2..,.. \
-        --preview '(git diff --color=always -- {-2} | sed 1,4d; bat --color=always --style=numbers --line-range=:500 {-1}) | head -500' |
+        --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1})' |
     cut -c4- | sed 's/.* -> //'
 }
-
 
 ####################
 # List git branches with a log as a preview
@@ -367,7 +344,7 @@ fzfgb() {
   is_in_git_repo || return
   git branch -a --color=always | grep -v '/HEAD\s' | sort |
   fzf-tmux --ansi --multi --tac --preview-window right:70% \
-    --preview 'git log --color=always --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
+    --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
   sed 's/^..//' | cut -d' ' -f1 |
   sed 's#^remotes/##'
 }
@@ -377,9 +354,9 @@ fzfgb() {
 ####################
 fzfgt() {
   is_in_git_repo || return
-  git tag | sort -V --reverse |
+  git tag --sort -version:refname |
   fzf-tmux --multi --preview-window right:70% \
-    --preview 'git show --color=always {} | head -'$LINES
+    --preview 'git show --color=always {}'
 }
 
 ####################
@@ -390,7 +367,7 @@ fzfgu() {
   git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
   fzf-tmux --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
     --header 'Press CTRL-S to toggle sort' \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
   grep -o "[a-f0-9]\{7,\}"
 }
 
@@ -401,7 +378,7 @@ fzfgr() {
   is_in_git_repo || return
   git remote -v | awk '{print $1 "\t" $2}' | uniq |
   fzf-tmux --tac \
-    --preview 'git log --color=always --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
+    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1}' |
   cut -d$'\t' -f1
 }
 
@@ -508,6 +485,9 @@ if (( $+commands[lesspipe] )) ; then
     eval $(lesspipe)
 fi
 
+if (( $+commands[exa] )) ; then
+    alias ls='exa'
+fi
 ############################################################
 # Function to show a binary file in vim
 ############################################################
@@ -694,6 +674,7 @@ _additional_paths=(
 "/usr/sbin"
 "${HOME}/syncsettings/bin"
 "${HOME}/bin/bin"
+"${HOME}/.fzf/bin"
 )
 
 _addpaths _additional_paths > /dev/null
@@ -753,3 +734,5 @@ fi
 # <$TTY >$TTY is needed per powerlevel10k author
 # https://github.com/romkatv/powerlevel10k/issues/388
 stty -ixon <$TTY >$TTY
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -1,4 +1,5 @@
 plugged/*
+plugin/*
 sessions/*
 dein.vim/*
 autoload/*
