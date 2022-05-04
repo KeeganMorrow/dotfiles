@@ -87,6 +87,13 @@ return require("packer").startup(function(use)
 	})
 
 	use({
+		"nacro90/numb.nvim",
+		config = function()
+			require("numb").setup()
+		end,
+	})
+
+	use({
 		"chentau/marks.nvim",
 		config = function()
 			require("marks").setup({
@@ -392,10 +399,14 @@ return require("packer").startup(function(use)
 					lualine_a = { { "mode", lower = false } },
 					lualine_b = { { "branch" } },
 					lualine_c = { { "filename", path = 1 }, { "filetype" }, { "fileformat" }, { "fileencoding" } },
-					lualine_x = { { "diff" }, { connected_lsp_clients }, {
-						"diagnostics",
-						sources = { "nvim_diagnostic" },
-					} },
+					lualine_x = {
+						{ "diff" },
+						{ connected_lsp_clients },
+						{
+							"diagnostics",
+							sources = { "nvim_diagnostic" },
+						},
+					},
 				},
 				extensions = { "quickfix", "fzf" },
 			})
@@ -471,7 +482,12 @@ return require("packer").startup(function(use)
 			nnoremap("z=", "<cmd>Telescope spell_suggest<cr>")
 		end,
 	})
-	use({ "folke/todo-comments.nvim" })
+	use({
+		"folke/todo-comments.nvim",
+		config = function()
+			require("todo-comments").setup({})
+		end,
+	})
 
 	-- Completion Plugins
 	use({ "wellle/tmux-complete.vim" })
