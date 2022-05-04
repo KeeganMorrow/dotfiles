@@ -486,7 +486,7 @@ if (( $+commands[lesspipe] )) ; then
 fi
 
 if (( $+commands[exa] )) ; then
-    alias ls='exa'
+    alias ls='exa --icons'
 fi
 ############################################################
 # Function to show a binary file in vim
