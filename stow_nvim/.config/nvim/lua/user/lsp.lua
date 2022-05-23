@@ -2,6 +2,9 @@
 --------------------------------------------------------------------------------
 --
 local lsp_installer = require("nvim-lsp-installer")
+local lsp_config = require("lspconfig")
+
+lsp_installer.setup{}
 
 -- Include the servers you want to have installed by default below
 local servers = {
@@ -86,6 +89,7 @@ local enhance_global_opts = function(server, options)
 
 	-- prepend global config options
 	local server_on_attach = options.on_attach
+
 	options.on_attach = function(client, bufnr)
 		on_attach_base(client, bufnnr)
 
@@ -103,9 +107,9 @@ local enhance_global_opts = function(server, options)
 	return options
 end
 
-lsp_installer.on_server_ready(function(server)
-	server:setup(enhance_global_opts(server, options))
-end)
+for _, server in ipairs(lsp_installer.get_installed_servers()) do
+  lsp_config[server.name].setup{(enhance_global_opts(server, options))}
+end
 
 -- Helper function to get and show list of active lsp clients
 function connected_lsp_clients()
