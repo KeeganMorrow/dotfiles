@@ -14,7 +14,6 @@ local servers = {
 	"cssls",
 	"dockerls",
 	"eslint",
-	"hls",
 	"html",
 	"jsonls",
 	"pyright",
