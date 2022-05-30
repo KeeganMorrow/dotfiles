@@ -107,7 +107,7 @@ local enhance_global_opts = function(server, options)
 end
 
 for _, server in ipairs(lsp_installer.get_installed_servers()) do
-  lsp_config[server.name].setup{(enhance_global_opts(server, options))}
+  lsp_config[server.name].setup(enhance_global_opts(server, options))
 end
 
 -- Helper function to get and show list of active lsp clients
