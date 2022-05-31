@@ -207,8 +207,8 @@ local enhance_global_opts = function(server, options)
         )
         mapx.nnoremap("<Leader>k", "<cmd> lua require('navigator.dochighlight').hi_symbol()<CR>")
 
-        mapx.nnoremap("<Leader>lf", "formatting()", "LSP Formatting")
-        mapx.vnoremap("<Leader>lf", "range_formatting()", "LSP Range formatting")
+        mapx.nnoremap("<Leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", "LSP Formatting")
+        mapx.vnoremap("<Leader>lf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", "LSP Range formatting")
         mapx.nnoremap(
             "<Leader>lA",
             "<cmd> lua require('navigator.codelens').run_action()<CR>",
