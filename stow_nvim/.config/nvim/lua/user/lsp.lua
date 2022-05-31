@@ -154,22 +154,22 @@ local enhance_global_opts = function(server, options)
 
         mapx.nnoremap(
             "<Leader>lr",
-            "require('navigator.reference').async_ref()",
+            "<cmd> lua require('navigator.reference').async_ref()<CR>",
             "LSP Show References"
         )
         mapx.nnoremap(
             "<Leader>lp",
-            "require('navigator.definition').definition_preview()",
+            "<cmd> lua require('navigator.definition').definition_preview()<CR>",
             "LSP Preview Definition"
         )
         mapx.nnoremap(
             "<Leader>gt",
-            "require('navigator.treesitter').buf_ts()",
+            "<cmd> lua require('navigator.treesitter').buf_ts()<CR>",
             "Treesitter buffer symbols"
         )
         mapx.nnoremap(
             "<Leader>gT",
-            "require('navigator.treesitter').bufs_ts()",
+            "<cmd> lua require('navigator.treesitter').bufs_ts()<CR>",
             "Tresitter symbols"
         )
 
@@ -181,7 +181,7 @@ local enhance_global_opts = function(server, options)
         )
         mapx.nnoremap(
             "<Leader>dd",
-            "require('navigator.diagnostics').toggle_diagnostics()",
+            "<cmd> lua require('navigator.diagnostics').toggle_diagnostics()<CR>",
             "LSP Toggle Diagnostics"
         )
         mapx.nnoremap(
@@ -197,30 +197,43 @@ local enhance_global_opts = function(server, options)
 
         mapx.nnoremap(
             "]r",
-            "require('navigator.treesitter').goto_next_usage()",
+            "<cmd> lua require('navigator.treesitter').goto_next_usage()<CR>",
             "Treesitter Next Usage"
         )
         mapx.nnoremap(
             "[r",
-            "require('navigator.treesitter').goto_previous_usage()",
+            "<cmd> lua require('navigator.treesitter').goto_previous_usage()<CR>",
             "Treesitter Previous Usage"
         )
-        mapx.nnoremap("<Leader>k", "require('navigator.dochighlight').hi_symbol()")
+        mapx.nnoremap("<Leader>k", "<cmd> lua require('navigator.dochighlight').hi_symbol()<CR>")
 
         mapx.nnoremap("<Leader>lf", "formatting()", "LSP Formatting")
         mapx.vnoremap("<Leader>lf", "range_formatting()", "LSP Range formatting")
-        mapx.nnoremap("<Leader>lA", "require('navigator.codelens').run_action()", "LSP Code Lens")
+        mapx.nnoremap(
+            "<Leader>lA",
+            "<cmd> lua require('navigator.codelens').run_action()<CR>",
+            "LSP Code Lens"
+        )
         mapx.nnoremap(
             "<Leader>la",
-            "require('navigator.codeAction').code_action()",
+            "<cmd> lua require('navigator.codeAction').code_action()<CR>",
             "LSP Code Action"
         )
         mapx.vnoremap("<Leader>lA", "range_code_action()", "LSP Range Code Action")
 
-        require("navigator.lspclient.mapping").setup({
-            client = client,
-            bufnr = bufnr,
-            cap = capabilities,
+        vim.api.nvim_create_autocmd("CursorHold", {
+            buffer = bufnr,
+            callback = function()
+                local opts = {
+                    focusable = false,
+                    close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+                    border = "rounded",
+                    source = "always",
+                    prefix = " ",
+                    scope = "cursor",
+                }
+                vim.diagnostic.open_float(nil, opts)
+            end,
         })
 
         if server_on_attach then
