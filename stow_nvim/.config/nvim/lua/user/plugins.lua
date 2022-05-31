@@ -246,6 +246,14 @@ return require("packer").startup(function(use)
         end,
     })
     use({ "tpope/vim-fugitive" })
+
+    use({
+        "akinsho/git-conflict.nvim",
+        config = function()
+            require("git-conflict").setup()
+        end,
+    })
+
     use({ "mhinz/vim-signify" })
 
     -- Syntax plugins
