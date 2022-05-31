@@ -3,6 +3,7 @@
 --
 local lsp_installer = require("nvim-lsp-installer")
 local lsp_config = require("lspconfig")
+local mapx = require("mapx")
 
 lsp_installer.setup({})
 
@@ -91,6 +92,130 @@ local enhance_global_opts = function(server, options)
 
     options.on_attach = function(client, bufnr)
         on_attach_base(client, bufnnr)
+
+        -- Telescope LSP bindings
+        mapx.nnoremap(
+            "<leader>tD",
+            "<cmd>Telescope lsp_document_diagnostics<cr>",
+            "Telescope Doc Diagnostics"
+        )
+        mapx.nnoremap(
+            "<leader>td",
+            "<cmd>Telescope lsp_workspace_diagnostics<cr>",
+            "Telescope WS Diagnostics"
+        )
+        mapx.nnoremap("<leader>tr", "<cmd>Telescope lsp_references<cr>", "Telescope references")
+        mapx.nnoremap(
+            "<leader>ts",
+            "<cmd>Telescope lsp_document_symbols<cr>",
+            "Telescope Doc symbols"
+        )
+        mapx.nnoremap(
+            "<leader>tS",
+            "<cmd>Telescope lsp_workspace_symbols<cr>",
+            "Telescope WS symbols"
+        )
+        -- Question - can we figure out how to jump back?
+
+        -- Trouble LSP bindings
+        mapx.nnoremap("<Leader>lg", ":Trouble document_diagnostics<CR>", "LSP Diagnostics")
+        mapx.nnoremap(
+            "<Leader>lG",
+            ":Trouble workspace_diagnostics<CR>",
+            "LSP Workspace Diagnostics"
+        )
+
+        -- Jump to bindings
+        mapx.nnoremap("<Leader>lR", "<cmd>lua vim.lsp.buf.rename()<CR>", "LSP Rename")
+        mapx.nnoremap("<Leader>lD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "LSP Declaration")
+        mapx.nnoremap("<Leader>ld", "<cmd>lua vim.lsp.buf.definition()<CR>", "LSP Definition")
+        mapx.nnoremap(
+            "<Leader>li",
+            "<cmd>lua vim.lsp.buf.implementation()<CR>",
+            "LSP Implementation"
+        )
+        mapx.nnoremap(
+            "<Leader>lt",
+            "<cmd>lua vim.lsp.buf.type_definition()<CR>",
+            "LSP Type Definition"
+        )
+
+        -- TODO figure out why these don't work
+        mapx.nnoremap(
+            "<Leader>lci",
+            "<cmd>lua vim.lsp.buf.incoming_calls()<CR>",
+            "LSP Incoming Calls"
+        )
+        mapx.nnoremap(
+            "<Leader>lco",
+            "<cmd>lua vim.lsp.buf.incoming_calls()<CR>",
+            "LSP Outgoing Calls"
+        )
+
+        mapx.nnoremap(
+            "<Leader>lr",
+            "require('navigator.reference').async_ref()",
+            "LSP Show References"
+        )
+        mapx.nnoremap(
+            "<Leader>lp",
+            "require('navigator.definition').definition_preview()",
+            "LSP Preview Definition"
+        )
+        mapx.nnoremap(
+            "<Leader>gt",
+            "require('navigator.treesitter').buf_ts()",
+            "Treesitter buffer symbols"
+        )
+        mapx.nnoremap(
+            "<Leader>gT",
+            "require('navigator.treesitter').bufs_ts()",
+            "Tresitter symbols"
+        )
+
+        -- Navigator mappings
+        mapx.nnoremap(
+            "<leader>lh",
+            "hover({ popup_opts = { border = single, max_width = 80 }})",
+            "LSP Hover"
+        )
+        mapx.nnoremap(
+            "<Leader>dd",
+            "require('navigator.diagnostics').toggle_diagnostics()",
+            "LSP Toggle Diagnostics"
+        )
+        mapx.nnoremap(
+            "]d",
+            "diagnostic.goto_next({ border = 'rounded', max_width = 80})",
+            "LSP Next Diagnostic"
+        )
+        mapx.nnoremap(
+            "[d",
+            "diagnostic.goto_prev({ border = 'rounded', max_width = 80})",
+            "LSP Previous Diagnostic"
+        )
+
+        mapx.nnoremap(
+            "]r",
+            "require('navigator.treesitter').goto_next_usage()",
+            "Treesitter Next Usage"
+        )
+        mapx.nnoremap(
+            "[r",
+            "require('navigator.treesitter').goto_previous_usage()",
+            "Treesitter Previous Usage"
+        )
+        mapx.nnoremap("<Leader>k", "require('navigator.dochighlight').hi_symbol()")
+
+        mapx.nnoremap("<Leader>lf", "formatting()", "LSP Formatting")
+        mapx.vnoremap("<Leader>lf", "range_formatting()", "LSP Range formatting")
+        mapx.nnoremap("<Leader>lA", "require('navigator.codelens').run_action()", "LSP Code Lens")
+        mapx.nnoremap(
+            "<Leader>la",
+            "require('navigator.codeAction').code_action()",
+            "LSP Code Action"
+        )
+        mapx.vnoremap("<Leader>lA", "range_code_action()", "LSP Range Code Action")
 
         require("navigator.lspclient.mapping").setup({
             client = client,

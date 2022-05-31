@@ -482,6 +482,7 @@ return require("packer").startup(function(use)
             nnoremap("<leader>tr", "<cmd>Telescope lsp_references<cr>")
             nnoremap("<leader>tS", "<cmd>Telescope treesitter<cr>")
             nnoremap("<leader>ts", "<cmd>Telescope lsp_document_symbols<cr>")
+            nnoremap("<leader>tS", "<cmd>Telescope lsp_workspace_symbols<cr>")
             nnoremap("<leader>tl", "<cmd>Telescope git_bcommits<cr>")
             nnoremap("<leader>tq", "<cmd>Telescope gquickfix<cr>")
             nnoremap("z=", "<cmd>Telescope spell_suggest<cr>")
@@ -629,97 +630,6 @@ return require("packer").startup(function(use)
             require("navigator").setup({
                 lsp_installer = true,
                 default_mapping = false,
-                keymaps = {
-                    { key = "<Leader>lr", func = "require('navigator.reference').async_ref()" },
-                    { mode = "i", key = "<M-k>", func = "signature_help()" },
-                    { key = "<c-k>", func = "signature_help()" },
-                    {
-                        key = "<Leader>lS",
-                        func = "require('navigator.symbols').document_symbols()",
-                    },
-                    {
-                        key = "<Leader>ls",
-                        func = "require('navigator.workspace').workspace_symbol()",
-                    },
-                    { key = "<c-]>", func = "require('navigator.definition').definition()" },
-                    { key = "<Leader>ld", func = "require('navigator.definition').definition()" },
-                    {
-                        key = "<Leader>lD",
-                        func = "declaration({ border = 'rounded', max_width = 80 })",
-                    },
-                    {
-                        key = "<Leader>lp",
-                        func = "require('navigator.definition').definition_preview()",
-                    },
-                    { key = "<Leader>gt", func = "require('navigator.treesitter').buf_ts()" },
-                    { key = "<Leader>gT", func = "require('navigator.treesitter').bufs_ts()" },
-                    {
-                        key = "K",
-                        func = "hover({ popup_opts = { border = single, max_width = 80 }})",
-                    },
-                    {
-                        key = "<Leader>la",
-                        mode = "n",
-                        func = "require('navigator.codeAction').code_action()",
-                    },
-                    { key = "<Leader>lA", mode = "v", func = "range_code_action()" },
-                    { key = "<Leader>lR", func = "require('navigator.rename').rename()" },
-                    { key = "<Leader>lci", func = "incoming_calls()" },
-                    { key = "<Leader>lco", func = "outgoing_calls()" },
-                    { key = "<Leader>li", func = "implementation()" },
-                    { key = "<Leader>lt", func = "type_definition()" },
-                    {
-                        key = "<Leader>gL",
-                        func = "require('navigator.diagnostics').show_diagnostics()",
-                    },
-                    {
-                        key = "<Leader>D",
-                        func = "require('navigator.diagnostics').show_buf_diagnostics()",
-                    },
-                    {
-                        key = "<Leader>d",
-                        func = "require('navigator.diagnostics').toggle_diagnostics()",
-                    },
-                    {
-                        key = "]d",
-                        func = "diagnostic.goto_next({ border = 'rounded', max_width = 80})",
-                    },
-                    {
-                        key = "[d",
-                        func = "diagnostic.goto_prev({ border = 'rounded', max_width = 80})",
-                    },
-                    { key = "]O", func = "diagnostic.set_loclist()" },
-                    { key = "]r", func = "require('navigator.treesitter').goto_next_usage()" },
-                    { key = "[r", func = "require('navigator.treesitter').goto_previous_usage()" },
-                    { key = "<C-LeftMouse>", func = "definition()" },
-                    { key = "g<LeftMouse>", func = "implementation()" },
-                    { key = "<Leader>k", func = "require('navigator.dochighlight').hi_symbol()" },
-                    {
-                        key = "<Leader>wa",
-                        func = "require('navigator.workspace').add_workspace_folder()",
-                    },
-                    {
-                        key = "<Leader>wr",
-                        func = "require('navigator.workspace').remove_workspace_folder()",
-                    },
-                    { key = "<Leader>lf", func = "formatting()", mode = "n" },
-                    { key = "<Leader>lf", func = "range_formatting()", mode = "v" },
-                    {
-                        key = "<Leader>wl",
-                        func = "require('navigator.workspace').list_workspace_folders()",
-                    },
-                    {
-                        key = "<Leader>lA",
-                        mode = "n",
-                        func = "require('navigator.codelens').run_action()",
-                    },
-                    {
-                        key = "<Leader>la",
-                        mode = "n",
-                        func = "require('navigator.codeAction').code_action()",
-                    },
-                    { key = "<Leader>la", mode = "v", func = "range_code_action()" },
-                },
                 icons = {
                     icons = true, -- set to false to use system default ( if you using a terminal does not have nerd/icon)
                     -- Code action
