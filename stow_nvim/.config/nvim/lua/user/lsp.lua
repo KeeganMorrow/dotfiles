@@ -61,8 +61,8 @@ local enhance_server_opts = {
 
     ["clangd"] = function(options)
         options.on_attach = function(client, bufnr)
-            client.resolved_capabilities.document_formatting = true
-            client.resolved_capabilities.document_range_formatting = true
+            client.server_capabilities.document_formatting = true
+            client.server_capabilities.document_range_formatting = true
         end
         options.settings = {
             format = { enable = true }, -- this will enable formatting
@@ -72,8 +72,8 @@ local enhance_server_opts = {
 
 -- global on_attach
 local on_attach_base = function(client, bufnr)
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.document_formatting = false
+    client.server_capabilities.document_range_formatting = false
 end
 
 local enhance_global_opts = function(server, options)
@@ -125,8 +125,8 @@ local enhance_global_opts = function(server, options)
             "LSP Workspace Diagnostics"
         )
 
+        mapx.nnoremap("<Leader>lR", "<cmd>IncRename ", "LSP Rename")
         -- Jump to bindings
-        mapx.nnoremap("<Leader>lR", "<cmd>lua vim.lsp.buf.rename()<CR>", "LSP Rename")
         mapx.nnoremap("<Leader>lD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "LSP Declaration")
         mapx.nnoremap("<Leader>ld", "<cmd>lua vim.lsp.buf.definition()<CR>", "LSP Definition")
         mapx.nnoremap(
@@ -208,7 +208,11 @@ local enhance_global_opts = function(server, options)
         mapx.nnoremap("<Leader>k", "<cmd> lua require('navigator.dochighlight').hi_symbol()<CR>")
 
         mapx.nnoremap("<Leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", "LSP Formatting")
-        mapx.vnoremap("<Leader>lf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", "LSP Range formatting")
+        mapx.vnoremap(
+            "<Leader>lf",
+            "<cmd>lua vim.lsp.buf.range_formatting()<CR>",
+            "LSP Range formatting"
+        )
         mapx.nnoremap(
             "<Leader>lA",
             "<cmd> lua require('navigator.codelens').run_action()<CR>",

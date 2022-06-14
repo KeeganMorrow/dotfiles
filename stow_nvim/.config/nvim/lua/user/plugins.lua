@@ -620,7 +620,12 @@ return require("packer").startup(function(use)
             })
         end,
     })
-
+    use({
+        "smjonas/inc-rename.nvim",
+        config = function()
+            require("inc_rename").setup()
+        end,
+    })
     -- use {'nikvdp/neomux'}
     use({ "mhinz/neovim-remote" })
 
@@ -637,8 +642,11 @@ return require("packer").startup(function(use)
         requires = { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
         config = function()
             require("navigator").setup({
-                lsp_installer = true,
+                lsp_installer = false,
                 default_mapping = false,
+                lsp = {
+                    enable = false,
+                },
             })
         end,
     })
