@@ -125,7 +125,9 @@ local enhance_global_opts = function(server, options)
             "LSP Workspace Diagnostics"
         )
 
-        mapx.nnoremap("<Leader>lR", "<cmd>IncRename ", "LSP Rename")
+        mapx.nnoremap("<Leader>lR", function()
+            return ":IncRename " .. vim.fn.expand("<cword>")
+        end, "expr", "LSP Rename")
         -- Jump to bindings
         mapx.nnoremap("<Leader>lD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "LSP Declaration")
         mapx.nnoremap("<Leader>ld", "<cmd>lua vim.lsp.buf.definition()<CR>", "LSP Definition")
