@@ -227,7 +227,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+l:|=*'
 zstyle ':completion:*' menu select
 
 # Fuzzy match mistyped completions.
-zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*' completer _extensions _complete _match _approximate
 zstyle ':completion:*:match:*' original only
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
  
@@ -246,9 +246,6 @@ zstyle ':completion:*' extra-verbose yes
 # Group completion matches
 zstyle ':completion:*' group-name ''
 
-# Add simple colors to kill
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-
 # Completion Styles
 
 # use completion menu, where select is the number of items needed for the menu
@@ -265,7 +262,7 @@ zstyle ':completion:*:approximate:*' max-errors 3
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:matches' group yes
 zstyle ':completion:*:options' description yes
-zstyle ':completion:*:descriptions' format "$fg[green]%B-- %d --%b"
+zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format "$fg[red]No matches for:$reset_color %d"
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
@@ -278,8 +275,11 @@ zstyle ':completion:*:expand:*' group-order original all-expansions expansions
 # match uppercase from lowercase, and left-side substrings
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+l:|=*'
 
-# command completion: highlight matching part
-zstyle -e ':completion:*:default' list-colors 'reply=( '\''=(#b)('\''$words[CURRENT]'\''|)*-- #(*)=0=38;5;45=38;5;136'\'' '\''=(#b)('\''$words[CURRENT]'\''|)*=0=38;5;45'\'' )'
+# Use ls colors during command completion
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+# Expand // to / instead of /*/
+zstyle ':completion:*' squeeze-slashes true
 
 ############################################################
 # Additional completions
