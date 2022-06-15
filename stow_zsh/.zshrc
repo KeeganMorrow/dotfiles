@@ -654,7 +654,11 @@ function zvm_after_init() {
     bindkey "^p" history-beginning-search-backward
     bindkey -M menuselect "^n" down-history
     bindkey -M menuselect "^p" up-history
+
+    # Fix for fzf completion
+    bindkey '^I' fzf-completion
 }
+
 ################################################################################
 # Exports
 ################################################################################
