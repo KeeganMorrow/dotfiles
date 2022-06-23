@@ -222,12 +222,6 @@ return require("packer").startup(function(use)
     use({ "mattn/vim-textobj-url" })
     -- ic/ac - selects comment
     use({ "glts/vim-textobj-comment" })
-    -- ib/ab - selects block - not working as expected
-    use({ "osyo-manga/vim-textobj-multiblock" })
-    -- if/af - selects indside a function
-    use({ "kana/vim-textobj-function" })
-    -- i,/a, - selects parameter of function signature or call
-    use({ "sgur/vim-textobj-parameter" })
 
     use({ "rhysd/git-messenger.vim" })
     use({
@@ -304,6 +298,33 @@ return require("packer").startup(function(use)
                 },
                 indent = {
                     enable = true,
+                },
+            })
+        end,
+    })
+    use({
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        config = function()
+            require("nvim-treesitter.configs").setup({
+                textobjects = {
+                    select = {
+                        enable = true,
+
+                        -- Automatically jump forward to textobj, similar to targets.vim
+                        lookahead = true,
+
+                        keymaps = {
+                            -- You can use the capture groups defined in textobjects.scm
+                            ["ab"] = "@block.outer",
+                            ["ib"] = "@block.inner",
+                            ["af"] = "@function.outer",
+                            ["if"] = "@function.inner",
+                            ["ac"] = "@class.outer",
+                            ["ic"] = "@class.inner",
+                            ["a,"] = "@parameter.outer",
+                            ["i,"] = "@parameter.inner",
+                        },
+                    },
                 },
             })
         end,
