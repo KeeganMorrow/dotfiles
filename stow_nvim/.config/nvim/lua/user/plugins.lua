@@ -366,14 +366,9 @@ return require("packer").startup(function(use)
         "junegunn/fzf.vim",
         requires = "junegunn/fzf",
         config = function()
-            nnoremap("<leader>r", ":History:<CR>", "FZF History")
-            nnoremap("<leader>R", ":History<CR>", "FZF History")
-            nnoremap("<leader>/", ":History/<CR>", "FZF History")
-            nnoremap("<leader>t", ":Files<CR>", "FZF Files")
             nnoremap("<leader>g", ":GFiles?<CR>", "FZF Git Files")
             nnoremap("<leader>G", ":GFiles<CR>", "FZF Git Files")
             nnoremap("<leader><c-t>", ":BTags<CR>", "FZF Buffer Tags")
-            nnoremap("<leader>T", ":Tags<CR>", "FZF Tags")
             nnoremap("<leader>m", ":Marks<CR>", "FZF Marks")
             nnoremap("<leader>B", ":Buffers<CR>", "FZF Buffers")
 
@@ -503,19 +498,43 @@ return require("packer").startup(function(use)
     use({
         "nvim-telescope/telescope.nvim",
         config = function()
-            nnoremap("<leader>tf", "<cmd>Telescope find_files<cr>")
-            nnoremap("<leader>tg", "<cmd>Telescope live_grep<cr>")
-            nnoremap("<leader>b", "<cmd>Telescope buffers<cr>")
-            nnoremap("<leader>th", "<cmd>Telescope help_tags<cr>")
-            nnoremap("<leader>tD", "<cmd>Telescope lsp_document_diagnostics<cr>")
-            nnoremap("<leader>td", "<cmd>Telescope lsp_workspace_diagnostics<cr>")
-            nnoremap("<leader>tr", "<cmd>Telescope lsp_references<cr>")
-            nnoremap("<leader>tS", "<cmd>Telescope treesitter<cr>")
-            nnoremap("<leader>ts", "<cmd>Telescope lsp_document_symbols<cr>")
-            nnoremap("<leader>tS", "<cmd>Telescope lsp_workspace_symbols<cr>")
-            nnoremap("<leader>tl", "<cmd>Telescope git_bcommits<cr>")
-            nnoremap("<leader>tq", "<cmd>Telescope gquickfix<cr>")
-            nnoremap("z=", "<cmd>Telescope spell_suggest<cr>")
+            nnoremap("<leader>r", "<cmd>Telescope command_history<CR>", "Telescope Command History")
+            nnoremap("<leader>/", "<cmd>Telescope search_history", "Telescope Search History")
+            nnoremap(
+                "<leader>R",
+                "<cmd>Telescope quickfix_history<CR>",
+                "Telescope Quickfix History"
+            )
+            nnoremap("<leader>f", "<cmd>Telescope find_files<cr>", "Telescope Find Files")
+            nnoremap("<leader>tg", "<cmd>Telescope live_grep<cr>", "Telescope Live Grep")
+            nnoremap("<leader>b", "<cmd>Telescope buffers<cr>", "Buffers")
+            nnoremap("<leader>th", "<cmd>Telescope help_tags<cr>", "Telescope Help")
+            nnoremap("<leader>tm", "<cmd>Telescope marks<cr>", "Telescope Marks")
+            nnoremap(
+                "<leader>tD",
+                "<cmd>Telescope lsp_document_diagnostics<cr>",
+                "Telescope LSP Doc Diagnostics"
+            )
+            nnoremap(
+                "<leader>td",
+                "<cmd>Telescope lsp_workspace_diagnostics<cr>",
+                "Telescope LSP WS Diagnostics"
+            )
+            nnoremap("<leader>tr", "<cmd>Telescope lsp_references<cr>", "Telescope LSP References")
+            nnoremap("<leader>tS", "<cmd>Telescope treesitter<cr>", "Telescope Treesitter")
+            nnoremap(
+                "<leader>ts",
+                "<cmd>Telescope lsp_document_symbols<cr>",
+                "Telescope LSP Document Symbols"
+            )
+            nnoremap(
+                "<leader>tS",
+                "<cmd>Telescope lsp_workspace_symbols<cr>",
+                "Telescope LSP Workspace Symbols"
+            )
+            nnoremap("<leader>tl", "<cmd>Telescope git_bcommits<cr>", "Telescope Git BCommits")
+            nnoremap("<leader>tq", "<cmd>Telescope gquickfix<cr>", "Telescope Quickfix")
+            nnoremap("z=", "<cmd>Telescope spell_suggest<cr>", "Telescope spelling fix")
         end,
     })
     use({
