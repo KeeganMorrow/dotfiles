@@ -427,7 +427,7 @@ return require("packer").startup(function(use)
                         { "filename", path = 1 },
                         { "filetype" },
                         { "fileformat" },
-                        { "fileencoding" },
+                        { "encoding" },
                     },
                     lualine_x = {
                         { "diff" },
