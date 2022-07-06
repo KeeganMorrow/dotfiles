@@ -154,60 +154,13 @@ local enhance_global_opts = function(server, options)
             "LSP Outgoing Calls"
         )
 
-        mapx.nnoremap(
-            "<Leader>lr",
-            "<cmd> lua require('navigator.reference').async_ref()<CR>",
-            "LSP Show References"
-        )
-        mapx.nnoremap(
-            "<Leader>lp",
-            "<cmd> lua require('navigator.definition').definition_preview()<CR>",
-            "LSP Preview Definition"
-        )
-        mapx.nnoremap(
-            "<Leader>gt",
-            "<cmd> lua require('navigator.treesitter').buf_ts()<CR>",
-            "Treesitter buffer symbols"
-        )
-        mapx.nnoremap(
-            "<Leader>gT",
-            "<cmd> lua require('navigator.treesitter').bufs_ts()<CR>",
-            "Tresitter symbols"
-        )
+        mapx.nnoremap("<Leader>lr", "<cmd>Lspsaga lsp_finder<CR>", "LSP Show References")
+        mapx.nnoremap("<Leader>lp", "<cmd>Lspsaga preview_definition<CR>", "LSP Preview Definition")
 
-        -- Navigator mappings
-        mapx.nnoremap(
-            "<leader>lh",
-            "hover({ popup_opts = { border = single, max_width = 80 }})",
-            "LSP Hover"
-        )
-        mapx.nnoremap(
-            "<Leader>dd",
-            "<cmd> lua require('navigator.diagnostics').toggle_diagnostics()<CR>",
-            "LSP Toggle Diagnostics"
-        )
-        mapx.nnoremap(
-            "]d",
-            "diagnostic.goto_next({ border = 'rounded', max_width = 80})",
-            "LSP Next Diagnostic"
-        )
-        mapx.nnoremap(
-            "[d",
-            "diagnostic.goto_prev({ border = 'rounded', max_width = 80})",
-            "LSP Previous Diagnostic"
-        )
-
-        mapx.nnoremap(
-            "]r",
-            "<cmd> lua require('navigator.treesitter').goto_next_usage()<CR>",
-            "Treesitter Next Usage"
-        )
-        mapx.nnoremap(
-            "[r",
-            "<cmd> lua require('navigator.treesitter').goto_previous_usage()<CR>",
-            "Treesitter Previous Usage"
-        )
-        mapx.nnoremap("<Leader>k", "<cmd> lua require('navigator.dochighlight').hi_symbol()<CR>")
+        mapx.nnoremap("K", "<cmd>Lspsaga hover_doc<CR>", "LSP Hover")
+        mapx.nnoremap("<leader>le", "<cmd>Lspsaga show_line_diagnostics<CR>", "LSP Hover")
+        mapx.nnoremap("]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", "LSP Next Diagnostic")
+        mapx.nnoremap("[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", "LSP Previous Diagnostic")
 
         mapx.nnoremap("<Leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", "LSP Formatting")
         mapx.vnoremap(
@@ -215,32 +168,8 @@ local enhance_global_opts = function(server, options)
             "<cmd>lua vim.lsp.buf.range_formatting()<CR>",
             "LSP Range formatting"
         )
-        mapx.nnoremap(
-            "<Leader>lA",
-            "<cmd> lua require('navigator.codelens').run_action()<CR>",
-            "LSP Code Lens"
-        )
-        mapx.nnoremap(
-            "<Leader>la",
-            "<cmd> lua require('navigator.codeAction').code_action()<CR>",
-            "LSP Code Action"
-        )
-        mapx.vnoremap("<Leader>lA", "range_code_action()", "LSP Range Code Action")
-
-        vim.api.nvim_create_autocmd("CursorHold", {
-            buffer = bufnr,
-            callback = function()
-                local opts = {
-                    focusable = false,
-                    close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-                    border = "rounded",
-                    source = "always",
-                    prefix = " ",
-                    scope = "cursor",
-                }
-                vim.diagnostic.open_float(nil, opts)
-            end,
-        })
+        mapx.nnoremap("<Leader>la", "<cmd>Lspsaga code_action<CR>", "LSP Code Action")
+        mapx.vnoremap("<Leader>la", "<cmd>Lspsaga code_action<CR>", "LSP Range Code Action")
 
         if server_on_attach then
             server_on_attach(client, bufnr)
@@ -264,4 +193,19 @@ function connected_lsp_clients()
     end
 
     return table.concat(clients, " ")
+end
+
+-- Configure diagnostics
+vim.diagnostic.config({
+    virtual_text = false,
+    signs = true,
+    underline = true,
+    severity_sort = false,
+})
+
+-- Configure diagnostic signs
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = "ﴞ " }
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end

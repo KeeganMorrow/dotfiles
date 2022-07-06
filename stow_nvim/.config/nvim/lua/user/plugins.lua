@@ -346,6 +346,7 @@ return require("packer").startup(function(use)
             require("neogen").setup({})
         end,
     })
+
     use({
         "numToStr/Navigator.nvim",
         config = function()
@@ -677,19 +678,24 @@ return require("packer").startup(function(use)
             })
         end,
     })
+
     use({
-        "ray-x/navigator.lua",
-        requires = { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
+        "glepnir/lspsaga.nvim",
         config = function()
-            require("navigator").setup({
-                lsp_installer = false,
-                default_mapping = false,
-                lsp = {
-                    enable = false,
-                },
+            require("lspsaga").init_lsp_saga({
+                diagnostic_header = { " ", " ", " ", "ﴞ " },
+                code_action_icon = "💡",
             })
         end,
     })
+
+    use({
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        config = function()
+            require("lsp_lines").register_lsp_virtual_lines()
+        end,
+    })
+
     use({
         "ray-x/lsp_signature.nvim",
         config = function()
@@ -698,6 +704,7 @@ return require("packer").startup(function(use)
                 handler_opts = {
                     border = "none",
                 },
+                use_lspsaga = true,
             })
         end,
     })
