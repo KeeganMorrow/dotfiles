@@ -330,6 +330,87 @@ return require("packer").startup(function(use)
         end,
     })
     use({
+        "ThePrimeagen/refactoring.nvim",
+        config = function()
+            require("refactoring").setup({})
+
+            -- load refactoring Telescope extension
+            require("telescope").load_extension("refactoring")
+
+            vim.api.nvim_set_keymap(
+                "v",
+                "<leader>rr",
+                "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
+                { noremap = true }
+            )
+
+            nnoremap(
+                "<leader>rp",
+                ":lua require('refactoring').debug.printf({below = false})<CR>",
+                "Refactor Print Above"
+            )
+
+            nnormap(
+                "n",
+                "<leader>rv",
+                ":lua require('refactoring').debug.print_var({ normal = true })<CR>",
+                "Refactor Print Variable"
+            )
+
+            vnoremap(
+                "v",
+                "<leader>rv",
+                ":lua require('refactoring').debug.print_var({})<CR>",
+                "Refactor Print Variable"
+            )
+
+            nnoremap(
+                "n",
+                "<leader>rc",
+                ":lua require('refactoring').debug.cleanup({})<CR>",
+                "Refactor Print Cleanup"
+            )
+
+            vnoremap(
+                "<leader>re",
+                [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],
+                "Extract Function"
+            )
+            vnoremap(
+                "<leader>rf",
+                [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]],
+                "Extract Function To File"
+            )
+            vnoremap(
+                "<leader>rv",
+                [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]],
+                "Extract Variable"
+            )
+            vnoremap(
+                "<leader>ri",
+                [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],
+                "Inline Variable"
+            )
+
+            nnoremap(
+                "<leader>rb",
+                [[ <Cmd>lua require('refactoring').refactor('Extract Block')<CR>]],
+                "Extract Block"
+            )
+            nnoremap(
+                "<leader>rbf",
+                [[ <Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>]],
+                "Extract Block to File"
+            )
+
+            nnoremap(
+                "<leader>ri",
+                [[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],
+                "Inline Variable"
+            )
+        end,
+    })
+    use({
         "lewis6991/spellsitter.nvim",
         config = function()
             require("spellsitter").setup()
