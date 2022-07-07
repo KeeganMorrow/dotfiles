@@ -141,7 +141,7 @@ return require("packer").startup(function(use)
             require("mini.trailspace").setup({
                 only_in_normal_buffers = true,
             })
-            nnoremap("<leader>W", ":MiniTrailspace.trim<CR>")
+            nnoremap("<leader>W", ":MiniTrailspace.trim<CR>", "Trim whitespace")
         end,
     })
     use({ "tpope/vim-sleuth" })
@@ -499,7 +499,7 @@ return require("packer").startup(function(use)
     use({
         "nvim-telescope/telescope.nvim",
         config = function()
-            nnoremap("<leader>r", "<cmd>Telescope command_history<CR>", "Telescope Command History")
+            nnoremap("<leader>q", "<cmd>Telescope command_history<CR>", "Telescope Command History")
             nnoremap("<leader>/", "<cmd>Telescope search_history", "Telescope Search History")
             nnoremap(
                 "<leader>R",
