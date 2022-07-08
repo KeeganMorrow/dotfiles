@@ -144,7 +144,12 @@ return require("packer").startup(function(use)
             nnoremap("<leader>W", ":MiniTrailspace.trim<CR>", "Trim whitespace")
         end,
     })
-    use({ "tpope/vim-sleuth" })
+    use({
+        "nmac427/guess-indent.nvim",
+        config = function()
+            require("guess-indent").setup({})
+        end,
+    })
     use({
         "mizlan/iswap.nvim",
         config = function()
