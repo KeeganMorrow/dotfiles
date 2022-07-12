@@ -355,22 +355,19 @@ return require("packer").startup(function(use)
                 "Refactor Print Above"
             )
 
-            nnormap(
-                "n",
+            nnoremap(
                 "<leader>rv",
                 ":lua require('refactoring').debug.print_var({ normal = true })<CR>",
                 "Refactor Print Variable"
             )
 
             vnoremap(
-                "v",
                 "<leader>rv",
                 ":lua require('refactoring').debug.print_var({})<CR>",
                 "Refactor Print Variable"
             )
 
             nnoremap(
-                "n",
                 "<leader>rc",
                 ":lua require('refactoring').debug.cleanup({})<CR>",
                 "Refactor Print Cleanup"

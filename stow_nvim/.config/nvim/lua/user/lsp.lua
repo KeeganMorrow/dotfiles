@@ -201,6 +201,7 @@ vim.diagnostic.config({
     signs = true,
     underline = true,
     severity_sort = false,
+    update_in_insert = true,
 })
 
 -- Configure diagnostic signs
