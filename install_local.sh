@@ -44,7 +44,7 @@ else
     cargo install ripgrep
 fi
 
-if hash exa 2>dev/null; then
+if hash exa 2>/dev/null; then
     echo "exa already installed"
 else
     echo "Installing exa"
