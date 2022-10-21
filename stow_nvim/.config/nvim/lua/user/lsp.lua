@@ -23,6 +23,7 @@ local servers = {
     "verible",
     "vimls",
     "yamlls",
+    "solargraph"
 }
 
 for _, name in pairs(servers) do
@@ -79,8 +80,7 @@ end
 local enhance_global_opts = function(server, options)
     local options = {}
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    options.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+    options.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
     -- server specific configs
     if enhance_server_opts[server.name] then
@@ -162,10 +162,24 @@ local enhance_global_opts = function(server, options)
         mapx.nnoremap("]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", "LSP Next Diagnostic")
         mapx.nnoremap("[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", "LSP Previous Diagnostic")
 
-        mapx.nnoremap("<Leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", "LSP Formatting")
+        mapx.nnoremap("<Leader>lf", "<cmd>lua vim.lsp.buf.format{async=true}<CR>", "LSP Formatting")
+
+        function format_range_operator()
+            local old_func = vim.go.operatorfunc
+            _G.op_func_formatting = function()
+                local start = vim.api.nvim_buf_get_mark(0, '[')
+                local finish = vim.api.nvim_buf_get_mark(0, ']')
+                vim.lsp.buf.range_formatting({}, start, finish)
+                vim.go.operatorfunc = old_func
+                _G.op_func_formatting = nil
+            end
+            vim.go.operatorfunc = 'v:lua.op_func_formatting'
+            vim.api.nvim_feedkeys('g@', 'n', false)
+        end
+
         mapx.vnoremap(
             "<Leader>lf",
-            "<cmd>lua vim.lsp.buf.range_formatting()<CR>",
+            "<cmd>lua format_range_operator()<CR>",
             "LSP Range formatting"
         )
         mapx.nnoremap("<Leader>la", "<cmd>Lspsaga code_action<CR>", "LSP Code Action")
