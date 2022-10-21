@@ -50,3 +50,9 @@ else
     echo "Installing exa"
     cargo install exa
 fi
+if hash tree-sitter 2>/dev/null; then
+    echo "tree-sitter already installed"
+else
+    echo "Installing tree-sitter"
+    cargo install tree-sitter-cli
+fi
