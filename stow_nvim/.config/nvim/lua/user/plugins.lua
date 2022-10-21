@@ -578,7 +578,20 @@ return require("packer").startup(function(use)
     })
     use({ "nvim-lua/popup.nvim" })
     use({ "nvim-lua/plenary.nvim" })
-    use({ "stevearc/dressing.nvim" })
+    use({
+        "stevearc/dressing.nvim",
+        config = function()
+            require("dressing").setup({
+                input = {
+                    override = function(conf)
+                        conf.col = -1
+                        conf.row = 0
+                        return conf
+                    end,
+                },
+            })
+        end,
+    })
     use({
         "nvim-telescope/telescope.nvim",
         config = function()
@@ -626,6 +639,34 @@ return require("packer").startup(function(use)
         config = function()
             require("todo-comments").setup({})
         end,
+    })
+
+    -- Packer
+    use({
+        "folke/noice.nvim",
+        event = "VimEnter",
+        config = function()
+            require("noice").setup({
+                cmdline = {
+                    view = "cmdline",
+                },
+                popupmenu = {
+                    enabled = true,
+                    backend = "cmp",
+                },
+                lsp_progress = {
+                    enabled = true,
+                },
+            })
+        end,
+        requires = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "rcarriga/nvim-notify",
+        },
     })
 
     -- Completion Plugins
@@ -742,12 +783,19 @@ return require("packer").startup(function(use)
                     { name = "buffer" },
                 },
             })
+            require("cmp").setup.cmdline(":", {
+                sources = {
+                    { name = "cmdline" },
+                },
+            })
         end,
     })
     use({
         "smjonas/inc-rename.nvim",
         config = function()
-            require("inc_rename").setup()
+            require("inc_rename").setup({
+                input_buffer_type = "dressing",
+            })
         end,
     })
     -- use {'nikvdp/neomux'}
@@ -763,19 +811,21 @@ return require("packer").startup(function(use)
     })
 
     use({
+        "phaazon/mind.nvim",
+        branch = "v2",
+        requires = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("mind").setup()
+        end,
+    })
+
+    use({
         "glepnir/lspsaga.nvim",
         config = function()
             require("lspsaga").init_lsp_saga({
                 diagnostic_header = { " ", " ", " ", "ﴞ " },
                 code_action_icon = "💡",
             })
-        end,
-    })
-
-    use({
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        config = function()
-            require("lsp_lines").setup()
         end,
     })
 
