@@ -72,7 +72,8 @@ end
 local enhance_global_opts = function(server_name, options)
     local options = {}
 
-    options.capabilities = require("cmp_nvim_lsp").default_capabilities()
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    options.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
     -- server specific configs
     if enhance_server_opts[server_name] then
