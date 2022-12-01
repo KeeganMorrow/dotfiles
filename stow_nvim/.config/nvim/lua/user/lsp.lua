@@ -1,40 +1,32 @@
 -- Set up Language Server Protocol
 --------------------------------------------------------------------------------
 --
-local lsp_installer = require("nvim-lsp-installer")
-local lsp_config = require("lspconfig")
+local mason_lspconfig = require("mason-lspconfig")
+local mason = require("mason")
 local mapx = require("mapx")
+local lsp_config = require("lspconfig")
 
-lsp_installer.setup({})
-
--- Include the servers you want to have installed by default below
-local servers = {
-    "bashls",
-    "clangd",
-    "cmake",
-    "cssls",
-    "dockerls",
-    "eslint",
-    "html",
-    "jsonls",
-    "pyright",
-    "rust_analyzer",
-    "sumneko_lua",
-    "verible",
-    "vimls",
-    "yamlls",
-    "solargraph"
-}
-
-for _, name in pairs(servers) do
-    local server_is_found, server = lsp_installer.get_server(name)
-    if server_is_found then
-        if not server:is_installed() then
-            print("Installing " .. name)
-            server:install()
-        end
-    end
-end
+mason.setup()
+mason_lspconfig.setup({
+    ensure_installed = {
+        "bashls",
+        "clangd",
+        "cmake",
+        "cssls",
+        "dockerls",
+        "eslint",
+        "html",
+        "jsonls",
+        "pyright",
+        "rust_analyzer",
+        "sumneko_lua",
+        "verible",
+        "vimls",
+        "yamlls",
+        "solargraph",
+    },
+    automatic_installation = true,
+})
 
 local enhance_server_opts = {
     ["sumneko_lua"] = function(options)
@@ -77,14 +69,14 @@ local on_attach_base = function(client, bufnr)
     client.server_capabilities.document_range_formatting = false
 end
 
-local enhance_global_opts = function(server, options)
+local enhance_global_opts = function(server_name, options)
     local options = {}
 
     options.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
     -- server specific configs
-    if enhance_server_opts[server.name] then
-        enhance_server_opts[server.name](options)
+    if enhance_server_opts[server_name] then
+        enhance_server_opts[server_name](options)
     end
 
     -- prepend global config options
@@ -167,21 +159,17 @@ local enhance_global_opts = function(server, options)
         function format_range_operator()
             local old_func = vim.go.operatorfunc
             _G.op_func_formatting = function()
-                local start = vim.api.nvim_buf_get_mark(0, '[')
-                local finish = vim.api.nvim_buf_get_mark(0, ']')
+                local start = vim.api.nvim_buf_get_mark(0, "[")
+                local finish = vim.api.nvim_buf_get_mark(0, "]")
                 vim.lsp.buf.range_formatting({}, start, finish)
                 vim.go.operatorfunc = old_func
                 _G.op_func_formatting = nil
             end
-            vim.go.operatorfunc = 'v:lua.op_func_formatting'
-            vim.api.nvim_feedkeys('g@', 'n', false)
+            vim.go.operatorfunc = "v:lua.op_func_formatting"
+            vim.api.nvim_feedkeys("g@", "n", false)
         end
 
-        mapx.vnoremap(
-            "<Leader>lf",
-            "<cmd>lua format_range_operator()<CR>",
-            "LSP Range formatting"
-        )
+        mapx.vnoremap("<Leader>lf", "<cmd>lua format_range_operator()<CR>", "LSP Range formatting")
         mapx.nnoremap("<Leader>la", "<cmd>Lspsaga code_action<CR>", "LSP Code Action")
         mapx.vnoremap("<Leader>la", "<cmd>Lspsaga code_action<CR>", "LSP Range Code Action")
 
@@ -193,9 +181,12 @@ local enhance_global_opts = function(server, options)
     return options
 end
 
-for _, server in ipairs(lsp_installer.get_installed_servers()) do
-    lsp_config[server.name].setup(enhance_global_opts(server, options))
-end
+mason_lspconfig.setup_handlers({
+    function(server_name)
+        lsp_config[server_name].setup(enhance_global_opts(server_name, options))
+    end,
+    {},
+})
 
 -- Helper function to get and show list of active lsp clients
 function connected_lsp_clients()

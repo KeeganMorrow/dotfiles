@@ -671,9 +671,11 @@ return require("packer").startup(function(use)
 
     -- Completion Plugins
     use({ "wellle/tmux-complete.vim" })
-    -- if has('nvim')
-    --
-    use({ "neovim/nvim-lspconfig", "williamboman/nvim-lsp-installer" })
+    use({
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+    })
     use({
         "hrsh7th/nvim-cmp",
         requires = {
@@ -692,7 +694,8 @@ return require("packer").startup(function(use)
             local has_words_before = function()
                 local line, col = unpack(vim.api.nvim_win_get_cursor(0))
                 return col ~= 0
-                    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+                    and vim.api
+                            .nvim_buf_get_lines(0, line - 1, line, true)[1]
                             :sub(col, col)
                             :match("%s")
                         == nil
