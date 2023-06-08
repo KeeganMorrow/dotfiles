@@ -418,12 +418,6 @@ return require("packer").startup(function(use)
             )
         end,
     })
-    use({
-        "lewis6991/spellsitter.nvim",
-        config = function()
-            require("spellsitter").setup()
-        end,
-    })
 
     use({ "ekalinin/Dockerfile.vim" })
     use({ "kergoth/vim-bitbake" })
@@ -504,7 +498,7 @@ return require("packer").startup(function(use)
         end,
     })
     use({
-        "hoob3rt/lualine.nvim",
+        "nvim-lualine/lualine.nvim",
         config = function()
             require("lualine").setup({
                 options = {
@@ -803,11 +797,26 @@ return require("packer").startup(function(use)
                     { name = "buffer" },
                 },
             })
-            require("cmp").setup.cmdline(":", {
+            cmp.setup.cmdline(":", {
                 sources = {
                     { name = "cmdline" },
                 },
             })
+            cmp.setup {
+                sorting = {
+                    comparators = {
+                        cmp.config.compare.offset,
+                        cmp.config.compare.exact,
+                        cmp.config.compare.score,
+                        cmp.config.compare.recently_used,
+                        cmp.config.compare.locality,
+                        cmp.config.compare.kind,
+                        cmp.config.compare.sort_text,
+                        cmp.config.compare.length,
+                        cmp.config.compare.order,
+                    },
+                },
+            }
         end,
     })
     use({
@@ -842,7 +851,7 @@ return require("packer").startup(function(use)
     use({
         "glepnir/lspsaga.nvim",
         config = function()
-            require("lspsaga").init_lsp_saga({
+            require("lspsaga").setup({
                 diagnostic_header = { " ", " ", " ", "ﴞ " },
                 code_action_icon = "💡",
             })
