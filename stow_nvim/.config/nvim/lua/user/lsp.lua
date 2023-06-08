@@ -11,6 +11,7 @@ mason_lspconfig.setup({
     ensure_installed = {
         "bashls",
         "clangd",
+        "ccls",
         "cmake",
         "cssls",
         "dockerls",

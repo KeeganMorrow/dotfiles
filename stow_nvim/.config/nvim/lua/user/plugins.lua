@@ -497,6 +497,16 @@ return require("packer").startup(function(use)
             require("luatab").setup({})
         end,
     })
+
+    local treesitter = require('nvim-treesitter')
+    local function treelocation()
+        return treesitter.statusline({
+            indicator_size = 70,
+            type_patterns = { 'class', 'function', 'method' },
+            separator = ' -> '
+        })
+    end
+
     use({
         "nvim-lualine/lualine.nvim",
         config = function()
@@ -575,6 +585,7 @@ return require("packer").startup(function(use)
             require("trouble").setup({
                 indent_lines = true,
             })
+            nnoremap("<leader>lE", "<cmd>TroubleToggle<CR>", "Trouble Diagnostics")
         end,
     })
     use({ "nvim-lua/popup.nvim" })
