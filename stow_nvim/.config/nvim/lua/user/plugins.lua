@@ -298,8 +298,8 @@ return require("packer").startup(function(use)
                 },
                 ignore_install = {}, -- List of parsers to ignore installing
                 highlight = {
-                    enable = true, -- false will disable the whole extension
-                    disable = {}, -- list of language that will be disabled
+                    enable = true,   -- false will disable the whole extension
+                    disable = {},    -- list of language that will be disabled
                 },
                 indent = {
                     enable = true,
@@ -333,6 +333,12 @@ return require("packer").startup(function(use)
                 },
             })
         end,
+    })
+    use({
+        'nvim-treesitter/nvim-treesitter-context',
+        config = function()
+            require("treesitter-context").setup({})
+        end
     })
     use({
         "ThePrimeagen/refactoring.nvim",
@@ -508,10 +514,11 @@ return require("packer").startup(function(use)
                     lualine_a = { { "mode", lower = false } },
                     lualine_b = { { "branch" } },
                     lualine_c = {
-                        { "filename", path = 1 },
+                        { "filename",  path = 1 },
                         { "filetype" },
                         { "fileformat" },
                         { "encoding" },
+                        { treelocation },
                     },
                     lualine_x = {
                         { "diff" },
@@ -592,11 +599,20 @@ return require("packer").startup(function(use)
             })
         end,
     })
+
+    use({
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run =
+        'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+    })
     use({
         "nvim-telescope/telescope.nvim",
         config = function()
+            require('telescope').setup()
+            require('telescope').load_extension('fzf')
+
             nnoremap("<leader>q", "<cmd>Telescope command_history<CR>", "Telescope Command History")
-            nnoremap("<leader>/", "<cmd>Telescope search_history", "Telescope Search History")
+            nnoremap("<leader>/", "<cmd>Telescope search_history<CR>", "Telescope Search History")
             nnoremap(
                 "<leader>R",
                 "<cmd>Telescope quickfix_history<CR>",
@@ -632,7 +648,8 @@ return require("packer").startup(function(use)
             nnoremap("<leader>tl", "<cmd>Telescope git_bcommits<cr>", "Telescope Git BCommits")
             nnoremap("<leader>tq", "<cmd>Telescope gquickfix<cr>", "Telescope Quickfix")
             nnoremap("z=", "<cmd>Telescope spell_suggest<cr>", "Telescope spelling fix")
-        end,
+        end
+
     })
     use({
         "folke/todo-comments.nvim",
@@ -695,10 +712,10 @@ return require("packer").startup(function(use)
                 local line, col = unpack(vim.api.nvim_win_get_cursor(0))
                 return col ~= 0
                     and vim.api
-                            .nvim_buf_get_lines(0, line - 1, line, true)[1]
-                            :sub(col, col)
-                            :match("%s")
-                        == nil
+                    .nvim_buf_get_lines(0, line - 1, line, true)[1]
+                    :sub(col, col)
+                    :match("%s")
+                    == nil
             end
 
             local feedkey = function(key, mode)
@@ -761,8 +778,8 @@ return require("packer").startup(function(use)
                     end, { "i", "s" }),
                 },
                 sources = {
-                    { name = "nvim_lua" },
                     { name = "nvim_lsp" },
+                    { name = "nvim_lua" },
                     { name = "spell" },
                     { name = "path" },
                     { name = "calc" },
