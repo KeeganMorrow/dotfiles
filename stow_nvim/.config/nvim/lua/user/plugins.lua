@@ -93,15 +93,6 @@ return require("packer").startup(function(use)
         end,
     })
 
-    use({
-        "chentoast/marks.nvim",
-        config = function()
-            require("marks").setup({
-                default_mappings = true,
-            })
-        end,
-    })
-
     use({ "https://github.com/haya14busa/vim-asterisk" })
 
     use({
@@ -265,17 +256,17 @@ return require("packer").startup(function(use)
                     "bash",
                     "c",
                     "c_sharp",
-                    "cpp",
                     "cmake",
                     "comment",
                     "commonlisp",
+                    "cpp",
                     "css",
                     "devicetree",
                     "dockerfile",
+                    "glsl",
                     "go",
                     "gomod",
                     "gowork",
-                    "glsl",
                     "html",
                     "http",
                     "java",
@@ -284,11 +275,14 @@ return require("packer").startup(function(use)
                     "json5",
                     "lua",
                     "make",
+                    "markdown",
+                    "markdown_inline",
                     "ninja",
                     "perl",
                     "python",
-                    "rust",
+                    "regex",
                     "rst",
+                    "rust",
                     "todotxt",
                     "toml",
                     "typescript",
@@ -450,12 +444,6 @@ return require("packer").startup(function(use)
         "junegunn/fzf.vim",
         requires = "junegunn/fzf",
         config = function()
-            nnoremap("<leader>g", ":GFiles?<CR>", "FZF Git Files")
-            nnoremap("<leader>G", ":GFiles<CR>", "FZF Git Files")
-            nnoremap("<leader><c-t>", ":BTags<CR>", "FZF Buffer Tags")
-            nnoremap("<leader>m", ":Marks<CR>", "FZF Marks")
-            nnoremap("<leader>B", ":Buffers<CR>", "FZF Buffers")
-
             nmap("<leader><tab>", "<plug>(fzf-maps-n)", "FZF N Mappings")
             xmap("<leader><tab>", "<plug>(fzf-maps-x)", "FZF X Mappings")
             omap("<leader><tab>", "<plug>(fzf-maps-o)", "FZF O Mappings")
@@ -605,16 +593,26 @@ return require("packer").startup(function(use)
         end,
     })
 
+    use {
+        "ahmedkhalf/project.nvim",
+        config = function()
+            require("project_nvim").setup {}
+        end
+    }
+
     use({
         'nvim-telescope/telescope-fzf-native.nvim',
         run =
         'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
     })
+    use("desdic/telescope-rooter.nvim")
     use({
         "nvim-telescope/telescope.nvim",
         config = function()
             require('telescope').setup()
             require('telescope').load_extension('fzf')
+            require('telescope').load_extension('projects')
+            require "telescope".load_extension("rooter")
 
             nnoremap("<leader>q", "<cmd>Telescope command_history<CR>", "Telescope Command History")
             nnoremap("<leader>/", "<cmd>Telescope search_history<CR>", "Telescope Search History")
@@ -672,12 +670,21 @@ return require("packer").startup(function(use)
                 cmdline = {
                     view = "cmdline",
                 },
-                popupmenu = {
-                    enabled = true,
-                    backend = "cmp",
+                lsp = {
+                    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+                    override = {
+                        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                        ["vim.lsp.util.stylize_markdown"] = true,
+                        ["cmp.entry.get_documentation"] = true,
+                    },
                 },
-                lsp_progress = {
-                    enabled = true,
+                -- you can enable a preset for easier configuration
+                presets = {
+                    bottom_search = true,     -- use a classic bottom cmdline for search
+                    command_palette = true,   -- position the cmdline and popupmenu together
+                    long_message_to_split = true, -- long messages will be sent to a split
+                    inc_rename = false,       -- enables an input dialog for inc-rename.nvim
+                    lsp_doc_border = true,    -- add a border to hover docs and signature help
                 },
             })
         end,
@@ -859,6 +866,7 @@ return require("packer").startup(function(use)
         end,
     })
 
+    -- TODO Consider removal
     use({
         "glepnir/lspsaga.nvim",
         config = function()
@@ -869,18 +877,6 @@ return require("packer").startup(function(use)
         end,
     })
 
-    use({
-        "ray-x/lsp_signature.nvim",
-        config = function()
-            require("lsp_signature").on_attach({
-                bind = true, -- This is mandatory, otherwise border config won't get registered.
-                handler_opts = {
-                    border = "none",
-                },
-                use_lspsaga = true,
-            })
-        end,
-    })
 
     -- Snippets
     use({ "hrsh7th/vim-vsnip" })
