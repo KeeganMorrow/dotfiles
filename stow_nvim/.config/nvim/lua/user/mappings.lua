@@ -1,7 +1,4 @@
 -- Set up Key bindings
 --------------------------------------------------------------------------------
---
-require("mapx").setup({ global = true, whichkey = true })
-
-nnoremap("[b", ":bprev<CR>", "silent")
-nnoremap("]b", ":bnext<CR>", "silent")
+vim.keymap.set("n", "[b", ":bnext<CR>", { desc = "Next Buffer" })
+vim.keymap.set("n", "]b", ":bprev<CR>", { desc = "Previous Buffer" })

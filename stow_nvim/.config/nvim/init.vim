@@ -124,9 +124,6 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-" Set and configure colorscheme
-colorscheme nightfox
-
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 

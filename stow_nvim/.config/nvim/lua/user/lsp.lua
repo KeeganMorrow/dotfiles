@@ -3,7 +3,6 @@
 --
 local mason_lspconfig = require("mason-lspconfig")
 local mason = require("mason")
-local mapx = require("mapx")
 local lsp_config = require("lspconfig")
 
 mason.setup()
@@ -91,75 +90,134 @@ local enhance_global_opts = function(server_name, options)
         on_attach_base(client, bufnnr)
 
         -- Telescope LSP bindings
-        mapx.nnoremap(
+        vim.keymap.set(
+            "n",
             "<leader>tD",
             "<cmd>Telescope lsp_document_diagnostics<cr>",
-            "Telescope Doc Diagnostics"
+            { desc = "Telescope Doc Diagnostics" }
         )
-        mapx.nnoremap(
+        vim.keymap.set(
+            "n",
             "<leader>td",
             "<cmd>Telescope lsp_workspace_diagnostics<cr>",
-            "Telescope WS Diagnostics"
+            { desc = "Telescope WS Diagnostics" }
         )
-        mapx.nnoremap("<leader>tr", "<cmd>Telescope lsp_references<cr>", "Telescope references")
-        mapx.nnoremap(
+        vim.keymap.set(
+            "n",
+            "<leader>tr",
+            "<cmd>Telescope lsp_references<cr>",
+            { desc = "Telescope references" }
+        )
+        vim.keymap.set(
+            "n",
             "<leader>ts",
             "<cmd>Telescope lsp_document_symbols<cr>",
-            "Telescope Doc symbols"
+            { desc = "Telescope Doc symbols" }
         )
-        mapx.nnoremap(
+        vim.keymap.set(
+            "n",
             "<leader>tS",
             "<cmd>Telescope lsp_workspace_symbols<cr>",
-            "Telescope WS symbols"
+            { desc = "Telescope WS symbols" }
         )
         -- Question - can we figure out how to jump back?
 
         -- Trouble LSP bindings
-        mapx.nnoremap("<Leader>lg", ":Trouble document_diagnostics<CR>", "LSP Diagnostics")
-        mapx.nnoremap(
+        vim.keymap.set(
+            "n",
+            "<Leader>lg",
+            ":Trouble document_diagnostics<CR>",
+            { desc = "LSP Diagnostics" }
+        )
+        vim.keymap.set(
+            "n",
             "<Leader>lG",
             ":Trouble workspace_diagnostics<CR>",
-            "LSP Workspace Diagnostics"
+            { desc = "LSP Workspace Diagnostics" }
         )
 
-        mapx.nnoremap("<Leader>lR", function()
+        vim.keymap.set("n", "<Leader>lR", function()
             return ":IncRename " .. vim.fn.expand("<cword>")
         end, "expr", "LSP Rename")
         -- Jump to bindings
-        mapx.nnoremap("<Leader>lD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "LSP Declaration")
-        mapx.nnoremap("<Leader>ld", "<cmd>lua vim.lsp.buf.definition()<CR>", "LSP Definition")
-        mapx.nnoremap(
+        vim.keymap.set(
+            "n",
+            "<Leader>lD",
+            "<cmd>lua vim.lsp.buf.declaration()<CR>",
+            { desc = "LSP Declaration" }
+        )
+        vim.keymap.set(
+            "n",
+            "<Leader>ld",
+            "<cmd>lua vim.lsp.buf.definition()<CR>",
+            { desc = "LSP Definition" }
+        )
+        vim.keymap.set(
+            "n",
             "<Leader>li",
             "<cmd>lua vim.lsp.buf.implementation()<CR>",
-            "LSP Implementation"
+            { desc = "LSP Implementation" }
         )
-        mapx.nnoremap(
+        vim.keymap.set(
+            "n",
             "<Leader>lt",
             "<cmd>lua vim.lsp.buf.type_definition()<CR>",
-            "LSP Type Definition"
+            { desc = "LSP Type Definition" }
         )
 
         -- TODO figure out why these don't work
-        mapx.nnoremap(
+        vim.keymap.set(
+            "n",
             "<Leader>lci",
             "<cmd>lua vim.lsp.buf.incoming_calls()<CR>",
-            "LSP Incoming Calls"
+            { desc = "LSP Incoming Calls" }
         )
-        mapx.nnoremap(
+        vim.keymap.set(
+            "n",
             "<Leader>lco",
             "<cmd>lua vim.lsp.buf.incoming_calls()<CR>",
-            "LSP Outgoing Calls"
+            { desc = "LSP Outgoing Calls" }
         )
 
-        mapx.nnoremap("<Leader>lr", "<cmd>Lspsaga lsp_finder<CR>", "LSP Show References")
-        mapx.nnoremap("<Leader>lp", "<cmd>Lspsaga preview_definition<CR>", "LSP Preview Definition")
+        vim.keymap.set(
+            "n",
+            "<Leader>lr",
+            "<cmd>Lspsaga lsp_finder<CR>",
+            { desc = "LSP Show References" }
+        )
+        vim.keymap.set(
+            "n",
+            "<Leader>lp",
+            "<cmd>Lspsaga preview_definition<CR>",
+            { desc = "LSP Preview Definition" }
+        )
 
-        mapx.nnoremap("K", "<cmd>Lspsaga hover_doc<CR>", "LSP Hover")
-        mapx.nnoremap("<leader>le", "<cmd>Lspsaga show_line_diagnostics<CR>", "LSP Hover")
-        mapx.nnoremap("]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", "LSP Next Diagnostic")
-        mapx.nnoremap("[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", "LSP Previous Diagnostic")
+        vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { desc = "LSP Hover" })
+        vim.keymap.set(
+            "n",
+            "<leader>le",
+            "<cmd>Lspsaga show_line_diagnostics<CR>",
+            { desc = "LSP Hover" }
+        )
+        vim.keymap.set(
+            "n",
+            "]d",
+            "<cmd>Lspsaga diagnostic_jump_next<CR>",
+            { desc = "LSP Next Diagnostic" }
+        )
+        vim.keymap.set(
+            "n",
+            "[d",
+            "<cmd>Lspsaga diagnostic_jump_prev<CR>",
+            { desc = "LSP Previous Diagnostic" }
+        )
 
-        mapx.nnoremap("<Leader>lf", "<cmd>lua vim.lsp.buf.format{async=true}<CR>", "LSP Formatting")
+        vim.keymap.set(
+            "n",
+            "<Leader>lf",
+            "<cmd>lua vim.lsp.buf.format{async=true}<CR>",
+            { desc = "LSP Formatting" }
+        )
 
         function format_range_operator()
             local old_func = vim.go.operatorfunc
@@ -174,9 +232,24 @@ local enhance_global_opts = function(server_name, options)
             vim.api.nvim_feedkeys("g@", "n", false)
         end
 
-        mapx.vnoremap("<Leader>lf", "<cmd>lua format_range_operator()<CR>", "LSP Range formatting")
-        mapx.nnoremap("<Leader>la", "<cmd>Lspsaga code_action<CR>", "LSP Code Action")
-        mapx.vnoremap("<Leader>la", "<cmd>Lspsaga code_action<CR>", "LSP Range Code Action")
+        vim.keymap.set(
+            "v",
+            "<Leader>lf",
+            "<cmd>lua format_range_operator()<CR>",
+            { desc = "LSP Range formatting" }
+        )
+        vim.keymap.set(
+            "v",
+            "<Leader>la",
+            "<cmd>Lspsaga code_action<CR>",
+            { desc = "LSP Code Action" }
+        )
+        vim.keymap.set(
+            "v",
+            "<Leader>la",
+            "<cmd>Lspsaga code_action<CR>",
+            { desc = "LSP Range Code Action" }
+        )
 
         if server_on_attach then
             server_on_attach(client, bufnr)
