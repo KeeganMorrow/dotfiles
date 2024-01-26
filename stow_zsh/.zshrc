@@ -730,7 +730,23 @@ fi
 ################################################################################
 # Special function overrides
 ################################################################################
-#
+
+# Used to tell tmux-ssh-split where we are
+# https://github.com/pschmitt/tmux-ssh-split
+# Implementation from
+# https://codeberg.org/dnkl/foot/wiki#how-to-configure-my-shell-to-emit-the-osc-7-escape-sequence
+function osc7-pwd() {
+    emulate -L zsh # also sets localoptions for us
+    setopt extendedglob
+    local LC_ALL=C
+    printf '\e]7;file://%s%s\e\' $HOST ${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$(([##16]#MATCH))}}
+}
+
+function chpwd-osc7-pwd() {
+    (( ZSH_SUBSHELL )) || osc7-pwd
+}
+add-zsh-hook -Uz chpwd chpwd-osc7-pwd
+
 ################################################################################
 # Last minute options
 ################################################################################
