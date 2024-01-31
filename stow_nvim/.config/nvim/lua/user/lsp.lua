@@ -6,28 +6,32 @@ local mason = require("mason")
 local lsp_config = require("lspconfig")
 
 mason.setup()
+servers = {
+    "bashls",
+    "clangd",
+    "cmake",
+    "cssls",
+    "dockerls",
+    "eslint",
+    "gitlint",
+    "html",
+    "jq",
+    "jq-lsp",
+    "jsonls",
+    "pyright",
+    "ruby-lsp",
+    "rust_analyzer",
+    "solargraph",
+    "sumneko_lua",
+    "vimls",
+    "yamlls",
+}
+if not vim.fn.has("macunix") then
+    -- Verible doesn't work on Mac
+    table.insert(servers, "verible")
+end
 mason_lspconfig.setup({
-    ensure_installed = {
-        "bashls",
-        "clangd",
-        "cmake",
-        "cssls",
-        "dockerls",
-        "eslint",
-        "gitlint",
-        "html",
-        "jq",
-        "jq-lsp",
-        "jsonls",
-        "pyright",
-        "ruby-lsp",
-        "rust_analyzer",
-        "solargraph",
-        "sumneko_lua",
-        "verible",
-        "vimls",
-        "yamlls",
-    },
+    ensure_installed = servers,
     automatic_installation = true,
 })
 
