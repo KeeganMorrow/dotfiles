@@ -63,6 +63,37 @@ require("lazy").setup({
     --------------------------------------------------------------------------------
 
     {
+        "nvim-neorg/neorg",
+        build = ":Neorg sync-parsers",
+        -- tag = "*",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("neorg").setup({
+                load = {
+                    ["core.defaults"] = {}, -- Loads default behaviour
+                    ["core.concealer"] = { config = { icon_preset = "diamond" } },
+                    ["core.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
+                    ["core.integrations.nvim-cmp"] = {},
+                    ["core.keybinds"] = {
+                        -- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
+                        config = {
+                            default_keybinds = true,
+                            neorg_leader = "<Leader><Leader>",
+                        },
+                    },
+                    ["core.dirman"] = { -- Manages Neorg workspaces
+                        config = {
+                            workspaces = {
+                                home = "~/neorg/home",
+                                work = "~/neorg/work",
+                            },
+                        },
+                    },
+                },
+            })
+        end,
+    },
+    {
         "folke/which-key.nvim",
         config = function()
             require("which-key").setup({})
@@ -820,6 +851,10 @@ require("lazy").setup({
                 }, {
                     { name = "buffer" },
                 }),
+            })
+
+            cmp.setup.filetype("norg", {
+                { name = "nvim_lsp" },
             })
 
             -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
