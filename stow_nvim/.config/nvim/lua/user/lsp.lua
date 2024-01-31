@@ -136,9 +136,6 @@ local enhance_global_opts = function(server_name, options)
             { desc = "LSP Workspace Diagnostics" }
         )
 
-        vim.keymap.set("n", "<Leader>lR", function()
-            return ":IncRename " .. vim.fn.expand("<cword>")
-        end, "expr", "LSP Rename")
         -- Jump to bindings
         vim.keymap.set(
             "n",

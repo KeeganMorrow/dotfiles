@@ -811,7 +811,7 @@ require("lazy").setup({
                     { name = "calc" },
                     { name = "vsnip" },
                     { name = "buffer" },
-                    { name = "git_cmp" },
+                    { name = "git" },
                 },
             })
             cmp.setup.filetype("gitcommit", {
@@ -849,6 +849,7 @@ require("lazy").setup({
                     },
                 },
             })
+            require("cmp_git").setup()
         end,
     },
     {
@@ -857,6 +858,7 @@ require("lazy").setup({
             require("inc_rename").setup({
                 input_buffer_type = "dressing",
             })
+            vim.keymap.set("n", "<leader>lR", ":IncRename ")
         end,
     },
     -- use {'nikvdp/neomux'}
@@ -868,15 +870,6 @@ require("lazy").setup({
             require("lspkind").init({
                 preset = "default",
             })
-        end,
-    },
-
-    {
-        "phaazon/mind.nvim",
-        branch = "v2",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        config = function()
-            require("mind").setup()
         end,
     },
 
