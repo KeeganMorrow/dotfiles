@@ -889,6 +889,48 @@ require("lazy").setup({
         end,
     },
     {
+        "mfussenegger/nvim-lint",
+        config = function()
+            lint = require("lint")
+
+            -- Configure Ruby files to be linted with RuboCop.
+            lint.linters_by_ft = {
+                ruby = { "rubocop" },
+            }
+
+            -- Check if a gem is in the project's Gemfile.
+            local has_gem = function(gem)
+                local ret_code = nil
+                local jid = vim.fn.jobstart(string.format("grep %s Gemfile", gem), {
+                    on_exit = function(_, data)
+                        ret_code = data
+                    end,
+                })
+                vim.fn.jobwait({ jid }, 5000)
+                return ret_code == 0
+            end
+
+            -- Run Rubocop with `bundle exec` if we're in a Bundler project that uses RuboCop.
+            if has_gem("rubocop") then
+                lint.linters.rubocop.cmd = "bundle"
+                lint.linters.rubocop.args =
+                    vim.list_extend({ "exec", "rubocop" }, lint.linters.rubocop.args)
+            end
+
+            -- Run RuboCop and populate Vim's diagnostics whenever a file is saved.
+            --
+            -- If you prefer to get quicker feedback without having to save the file, you can use another
+            -- event like "InsertLeave" (exiting insert mode), "TextChanged" (text was changed in normal
+            -- mode) or "CursorHold" (run a certain amount of time after you stop pressing keys, with the
+            -- wait time determined by Vim's 'updatetime' option).
+            vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+                callback = function()
+                    lint.try_lint()
+                end,
+            })
+        end,
+    },
+    {
         "smjonas/inc-rename.nvim",
         config = function()
             require("inc_rename").setup({
