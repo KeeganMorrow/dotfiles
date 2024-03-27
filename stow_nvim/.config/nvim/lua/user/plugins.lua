@@ -194,11 +194,20 @@ require("lazy").setup({
             })
         end,
         keys = {
-            { "<Leader>s", ":ISwap<CR>", "Iswap" },
+            { "<Leader>gs", ":ISwap<CR>", "Iswap" },
         },
     },
 
-    { "ggandor/lightspeed.nvim" },
+    {
+        "ggandor/leap.nvim",
+        config = function()
+            require("leap").opts.safe_labels = {}
+        end,
+        keys = {
+            { "<leader>s", "<Plug>(leap-forward)" },
+            { "<leader>S", "<Plug>(leap-backward)" },
+        },
+    },
 
     {
         "junegunn/vim-easy-align",
