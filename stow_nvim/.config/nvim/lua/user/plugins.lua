@@ -756,6 +756,7 @@ require("lazy").setup({
             "hrsh7th/cmp-buffer",
             "f3fora/cmp-spell",
             "hrsh7th/cmp-path",
+            "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-nvim-lua",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-calc",
@@ -804,19 +805,14 @@ require("lazy").setup({
                     ["<C-f>"] = cmp.mapping.scroll_docs(4),
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.close(),
-                    ["<CR>"] = cmp.mapping.confirm({
-                        behavior = cmp.ConfirmBehavior.Replace,
-                        select = false,
-                    }),
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
                         if cmp.visible() then
                             local entry = cmp.get_selected_entry()
                             if not entry then
                                 cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                            else
-                                cmp.confirm()
                             end
+                            cmp.confirm()
                         else
                             fallback()
                         end
@@ -845,17 +841,23 @@ require("lazy").setup({
             })
 
             -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-            cmp.setup.cmdline("/", {
+            cmp.setup.cmdline({ "/", "?" }, {
                 mapping = cmp.mapping.preset.cmdline(),
                 sources = {
                     { name = "buffer" },
                 },
             })
+
             cmp.setup.cmdline(":", {
-                sources = {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = cmp.config.sources({
+                    { name = "path" },
+                }, {
                     { name = "cmdline" },
-                },
+                }),
+                matching = { disallow_symbol_nonprefix_matching = false },
             })
+
             cmp.setup({
                 sorting = {
                     comparators = {
