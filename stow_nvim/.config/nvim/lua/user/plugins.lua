@@ -177,6 +177,21 @@ require("lazy").setup({
         end,
     },
     {
+        "zbirenbaum/copilot.lua",
+        config = function ()
+            require("copilot").setup({
+                suggestion = { enabled = false },
+                panel = { enabled = false },
+            })
+        end
+    },
+    {
+        "zbirenbaum/copilot-cmp",
+        config = function ()
+            require("copilot_cmp").setup()
+        end
+    },
+    {
         "mizlan/iswap.nvim",
         config = function()
             require("iswap").setup({
@@ -795,6 +810,7 @@ require("lazy").setup({
                     end, { "i", "s", "c" }),
                 },
                 sources = {
+                    { name = "copilot" },
                     { name = "nvim_lsp" },
                     { name = "nvim_lua" },
                     { name = "spell" },
