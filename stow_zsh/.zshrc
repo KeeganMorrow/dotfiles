@@ -39,7 +39,7 @@ zcomet load ohmyzsh plugins/fancy-ctrl-z
 # Prezto plugins
 ########################################
 zcomet load prezto init.zsh
-# zcomet load prezto modules/gpg
+zcomet load prezto modules/ssh
 
 ########################################
 # Other Plugins
