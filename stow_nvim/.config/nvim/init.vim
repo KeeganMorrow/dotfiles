@@ -218,7 +218,7 @@ set diffopt=filler,context:10,vertical
 " => yank related             {{{
 """""""""""""""""""""""""""""""""
 " Make Y behavior more like D
-map Y y$
+nnoremap Y y$
 
 " Copy to clipboard
 vnoremap  <leader>y  "+y
@@ -279,8 +279,8 @@ vnoremap <silent> # :call VisualSelection('b', '')<CR>
 " => Buffer Navigation     {{{
 """"""""""""""""""""""""""""""
 " Treat long lines as break lines (useful when moving around in them)
-map j gj
-map k gk
+nnoremap j gj
+nnoremap k gk
 
 " Tab management stuff
 nnoremap <leader>tc :tabnew<CR>
