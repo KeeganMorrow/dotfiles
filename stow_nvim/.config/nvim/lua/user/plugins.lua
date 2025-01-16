@@ -562,23 +562,23 @@ require("lazy").setup({
         end,
     },
 
-    {
-        "numToStr/Navigator.nvim",
-        config = function()
-            require("Navigator").setup({
-                auto_save = nil,
-                disable_on_zoom = true,
-            })
-        end,
-        keys = {
-            -- Set up keybindings now
-            { "<C-h>", "<CMD>lua require('Navigator').left()<CR>", "Navigator Left" },
-            { "<C-k>", "<CMD>lua require('Navigator').up()<CR>", "Navigator Up" },
-
-            { "<C-l>", "<CMD>lua require('Navigator').right()<CR>", "Navigator Right" },
-            { "<C-j>", "<CMD>lua require('Navigator').down()<CR>", "Navigator Down" },
-        },
-    },
+{
+  "christoomey/vim-tmux-navigator",
+  cmd = {
+    "TmuxNavigateLeft",
+    "TmuxNavigateDown",
+    "TmuxNavigateUp",
+    "TmuxNavigateRight",
+    "TmuxNavigatePrevious",
+  },
+  keys = {
+    { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+    { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+    { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+    { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+    { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+  },
+},
     { "junegunn/fzf" },
     {
         "junegunn/fzf.vim",
@@ -717,9 +717,6 @@ require("lazy").setup({
                 indent_lines = true,
             })
         end,
-        keys = {
-            { "<leader>lE", "<cmd>TroubleToggle<CR>", "Trouble Diagnostics" },
-        },
     },
     { "nvim-lua/popup.nvim" },
     { "nvim-lua/plenary.nvim" },
