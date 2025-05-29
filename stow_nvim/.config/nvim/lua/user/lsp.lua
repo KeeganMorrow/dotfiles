@@ -6,7 +6,7 @@ local mason = require("mason")
 local lsp_config = require("lspconfig")
 
 mason.setup()
-servers = {
+meson_servers = {
     "bashls",
     "clangd",
     "cmake",
@@ -23,27 +23,28 @@ servers = {
     "vimls",
     "yamlls",
 }
+
 if not vim.fn.has("macunix") then
     -- Verible doesn't work on Mac
-    table.insert(servers, "verible")
+    table.insert(meson_servers, "verible")
 end
 mason_lspconfig.setup({
-    ensure_installed = servers,
+    ensure_installed = meson_servers,
     automatic_installation = true,
 })
 
-local enhance_server_opts = {
-    ["sumneko_lua"] = function(options)
-        options.settings = {
-            Lua = {
-                diagnostics = {
-                    globals = { "vim" },
-                },
+vim.lsp.config("lua_ls", {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { "vim" },
             },
-        }
-    end,
-    ["tsserver"] = function(options)
-        options.on_attach = function(client, bufnr)
+        },
+    }
+})
+
+vim.lsp.config("tsserver", {
+        on_attach = function(client, bufnr)
             local ts_utils = require("nvim-lsp-ts-utils")
             ts_utils.setup({})
             ts_utils.setup_client(client)
@@ -53,42 +54,27 @@ local enhance_server_opts = {
             vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", opts)
             -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":TSLspRenameFile<CR>", opts)
             vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", opts)
-        end
-    end,
-
-    ["clangd"] = function(options)
-        options.on_attach = function(client, bufnr)
-            client.server_capabilities.document_formatting = true
-            client.server_capabilities.document_range_formatting = true
-        end
-        options.settings = {
+        end,
+        settings = {
             format = { enable = true }, -- this will enable formatting
         }
-    end,
-}
+})
 
--- global on_attach
-local on_attach_base = function(client, bufnr)
-    client.server_capabilities.document_formatting = false
-    client.server_capabilities.document_range_formatting = false
-end
+vim.lsp.config("clangd", {
+        on_attach = function(client, bufnr)
+            client.server_capabilities.document_formatting = true
+            client.server_capabilities.document_range_formatting = true
+        end,
+        settings = {
+            format = { enable = true }, -- this will enable formatting
+        }
+})
 
-local enhance_global_opts = function(server_name, options)
-    local options = {}
-
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    options.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
-    -- server specific configs
-    if enhance_server_opts[server_name] then
-        enhance_server_opts[server_name](options)
-    end
-
-    -- prepend global config options
-    local server_on_attach = options.on_attach
-
-    options.on_attach = function(client, bufnr)
-        on_attach_base(client, bufnnr)
+vim.lsp.config("*", {
+    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+    on_attach = function(client, bufnr)
+        client.server_capabilities.document_formatting = false
+        client.server_capabilities.document_range_formatting = false
 
         -- Telescope LSP bindings
         vim.keymap.set(
@@ -253,15 +239,6 @@ local enhance_global_opts = function(server_name, options)
             server_on_attach(client, bufnr)
         end
     end
-
-    return options
-end
-
-mason_lspconfig.setup_handlers({
-    function(server_name)
-        lsp_config[server_name].setup(enhance_global_opts(server_name, options))
-    end,
-    {},
 })
 
 -- Helper function to get and show list of active lsp clients
