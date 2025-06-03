@@ -129,10 +129,7 @@ require("lazy").setup({
         end,
     },
     {
-        "arecarn/vim-backup-tree",
-        config = function()
-            vim.g.backup_tree = vim.env.HOME .. "/" .. ".vim_backup_tree"
-        end,
+        "arecarn/vim-backup-tree"
     },
     {
         "rmagatti/auto-session",
