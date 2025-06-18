@@ -50,3 +50,5 @@ history = 0
 [window]
 opacity = 0.98
 
+[terminal]
+osc52 = "OnlyCopy"
