@@ -443,7 +443,7 @@ groot(){
 _additional_paths=(
 "/sbin"
 "/usr/sbin"
-"${HOME}/syncsettings/bin"
+"${HOME}/dotfiles/bin"
 "${HOME}/local/bin"
 "${HOME}/.fzf/bin"
 "${HOME}/.local/bin"
@@ -519,7 +519,9 @@ alias lmesg='dmesg -L=always | less'
 ############################################################
 # Not technically an alias, but fills a similar role
 if (( $+commands[lesspipe] )) ; then
-    eval $(lesspipe)
+    export LESSOPEN="|lesspipe %s"
+elif (( $+commands[lesspipe.sh] )) ; then
+    export LESSOPEN="|lesspipe.sh %s"
 fi
 
 if (( $+commands[exa] )) ; then
