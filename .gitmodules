@@ -31,12 +31,6 @@
 [submodule "repos/siji"]
 	path = repos/siji
 	url = https://github.com/stark/siji
-[submodule "repos/powerline-for-polybar"]
-	path = repos/powerline-for-polybar
-	url = https://github.com/bacara/powerline-for-polybar
-[submodule "repos/polybar-scripts"]
-	path = repos/polybar-scripts
-	url = https://github.com/polybar/polybar-scripts
 [submodule "stow_hypr/.config/hypr/catppuccin-hyprland"]
 	path = stow_hypr/.config/hypr/catppuccin-hyprland
 	url = https://github.com/catppuccin/hyprland.git
