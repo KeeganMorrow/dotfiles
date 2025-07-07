@@ -16,7 +16,7 @@ fi
 attached_windows="$(echo -e "$windows" | awk '/attached/')"
 detached_windows="$(echo -e "$windows" | awk '!/attached/')"
 
-choice=$(echo -e "$detached_windows \n$attached_windows" | rofi -dmenu $@)
+choice=$(echo -e "$detached_windows \n$attached_windows" | fuzzel --dmenu $@)
 target=$(echo -e "$choice" | sed 's/:.*//')
 if [ -n "$target" ] ; then
     eval "$term -e zsh -c \"tmux attach -t '${target}'\" &"
