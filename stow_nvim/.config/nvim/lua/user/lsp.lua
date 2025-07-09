@@ -71,7 +71,7 @@ vim.lsp.config("clangd", {
 })
 
 vim.lsp.config("*", {
-    capabilities = require("cmp_nvim_lsp").default_capabilities(),
+    capabilities = require("blink.cmp").get_lsp_capabilities(),
     on_attach = function(client, bufnr)
         client.server_capabilities.document_formatting = false
         client.server_capabilities.document_range_formatting = false
@@ -240,18 +240,6 @@ vim.lsp.config("*", {
         end
     end,
 })
-
--- Helper function to get and show list of active lsp clients
-function connected_lsp_clients()
-    local clients = {}
-    local icon = " "
-
-    for _, client in pairs(vim.lsp.buf_get_clients()) do
-        clients[#clients + 1] = icon .. client.name
-    end
-
-    return table.concat(clients, " ")
-end
 
 -- Configure diagnostics
 vim.diagnostic.config({

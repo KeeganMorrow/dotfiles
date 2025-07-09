@@ -35,7 +35,7 @@ require("lazy").setup({
                 transparent_background = false, -- disables setting the background color.
                 show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
                 integrations = {
-                    cmp = true,
+                    blink_cmp = true,
                     gitsigns = true,
                     nvimtree = true,
                     treesitter = true,
@@ -101,8 +101,12 @@ require("lazy").setup({
                 load = {
                     ["core.defaults"] = {}, -- Loads default behaviour
                     ["core.concealer"] = { config = { icon_preset = "diamond" } },
-                    ["core.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
-                    ["core.integrations.nvim-cmp"] = {},
+                    ["core.completion"] = {
+                        config = {
+                            engine = { module_name = "external.lsp-completion" },
+                            name = "[Norg]",
+                        },
+                    },
                     ["core.keybinds"] = {
                         -- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
                         config = {
@@ -212,10 +216,22 @@ require("lazy").setup({
         end,
     },
     {
-        "zbirenbaum/copilot-cmp",
-        config = function()
-            require("copilot_cmp").setup()
-        end,
+        "saghen/blink.cmp",
+        optional = true,
+        dependencies = { "fang2hou/blink-copilot" },
+        opts = {
+            sources = {
+                default = { "copilot" },
+                providers = {
+                    copilot = {
+                        name = "copilot",
+                        module = "blink-copilot",
+                        score_offset = 100,
+                        async = true,
+                    },
+                },
+            },
+        },
     },
     {
         "CopilotC-Nvim/CopilotChat.nvim",
@@ -812,131 +828,57 @@ require("lazy").setup({
         "neovim/nvim-lspconfig",
     },
     {
-        "hrsh7th/nvim-cmp",
-        dependencies = {
-            "hrsh7th/cmp-buffer",
-            "f3fora/cmp-spell",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-cmdline",
-            "hrsh7th/cmp-nvim-lua",
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-calc",
-            "onsails/lspkind-nvim",
-            "petertriho/cmp-git",
+        "saghen/blink.cmp",
+        -- optional: provides snippets for the snippet source
+        dependencies = { "rafamadriz/friendly-snippets" },
+
+        -- use a release tag to download pre-built binaries
+        version = "1.*",
+        -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+        -- build = 'cargo build --release',
+        -- If you use nix, you can build from source using latest nightly rust with:
+        -- build = 'nix run .#build-plugin',
+
+        ---@module 'blink.cmp'
+        ---@type blink.cmp.Config
+        opts = {
+            -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+            -- 'super-tab' for mappings similar to vscode (tab to accept)
+            -- 'enter' for enter to accept
+            -- 'none' for no mappings
+            --
+            -- All presets have the following mappings:
+            -- C-space: Open menu or open docs if already open
+            -- C-n/C-p or Up/Down: Select next/previous item
+            -- C-e: Hide menu
+            -- C-k: Toggle signature help (if signature.enabled = true)
+            --
+            -- See :h blink-cmp-config-keymap for defining your own keymap
+            keymap = { preset = "default" },
+
+            appearance = {
+                -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+                -- Adjusts spacing to ensure icons are aligned
+                nerd_font_variant = "mono",
+            },
+
+            -- (Default) Only show the documentation popup when manually triggered
+            completion = { documentation = { auto_show = false } },
+
+            -- Default list of enabled providers defined so that you can extend it
+            -- elsewhere in your config, without redefining it, due to `opts_extend`
+            sources = {
+                default = { "lsp", "path", "snippets", "buffer" },
+            },
+
+            -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+            -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+            -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+            --
+            -- See the fuzzy documentation for more information
+            fuzzy = { implementation = "prefer_rust_with_warning" },
         },
-        config = function()
-            local has_words_before = function()
-                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                return col ~= 0
-                    and vim.api
-                            .nvim_buf_get_lines(0, line - 1, line, true)[1]
-                            :sub(col, col)
-                            :match("%s")
-                        == nil
-            end
-
-            local feedkey = function(key, mode)
-                vim.api.nvim_feedkeys(
-                    vim.api.nvim_replace_termcodes(key, true, true, true),
-                    mode,
-                    true
-                )
-            end
-
-            require("cmp_git").setup()
-
-            local cmp = require("cmp")
-            cmp.setup({
-                formatting = {
-                    format = require("lspkind").cmp_format({
-                        mode = "symbol_text",
-                        menu = {
-                            buffer = "[Buffer]",
-                            nvim_lsp = "[LSP]",
-                            luasnip = "[LuaSnip]",
-                            nvim_lua = "[Lua]",
-                            latex_symbols = "[Latex]",
-                        },
-                    }),
-                },
-                mapping = {
-                    ["<C-p>"] = cmp.mapping.select_prev_item(),
-                    ["<C-n>"] = cmp.mapping.select_next_item(),
-                    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-Space>"] = cmp.mapping.complete(),
-                    ["<C-e>"] = cmp.mapping.close(),
-                    ["<Tab>"] = cmp.mapping(function(fallback)
-                        -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
-                        if cmp.visible() then
-                            local entry = cmp.get_selected_entry()
-                            if not entry then
-                                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                            end
-                            cmp.confirm()
-                        else
-                            fallback()
-                        end
-                    end, { "i", "s", "c" }),
-                },
-                sources = {
-                    { name = "copilot" },
-                    { name = "nvim_lsp" },
-                    { name = "nvim_lua" },
-                    { name = "spell" },
-                    { name = "path" },
-                    { name = "calc" },
-                    { name = "buffer" },
-                    { name = "git" },
-                },
-            })
-            cmp.setup.filetype("gitcommit", {
-                sources = cmp.config.sources({
-                    { name = "cmp_git" },
-                }, {
-                    { name = "buffer" },
-                }),
-            })
-
-            cmp.setup.filetype("norg", {
-                { name = "nvim_lsp" },
-            })
-
-            -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-            cmp.setup.cmdline({ "/", "?" }, {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = "buffer" },
-                },
-            })
-
-            cmp.setup.cmdline(":", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = "path" },
-                }, {
-                    { name = "cmdline" },
-                }),
-                matching = { disallow_symbol_nonprefix_matching = false },
-            })
-
-            cmp.setup({
-                sorting = {
-                    comparators = {
-                        cmp.config.compare.offset,
-                        cmp.config.compare.exact,
-                        cmp.config.compare.score,
-                        cmp.config.compare.recently_used,
-                        cmp.config.compare.locality,
-                        cmp.config.compare.kind,
-                        cmp.config.compare.sort_text,
-                        cmp.config.compare.length,
-                        cmp.config.compare.order,
-                    },
-                },
-            })
-            require("cmp_git").setup()
-        end,
+        opts_extend = { "sources.default" },
     },
     {
         "mfussenegger/nvim-lint",
