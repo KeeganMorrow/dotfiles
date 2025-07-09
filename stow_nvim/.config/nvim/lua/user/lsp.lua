@@ -40,38 +40,38 @@ vim.lsp.config("lua_ls", {
                 globals = { "vim" },
             },
         },
-    }
+    },
 })
 
 vim.lsp.config("tsserver", {
-        on_attach = function(client, bufnr)
-            local ts_utils = require("nvim-lsp-ts-utils")
-            ts_utils.setup({})
-            ts_utils.setup_client(client)
+    on_attach = function(client, bufnr)
+        local ts_utils = require("nvim-lsp-ts-utils")
+        ts_utils.setup({})
+        ts_utils.setup_client(client)
 
-            -- no default maps, so you may want to define some here
-            local opts = { silent = true }
-            vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", opts)
-            -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":TSLspRenameFile<CR>", opts)
-            vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", opts)
-        end,
-        settings = {
-            format = { enable = true }, -- this will enable formatting
-        }
+        -- no default maps, so you may want to define some here
+        local opts = { silent = true }
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", opts)
+        -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":TSLspRenameFile<CR>", opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", opts)
+    end,
+    settings = {
+        format = { enable = true }, -- this will enable formatting
+    },
 })
 
 vim.lsp.config("clangd", {
-        on_attach = function(client, bufnr)
-            client.server_capabilities.document_formatting = true
-            client.server_capabilities.document_range_formatting = true
-        end,
-        settings = {
-            format = { enable = true }, -- this will enable formatting
-        }
+    on_attach = function(client, bufnr)
+        client.server_capabilities.document_formatting = true
+        client.server_capabilities.document_range_formatting = true
+    end,
+    settings = {
+        format = { enable = true }, -- this will enable formatting
+    },
 })
 
 vim.lsp.config("*", {
-    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+    capabilities = require("cmp_nvim_lsp").default_capabilities(),
     on_attach = function(client, bufnr)
         client.server_capabilities.document_formatting = false
         client.server_capabilities.document_range_formatting = false
@@ -238,7 +238,7 @@ vim.lsp.config("*", {
         if server_on_attach then
             server_on_attach(client, bufnr)
         end
-    end
+    end,
 })
 
 -- Helper function to get and show list of active lsp clients

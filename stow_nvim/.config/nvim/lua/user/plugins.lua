@@ -29,8 +29,8 @@ require("lazy").setup({
             require("catppuccin").setup({
                 flavour = "mocha", -- latte, frappe, macchiato, mocha
                 background = { -- :h background
-                   light = "latte",
-                   dark = "mocha",
+                    light = "latte",
+                    dark = "mocha",
                 },
                 transparent_background = false, -- disables setting the background color.
                 show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
@@ -129,7 +129,7 @@ require("lazy").setup({
         end,
     },
     {
-        "arecarn/vim-backup-tree"
+        "arecarn/vim-backup-tree",
     },
     {
         "rmagatti/auto-session",
@@ -219,47 +219,50 @@ require("lazy").setup({
     },
     {
         "CopilotC-Nvim/CopilotChat.nvim",
-        config = function ()
-            require("CopilotChat").setup {
-              prompts = {
-                ReviewGitDiff = {
-                  prompt = 'Review the selected git patch and offer feedback with specific improvements to be made and noting potential pitfalls',
-                  description = 'My custom prompt description',
-                  selection = require('CopilotChat.select').gitdiff,
+        config = function()
+            require("CopilotChat").setup({
+                prompts = {
+                    ReviewGitDiff = {
+                        prompt = "Review the selected git patch and offer feedback with specific improvements to be made and noting potential pitfalls",
+                        description = "My custom prompt description",
+                        selection = require("CopilotChat.select").gitdiff,
+                    },
                 },
-              },
-            }
+            })
         end,
-        lazy=false,
+        lazy = false,
         keys = {
-          {
-            "<leader>cch",
-            function()
-              local actions = require("CopilotChat.actions")
-              require("CopilotChat.integrations.telescope").pick(actions.help_actions())
-            end,
-            desc = "CopilotChat - Help actions",
-          },
-          -- Show prompts actions with telescope
-          {
-            "<leader>ccp",
-            function()
-              local actions = require("CopilotChat.actions")
-              require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
-            end,
-            desc = "CopilotChat - Prompt actions",
-          },
-  {
-    "<leader>ccq",
-    function()
-      local input = vim.fn.input("Quick Chat: ")
-      if input ~= "" then
-        require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
-      end
-    end,
-    desc = "CopilotChat - Quick chat",
-  }
-        }
+            {
+                "<leader>cch",
+                function()
+                    local actions = require("CopilotChat.actions")
+                    require("CopilotChat.integrations.telescope").pick(actions.help_actions())
+                end,
+                desc = "CopilotChat - Help actions",
+            },
+            -- Show prompts actions with telescope
+            {
+                "<leader>ccp",
+                function()
+                    local actions = require("CopilotChat.actions")
+                    require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+                end,
+                desc = "CopilotChat - Prompt actions",
+            },
+            {
+                "<leader>ccq",
+                function()
+                    local input = vim.fn.input("Quick Chat: ")
+                    if input ~= "" then
+                        require("CopilotChat").ask(
+                            input,
+                            { selection = require("CopilotChat.select").buffer }
+                        )
+                    end
+                end,
+                desc = "CopilotChat - Quick chat",
+            },
+        },
     },
     {
         "mizlan/iswap.nvim",
@@ -559,23 +562,23 @@ require("lazy").setup({
         end,
     },
 
-{
-  "christoomey/vim-tmux-navigator",
-  cmd = {
-    "TmuxNavigateLeft",
-    "TmuxNavigateDown",
-    "TmuxNavigateUp",
-    "TmuxNavigateRight",
-    "TmuxNavigatePrevious",
-  },
-  keys = {
-    { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-    { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-    { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-    { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-    { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-  },
-},
+    {
+        "christoomey/vim-tmux-navigator",
+        cmd = {
+            "TmuxNavigateLeft",
+            "TmuxNavigateDown",
+            "TmuxNavigateUp",
+            "TmuxNavigateRight",
+            "TmuxNavigatePrevious",
+        },
+        keys = {
+            { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+            { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+            { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+            { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+            { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+        },
+    },
     { "junegunn/fzf" },
     {
         "junegunn/fzf.vim",
