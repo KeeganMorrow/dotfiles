@@ -821,7 +821,6 @@ require("lazy").setup({
             -- vim.g.startify_custom_header = {unpack(vim.g.ascii), unpack(vim.call('startify#fortune#boxed'))}
         end,
     },
-    { "drzel/vim-in-proportion" },
     {
         "yssl/QFEnter",
         config = function()
