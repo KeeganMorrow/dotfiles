@@ -223,9 +223,8 @@ vim.g.clipboard = {
 --------------------------------------------------------------------------------
 -- => Load plugin configuration
 --------------------------------------------------------------------------------
-require("user.plugins")
-require("user.mappings")
-require("user.lsp")
+-- require("user.plugins")
+-- require("user.lsp")
 
 --------------------------------------------------------------------------------
 -- => Treesitter Folds
