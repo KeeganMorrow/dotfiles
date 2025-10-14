@@ -1,7 +1,7 @@
 return {
-    {
-        "folke/which-key.nvim",
-    },
+    --------------------------------------------------------------------------------
+    -- => Colorcheme
+    --------------------------------------------------------------------------------
     {
         "catppuccin/nvim",
         priority = 1000,
@@ -59,6 +59,9 @@ return {
             vim.cmd.colorscheme("catppuccin-mocha")
         end,
     },
+    --------------------------------------------------------------------------------
+    -- => LSP Related Plugins
+    --------------------------------------------------------------------------------
     {
         "mason-org/mason-lspconfig.nvim",
         opts = {
@@ -86,6 +89,89 @@ return {
             "neovim/nvim-lspconfig",
         },
     },
+    {
+        "saghen/blink.cmp",
+        -- optional: provides snippets for the snippet source
+        dependencies = { "rafamadriz/friendly-snippets" },
+
+        -- use a release tag to download pre-built binaries
+        version = "1.*",
+        -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+        -- build = 'cargo build --release',
+        -- If you use nix, you can build from source using latest nightly rust with:
+        -- build = 'nix run .#build-plugin',
+
+        ---@module 'blink.cmp'
+        ---@type blink.cmp.Config
+        opts = {
+            -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+            -- 'super-tab' for mappings similar to vscode (tab to accept)
+            -- 'enter' for enter to accept
+            -- 'none' for no mappings
+            --
+            -- All presets have the following mappings:
+            -- C-space: Open menu or open docs if already open
+            -- C-n/C-p or Up/Down: Select next/previous item
+            -- C-e: Hide menu
+            -- C-k: Toggle signature help (if signature.enabled = true)
+            --
+            -- See :h blink-cmp-config-keymap for defining your own keymap
+            keymap = { preset = "default" },
+
+            appearance = {
+                -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+                -- Adjusts spacing to ensure icons are aligned
+                nerd_font_variant = "mono",
+                kind_icons = {
+                    Text = "",
+                    Method = "",
+                    Function = "",
+                    Constructor = "",
+                    Field = "",
+                    Variable = "",
+                    Class = "",
+                    Interface = "",
+                    Module = "",
+                    Property = "",
+                    Unit = "",
+                    Value = "",
+                    Enum = "",
+                    Keyword = "",
+                    Snippet = "",
+                    Color = "",
+                    File = "",
+                    Reference = "",
+                    Folder = "",
+                    EnumMember = "",
+                    Constant = "",
+                    Struct = "",
+                    Event = "",
+                    Operator = "",
+                    TypeParameter = "",
+                },
+            },
+
+            -- (Default) Only show the documentation popup when manually triggered
+            completion = { documentation = { auto_show = false } },
+
+            -- Default list of enabled providers defined so that you can extend it
+            -- elsewhere in your config, without redefining it, due to `opts_extend`
+            sources = {
+                default = { "lsp", "path", "snippets", "buffer" },
+            },
+
+            -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+            -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+            -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+            --
+            -- See the fuzzy documentation for more information
+            fuzzy = { implementation = "prefer_rust_with_warning" },
+        },
+        opts_extend = { "sources.default" },
+    },
+    --------------------------------------------------------------------------------
+    -- => AI Related plugins
+    --------------------------------------------------------------------------------
     {
         "folke/sidekick.nvim",
         dependencies = { "folke/snacks.nvim" },
@@ -174,14 +260,16 @@ return {
             },
         },
     },
+    --------------------------------------------------------------------------------
+    -- => Functionality Improvements
+    --------------------------------------------------------------------------------
+    {
+        "folke/which-key.nvim",
+    },
     {
         "arecarn/vim-backup-tree",
     },
-    {
-        -- Used to allow peaking when jumping to lines using :N
-        "nacro90/numb.nvim",
-        opts = {},
-    },
+    { "tversteeg/registers.nvim", branch = "main" },
     {
         "kevinhwang91/nvim-hlslens",
         config = function()
@@ -272,6 +360,11 @@ return {
         },
     },
     {
+        -- Used to allow peaking when jumping to lines using :N
+        "nacro90/numb.nvim",
+        opts = {},
+    },
+    {
         "christoomey/vim-tmux-navigator",
         cmd = {
             "TmuxNavigateLeft",
@@ -288,11 +381,119 @@ return {
             { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
         },
     },
-    -- Interface Plugins
     {
-        "alvarosevilla95/luatab.nvim",
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        ---@module "ibl"
+        ---@type ibl.config
+        opts = {},
+    },
+    {
+        "mhinz/vim-startify",
         config = function()
-            require("luatab").setup({})
+            vim.g.startify_fortune_use_unicode = 1
+            vim.g.ascii = {
+                "               __",
+                ".-----..--.--.|__|.--------.",
+                "|  |  ||  |  ||  ||        |",
+                "|__|__| \\___/ |__||__|__|__|",
+                "",
+            }
+            -- vim.g.startify_custom_header = {unpack(vim.g.ascii), unpack(vim.call('startify#fortune#boxed'))}
+        end,
+    },
+    {
+        "liuchengxu/vista.vim",
+        config = function()
+            vim.g.vista_default_executive = "nvim_lsp"
+            vim.g.vista_fzf_preview = { "right:50%" }
+        end,
+        keys = {
+            { "<leader>v", ":<C-u>Vista!!<CR>", "Vista" },
+            { "<leader>V", ":<C-u>Vista finder<CR>", "Vista Finder" },
+        },
+    },
+    {
+        "folke/todo-comments.nvim",
+        config = function()
+            require("todo-comments").setup({})
+        end,
+    },
+
+    --------------------------------------------------------------------------------
+    -- => Treesitter related plugins
+    --------------------------------------------------------------------------------
+    {
+        "nvim-treesitter/nvim-treesitter",
+        run = ":TSUpdate",
+        config = function()
+            require("nvim-treesitter.configs").setup({
+                ensure_installed = {
+                    "bash",
+                    "bitbake",
+                    "c",
+                    "c_sharp",
+                    "cmake",
+                    "comment",
+                    "commonlisp",
+                    "cpp",
+                    "css",
+                    "devicetree",
+                    "dockerfile",
+                    "glsl",
+                    "go",
+                    "gomod",
+                    "gowork",
+                    "html",
+                    "http",
+                    "java",
+                    "javascript",
+                    "json",
+                    "json5",
+                    "lua",
+                    "make",
+                    "markdown",
+                    "markdown_inline",
+                    "ninja",
+                    "perl",
+                    "python",
+                    "regex",
+                    "rst",
+                    "rust",
+                    "todotxt",
+                    "toml",
+                    "typescript",
+                    "verilog",
+                    "vim",
+                    "yaml",
+                },
+                ignore_install = {}, -- List of parsers to ignore installing
+                highlight = {
+                    enable = true, -- false will disable the whole extension
+                    disable = {}, -- list of language that will be disabled
+                },
+                indent = {
+                    enable = true,
+                },
+            })
+        end,
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-context",
+        config = function()
+            require("treesitter-context").setup({})
+        end,
+    },
+    {
+    --------------------------------------------------------------------------------
+    -- => UI Enhancements
+    --------------------------------------------------------------------------------
+        "nanozuki/tabby.nvim",
+        dependencies = { "kyazdani42/nvim-web-devicons" },
+        config = function()
+            require("tabby").setup({
+                tabline = require("tabby.presets").active_wins_at_tail,
+            })
         end,
     },
     {
@@ -326,36 +527,147 @@ return {
         end,
     },
     {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        ---@module "ibl"
-        ---@type ibl.config
-        opts = {},
-    },
-    { "tversteeg/registers.nvim", branch = "main" },
-    {
-        "mhinz/vim-startify",
+        "echasnovski/mini.nvim",
+        version = false,
+        lazy = false,
         config = function()
-            vim.g.startify_fortune_use_unicode = 1
-            vim.g.ascii = {
-                "               __",
-                ".-----..--.--.|__|.--------.",
-                "|  |  ||  |  ||  ||        |",
-                "|__|__| \\___/ |__||__|__|__|",
-                "",
-            }
-            -- vim.g.startify_custom_header = {unpack(vim.g.ascii), unpack(vim.call('startify#fortune#boxed'))}
-        end,
-    },
-    {
-        "liuchengxu/vista.vim",
-        config = function()
-            vim.g.vista_default_executive = "nvim_lsp"
-            vim.g.vista_fzf_preview = { "right:50%" }
+            require("mini.trailspace").setup({
+                only_in_normal_buffers = true,
+            })
         end,
         keys = {
-            { "<leader>v", ":<C-u>Vista!!<CR>", "Vista" },
-            { "<leader>V", ":<C-u>Vista finder<CR>", "Vista Finder" },
+            { "<leader>W", "<CMD>lua MiniTrailspace.trim()<CR>", desc = "Trim whitespace" },
+        },
+    },
+    {
+        "yssl/QFEnter",
+        config = function()
+            vim.g.qfenter_vopen_map = { "<C-v" }
+            vim.g.qfenter_hopen_map = { "<C-CR>", "<C-s>", "<C-x>" }
+            vim.g.qfenter_topen_map = { "<C-t>" }
+        end,
+    },
+    {
+        "nmac427/guess-indent.nvim",
+        config = function()
+            require("guess-indent").setup({})
+        end,
+    },
+    -- Make I/A insert/append work in all visual modes
+    { "kana/vim-niceblock" },
+    { "milsen/vim-operator-substitute", dependencies = { "kana/vim-operator-user" } },
+    { "tpope/vim-repeat" },
+    { "tpope/vim-speeddating" },
+    {
+        "machakann/vim-sandwich",
+        config = function()
+            vim.api.nvim_command("runtime macros/sandwich/keymap/surround.vim")
+        end,
+    },
+    { "b3nj5m1n/kommentary", branch = "main" },
+    --------------------------------------------------------------------------------
+    -- => Textobject setup
+    --------------------------------------------------------------------------------
+    { "kana/vim-textobj-user" },
+    -- iS/aS - selects whitespace
+    { "saihoooooooo/vim-textobj-space", dependencies = { "kana/vim-textobj-user" } },
+    -- iv/av - selects separated by underscores
+    { "Julian/vim-textobj-variable-segment", dependencies = { "kana/vim-textobj-user" } },
+    -- ie/ae - selects entire buffer
+    { "kana/vim-textobj-entire", dependencies = { "kana/vim-textobj-user" } },
+    -- ii/ai - selects indented block
+    { "kana/vim-textobj-indent", dependencies = { "kana/vim-textobj-user" } },
+    -- il/al - selects line
+    { "kana/vim-textobj-line", dependencies = { "kana/vim-textobj-user" } },
+    -- iu/au - selects url
+    { "mattn/vim-textobj-url", dependencies = { "kana/vim-textobj-user" } },
+    -- ic/ac - selects comment
+    { "glts/vim-textobj-comment", dependencies = { "kana/vim-textobj-user" } },
+    {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        config = function()
+            require("nvim-treesitter.configs").setup({
+                textobjects = {
+                    select = {
+                        enable = true,
+
+                        -- Automatically jump forward to textobj, similar to targets.vim
+                        lookahead = true,
+
+                        keymaps = {
+                            -- You can use the capture groups defined in textobjects.scm
+                            ["ab"] = "@block.outer",
+                            ["ib"] = "@block.inner",
+                            ["af"] = "@function.outer",
+                            ["if"] = "@function.inner",
+                            ["ac"] = "@class.outer",
+                            ["ic"] = "@class.inner",
+                            ["a,"] = "@parameter.outer",
+                            ["i,"] = "@parameter.inner",
+                        },
+                    },
+                },
+            })
+        end,
+    },
+    --------------------------------------------------------------------------------
+    -- => Git related plugins
+    --------------------------------------------------------------------------------
+    {
+        "rhysd/committia.vim",
+        config = function()
+            vim.cmd("let g:committia_hooks = {}")
+            vim.api.nvim_exec(
+                [[
+           function! g:committia_hooks.edit_open(info)
+               setlocal spell
+               set colorcolumn=72
+           endfunction
+           ]],
+                true
+            )
+        end,
+    },
+    { "rhysd/git-messenger.vim" },
+    { "tpope/vim-fugitive" },
+    {
+        "akinsho/git-conflict.nvim",
+        config = function()
+            require("git-conflict").setup()
+        end,
+    },
+    { "mhinz/vim-signify" },
+    {
+        "smjonas/inc-rename.nvim",
+        config = function()
+            require("inc_rename").setup({
+                input_buffer_type = "snacks",
+            })
+            vim.keymap.set("n", "<leader>lR", ":IncRename ")
+        end,
+    },
+    --------------------------------------------------------------------------------
+    -- => New functionality
+    --------------------------------------------------------------------------------
+    {
+        "mizlan/iswap.nvim",
+        config = function()
+            require("iswap").setup({
+                -- Highlight group for the sniping value (asdf etc.)
+                -- default 'Search'
+                hl_snipe = "ErrorMsg",
+
+                -- Highlight group for the visual selection of terms
+                -- default 'Visual'
+                hl_selection = "WarningMsg",
+
+                -- Highlight group for the greyed background
+                -- default 'Comment'
+                hl_grey = "LineNr",
+            })
+        end,
+        keys = {
+            { "<Leader>gs", ":ISwap<CR>", "Iswap" },
         },
     },
     {
@@ -426,298 +738,5 @@ return {
             { "<leader>tq", "<cmd>Telescope gquickfix<cr>", "Telescope Quickfix" },
             { "z=", "<cmd>Telescope spell_suggest<cr>", "Telescope spelling fix" },
         },
-    },
-    {
-        "saghen/blink.cmp",
-        -- optional: provides snippets for the snippet source
-        dependencies = { "rafamadriz/friendly-snippets" },
-
-        -- use a release tag to download pre-built binaries
-        version = "1.*",
-        -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-        -- build = 'cargo build --release',
-        -- If you use nix, you can build from source using latest nightly rust with:
-        -- build = 'nix run .#build-plugin',
-
-        ---@module 'blink.cmp'
-        ---@type blink.cmp.Config
-        opts = {
-            -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
-            -- 'super-tab' for mappings similar to vscode (tab to accept)
-            -- 'enter' for enter to accept
-            -- 'none' for no mappings
-            --
-            -- All presets have the following mappings:
-            -- C-space: Open menu or open docs if already open
-            -- C-n/C-p or Up/Down: Select next/previous item
-            -- C-e: Hide menu
-            -- C-k: Toggle signature help (if signature.enabled = true)
-            --
-            -- See :h blink-cmp-config-keymap for defining your own keymap
-            keymap = { preset = "default" },
-
-            appearance = {
-                -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-                -- Adjusts spacing to ensure icons are aligned
-                nerd_font_variant = "mono",
-                kind_icons = {
-                    Text = "",
-                    Method = "",
-                    Function = "",
-                    Constructor = "",
-                    Field = "",
-                    Variable = "",
-                    Class = "",
-                    Interface = "",
-                    Module = "",
-                    Property = "",
-                    Unit = "",
-                    Value = "",
-                    Enum = "",
-                    Keyword = "",
-                    Snippet = "",
-                    Color = "",
-                    File = "",
-                    Reference = "",
-                    Folder = "",
-                    EnumMember = "",
-                    Constant = "",
-                    Struct = "",
-                    Event = "",
-                    Operator = "",
-                    TypeParameter = "",
-                },
-            },
-
-            -- (Default) Only show the documentation popup when manually triggered
-            completion = { documentation = { auto_show = false } },
-
-            -- Default list of enabled providers defined so that you can extend it
-            -- elsewhere in your config, without redefining it, due to `opts_extend`
-            sources = {
-                default = { "lsp", "path", "snippets", "buffer" },
-            },
-
-            -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
-            -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
-            -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
-            --
-            -- See the fuzzy documentation for more information
-            fuzzy = { implementation = "prefer_rust_with_warning" },
-        },
-        opts_extend = { "sources.default" },
-    },
-    {
-        "folke/todo-comments.nvim",
-        config = function()
-            require("todo-comments").setup({})
-        end,
-    },
-
-    -- Treesitter related plugins
-    {
-        "nvim-treesitter/nvim-treesitter",
-        run = ":TSUpdate",
-        config = function()
-            require("nvim-treesitter.configs").setup({
-                ensure_installed = {
-                    "bash",
-                    "bitbake",
-                    "c",
-                    "c_sharp",
-                    "cmake",
-                    "comment",
-                    "commonlisp",
-                    "cpp",
-                    "css",
-                    "devicetree",
-                    "dockerfile",
-                    "glsl",
-                    "go",
-                    "gomod",
-                    "gowork",
-                    "html",
-                    "http",
-                    "java",
-                    "javascript",
-                    "json",
-                    "json5",
-                    "lua",
-                    "make",
-                    "markdown",
-                    "markdown_inline",
-                    "ninja",
-                    "perl",
-                    "python",
-                    "regex",
-                    "rst",
-                    "rust",
-                    "todotxt",
-                    "toml",
-                    "typescript",
-                    "verilog",
-                    "vim",
-                    "yaml",
-                },
-                ignore_install = {}, -- List of parsers to ignore installing
-                highlight = {
-                    enable = true, -- false will disable the whole extension
-                    disable = {}, -- list of language that will be disabled
-                },
-                indent = {
-                    enable = true,
-                },
-            })
-        end,
-    },
-    {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        config = function()
-            require("nvim-treesitter.configs").setup({
-                textobjects = {
-                    select = {
-                        enable = true,
-
-                        -- Automatically jump forward to textobj, similar to targets.vim
-                        lookahead = true,
-
-                        keymaps = {
-                            -- You can use the capture groups defined in textobjects.scm
-                            ["ab"] = "@block.outer",
-                            ["ib"] = "@block.inner",
-                            ["af"] = "@function.outer",
-                            ["if"] = "@function.inner",
-                            ["ac"] = "@class.outer",
-                            ["ic"] = "@class.inner",
-                            ["a,"] = "@parameter.outer",
-                            ["i,"] = "@parameter.inner",
-                        },
-                    },
-                },
-            })
-        end,
-    },
-    {
-        "nvim-treesitter/nvim-treesitter-context",
-        config = function()
-            require("treesitter-context").setup({})
-        end,
-    },
-    {
-        "nanozuki/tabby.nvim",
-        dependencies = { "kyazdani42/nvim-web-devicons" },
-        config = function()
-            require("tabby").setup({
-                tabline = require("tabby.presets").active_wins_at_tail,
-            })
-        end,
-    },
-    {
-        "echasnovski/mini.nvim",
-        version = false,
-        lazy = false,
-        config = function()
-            require("mini.trailspace").setup({
-                only_in_normal_buffers = true,
-            })
-        end,
-        keys = {
-            { "<leader>W", "<CMD>lua MiniTrailspace.trim()<CR>", desc = "Trim whitespace" },
-        },
-    },
-    {
-        "nmac427/guess-indent.nvim",
-        config = function()
-            require("guess-indent").setup({})
-        end,
-    },
-    { "b3nj5m1n/kommentary", branch = "main" },
-    { "kana/vim-textobj-user" },
-    -- iS/aS - selects whitespace
-    { "saihoooooooo/vim-textobj-space", dependencies = { "kana/vim-textobj-user" } },
-    -- iv/av - selects separated by underscores
-    { "Julian/vim-textobj-variable-segment", dependencies = { "kana/vim-textobj-user" } },
-    -- ie/ae - selects entire buffer
-    { "kana/vim-textobj-entire", dependencies = { "kana/vim-textobj-user" } },
-    -- ii/ai - selects indented block
-    { "kana/vim-textobj-indent", dependencies = { "kana/vim-textobj-user" } },
-    -- il/al - selects line
-    { "kana/vim-textobj-line", dependencies = { "kana/vim-textobj-user" } },
-    -- iu/au - selects url
-    { "mattn/vim-textobj-url", dependencies = { "kana/vim-textobj-user" } },
-    -- ic/ac - selects comment
-    { "glts/vim-textobj-comment", dependencies = { "kana/vim-textobj-user" } },
-    -- Make I/A insert/append work in all visual modes
-    { "kana/vim-niceblock" },
-    {
-        "machakann/vim-sandwich",
-        config = function()
-            vim.api.nvim_command("runtime macros/sandwich/keymap/surround.vim")
-        end,
-    },
-    { "milsen/vim-operator-substitute", dependencies = { "kana/vim-operator-user" } },
-    { "tpope/vim-repeat" },
-    { "tpope/vim-speeddating" },
-    {
-        "rhysd/committia.vim",
-        config = function()
-            vim.cmd("let g:committia_hooks = {}")
-            vim.api.nvim_exec(
-                [[
-           function! g:committia_hooks.edit_open(info)
-               setlocal spell
-               set colorcolumn=72
-           endfunction
-           ]],
-                true
-            )
-        end,
-    },
-    { "mhinz/vim-signify" },
-    {
-        "smjonas/inc-rename.nvim",
-        config = function()
-            require("inc_rename").setup({
-                input_buffer_type = "snacks",
-            })
-            vim.keymap.set("n", "<leader>lR", ":IncRename ")
-        end,
-    },
-    {
-        "mizlan/iswap.nvim",
-        config = function()
-            require("iswap").setup({
-                -- Highlight group for the sniping value (asdf etc.)
-                -- default 'Search'
-                hl_snipe = "ErrorMsg",
-
-                -- Highlight group for the visual selection of terms
-                -- default 'Visual'
-                hl_selection = "WarningMsg",
-
-                -- Highlight group for the greyed background
-                -- default 'Comment'
-                hl_grey = "LineNr",
-            })
-        end,
-        keys = {
-            { "<Leader>gs", ":ISwap<CR>", "Iswap" },
-        },
-    },
-    { "rhysd/git-messenger.vim" },
-    { "tpope/vim-fugitive" },
-    {
-        "akinsho/git-conflict.nvim",
-        config = function()
-            require("git-conflict").setup()
-        end,
-    },
-    {
-        "yssl/QFEnter",
-        config = function()
-            vim.g.qfenter_vopen_map = { "<C-v" }
-            vim.g.qfenter_hopen_map = { "<C-CR>", "<C-s>", "<C-x>" }
-            vim.g.qfenter_topen_map = { "<C-t>" }
-        end,
     },
 }
