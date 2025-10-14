@@ -283,6 +283,20 @@ return {
         cmd = { "Registers", "RegistersOpen", "RegistersClose" }, -- Load on command
     },
     {
+      "folke/flash.nvim",
+      event = "VeryLazy",
+      ---@type Flash.Config
+      opts = {labels = "asdfghjklqwertyuiopzxcvbnm",},
+      -- stylua: ignore
+      keys = {
+        { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+        { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+        { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+        { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+        { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+      },
+    },
+    {
         "kevinhwang91/nvim-hlslens",
         event = "BufReadPost", -- Load after a buffer is read
         config = function()
@@ -499,20 +513,12 @@ return {
     { "tpope/vim-repeat", event = "VeryLazy" },
     { "tpope/vim-speeddating", event = "VeryLazy" },
     {
-        "machakann/vim-sandwich",
-        event = "BufReadPost", -- Load after a buffer is read
+        "kylechui/nvim-surround",
+        event = "BufReadPost",
         config = function()
-            vim.api.nvim_command("runtime macros/sandwich/keymap/surround.vim")
+            require("nvim-surround").setup({})
         end,
     },
-    -- Suggested: nvim-surround is a modern Lua alternative to vim-sandwich.
-    -- {
-    --     "kylechui/nvim-surround",
-    --     event = "BufReadPost",
-    --     config = function()
-    --         require("nvim-surround").setup({})
-    --     end,
-    -- },
     { "b3nj5m1n/kommentary", branch = "main", event = "BufReadPost" },
     -- Suggested: Comment.nvim is a popular Lua alternative to kommentary.
     -- {
@@ -782,6 +788,7 @@ return {
             vim.keymap.set("n", "<leader>lR", ":IncRename ", { desc = "Incrementally Rename" })
         end,
     },
+
     --------------------------------------------------------------------------------
     -- => New functionality
     --------------------------------------------------------------------------------
@@ -975,7 +982,6 @@ return {
             { "<leader>tl", "<cmd>Telescope git_bcommits<cr>", desc = "Telescope Git BCommits" },
             { "<leader>tq", "<cmd>Telescope quickfix<cr>", desc = "Telescope Quickfix" }, -- Changed from gquickfix
             { "z=", "<cmd>Telescope spell_suggest<cr>", desc = "Telescope spelling fix" },
-            { "<leader>p", "<cmd>Telescope projects<cr>", desc = "Telescope Projects" }, -- Added project picker
         },
     },
     --------------------------------------------------------------------------------
