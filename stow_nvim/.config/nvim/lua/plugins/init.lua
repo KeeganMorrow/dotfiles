@@ -437,7 +437,6 @@ return {
     },
     {
         "mhinz/vim-startify",
-        cmd = "Startify", -- Load only when :Startify is called
         config = function()
             vim.g.startify_fortune_use_unicode = 1
             vim.g.ascii = {
