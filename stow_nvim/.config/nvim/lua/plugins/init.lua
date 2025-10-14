@@ -631,4 +631,93 @@ return {
             require("guess-indent").setup({})
         end,
     },
+    { "b3nj5m1n/kommentary", branch = "main" },
+    { "kana/vim-textobj-user" },
+    -- iS/aS - selects whitespace
+    { "saihoooooooo/vim-textobj-space", dependencies = { "kana/vim-textobj-user" } },
+    -- iv/av - selects separated by underscores
+    { "Julian/vim-textobj-variable-segment", dependencies = { "kana/vim-textobj-user" } },
+    -- ie/ae - selects entire buffer
+    { "kana/vim-textobj-entire", dependencies = { "kana/vim-textobj-user" } },
+    -- ii/ai - selects indented block
+    { "kana/vim-textobj-indent", dependencies = { "kana/vim-textobj-user" } },
+    -- il/al - selects line
+    { "kana/vim-textobj-line", dependencies = { "kana/vim-textobj-user" } },
+    -- iu/au - selects url
+    { "mattn/vim-textobj-url", dependencies = { "kana/vim-textobj-user" } },
+    -- ic/ac - selects comment
+    { "glts/vim-textobj-comment", dependencies = { "kana/vim-textobj-user" } },
+    -- Make I/A insert/append work in all visual modes
+    { "kana/vim-niceblock" },
+    {
+        "machakann/vim-sandwich",
+        config = function()
+            vim.api.nvim_command("runtime macros/sandwich/keymap/surround.vim")
+        end,
+    },
+    { "milsen/vim-operator-substitute", dependencies = { "kana/vim-operator-user" } },
+    { "tpope/vim-repeat" },
+    { "tpope/vim-speeddating" },
+    {
+        "rhysd/committia.vim",
+        config = function()
+            vim.cmd("let g:committia_hooks = {}")
+            vim.api.nvim_exec(
+                [[
+           function! g:committia_hooks.edit_open(info)
+               setlocal spell
+               set colorcolumn=72
+           endfunction
+           ]],
+                true
+            )
+        end,
+    },
+    { "mhinz/vim-signify" },
+    {
+        "smjonas/inc-rename.nvim",
+        config = function()
+            require("inc_rename").setup({
+                input_buffer_type = "snacks",
+            })
+            vim.keymap.set("n", "<leader>lR", ":IncRename ")
+        end,
+    },
+    {
+        "mizlan/iswap.nvim",
+        config = function()
+            require("iswap").setup({
+                -- Highlight group for the sniping value (asdf etc.)
+                -- default 'Search'
+                hl_snipe = "ErrorMsg",
+
+                -- Highlight group for the visual selection of terms
+                -- default 'Visual'
+                hl_selection = "WarningMsg",
+
+                -- Highlight group for the greyed background
+                -- default 'Comment'
+                hl_grey = "LineNr",
+            })
+        end,
+        keys = {
+            { "<Leader>gs", ":ISwap<CR>", "Iswap" },
+        },
+    },
+    { "rhysd/git-messenger.vim" },
+    { "tpope/vim-fugitive" },
+    {
+        "akinsho/git-conflict.nvim",
+        config = function()
+            require("git-conflict").setup()
+        end,
+    },
+    {
+        "yssl/QFEnter",
+        config = function()
+            vim.g.qfenter_vopen_map = { "<C-v" }
+            vim.g.qfenter_hopen_map = { "<C-CR>", "<C-s>", "<C-x>" }
+            vim.g.qfenter_topen_map = { "<C-t>" }
+        end,
+    },
 }
