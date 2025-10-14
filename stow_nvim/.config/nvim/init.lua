@@ -181,26 +181,6 @@ keymap("n", "<leader>k", ":Man<CR>", { desc = "Man page" })
 --------------------------------------------------------------------------------
 -- => Helper Functions
 --------------------------------------------------------------------------------
--- Visual selection search
-function _G.visual_selection_search(direction)
-    local saved_reg = vim.fn.getreg('"')
-    vim.cmd("normal! vgvy")
-    local pattern = vim.fn.escape(vim.fn.getreg('"'), "\\/.*$^~[]")
-    pattern = vim.fn.substitute(pattern, "\n$", "", "")
-
-    if direction == "b" then
-        vim.fn.search(pattern, "b")
-    elseif direction == "f" then
-        vim.fn.search(pattern)
-    end
-
-    vim.fn.setreg("/", pattern)
-    vim.fn.setreg('"', saved_reg)
-end
-
-keymap("x", "*", ":<C-u>lua _G.visual_selection_search('f')<CR>", { silent = true })
-keymap("x", "#", ":<C-u>lua _G.visual_selection_search('b')<CR>", { silent = true })
-
 -- Transparent background
 vim.api.nvim_set_hl(0, "Normal", { ctermbg = "NONE", bg = "NONE" })
 vim.api.nvim_set_hl(0, "NonText", { ctermbg = "NONE", bg = "NONE" })
