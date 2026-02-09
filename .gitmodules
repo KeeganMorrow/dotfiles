@@ -37,3 +37,6 @@
 [submodule "stow_hypr/.config/hypr/catppuccin-hyprlock"]
 	path = stow_hypr/.config/hypr/catppuccin-hyprlock
 	url = https://github.com/catppuccin/hyprlock.git
+[submodule "repos/catppuccin-television"]
+	path = repos/catppuccin-television
+	url = https://github.com/catppuccin/television

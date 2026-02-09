@@ -54,7 +54,6 @@ zcomet load "laggardkernel/zsh-gpg-agent"
 zcomet load junegunn/fzf shell completion.zsh key-bindings.zsh
 (( ${+commands[fzf]} )) || ~[fzf]/install --bin
 
-
 ########################################
 # Themes
 ########################################
@@ -447,6 +446,7 @@ _additional_paths=(
 "${HOME}/local/bin"
 "${HOME}/.fzf/bin"
 "${HOME}/.local/bin"
+"${HOME}/go/bin"
 )
 
 _addpaths _additional_paths > /dev/null
@@ -758,3 +758,7 @@ add-zsh-hook -Uz chpwd chpwd-osc7-pwd
 stty -ixon <$TTY >$TTY
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if (( $+commands[tv] )); then
+    eval "$(tv init zsh)"
+fi
