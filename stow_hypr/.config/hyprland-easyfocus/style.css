@@ -1,0 +1,29 @@
+window {
+  font-family: monospace;
+  background: rgba(29, 31, 33, 0);
+}
+
+window box {
+  background: #a6e3a1;
+  font-size: 30px;
+}
+
+window label {
+  color: #1f1f28;
+  background: #a6e3a1;
+}
+
+window box.workspaces box {
+  font-size: 20px;
+}
+
+.workspaces .label {
+  color: #16161d;
+  font-weight: bold;
+}
+
+.workspaces .title {
+}
+
+.current {
+}
