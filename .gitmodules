@@ -40,3 +40,6 @@
 [submodule "repos/catppuccin-television"]
 	path = repos/catppuccin-television
 	url = https://github.com/catppuccin/television
+[submodule "stow_alacritty/.config/alacritty/alacritty"]
+	path = stow_alacritty/.config/alacritty/alacritty
+	url = https://github.com/catppuccin/alacritty.git

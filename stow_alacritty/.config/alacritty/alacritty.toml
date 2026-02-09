@@ -1,34 +1,9 @@
-[[colors.indexed_colors]]
-color = "0xea9a97"
-index = 16
+general.import = [
+"~/.config/alacritty/alacritty/catppuccin-mocha.toml"
+]
 
-[[colors.indexed_colors]]
-color = "0xeb98c3"
-index = 17
-
-[colors.bright]
-black = "0x47407d"
-blue = "0x65b1cd"
-cyan = "0xa6dae3"
-green = "0xb1d196"
-magenta = "0xccb1ed"
-red = "0xf083a2"
-white = "0xe2e0f7"
-yellow = "0xf9cb8c"
-
-[colors.normal]
-black = "0x393552"
-blue = "0x569fba"
-cyan = "0x9ccfd8"
-green = "0xa3be8c"
-magenta = "0xc4a7e7"
-red = "0xeb6f92"
-white = "0xe0def4"
-yellow = "0xf6c177"
-
-[colors.primary]
-background = "0x232136"
-foreground = "0xe0def4"
+[font]
+size = 16
 
 [font.bold]
 style = "Bold"
@@ -48,7 +23,7 @@ mods = "Control"
 history = 0
 
 [window]
-opacity = 0.98
+opacity = 0.92
 
 [terminal]
 osc52 = "CopyPaste"
