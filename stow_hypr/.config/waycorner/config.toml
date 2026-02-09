@@ -1,0 +1,12 @@
+[bottom_right]
+enter_command = [ "hyprctl", "dispatch", "hyprexpo:expo", "on" ]
+locations = ["bottom_right"]
+size = 100  # default
+margin = 20  # default
+timeout_ms = 50  # default
+[top_right]
+enter_command = [ "hyprctl", "dispatch", "hyprexpo:expo", "off" ]
+locations = ["top_right"]
+size = 100  # default
+margin = 20  # default
+timeout_ms = 50  # default
