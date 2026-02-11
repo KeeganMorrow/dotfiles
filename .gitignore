@@ -3,3 +3,4 @@ stow_git/.gitconfig_local
 stow_vim/.local
 stow_zsh/.zsh/zplug/
 stow_nvim/.config/nvim/plugin/packer_compiled.lua
+.DS_Store
