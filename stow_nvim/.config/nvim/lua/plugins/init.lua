@@ -62,32 +62,58 @@ return {
     -- => LSP Related Plugins
     --------------------------------------------------------------------------------
     {
+        "mason-org/mason.nvim",
+        cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUpdate" },
+        opts = {},
+    },
+    {
+        "neovim/nvim-lspconfig",
+        cmd = { "LspInfo", "LspStart", "LspStop", "LspRestart" },
+    },
+    {
         "mason-org/mason-lspconfig.nvim",
-        event = "BufReadPre", -- Load when opening a buffer
+        event = { "BufReadPre", "BufNewFile" },
         opts = {
-            ensure_installed = {
-                "bashls",
-                "clangd",
-                "cmake",
-                "cssls",
-                "dockerls",
-                "eslint",
-                "html",
-                "jqls",
-                "jsonls",
-                "pyright",
-                "rust_analyzer",
-                "solargraph",
-                "lua_ls",
-                "vimls",
-                "yamlls",
-                "copilot",
-            },
+            ensure_installed = {},
+            automatic_installation = true,
         },
         dependencies = {
-            { "mason-org/mason.nvim", opts = {} },
+            "mason-org/mason.nvim",
             "neovim/nvim-lspconfig",
         },
+        config = function(_, opts)
+            require("mason").setup()
+            -- Load configs from nvim-lspconfig (registers server definitions)
+            require("lspconfig")
+            local mason_lspconfig = require("mason-lspconfig")
+            local user_lsp = require("user.lsp")
+
+            opts.ensure_installed = user_lsp.ensure_installed or vim.tbl_keys(user_lsp.servers or {})
+            mason_lspconfig.setup(opts)
+
+            local function setup_server(server_name)
+                local server_opts = {}
+                if user_lsp.servers and user_lsp.servers[server_name] then
+                    server_opts = user_lsp.servers[server_name]
+                end
+                if user_lsp.capabilities then
+                    server_opts.capabilities = user_lsp.capabilities
+                end
+                local ok = pcall(vim.lsp.config, server_name, server_opts)
+                if ok then
+                    vim.lsp.enable(server_name)
+                end
+            end
+
+            if mason_lspconfig.setup_handlers then
+                mason_lspconfig.setup_handlers({ setup_server })
+            else
+                -- Fallback for older mason-lspconfig versions
+                for _, server_name in ipairs(opts.ensure_installed or {}) do
+                    setup_server(server_name)
+                end
+            end
+        end,
     },
     {
         "saghen/blink.cmp",
@@ -954,12 +980,12 @@ return {
             { "<leader>tm", "<cmd>Telescope marks<cr>", desc = "Telescope Marks" },
             {
                 "<leader>tD",
-                "<cmd>Telescope lsp_document_diagnostics<cr>",
+                "<cmd>Telescope diagnostics bufnr=0<cr>",
                 desc = "Telescope LSP Doc Diagnostics",
             },
             {
                 "<leader>td",
-                "<cmd>Telescope lsp_workspace_diagnostics<cr>",
+                "<cmd>Telescope diagnostics<cr>",
                 desc = "Telescope LSP WS Diagnostics",
             },
             {
