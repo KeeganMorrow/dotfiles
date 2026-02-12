@@ -18,7 +18,7 @@
   "menus.dashboard.shortcuts.left.shortcut4.icon": "",
   "menus.dashboard.shortcuts.left.shortcut4.command": "steam",
   "menus.dashboard.shortcuts.left.shortcut4.tooltip": "Steam",
-  "menus.dashboard.powermenu.avatar.image": "/home/keegan/Pictures/OIG4.png",
+  "menus.dashboard.powermenu.avatar.image": "$HOME/Pictures/OIG4.png",
   "bar.layouts": {
     "*": {
       "left": [
