@@ -293,11 +293,9 @@ zstyle ':completion:*' squeeze-slashes true
 _addpath(){
     addition="$1"
     if [[ ":$PATH:" == *":$addition:"* ]];then
-        echo "$addition found in path"
+        return
     else
-        echo "$addition not found in path, adding"
         export PATH="$addition":$PATH
-        echo "PATH is now $PATH"
     fi
 }
 
@@ -311,6 +309,16 @@ _addpaths(){
 ############################################################
 # FZF Functions
 ############################################################
+if (( $+commands[sk] )); then
+    FZF_CMD=sk
+elif (( $+commands[fzf] )); then
+    FZF_CMD=fzf
+else
+    if [[ -o interactive ]]; then
+        print -u2 "fzf/sk not found; fzf helper functions disabled"
+    fi
+fi
+
 ########################################
 # Git FZF functions
 ########################################
@@ -330,8 +338,9 @@ is_in_git_repo() {
 ####################
 fzfgf() {
     is_in_git_repo || return
+    [[ -n "${FZF_CMD:-}" ]] || return
     git -c color.status=always status --short |
-    sk -m --ansi --nth 2..,.. \
+    ${FZF_CMD} -m --ansi --nth 2..,.. \
         --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1})' |
     cut -c4- | sed 's/.* -> //'
 }
@@ -341,8 +350,9 @@ fzfgf() {
 ####################
 fzfgb() {
   is_in_git_repo || return
+  [[ -n "${FZF_CMD:-}" ]] || return
   git branch -a --color=always | grep -v '/HEAD\s' | sort |
-  sk --ansi --multi --tac --preview-window right:70% \
+  ${FZF_CMD} --ansi --multi --tac --preview-window right:70% \
     --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
   sed 's/^..//' | cut -d' ' -f1 |
   sed 's#^remotes/##'
@@ -353,8 +363,9 @@ fzfgb() {
 ####################
 fzfgt() {
   is_in_git_repo || return
+  [[ -n "${FZF_CMD:-}" ]] || return
   git tag --sort -version:refname |
-  sk --multi --preview-window right:70% \
+  ${FZF_CMD} --multi --preview-window right:70% \
     --preview 'git show --color=always {}'
 }
 
@@ -363,8 +374,9 @@ fzfgt() {
 ####################
 fzfgu() {
   is_in_git_repo || return
+  [[ -n "${FZF_CMD:-}" ]] || return
   git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
-  sk --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+  ${FZF_CMD} --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
     --header 'Press CTRL-S to toggle sort' \
     --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
   grep -o "[a-f0-9]\{7,\}"
@@ -375,8 +387,9 @@ fzfgu() {
 ####################
 fzfgr() {
   is_in_git_repo || return
+  [[ -n "${FZF_CMD:-}" ]] || return
   git remote -v | awk '{print $1 "\t" $2}' | uniq |
-  sk --tac \
+  ${FZF_CMD} --tac \
     --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1}' |
   cut -d$'\t' -f1
 }
@@ -389,10 +402,11 @@ fzfgr() {
 
  gstash() {
   is_in_git_repo || return
+  [[ -n "${FZF_CMD:-}" ]] || return
   local out k reflog
   out=(
     $(git stash list --pretty='%C(yellow)%gd %>(14)%Cgreen%cr %C(blue)%gs' |
-      fzf --ansi --no-sort --header='enter:show, ctrl-d:diff, ctrl-o:pop, ctrl-y:apply, ctrl-x:drop' \
+      ${FZF_CMD} --ansi --no-sort --header='enter:show, ctrl-d:diff, ctrl-o:pop, ctrl-y:apply, ctrl-x:drop' \
           --preview='git stash show --color=always -p $(cut -d" " -f1 <<< {}) | head -'$LINES \
           --preview-window=down:50% --reverse \
           --bind='enter:execute(git stash show --color=always -p $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
@@ -449,11 +463,11 @@ _additional_paths=(
 "${HOME}/go/bin"
 )
 
-_addpaths _additional_paths > /dev/null
+_addpaths _additional_paths
 
 if (( $+commands[rg] )); then
     # Use rg with fzf
-    export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+    export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 fi
 
 # Use preview with fzf ctrl-t and completion
@@ -724,9 +738,22 @@ fi
 ################################################################################
 # Machine specific zsh files
 ################################################################################
-if [ -e "$machinerc" ];then
-    echo "Using zshrc for $(hostname)"
-    source $machinerc
+machinerc_dir="${ZDOTDIR:-${HOME}/.zsh}/local"
+machinerc="${machinerc_dir}/$(hostname).zshrc"
+
+if [[ ! -d "${machinerc_dir}" ]]; then
+    mkdir -p "${machinerc_dir}"
+fi
+
+if [[ -o interactive ]]; then
+    if [[ ! -e "${machinerc}" ]]; then
+        echo "Created machine zshrc: ${machinerc}"
+        : > "${machinerc}"
+    fi
+
+    if [[ -e "${machinerc}" ]]; then
+        source "${machinerc}"
+    fi
 fi
 
 ################################################################################
@@ -757,7 +784,6 @@ add-zsh-hook -Uz chpwd chpwd-osc7-pwd
 # https://github.com/romkatv/powerlevel10k/issues/388
 stty -ixon <$TTY >$TTY
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if (( $+commands[tv] )); then
     eval "$(tv init zsh)"
