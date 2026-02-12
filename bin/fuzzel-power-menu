@@ -35,4 +35,7 @@ s = string.gsub(s, "%s+$", "")
 s = string.gsub(s, "[\n]+", " ")
 f:close()
 
-os.execute(options[s])
+local cmd = options[s]
+if cmd then
+    os.execute(cmd)
+end
