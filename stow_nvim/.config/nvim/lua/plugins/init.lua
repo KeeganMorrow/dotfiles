@@ -88,6 +88,10 @@ return {
             local mason_lspconfig = require("mason-lspconfig")
             local user_lsp = require("user.lsp")
 
+            if user_lsp.diagnostics then
+                vim.diagnostic.config(user_lsp.diagnostics)
+            end
+
             opts.ensure_installed = user_lsp.ensure_installed or vim.tbl_keys(user_lsp.servers or {})
             mason_lspconfig.setup(opts)
 
@@ -95,6 +99,9 @@ return {
                 local server_opts = {}
                 if user_lsp.servers and user_lsp.servers[server_name] then
                     server_opts = user_lsp.servers[server_name]
+                end
+                if user_lsp.on_attach then
+                    server_opts.on_attach = user_lsp.on_attach
                 end
                 if user_lsp.capabilities then
                     server_opts.capabilities = user_lsp.capabilities
@@ -477,7 +484,7 @@ return {
     },
     {
         "liuchengxu/vista.vim",
-        cmd = { "Vista", "Vista" }, -- Load on command
+        cmd = { "Vista" }, -- Load on command
         config = function()
             vim.g.vista_default_executive = "nvim_lsp"
             vim.g.vista_fzf_preview = { "right:50%" }

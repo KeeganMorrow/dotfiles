@@ -5,3 +5,4 @@ stow_zsh/.zsh/zplug/
 stow_nvim/.config/nvim/plugin/packer_compiled.lua
 .DS_Store
 stow_zsh/.zsh/local/
+stow_nvim/.config/nvim/lazy-lock.json
