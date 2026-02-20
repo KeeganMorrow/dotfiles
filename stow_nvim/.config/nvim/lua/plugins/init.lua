@@ -552,17 +552,13 @@ return {
             require("nvim-surround").setup({})
         end,
     },
-    { "b3nj5m1n/kommentary", branch = "main", event = "BufReadPost" },
-    -- Suggested: Comment.nvim is a popular Lua alternative to kommentary.
-    -- {
-    --     "numToStr/Comment.nvim",
-    --     event = "BufReadPost",
-    --     config = function()
-    --         require("Comment").setup({
-    --             -- pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-    --         })
-    --     end,
-    -- },
+    {
+        "numToStr/Comment.nvim",
+        event = "BufReadPost",
+        config = function()
+            require("Comment").setup({})
+        end,
+    },
     -- Suggested: Toggleterm for integrated terminal
     {
         "akinsho/toggleterm.nvim",
