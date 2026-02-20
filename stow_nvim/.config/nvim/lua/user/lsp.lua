@@ -59,6 +59,13 @@ M.on_attach = function(_, bufnr)
 end
 
 -- Add completion capabilities here if needed (e.g., from blink.cmp)
-M.capabilities = nil
+do
+    local ok, blink = pcall(require, "blink.cmp")
+    if ok and blink.get_lsp_capabilities then
+        M.capabilities = blink.get_lsp_capabilities()
+    else
+        M.capabilities = nil
+    end
+end
 
 return M

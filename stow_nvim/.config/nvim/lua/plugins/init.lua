@@ -92,7 +92,8 @@ return {
                 vim.diagnostic.config(user_lsp.diagnostics)
             end
 
-            opts.ensure_installed = user_lsp.ensure_installed or vim.tbl_keys(user_lsp.servers or {})
+            opts.ensure_installed = user_lsp.ensure_installed
+                or vim.tbl_keys(user_lsp.servers or {})
             mason_lspconfig.setup(opts)
 
             local function setup_server(server_name)
@@ -309,17 +310,17 @@ return {
             })
         end,
     },
-    { "arecarn/vim-backup-tree"},
+    { "arecarn/vim-backup-tree" },
     {
         "tversteeg/registers.nvim",
         branch = "main",
         cmd = { "Registers", "RegistersOpen", "RegistersClose" }, -- Load on command
     },
     {
-      "folke/flash.nvim",
-      event = "VeryLazy",
-      ---@type Flash.Config
-      opts = {labels = "asdfghjklqwertyuiopzxcvbnm",},
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        ---@type Flash.Config
+        opts = { labels = "asdfghjklqwertyuiopzxcvbnm" },
       -- stylua: ignore
       keys = {
         { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
@@ -523,7 +524,7 @@ return {
         "yssl/QFEnter",
         event = "BufReadPost", -- Load when quickfix/loclist might be opened
         config = function()
-            vim.g.qfenter_vopen_map = { "<C-v" }
+            vim.g.qfenter_vopen_map = { "<C-v>" }
             vim.g.qfenter_hopen_map = { "<C-CR>", "<C-s>", "<C-x>" }
             vim.g.qfenter_topen_map = { "<C-t>" }
         end,
@@ -570,7 +571,7 @@ return {
         config = function()
             require("toggleterm").setup({
                 size = 20,
-                open_mapping = [[<c-\>]], -- Default mapping
+                open_mapping = [[<c-`>]], -- Avoid conflict with vim-tmux-navigator
                 hide_numbers = true,
                 direction = "float", -- "horizontal", "vertical", "float"
                 terminal_mappings = true,
@@ -700,114 +701,71 @@ return {
                 topdelete = { text = "-" },
                 changedelete = { text = "-" },
             },
-        },
-        keys = {
-            -- Navigation
-            {
-                "]c",
-                function()
+            on_attach = function(bufnr)
+                local gitsigns = require("gitsigns")
+
+                local function map(mode, l, r, opts)
+                    opts = opts or {}
+                    opts.buffer = bufnr
+                    vim.keymap.set(mode, l, r, opts)
+                end
+
+                -- Navigation
+                map("n", "]c", function()
                     if vim.wo.diff then
                         vim.cmd.normal({ "]c", bang = true })
                     else
-                        require("gitsigns").nav_hunk("next")
+                        gitsigns.nav_hunk("next")
                     end
-                end,
-                mode = { "n", "v" },
-                desc = "Next Hunk",
-                buffer = true, -- Make this keymap buffer-local
-            },
-            {
-                "[c",
-                function()
+                end)
+
+                map("n", "[c", function()
                     if vim.wo.diff then
                         vim.cmd.normal({ "[c", bang = true })
                     else
-                        require("gitsigns").nav_hunk("prev")
+                        gitsigns.nav_hunk("prev")
                     end
-                end,
-                mode = { "n", "v" },
-                desc = "Prev Hunk",
-                buffer = true, -- Make this keymap buffer-local
-            },
+                end)
 
-            -- Actions
-            {
-                "<leader>hs",
-                ":Gitsigns StageHunk<CR>",
-                mode = { "n", "v" },
-                desc = "Stage Hunk",
-                buffer = true,
-            },
-            {
-                "<leader>hr",
-                ":Gitsigns ResetHunk<CR>",
-                mode = { "n", "v" },
-                desc = "Reset Hunk",
-                buffer = true,
-            },
-            {
-                "<leader>hS",
-                function()
-                    require("gitsigns").stage_buffer()
-                end,
-                desc = "Stage Buffer",
-                buffer = true,
-            },
-            {
-                "<leader>hu",
-                function()
-                    require("gitsigns").undo_stage_hunk()
-                end,
-                desc = "Undo Stage Hunk",
-                buffer = true,
-            },
-            {
-                "<leader>hR",
-                function()
-                    require("gitsigns").reset_buffer()
-                end,
-                desc = "Reset Buffer",
-                buffer = true,
-            },
-            {
-                "<leader>hp",
-                function()
-                    require("gitsigns").preview_hunk()
-                end,
-                desc = "Preview Hunk",
-                buffer = true,
-            },
-            {
-                "<leader>hb",
-                function()
-                    require("gitsigns").blame_line({ full = true })
-                end,
-                desc = "Blame Line",
-                buffer = true,
-            },
-            {
-                "<leader>hd",
-                function()
-                    require("gitsigns").diffthis()
-                end,
-                desc = "Diff This",
-                buffer = true,
-            },
-            {
-                "<leader>hD",
-                function()
-                    require("gitsigns").diffthis("~")
-                end,
-                desc = "Diff This (Cached)",
-                buffer = true,
-            },
-            {
-                "ih",
-                ":<C-U>Gitsigns SelectHunk<CR>",
-                mode = { "o", "x" },
-                desc = "Select Hunk",
-                buffer = true,
-            },
+                -- Actions
+                map("n", "<leader>hs", gitsigns.stage_hunk)
+                map("n", "<leader>hr", gitsigns.reset_hunk)
+
+                map("v", "<leader>hs", function()
+                    gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+                end)
+
+                map("v", "<leader>hr", function()
+                    gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+                end)
+
+                map("n", "<leader>hS", gitsigns.stage_buffer)
+                map("n", "<leader>hR", gitsigns.reset_buffer)
+                map("n", "<leader>hp", gitsigns.preview_hunk)
+                map("n", "<leader>hi", gitsigns.preview_hunk_inline)
+
+                map("n", "<leader>hb", function()
+                    gitsigns.blame_line({ full = true })
+                end)
+
+                map("n", "<leader>hd", gitsigns.diffthis)
+
+                map("n", "<leader>hD", function()
+                    gitsigns.diffthis("~")
+                end)
+
+                map("n", "<leader>hQ", function()
+                    gitsigns.setqflist("all")
+                end)
+                map("n", "<leader>hq", gitsigns.setqflist)
+
+                -- Toggles
+                map("n", "<leader>tb", gitsigns.toggle_current_line_blame)
+                map("n", "<leader>tw", gitsigns.toggle_word_diff)
+
+                -- Text object
+                map({ "o", "x" }, "ih", gitsigns.select_hunk)
+            end,
         },
     },
     {

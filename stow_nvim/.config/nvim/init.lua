@@ -169,9 +169,9 @@ keymap("n", "<leader>-", ":split<CR>", { desc = "Horizontal split" })
 -- Terminal
 keymap("t", "<esc><esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
--- Buffer navigation
-keymap("n", "j", "gj")
-keymap("n", "k", "gk")
+-- Buffer navigation (respect counts)
+keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 keymap("n", "<S-h>", "gT", { desc = "Previous tab" })
 keymap("n", "<S-l>", "gt", { desc = "Next tab" })
 keymap("n", "[b", ":bnext<CR>", { desc = "Next buffer" })
@@ -191,9 +191,14 @@ keymap("n", "<leader>k", ":Man<CR>", { desc = "Man page" })
 --------------------------------------------------------------------------------
 -- => Helper Functions
 --------------------------------------------------------------------------------
--- Transparent background
-vim.api.nvim_set_hl(0, "Normal", { ctermbg = "NONE", bg = "NONE" })
-vim.api.nvim_set_hl(0, "NonText", { ctermbg = "NONE", bg = "NONE" })
+-- Transparent background (re-apply after colorscheme loads)
+vim.api.nvim_create_autocmd("ColorScheme", {
+    group = augroup("TransparentBG", { clear = true }),
+    callback = function()
+        vim.api.nvim_set_hl(0, "Normal", { ctermbg = "NONE", bg = "NONE" })
+        vim.api.nvim_set_hl(0, "NonText", { ctermbg = "NONE", bg = "NONE" })
+    end,
+})
 
 --------------------------------------------------------------------------------
 -- => OSC52 Clipboard
