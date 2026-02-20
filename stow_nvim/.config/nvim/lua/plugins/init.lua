@@ -675,7 +675,23 @@ return {
         end,
     },
     { "rhysd/git-messenger.vim", cmd = "GitMessenger" }, -- Load on command
-    { "tpope/vim-fugitive", cmd = { "Git", "G" } }, -- Load on commands
+    {
+        "tpope/vim-fugitive",
+        cmd = {
+            "Git",
+            "G",
+            "Gdiffsplit",
+            "Gvdiffsplit",
+            "Gedit",
+            "Gread",
+            "Gwrite",
+            "Ggrep",
+            "Gblame",
+            "Gbrowse",
+            "Gmove",
+            "Gremove",
+        },
+    }, -- Load on commands
     {
         "akinsho/git-conflict.nvim",
         event = "BufReadPost", -- Load after a buffer is read, especially if it contains conflicts
