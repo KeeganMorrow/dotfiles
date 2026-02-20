@@ -20,7 +20,6 @@ vim.opt.number = true
 vim.opt.wildmenu = true
 vim.opt.wildignore = "*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store"
 vim.opt.ruler = true
-vim.opt.cmdheight = 2
 vim.opt.showmode = false
 vim.opt.hidden = true
 vim.opt.backspace = "eol,start,indent"
@@ -51,6 +50,7 @@ vim.opt.listchars = { tab = "→ ", space = "·" }
 --------------------------------------------------------------------------------
 -- => Files, backups and undo
 --------------------------------------------------------------------------------
+-- vim-backup-tree manages backupdir/undodir and related settings
 vim.opt.backup = true
 vim.opt.writebackup = false
 vim.opt.swapfile = false
@@ -63,12 +63,12 @@ vim.opt.smarttab = true
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.linebreak = true
-vim.opt.textwidth = 500
+vim.opt.textwidth = 0
 vim.opt.autoindent = true
 vim.opt.cindent = true
 vim.opt.wrap = true
 vim.opt.colorcolumn = "80,100"
-vim.opt.virtualedit = "all"
+vim.opt.virtualedit = "block"
 
 --------------------------------------------------------------------------------
 -- => Diff and Completion
@@ -104,6 +104,16 @@ autocmd("BufReadPost", {
         local line = vim.fn.line("'\"")
         if line > 0 and line <= vim.fn.line("$") then
             vim.cmd('normal! g`"')
+        end
+    end,
+})
+
+-- Auto-check for file changes when returning to Neovim
+autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+    group = "RestoreCursor",
+    callback = function()
+        if vim.fn.mode() ~= "c" then
+            vim.cmd("checktime")
         end
     end,
 })
