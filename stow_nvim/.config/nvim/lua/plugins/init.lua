@@ -698,7 +698,7 @@ return {
         event = "BufReadPost", -- Load after a buffer is read, especially if it contains conflicts
         config = function()
             require("git-conflict").setup({
-                default_mappings = true,
+                default_mappings = false,
                 -- Other configurations
             })
         end,
@@ -1028,6 +1028,7 @@ return {
                     "regex",
                     "rst",
                     "rust",
+                    "ruby",
                     "todotxt",
                     "toml",
                     "typescript",
@@ -1132,6 +1133,21 @@ return {
                                 info = " ",
                                 hint = " ",
                             },
+                        },
+                        {
+                              function()
+                                return " "
+                              end,
+                              color = function()
+                                local status = require("sidekick.status").get()
+                                if status then
+                                  return status.kind == "Error" and "DiagnosticError" or status.busy and "DiagnosticWarn" or "Special"
+                                end
+                              end,
+                              cond = function()
+                                local status = require("sidekick.status")
+                                return status.get() ~= nil
+                              end,
                         },
                     },
                     lualine_y = { "filetype", "encoding" }, -- Moved here for better grouping
