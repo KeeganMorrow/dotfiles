@@ -312,7 +312,8 @@ return {
     },
     { "arecarn/vim-backup-tree" },
     {
-        "tversteeg/registers.nvim",
+        url = "https://codeberg.org/fosk/registers.nvim.git",
+        name = "registers.nvim",
         branch = "main",
         cmd = { "Registers", "RegistersOpen", "RegistersClose" }, -- Load on command
     },
