@@ -380,6 +380,8 @@ fzfgb() {
   git branch -a --color=always | grep -v '/HEAD\s' | sort |
   ${FZF_CMD} --ansi --multi --tac --preview-window right:70% \
     --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
+  # Strip all ANSI escape codes
+  sed 's/\x1b\[[0-9;]*m//g' |
   sed 's/^..//' | cut -d' ' -f1 |
   sed 's#^remotes/##'
 }
