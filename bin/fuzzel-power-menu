@@ -6,7 +6,7 @@ local options = {
     [" Lock"] = "swaylock",
     [" Shut down"] = "systemctl poweroff",
     [" Reboot"] = "systemctl reboot",
-    ["󰍃 Log out"] = "hyprctl dispatch exit",
+    ["󰍃 Log out"] = "uwsm stop",
     ["󰤄 Suspend"] = "systemctl suspend",
     ["󰒲 Hibernate"] = "systemctl hibernate",
 }
