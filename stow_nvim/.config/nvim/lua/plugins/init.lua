@@ -726,35 +726,30 @@ return {
     },
     {
         "folke/trouble.nvim",
-        cmd = { "TroubleToggle", "Trouble" }, -- Load on command
-        config = function()
-            require("trouble").setup({
-                indent_lines = true,
-                -- Your other trouble.nvim settings
-            })
-        end,
+        cmd = "Trouble",
+        opts = {},
         keys = {
-            { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "Toggle Trouble" },
+            { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Toggle Diagnostics" },
             {
                 "<leader>xw",
-                "<cmd>TroubleToggle workspace_diagnostics<cr>",
-                desc = "Toggle Trouble (Workspace)",
+                "<cmd>Trouble diagnostics toggle<cr>",
+                desc = "Toggle Workspace Diagnostics",
             },
             {
                 "<leader>xd",
-                "<cmd>TroubleToggle document_diagnostics<cr>",
-                desc = "Toggle Trouble (Document)",
+                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+                desc = "Toggle Buffer Diagnostics",
             },
-            { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "Toggle Trouble (Quickfix)" },
+            { "<leader>xq", "<cmd>Trouble qflist toggle<cr>", desc = "Toggle Quickfix" },
             {
                 "<leader>xl",
-                "<cmd>TroubleToggle loclist<cr>",
-                desc = "Toggle Trouble (Location List)",
+                "<cmd>Trouble loclist toggle<cr>",
+                desc = "Toggle Location List",
             },
             {
                 "<leader>xr",
-                "<cmd>TroubleToggle lsp_references<cr>",
-                desc = "Toggle Trouble (References)",
+                "<cmd>Trouble lsp_references toggle<cr>",
+                desc = "Toggle LSP References",
             },
         },
     },
