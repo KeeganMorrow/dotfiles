@@ -17,7 +17,6 @@ return {
                 integrations = {
                     blink_cmp = true,
                     gitsigns = true,
-                    nvimtree = true,
                     treesitter = true,
                     notify = false,
                     mini = {
@@ -903,7 +902,7 @@ return {
                     lualine_y = { "filetype", "encoding" }, -- Moved here for better grouping
                     lualine_z = { "progress", "location" },
                 },
-                extensions = { "quickfix", "fzf" },
+                extensions = { "quickfix" },
             })
         end,
     },
