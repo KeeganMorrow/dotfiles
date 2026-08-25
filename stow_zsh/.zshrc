@@ -548,8 +548,8 @@ elif (( $+commands[lesspipe.sh] )) ; then
     export LESSOPEN="|lesspipe.sh %s"
 fi
 
-if (( $+commands[exa] )) ; then
-    alias ls='exa --icons'
+if (( $+commands[eza] )) ; then
+    alias ls='eza --icons=always'
 fi
 ############################################################
 # Function to show a binary file in vim
