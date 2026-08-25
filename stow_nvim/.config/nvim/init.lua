@@ -204,9 +204,9 @@ keymap("n", "[b", ":bnext<CR>", { desc = "Next buffer" })
 keymap("n", "]b", ":bprev<CR>", { desc = "Previous buffer" })
 
 -- Tab management
-keymap("n", "<leader>tc", ":tabnew<CR>", { desc = "New tab" })
-keymap("n", "<leader>tm", ":tabmove<CR>", { desc = "Move tab" })
-keymap("n", "<leader>tq", ":tabclose<CR>", { desc = "Close tab" })
+keymap("n", "<leader>Tc", ":tabnew<CR>", { desc = "New tab" })
+keymap("n", "<leader>Tm", ":tabmove<CR>", { desc = "Move tab" })
+keymap("n", "<leader>Tq", ":tabclose<CR>", { desc = "Close tab" })
 
 -- Remap Q to run register q as a macro
 keymap("n", "Q", "@q", { desc = "Execute macro q" })
