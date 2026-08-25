@@ -21,7 +21,6 @@ vim.opt.wildmenu = true
 vim.opt.wildignore = "*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store"
 vim.opt.ruler = true
 vim.opt.showmode = false
-vim.opt.hidden = true
 vim.opt.backspace = "eol,start,indent"
 vim.opt.whichwrap:append("<,>,h,l")
 vim.opt.mouse = "a"
@@ -42,7 +41,6 @@ vim.opt.conceallevel = 0
 -- => Colors and Fonts
 --------------------------------------------------------------------------------
 vim.opt.termguicolors = true
-vim.opt.encoding = "utf8"
 vim.opt.fileformats = "unix,dos,mac"
 vim.opt.list = true
 vim.opt.listchars = { tab = "→ ", space = "·" }
@@ -65,7 +63,6 @@ vim.opt.tabstop = 4
 vim.opt.linebreak = true
 vim.opt.textwidth = 0
 vim.opt.autoindent = true
-vim.opt.cindent = true
 vim.opt.wrap = true
 vim.opt.colorcolumn = "80,100"
 vim.opt.virtualedit = "block"
@@ -144,18 +141,16 @@ autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
     end,
 })
 
--- Auto unfold all on buffer open
-augroup("AutoUnfold", { clear = true })
-autocmd("BufWinEnter", {
-    group = "AutoUnfold",
-    pattern = "*",
+-- Filetype specific settings
+augroup("FileTypeSettings", { clear = true })
+autocmd("FileType", {
+    group = "FileTypeSettings",
+    pattern = { "c", "cpp", "cuda", "objc", "objcpp" },
     callback = function()
-        vim.opt.foldlevel = 99
+        vim.opt_local.cindent = true
     end,
 })
 
--- Filetype specific settings
-augroup("FileTypeSettings", { clear = true })
 autocmd("FileType", {
     group = "FileTypeSettings",
     pattern = "dts",
@@ -281,3 +276,4 @@ require("user.lsp")
 -- => Folding
 --------------------------------------------------------------------------------
 vim.opt.foldenable = true
+vim.opt.foldlevel = 99
