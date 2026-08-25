@@ -46,10 +46,6 @@ return {
                         },
                     },
                     lsp_trouble = true,
-                    telescope = {
-                        enabled = true,
-                        -- style = "nvchad"
-                    },
                     which_key = true,
                 },
             })
@@ -436,58 +432,6 @@ return {
         },
     },
     {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        event = "BufReadPost", -- Load after a buffer is read
-        ---@module "ibl"
-        ---@type ibl.config
-        opts = {
-            indent = { char = "│" },
-            scope = { enabled = true, char = "│" },
-            exclude = {
-                filetypes = {
-                    "help",
-                    "alpha",
-                    "dashboard",
-                    "neo-tree", -- If you add Neo-tree
-                    "Trouble",
-                    "lazy",
-                    "mason",
-                    "NvimTree", -- If you add Nvim-tree
-                    "toggleterm",
-                    "lazy-lock",
-                    "vista",
-                },
-            },
-        },
-    },
-    {
-        "mhinz/vim-startify",
-        config = function()
-            vim.g.startify_fortune_use_unicode = 1
-            vim.g.ascii = {
-                "               __",
-                ".-----..--.--.|__|.--------.",
-                "|  |  ||  |  ||  ||        |",
-                "|__|__| \\___/ |__||__|__|__|",
-                "",
-            }
-            -- vim.g.startify_custom_header = {unpack(vim.g.ascii), unpack(vim.call('startify#fortune#boxed'))}
-        end,
-    },
-    {
-        "liuchengxu/vista.vim",
-        cmd = { "Vista" }, -- Load on command
-        config = function()
-            vim.g.vista_default_executive = "nvim_lsp"
-            vim.g.vista_fzf_preview = { "right:50%" }
-        end,
-        keys = {
-            { "<leader>v", ":<C-u>Vista!!<CR>", desc = "Vista" },
-            { "<leader>V", ":<C-u>Vista finder<CR>", desc = "Vista Finder" },
-        },
-    },
-    {
         "folke/todo-comments.nvim",
         event = "BufReadPost", -- Load after a buffer is read
         config = function()
@@ -502,6 +446,15 @@ return {
             -- Only configure the modules you actively use from mini.nvim
             require("mini.trailspace").setup({
                 only_in_normal_buffers = true,
+            })
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "SnacksDashboardOpened",
+                callback = function()
+                    local buf = vim.api.nvim_get_current_buf()
+                    vim.b[buf].minitrailspace_disable = true
+                    MiniTrailspace.unhighlight()
+                    vim.schedule(MiniTrailspace.unhighlight)
+                end,
             })
             -- If you want to use mini.surround instead of vim-sandwich or nvim-surround:
             -- require("mini.surround").setup({})
@@ -550,33 +503,6 @@ return {
         config = function()
             require("Comment").setup({})
         end,
-    },
-    -- Suggested: Toggleterm for integrated terminal
-    {
-        "akinsho/toggleterm.nvim",
-        cmd = "ToggleTerm",
-        version = "*",
-        config = function()
-            require("toggleterm").setup({
-                size = 20,
-                open_mapping = [[<c-`>]], -- Avoid conflict with vim-tmux-navigator
-                hide_numbers = true,
-                direction = "float", -- "horizontal", "vertical", "float"
-                terminal_mappings = true,
-                shell = vim.o.shell,
-                -- Other configurations
-            })
-        end,
-        keys = {
-            { "<leader>t", "<cmd>ToggleTerm<cr>", desc = "Toggle Terminal" },
-            { "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float Terminal" },
-            {
-                "<leader>th",
-                "<cmd>ToggleTerm direction=horizontal<cr>",
-                desc = "Horizontal Terminal",
-            },
-            { "<leader>tv", "<cmd>ToggleTerm direction=vertical<cr>", desc = "Vertical Terminal" },
-        },
     },
     --------------------------------------------------------------------------------
     -- => Textobject setup
@@ -772,16 +698,6 @@ return {
             end,
         },
     },
-    {
-        "smjonas/inc-rename.nvim",
-        cmd = "IncRename", -- Load on command
-        config = function()
-            require("inc_rename").setup({
-                input_buffer_type = "snacks",
-            })
-            vim.keymap.set("n", "<leader>lR", ":IncRename ", { desc = "Incrementally Rename" })
-        end,
-    },
 
     --------------------------------------------------------------------------------
     -- => New functionality
@@ -840,142 +756,6 @@ return {
                 "<cmd>TroubleToggle lsp_references<cr>",
                 desc = "Toggle Trouble (References)",
             },
-        },
-    },
-    {
-        "nvim-telescope/telescope.nvim",
-        cmd = "Telescope", -- Load on command
-        dependencies = {
-            -- Removed "junegunn/fzf.vim" as telescope-fzf-native handles FZF for Telescope
-            {
-                "nvim-telescope/telescope-fzf-native.nvim",
-                build = "make", -- Build command for fzf-native
-                config = function()
-                    require("telescope").load_extension("fzf")
-                end,
-            },
-            {
-                "nvim-telescope/telescope-project.nvim",
-                config = function()
-                    require("telescope").load_extension("project")
-                end,
-            },
-            "nvim-lua/plenary.nvim", -- Essential dependency for Telescope
-        },
-        config = function()
-            require("telescope").setup({
-                defaults = {
-                    vimgrep_arguments = {
-                        "rg",
-                        "--color=never",
-                        "--no-heading",
-                        "--with-filename",
-                        "--line-number",
-                        "--column",
-                        "--smart-case",
-                    },
-                    prompt_prefix = "   ",
-                    selection_caret = "  ",
-                    entry_prefix = "  ",
-                    initial_mode = "insert",
-                    selection_strategy = "reset",
-                    sorting_strategy = "ascending",
-                    layout_strategy = "horizontal",
-                    layout_config = {
-                        horizontal = {
-                            prompt_position = "top",
-                            preview_width = 0.55,
-                            results_width = 0.8,
-                        },
-                        vertical = {
-                            mirror = false,
-                        },
-                        width = 0.87,
-                        height = 0.80,
-                        preview_cutoff = 120,
-                    },
-                    file_sorter = require("telescope.sorters").get_fuzzy_file,
-                    file_ignore_patterns = {
-                        "%.git/",
-                        "node_modules/",
-                        "%.DS_Store",
-                        "build/",
-                        "dist/",
-                    },
-                    generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-                    winblend = 0,
-                    -- border = {},
-                    borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-                    color_devicons = true,
-                    set_env = { ["COLORTERM"] = "truecolor" }, -- This makes the devicons work
-                    -- path_display = { "truncate" },
-                    -- mappings = {
-                    --     i = {
-                    --         ["<C-k>"] = cmp.mapping.select_prev_item(), -- Example for nvim-cmp integration
-                    --         ["<C-j>"] = cmp.mapping.select_next_item(),
-                    --     },
-                    -- },
-                },
-                pickers = {
-                    find_files = {
-                        theme = "dropdown",
-                        hidden = true, -- Show hidden files
-                    },
-                    live_grep = {
-                        theme = "ivy",
-                    },
-                },
-                extensions = {
-                    -- Your extension configs
-                },
-            })
-        end,
-        keys = {
-            {
-                "<leader>q",
-                "<cmd>Telescope command_history<CR>",
-                desc = "Telescope Command History",
-            },
-            { "<leader>/", "<cmd>Telescope search_history<CR>", desc = "Telescope Search History" },
-            {
-                "<leader>R",
-                "<cmd>Telescope quickfix_history<CR>",
-                desc = "Telescope Quickfix History",
-            },
-            { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Telescope Find Files" },
-            { "<leader>tg", "<cmd>Telescope live_grep<cr>", desc = "Telescope Live Grep" },
-            { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-            { "<leader>th", "<cmd>Telescope help_tags<cr>", desc = "Telescope Help" },
-            { "<leader>tm", "<cmd>Telescope marks<cr>", desc = "Telescope Marks" },
-            {
-                "<leader>tD",
-                "<cmd>Telescope diagnostics bufnr=0<cr>",
-                desc = "Telescope LSP Doc Diagnostics",
-            },
-            {
-                "<leader>td",
-                "<cmd>Telescope diagnostics<cr>",
-                desc = "Telescope LSP WS Diagnostics",
-            },
-            {
-                "<leader>tr",
-                "<cmd>Telescope lsp_references<cr>",
-                desc = "Telescope LSP References",
-            },
-            { "<leader>tS", "<cmd>Telescope treesitter<cr>", desc = "Telescope Treesitter" },
-            {
-                "<leader>ts",
-                "<cmd>Telescope lsp_document_symbols<cr>",
-                desc = "Telescope LSP Document Symbols",
-            },
-            {
-                "<leader>tW", -- Changed from tS to avoid conflict with treesitter picker
-                "<cmd>Telescope lsp_workspace_symbols<cr>",
-                desc = "Telescope LSP Workspace Symbols",
-            },
-            { "<leader>tl", "<cmd>Telescope git_bcommits<cr>", desc = "Telescope Git BCommits" },
-            { "<leader>tq", "<cmd>Telescope quickfix<cr>", desc = "Telescope Quickfix" }, -- Changed from gquickfix
-            { "z=", "<cmd>Telescope spell_suggest<cr>", desc = "Telescope spelling fix" },
         },
     },
     --------------------------------------------------------------------------------
@@ -1069,27 +849,53 @@ return {
         end,
     },
     {
-      "folke/snacks.nvim",
-      priority = 1000,
-      lazy = false,
-      ---@type snacks.Config
-      opts = {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-        bigfile = { enabled = true },
-        dashboard = { enabled = true },
-        explorer = { enabled = true },
-        indent = { enabled = true },
-        input = { enabled = true },
-        picker = { enabled = true },
-        notifier = { enabled = true },
-        quickfile = { enabled = true },
-        scope = { enabled = true },
-        scroll = { enabled = true },
-        statuscolumn = { enabled = true },
-        words = { enabled = true },
-      },
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        ---@type snacks.Config
+        opts = {
+            bigfile = { enabled = true },
+            dashboard = { enabled = true },
+            explorer = { enabled = true, replace_netrw = true },
+            indent = { enabled = true },
+            input = { enabled = true },
+            notifier = { enabled = true },
+            picker = { enabled = true },
+            quickfile = { enabled = true },
+            scope = { enabled = true },
+            scroll = { enabled = true },
+            statuscolumn = { enabled = true },
+            terminal = { enabled = true },
+            words = { enabled = true },
+        },
+        keys = {
+            { "<leader>e", function() Snacks.explorer() end, desc = "Explorer" },
+            { "<leader>q", function() Snacks.picker.command_history() end, desc = "Command History" },
+            { "<leader>/", function() Snacks.picker.search_history() end, desc = "Search History" },
+            { "<leader>R", function() Snacks.picker.qflist() end, desc = "Quickfix" },
+            { "<leader>f", function() Snacks.picker.files({ hidden = true }) end, desc = "Find Files" },
+            { "<leader>tg", function() Snacks.picker.grep() end, desc = "Grep" },
+            { "<leader>b", function() Snacks.picker.buffers() end, desc = "Buffers" },
+            { "<leader>th", function() Snacks.picker.help() end, desc = "Help Tags" },
+            { "<leader>tm", function() Snacks.picker.marks() end, desc = "Marks" },
+            { "<leader>tD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
+            { "<leader>td", function() Snacks.picker.diagnostics() end, desc = "Workspace Diagnostics" },
+            { "<leader>tr", function() Snacks.picker.lsp_references() end, desc = "LSP References" },
+            { "<leader>tS", function() Snacks.picker.treesitter() end, desc = "Treesitter Symbols" },
+            { "<leader>ts", function() Snacks.picker.lsp_symbols() end, desc = "Document Symbols" },
+            { "<leader>tW", function() Snacks.picker.lsp_workspace_symbols() end, desc = "Workspace Symbols" },
+            { "<leader>tl", function() Snacks.picker.git_log_file() end, desc = "Git Buffer Commits" },
+            { "<leader>tq", function() Snacks.picker.qflist() end, desc = "Quickfix" },
+            { "z=", function() Snacks.picker.spelling() end, desc = "Spelling" },
+            { "<leader>v", function() Snacks.picker.lsp_symbols() end, desc = "Document Symbols" },
+            { "<leader>V", function() Snacks.picker.treesitter() end, desc = "Treesitter Symbols" },
+            { "<leader>lR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
+            { "<c-`>", function() Snacks.terminal.toggle() end, mode = { "n", "t" }, desc = "Terminal" },
+            { "<leader>t", function() Snacks.terminal.toggle() end, desc = "Terminal" },
+            { "<leader>tf", function() Snacks.terminal.toggle(nil, { win = { position = "float" } }) end, desc = "Float Terminal" },
+            { "<leader>tH", function() Snacks.terminal.toggle(nil, { win = { position = "bottom" } }) end, desc = "Horizontal Terminal" },
+            { "<leader>tv", function() Snacks.terminal.toggle(nil, { win = { position = "right" } }) end, desc = "Vertical Terminal" },
+        },
     },
     {
         "nvim-lualine/lualine.nvim",
