@@ -31,7 +31,6 @@
   "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
   "vim-asterisk": { "branch": "master", "commit": "77e97061d6691637a034258cc415d98670698459" },
-  "vim-backup-tree": { "branch": "master", "commit": "07f60565793eee6875f0ae16c38f925138e89ade" },
   "vim-fugitive": { "branch": "master", "commit": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0" },
   "vim-niceblock": { "branch": "master", "commit": "9302f527eefc0fde8df983cbb9710ad52c4213b5" },
   "vim-operator-substitute": { "branch": "master", "commit": "d706118de3aebcd12ccdc9da2ea479324bc5bf39" },

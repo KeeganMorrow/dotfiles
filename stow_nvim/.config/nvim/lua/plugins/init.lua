@@ -296,7 +296,6 @@ return {
             })
         end,
     },
-    { "arecarn/vim-backup-tree" },
     {
         url = "https://codeberg.org/fosk/registers.nvim.git",
         name = "registers.nvim",

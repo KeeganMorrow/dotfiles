@@ -50,9 +50,9 @@ vim.opt.listchars = { tab = "→ ", space = "·" }
 --------------------------------------------------------------------------------
 -- => Files, backups and undo
 --------------------------------------------------------------------------------
--- vim-backup-tree manages backupdir/undodir and related settings
 vim.opt.backup = true
 vim.opt.writebackup = false
+vim.opt.undofile = true
 vim.opt.swapfile = false
 
 --------------------------------------------------------------------------------
@@ -94,6 +94,32 @@ end
 --------------------------------------------------------------------------------
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
+
+-- Keep timestamped backups in a readable mirror of each file's absolute path.
+-- Restrict this to normal file buffers so plugin URIs (fugitive:, term:, etc.)
+-- cannot create invalid backup directories.
+local backup_root = vim.fn.expand("~/.vim_backup")
+augroup("Backups", { clear = true })
+autocmd("BufWritePre", {
+    group = "Backups",
+    pattern = "*",
+    callback = function(args)
+        local name = vim.api.nvim_buf_get_name(args.buf)
+        if name == "" or vim.bo[args.buf].buftype ~= "" then
+            return
+        end
+
+        local path = vim.fn.fnamemodify(name, ":p")
+        if not path:match("^/") then
+            return
+        end
+
+        local backup_dir = backup_root .. vim.fn.fnamemodify(path, ":h")
+        vim.fn.mkdir(backup_dir, "p", 448) -- 0700
+        vim.opt.backupdir = backup_dir
+        vim.opt.backupext = "_" .. os.date("%Y-%m-%d-%H")
+    end,
+})
 
 -- Return to last edit position when opening files
 augroup("RestoreCursor", { clear = true })
