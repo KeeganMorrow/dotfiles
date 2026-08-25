@@ -252,8 +252,6 @@ require("lazy").setup({
 require("user.lsp")
 
 --------------------------------------------------------------------------------
--- => Treesitter Folds
+-- => Folding
 --------------------------------------------------------------------------------
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldenable = true
