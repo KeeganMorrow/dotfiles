@@ -75,16 +75,14 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         opts = {
             ensure_installed = {},
-            automatic_installation = true,
+            automatic_enable = false,
         },
         dependencies = {
             "mason-org/mason.nvim",
             "neovim/nvim-lspconfig",
+            "saghen/blink.cmp",
         },
         config = function(_, opts)
-            require("mason").setup()
-            -- Load configs from nvim-lspconfig (registers server definitions)
-            require("lspconfig")
             local mason_lspconfig = require("mason-lspconfig")
             local user_lsp = require("user.lsp")
 
@@ -94,7 +92,6 @@ return {
 
             opts.ensure_installed = user_lsp.ensure_installed
                 or vim.tbl_keys(user_lsp.servers or {})
-            mason_lspconfig.setup(opts)
 
             local function setup_server(server_name)
                 local server_opts = {}
@@ -104,22 +101,16 @@ return {
                 if user_lsp.on_attach then
                     server_opts.on_attach = user_lsp.on_attach
                 end
-                if user_lsp.capabilities then
-                    server_opts.capabilities = user_lsp.capabilities
-                end
-                local ok = pcall(vim.lsp.config, server_name, server_opts)
-                if ok then
-                    vim.lsp.enable(server_name)
-                end
+                server_opts.capabilities = user_lsp.get_capabilities()
+                vim.lsp.config(server_name, server_opts)
+                vim.lsp.enable(server_name)
             end
 
-            if mason_lspconfig.setup_handlers then
-                mason_lspconfig.setup_handlers({ setup_server })
-            else
-                -- Fallback for older mason-lspconfig versions
-                for _, server_name in ipairs(opts.ensure_installed or {}) do
-                    setup_server(server_name)
-                end
+            -- Install the requested servers, but enable them only after their
+            -- native Neovim configuration has been registered above.
+            mason_lspconfig.setup(opts)
+            for _, server_name in ipairs(opts.ensure_installed) do
+                setup_server(server_name)
             end
         end,
     },

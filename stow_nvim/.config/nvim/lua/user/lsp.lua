@@ -58,14 +58,8 @@ M.on_attach = function(_, bufnr)
     keymap("n", "]d", vim.diagnostic.goto_next, opts)
 end
 
--- Add completion capabilities here if needed (e.g., from blink.cmp)
-do
-    local ok, blink = pcall(require, "blink.cmp")
-    if ok and blink.get_lsp_capabilities then
-        M.capabilities = blink.get_lsp_capabilities()
-    else
-        M.capabilities = nil
-    end
+function M.get_capabilities()
+    return require("blink.cmp").get_lsp_capabilities()
 end
 
 return M
