@@ -445,6 +445,13 @@ return {
             require("mini.trailspace").setup({
                 only_in_normal_buffers = true,
             })
+            require("mini.operators").setup({
+                evaluate = { prefix = "<leader>oe" },
+                exchange = { prefix = "<leader>ox" },
+                multiply = { prefix = "<leader>om" },
+                replace = { prefix = "<leader>or" },
+                sort = { prefix = "<leader>os" },
+            })
             vim.api.nvim_create_autocmd("User", {
                 pattern = "SnacksDashboardOpened",
                 callback = function()
@@ -484,7 +491,17 @@ return {
     {
         "milsen/vim-operator-substitute",
         dependencies = { "kana/vim-operator-user" },
-        event = "VeryLazy",
+        keys = {
+            { "<leader>ss", "<Plug>(operator-substitute)", mode = { "n", "x" }, desc = "Substitute" },
+            { "<leader>sS", "<Plug>(operator-substitute)$", mode = "n", desc = "Substitute to EOL" },
+            { "<leader>sr", "<Plug>(operator-substitute-repeat)", mode = { "n", "x" }, desc = "Repeat Substitute" },
+            {
+                "<leader>sR",
+                "<Plug>(operator-substitute-repeat-no-flags)",
+                mode = { "n", "x" },
+                desc = "Repeat Substitute Without Flags",
+            },
+        },
     },
     { "tpope/vim-repeat", event = "VeryLazy" },
     { "tpope/vim-speeddating", event = "VeryLazy" },
