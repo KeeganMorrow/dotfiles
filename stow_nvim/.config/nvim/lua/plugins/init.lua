@@ -442,6 +442,19 @@ return {
         lazy = false, -- Keep lazy=false for mini.nvim as it's a collection of modules
         config = function()
             -- Only configure the modules you actively use from mini.nvim
+            local extra = require("mini.extra")
+            extra.setup()
+            require("mini.ai").setup({
+                mappings = {
+                    around_last = "aL",
+                    inside_last = "iL",
+                },
+                custom_textobjects = {
+                    e = extra.gen_ai_spec.buffer(),
+                    i = extra.gen_ai_spec.indent(),
+                    l = extra.gen_ai_spec.line(),
+                },
+            })
             require("mini.trailspace").setup({
                 only_in_normal_buffers = true,
             })
@@ -535,12 +548,6 @@ return {
         dependencies = { "kana/vim-textobj-user" },
         event = "VeryLazy",
     },
-    -- ie/ae - selects entire buffer
-    { "kana/vim-textobj-entire", dependencies = { "kana/vim-textobj-user" }, event = "VeryLazy" },
-    -- ii/ai - selects indented block
-    { "kana/vim-textobj-indent", dependencies = { "kana/vim-textobj-user" }, event = "VeryLazy" },
-    -- il/al - selects line
-    { "kana/vim-textobj-line", dependencies = { "kana/vim-textobj-user" }, event = "VeryLazy" },
     -- iu/au - selects url
     { "mattn/vim-textobj-url", dependencies = { "kana/vim-textobj-user" }, event = "VeryLazy" },
     -- ic/ac - selects comment
