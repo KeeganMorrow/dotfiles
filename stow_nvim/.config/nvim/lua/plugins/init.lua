@@ -527,7 +527,10 @@ return {
     },
     {
         "numToStr/Comment.nvim",
-        event = "BufReadPost",
+        -- Neovim provides built-in `gc`/`gb` mappings, so these prefixes cannot
+        -- reliably be used as lazy-load triggers. Load eagerly to consistently
+        -- provide Comment.nvim's block and extra mappings in every buffer.
+        lazy = false,
         config = function()
             require("Comment").setup({})
         end,
